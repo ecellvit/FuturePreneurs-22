@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
-import reactLogo from "./assets/react.svg";
-import "./styles/SearchTeams.css";
-
+//import reactLogo from "./assets/react.svg";
+//import "./styles/SearchTeams.module.css";
+import Image from 'next/image'
+import gradient from '../img/grad.jpg'
+import phone from '../img/phone-icon.png'
+import mailer from '../img/mail-icon.png'
+//import styles from '../styles/SearchTeams.module.css'
 function SearchTeams() {
   const [count, setCount] = useState(0);
 
@@ -90,16 +94,16 @@ function SearchTeams() {
       {teamData.map((team) => {
         return (
           <div className="Cards">
-            <img src="./img/grad.jpg" />
+            <Image src={gradient} alt="Gradient"  />
             <h3>TeamName:{team.teamName}</h3>
             <h3>Team Size:{team.members.length}/4</h3>
             <h3>Leader:{team.leader}</h3>
             <div className="info-group">
-              <img src="./img/phone-icon.png" />
+            <Image src={phone} alt="phone"  />
               <p>{team.no}</p>
             </div>
             <div className="info-group">
-              <img src="./img/mail-icon.png" />
+            <Image src={mailer} alt="mailer"  />
               <p>{team.mail}</p>
             </div>
             <button className="button">Join Team</button>
