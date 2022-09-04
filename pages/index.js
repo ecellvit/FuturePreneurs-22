@@ -1,8 +1,9 @@
 import Head from "next/head";
-import LoginTempComponent from "../components/LoginTempComponent";
+import LoginTempComponent from "../components/LoginTempComponent.jsx";
 import styles from "../styles/Home.module.css";
 
 export default function Home() {
+  console.log("second");
   return (
     <div className={styles.container}>
       <Head>
