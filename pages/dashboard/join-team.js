@@ -1,5 +1,5 @@
 import React from "react";
-import SearchTeams from "../components/SearchTeams";
+import SearchTeams from "../../components/SearchTeams";
 
 function JoinTeamPage() {
   return (

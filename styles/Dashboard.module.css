@@ -1,0 +1,109 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&family=Rubik+Dirt&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&family=Roboto&display=swap'); */
+.main{
+    background-color:#f2f3f4;
+    height:100vh;
+    opacity:0.8;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    
+}
+
+.heading{
+    width:100%;
+    background-color:#009f6b;
+    height:10rem;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:#ffff;
+   
+}
+
+/* h1{
+    font-size:5rem;
+    font-style:bold;
+    font-family: 'Rubik Dirt', cursive;
+} */
+
+.outerContainer{
+    background-color:#f2f3f4;
+    height:25rem;
+    font-family: 'Roboto', sans-serif;
+}
+
+.descContainer{
+    max-width:80%;
+    background-color:#ffff;
+    margin:auto;
+    position: relative;
+    height:25rem;
+}
+
+.bar{
+    background-color:#c4aead;
+    padding:1rem;
+}
+
+/* ul{
+    display:flex;
+    list-style:none;
+    gap:2rem;
+} */
+
+/* section{
+    margin-top:2rem;
+    display:flex;
+    justify-content:space-between;
+    padding-left:5rem;
+    padding-right:5rem;
+} */
+
+.teamMembers{
+    padding:1rem;
+    height:15rem;
+    background:#f2f3f4;
+    width:20rem;
+    border-radius:10px;
+    color:black;
+    
+    
+}
+
+/* h2{
+    font-size:2rem;
+}
+
+button{
+    width:10rem;
+    height:3rem;
+    border-radius:10px;
+    margin-top:3rem;
+    margin-bottom:3rem;
+    
+} */
+
+.teamBtn{
+    background-color:#0073cf;
+    margin-right:1rem;
+    
+}
+
+.members{
+   font-size:1.2rem;
+
+}
+
+.teamName{
+    font-size:2rem;
+    display:flex;
+    align-items:center;
+    
+}
+
+.name{
+    font-size:1.5rem;
+    margin-left:.5rem;
+}
+
+
+
