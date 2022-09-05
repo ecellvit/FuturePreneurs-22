@@ -77,8 +77,8 @@ body:
             - Every time? 
             - Only when certain conditions are met?
         2. Any relevant logs to include? Put them here inside fenced
-          ```` ```` blocks or inside a collapsable details tag if it's too long:
-          <details><summary>x.log</summary> lots of stuff </details>
+          \``` \``` blocks or inside a collapsable details tag if it's too long:
+          `<details><summary>x.log</summary> lots of stuff </details>`
       placeholder: Anything else we need to know?
 
   - type: checkboxes
