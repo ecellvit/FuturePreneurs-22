@@ -30,7 +30,7 @@ body:
     attributes:
       label: Describe the bug you're facing
       description: A clear and concise description of what the bug is
-      placeholder: >
+      placeholder: 
         Please provide the context in which the problem occurred and explain what happened
 
         1. What operating system and which version?
@@ -45,10 +45,10 @@ body:
       label: How to reproduce your bug
       description: >
         Steps to reproduce the behavior:
-        1. Go to '...'
-        2. Click on '....'
-        3. Scroll down to '....'
-        4. See error
+        - Go to '...'
+        - Click on '....'
+        - Scroll down to '....'
+        - See error
       placeholder: >
         Please make sure you provide a reproducible step-by-step case of how to reproduce the problem
         as minimally and precisely as possible
