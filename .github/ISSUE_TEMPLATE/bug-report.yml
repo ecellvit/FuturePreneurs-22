@@ -73,9 +73,9 @@ body:
       label: Anything else
       description: >
         1. How often does this problem occur? 
-          - Once? 
-          - Every time? 
-          - Only when certain conditions are met?
+            - Once? 
+            - Every time? 
+            - Only when certain conditions are met?
         2. Any relevant logs to include? Put them here inside fenced
           ``` ``` blocks or inside a collapsable details tag if it's too long:
           <details><summary>x.log</summary> lots of stuff </details>
