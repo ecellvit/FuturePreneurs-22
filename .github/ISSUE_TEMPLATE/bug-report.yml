@@ -29,14 +29,15 @@ body:
   - type: textarea
     attributes:
       label: Describe the bug you're facing
-      description: A clear and concise description of what the bug is
-      placeholder:
+      description: |
         Please provide the context in which the problem occurred and explain what happened
 
         1. What operating system and which version?
         2. Which version of Fp (Backend)?
         3. Which version of Fp (Frontend)?
         4. Is there any setting relevant changed?
+      placeholder: A clear and concise description of what the bug is
+
     validations:
       required: true
 
@@ -62,9 +63,7 @@ body:
         - Please explain why you think the behaviour is erroneous.
 
         - It will be extremely helpful if you copy and paste
-          screenshots for UI problems
-
-        **You can include files by dragging and dropping them here**
+          screenshots/screen recordings for the UI problems
       placeholder: A clear and concise description of what you expected to happen.
     validations:
       required: true
