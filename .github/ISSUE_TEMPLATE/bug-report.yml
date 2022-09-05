@@ -43,7 +43,7 @@ body:
   - type: textarea
     attributes:
       label: How to reproduce your bug
-      description: >
+      description: |
         Steps to reproduce the behavior:
         - Go to '...'
         - Click on '....'
