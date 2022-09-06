@@ -12,13 +12,14 @@ const LoginTempComponent = () => {
         <button onClick={() => signOut()}>Sign out</button>
       </>
     );
+  }else{
+    return (
+      <>
+        Not signed in <br />
+        <button onClick={() => signIn()}>Sign in</button>
+      </>
+    );
   }
-  return (
-    <>
-      Not signed in <br />
-      <button onClick={() => signIn()}>Sign in</button>
-    </>
-  );
 };
 
 export default LoginTempComponent;
