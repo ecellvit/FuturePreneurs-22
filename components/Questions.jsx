@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import styles from "../styles/Questions.module.css";
 
 function Questions(props) {
-  const [question, setQuestion] = useState("Who am I?");
+  const [question, setQuestion] = useState("1+1?");
   const [answers, setAnswers] = useState([
-    "god",
-    "me",
-    "vishvanathan",
-    "nobody",
+    "0",
+    "2",
+    "Me",
+    "who know?",
   ]);
   const [userAnswer, setUserAnswer] = useState();
 
