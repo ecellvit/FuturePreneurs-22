@@ -1,6 +1,5 @@
 import Head from "next/head";
 import {useSession} from "next-auth/react";
-// import Router from "next/router.js";
 import { NextResponse } from "next/server.js";
 import LoginTempComponent from "../components/LoginTempComponent.jsx";
 import Dashboard from "../components/Dashboard.jsx";
