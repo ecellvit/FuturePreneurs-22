@@ -12,7 +12,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
     };
     getMySession();
   }, []);
-  console.log("first")
+  
   useEffect(() => {
     if (globalSession?.error === "RefreshAccessTokenError") {
       signIn(); // Force sign in to hopefully resolve error while asking for refreshtoken

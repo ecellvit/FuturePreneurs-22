@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import SimpleComponent from "../components/SimpleComponent";
+import Questions from "../components/Questions";
 
 function RoundOnePage() {
-  return <SimpleComponent />;
+  return <Questions />;
 }
 
 export default RoundOnePage;
