@@ -3,41 +3,41 @@ import styles from "../styles/Questions.module.css";
 
 function Questions(props) {
   const [question, setQuestion] = useState("1+1?");
-  const [answers, setAnswers] = useState(["0", "2", "Me", "who know?"]);
+  const [answers, setAnswers] = useState(["0", "2", "Me", "Who knows?"]);
   const [userAnswer, setUserAnswer] = useState();
   const [questionId, setQuestionId] = useState();
 
   const [infoBoxThere, setInfoBoxThere] = useState();
   const [quizBoxThere, setQuizBoxThere] = useState();
 
+  const [endTime, setEndTime] = useState();
+  const [curTime, setCurTime] = useState([]);
+
   // test team id-631785e70d683d0db6c8204e
   // error 412 means maximum questions reached
 
   const TOKEN =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzE3NGE4NmU1YTI2NDJlZjc1YzYxMmYiLCJpYXQiOjE2NjI2NTI5MjYsImV4cCI6MTY2MjczOTMyNn0.QbKLCiLYq_o6l_O7AqhEXVomo032vV4ebN0SJrXY-XE";
-  const TEAM_ID = "631785e70d683d0db6c8204e"
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzE3NGE4NmU1YTI2NDJlZjc1YzYxMmYiLCJpYXQiOjE2NjI3Mzk1MzUsImV4cCI6MTY2MjgyNTkzNX0.LCN_Y0IYsEW5oFJV9nupO7_u7hPS3quXbK768adNsa8";
+  const TEAM_ID = "631785e70d683d0db6c8204e";
 
   const questionsLength = 5;
   const curQuestionIndex = 1;
 
   function ansSelect(ind) {
     console.log(ind);
-    fetch(
-      `${process.env.NEXT_PUBLIC_SERVER2}/api/team/quiz/${TEAM_ID}`,
-      {
-        method:'POST',
-        // cors:'no-cors',
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${TOKEN}`,
-          "Access-Control-Allow-Origin": "*",
-        },
-        body:{
-          "questionId": "631787ecdd37bfa43c48b7db",
-          "submittedIdx": ind,
-        },
-      }
-    )
+    fetch(`${process.env.NEXT_PUBLIC_SERVER}api/team/quiz/${TEAM_ID}`, {
+      method: "POST",
+      // cors:'no-cors',
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${TOKEN}`,
+        "Access-Control-Allow-Origin": "*",
+      },
+      body: JSON.stringify({
+        questionId: "631787ecdd37bfa43c48b7db",
+        submittedIdx: ind,
+      }),
+    })
       .then((response) => {
         return response.json();
       })
@@ -49,30 +49,53 @@ function Questions(props) {
       });
   }
 
-
-  useEffect(() => {
-    fetch(
-      `${process.env.NEXT_PUBLIC_SERVER2}/api/team/quiz/${TEAM_ID}`,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${TOKEN}`,
-          "Access-Control-Allow-Origin": "*",
-        },
-      }
-    )
-      .then((response) => {
-        return response.json();
+  function startQuiz() {
+    console.log("quiz starting");
+    fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/team/quiz/${TEAM_ID}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${TOKEN}`,
+        "Access-Control-Allow-Origin": "*",
+      },
+    })
+      .then(async (response) => {
+        // console.log(response.ok, response.status)
+        return response.json()
       })
       .then((data) => {
-        setQuestion(data.question.question);
-        setAnswers(data.question.answers);
-        setQuestionId(data.question._id);
-        console.log(data);
+        if (data.message == "Maximum Questions capacity reached"){
+          console.log(data.message);
+        } else if (data.message == "get question successfull") {
+          setQuestion(data.question.question);
+          setAnswers(data.question.answers);
+          setQuestionId(data.question._id);
+          console.log(data);
+          const Timer = setInterval(() => {
+            const now = Date.now();
+            const end = Date.parse(data.endTime);
+            console.log(end, data.endTime);
+            let minutes = Math.floor((end - now) / 1000 / 60);
+            let seconds = Math.floor((end - now) / 1000) % 60;
+            if (minutes.toString().length < 2) {
+              minutes = "0" + minutes.toString();
+            }
+            if (seconds.toString().length < 2) {
+              seconds = "0" + seconds.toString();
+            }
+            // console.log(minutes, seconds)
+            setCurTime([minutes, seconds]);
+          }, 1000);
+        }
       })
       .catch((err) => {
         console.log("erorrr", err);
       });
+  }
+
+  useEffect(() => {
+    return () => {
+      clearInterval(Timer);
+    };
   }, []);
 
   return (
@@ -125,6 +148,7 @@ function Questions(props) {
           </button>{" "}
           <button
             onClick={() => {
+              startQuiz();
               setInfoBoxThere();
               setQuizBoxThere(styles.activeQuiz);
             }}
@@ -139,7 +163,10 @@ function Questions(props) {
           <div className={styles.title}> Awesome Quiz Application </div>{" "}
           <div className={styles.timer}>
             <div className={styles.time_left_txt}> Time Left </div>{" "}
-            <div className={styles.timer_sec}> 15 </div>{" "}
+            <div className={styles.timer_sec}>
+              {" "} 
+              {curTime[0]}:{curTime[1]}{" "}
+            </div>{" "}
           </div>{" "}
           <div className={styles.time_line}> </div>{" "}
         </header>{" "}
