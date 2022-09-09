@@ -3,6 +3,7 @@ import React from "react";
 
 const LoginTempComponent = () => {
   const { data: session } = useSession();
+  console.log(session)
 
   if (session) {
     return (
