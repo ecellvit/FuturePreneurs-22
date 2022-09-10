@@ -6,6 +6,8 @@ import Dashboard from "../components/Dashboard.jsx";
 import styles from "../styles/Home.module.css";
 import { useEffect } from "react";
 import { useRouter } from "next/router.js";
+import SearchTeams from "../components/SearchTeams.jsx";
+import PendingRequests from "../components/PendingRequests.jsx"
 
 // this is Landing page, here people will learn about the event and signup/login
 
@@ -18,8 +20,8 @@ export default function Home() {
   useEffect(()=>{
     if (!router.isReady) return;
 
-    if (session){
-      router.push('/dashboard')
+    if (session===null){
+      router.push('/')
     }
   }, [router.isReady, session,router])
 
@@ -32,9 +34,9 @@ export default function Home() {
       </Head>
 
       <h1 className={styles.title}>Futurepreneurs</h1>
-
-      <LoginTempComponent />
-      {/* <Dashboard/> */}
+      <PendingRequests/>
+      {/* <LoginTempComponent />
+      <Dashboard/> */}
     </div>
   );
 }

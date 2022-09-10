@@ -12,7 +12,7 @@ const LoginTempComponent = () => {
         <button onClick={() => signOut()}>Sign out</button>
       </>
     );
-  }else{
+  } else {
     return (
       <>
         Not signed in <br />

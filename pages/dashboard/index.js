@@ -1,6 +1,6 @@
 import { useSession } from 'next-auth/react';
 import React from 'react'
-import Dashboard from "../../components/TeamDashboard/Dashboard.jsx";
+import Dashboard  from "../../components/Dashboard";
 import LoginTempComponent from '../../components/LoginTempComponent';
 
 function Main() {
@@ -15,6 +15,7 @@ function Main() {
             <div className='heading'>
                 <h1>FUTUREPRENEURS</h1>
             </div>
+            <LoginTempComponent/>
             <Dashboard/>
         </div>
     )

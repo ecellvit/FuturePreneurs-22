@@ -142,7 +142,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 165px;
+    width: 145px;
 }
 
 .quiz_box header .timer .time_left_txt{
@@ -155,7 +155,7 @@
     font-size: 18px;
     font-weight: 500;
     height: 30px;
-    width: 65px;
+    width: 45px;
     color: #fff;
     border-radius: 5px;
     line-height: 30px;
@@ -251,7 +251,7 @@
     border-color: #a42834;
 }
 
-.quiz_box footer{
+.footer{
     height: 60px;
     padding: 0 30px;
     display: flex;
