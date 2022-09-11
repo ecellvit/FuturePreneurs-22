@@ -6,9 +6,17 @@ import gradient from "../img/grad.jpg";
 import phone from "../img/phone-icon.png";
 import mailer from "../img/mail-icon.png";
 import styles from "../styles/SearchTeams.module.css";
-import { Cookies } from "react-cookie";
+import Avatar from "react-avatar";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useSession } from "next-auth/react";
+
+//import { Cookies } from "react-cookie";
 //const handleClick =
+
 function SearchTeams() {
+  const { data: session } = useSession();
+  console.log(session);
   // const [count, setCount] = useState(0);
 
   // const [teamData, setTeamData] = useState([
@@ -85,12 +93,12 @@ function SearchTeams() {
   // ]);
   const [teamData, setTeamData] = useState([]);
   useEffect(() => {
-    fetch("http://54.241.85.241:8080/api/team", {
+    fetch(`${process.env.NEXT_PUBLIC_SERVER3}/api/team`, {
       method: "GET",
       //mode: "cors",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzFhMWE1MGViOWVlNjVjYmRlYjU1NWEiLCJpYXQiOjE2NjI2NTUwNTYsImV4cCI6MTY2Mjc0MTQ1Nn0.zFksM3PLwHb1rqYbTC3HhaMjvXzXjyBoFGgj-bA6V_s`,
+        Authorization: `Bearer ${session.accessTokenBackend}`,
         "Access-Control-Allow-Origin": "*",
       },
     })
@@ -117,11 +125,19 @@ function SearchTeams() {
         console.log(team);
         return (
           <div className={styles.Cards} key={team._id}>
-            <Image className={styles.CardsImg} src={gradient} alt="Gradient" />
-            <h3 className={styles.Cardsh3}>TeamName:{team.teamName}</h3>
-            <h3 className={styles.Cardsh3}>
-              Team Size:{team.members.length}/4
-            </h3>
+            {/* <Image className={styles.CardsImg} src={gradient} alt="Gradient" /> */}
+            <Avatar
+              name={team.teamName}
+              className={styles.CardsImg}
+              // color="gradient"
+              // bordered
+              // squared
+              // //size="$300"
+              // height="$300"
+
+              size="300"
+            />
+
             <div className={styles.infogroup}>
               {team.members.map((teamLead) => {
                 console.log(teamLead.teamRole);
@@ -129,35 +145,58 @@ function SearchTeams() {
                   return (
                     <div>
                       <h3 className={styles.Cardsh3}>
+                        TeamName:{team.teamName}
+                      </h3>
+                      <h3 className={styles.Cardsh3}>
+                        Team Size:{team.members.length}/4
+                      </h3>
+                      <h3 className={styles.Cardsh3}>
                         Team Leader:{teamLead.name}
                       </h3>
-                      <h3 className={styles.Cardsh3}>
+                      {/* <h3 className={styles.Cardsh3}>
                         Team Leader Number:{teamLead.mobileNumber}
-                      </h3>
-                      <h3 className={styles.Cardsh3}>
-                        Team Leader Mail:{teamLead.email}
-                      </h3>
+                      </h3> */}
+                      <h3 className={styles.Cardsh3}>Mail:{teamLead.email}</h3>
                       <button
                         className={styles.button}
                         onClick={() => {
                           console.log("click");
                           fetch(
-                            `http://54.241.85.241:8080/api/user/requests/${team._id}`,
+                            `${process.env.NEXT_PUBLIC_SERVER3}/api/user/requests/${team._id}`,
                             {
                               method: "POST",
                               //mode: "cors",
                               headers: {
                                 "Content-Type": "application/json",
-                                Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzFhMWE1MGViOWVlNjVjYmRlYjU1NWEiLCJpYXQiOjE2NjI2NTUwNTYsImV4cCI6MTY2Mjc0MTQ1Nn0.zFksM3PLwHb1rqYbTC3HhaMjvXzXjyBoFGgj-bA6V_s`,
+                                Authorization: `Bearer ${session.accessTokenBackend}`,
                                 "Access-Control-Allow-Origin": "*",
                               },
                             }
-                          );
+                          )
+                            .then((data) => data.json())
+                            .then((data) => {
+                              console.log(data.message);
+                              toast.success(`${data.message}`, {
+                                position: toast.POSITION.TOP_RIGHT,
+                              });
+                            });
                           //console.log(Cookies);
                         }}
                       >
                         Join Team
+                        <ToastContainer />
                       </button>
+                      {/* <button
+                        className={styles.button}
+                        onClick={() => {
+                          toast.success("Success Notification !", {
+                            position: toast.POSITION.TOP_RIGHT,
+                          });
+                        }}
+                      >
+                        Popup Team
+                        <ToastContainer />
+                      </button> */}
                     </div>
                   );
                 }
