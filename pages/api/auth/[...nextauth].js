@@ -9,6 +9,26 @@ const GOOGLE_AUTHORIZATION_URL =
     response_type: "code",
   });
 
+const getTokenFromYourAPIServer = async (user, account) => {
+  let tokenFromBackend;
+  await fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/auth/googleAuth`, {
+    method: "POST",
+    body: JSON.stringify({
+      "token": account.id_token,
+      "email": user.email,
+      "username": user.name,
+      "mobileNumber": "9346062258",
+    }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }).then(data => data.json()).then(data => {
+    console.log(data)
+    tokenFromBackend = data.accessToken;
+  })
+  return tokenFromBackend;
+}
+
 export default NextAuth({
   providers: [
     GoogleProvider({
@@ -31,12 +51,12 @@ export default NextAuth({
     async jwt({ token, user, account }) {
       // Initial sign in
       if (account && user) {
-        console.log("acc expires at", account.expires_at);
         return {
           idToken: account.id_token,
           accessToken: account.access_token,
-          accessTokenExpires: account.access_token * 1000,
+          accessTokenExpires: account.expires_at * 1000,
           refreshToken: account.refresh_token,
+          accessTokenFromBackend: await getTokenFromYourAPIServer(user, account),
           user,
         };
       }
@@ -47,15 +67,22 @@ export default NextAuth({
       // Access token has expired, try to update it
       return refreshAccessToken(token);
     },
+
     async session({ session, token }) {
       session.user = token.user;
       session.accessToken = token.accessToken;
+      session.accessTokenBackend = token.accessTokenFromBackend;
       session.error = token.error;
       session.idToken = token.idToken;
-      return session;
+
+      if (token.accessTokenFromBackend) {
+        return session;
+      }
+      return null;
     },
-    async signIn({ token, user, account }) {
-      return true;
+
+    async signIn({ user, account }) {
+      return true
     },
   },
   secret: process.env.SECRET,
