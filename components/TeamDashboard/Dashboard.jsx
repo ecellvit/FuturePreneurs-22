@@ -49,7 +49,7 @@ function Dashboard() {
   // const teamNameRef = useRef(null);
   const { data: session } = useSession();
  
-  console.log(session, "in dashboard");
+//   console.log(session, "in dashboard");
 
   // for getting user details
   useEffect(() => {
@@ -81,7 +81,7 @@ function Dashboard() {
           error
         );
       });
-    console.log(hasTeam);
+    // console.log(hasTeam);
   }, []);
 
   return (

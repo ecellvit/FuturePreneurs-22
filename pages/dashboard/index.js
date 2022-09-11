@@ -2,6 +2,7 @@ import { useSession } from 'next-auth/react';
 import React from 'react'
 import Dashboard from "../../components/TeamDashboard/Dashboard.jsx";
 import LoginTempComponent from '../../components/LoginTempComponent';
+import Navbar from '../../components/navbar.jsx';
 
 function Main() {
     // if session is not logged in dont show dashboard.
@@ -15,6 +16,7 @@ function Main() {
             <div className='heading'>
                 <h1>FUTUREPRENEURS</h1>
             </div>
+            {/* <Navbar/> */}
             <Dashboard/>
         </div>
     )

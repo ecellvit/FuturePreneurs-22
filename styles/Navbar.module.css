@@ -1,0 +1,83 @@
+.navMainContainer {
+    /* position: fixed; */
+}
+
+/* logosSection */
+.navSection1,
+.navSection2 {
+    padding: 0 10vw;
+}
+
+.logosSection {
+    height: 45px;
+    width: 100vw;
+}
+
+.logosSection_item1,
+.logosSection_item2,
+.logosSection_item3 {
+    display: flex;
+    align-items: center;
+}
+
+.logosSection_item1>img {
+    transform: scale(0.8);
+}
+
+.logosSection_item3>img {
+    transform: scale(0.85);
+}
+
+.logosSection_item2 {
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 0.8rem;
+    letter-spacing: 0.32em;
+    color: #0E0E0E;
+    text-align: center;
+}
+
+/* navbar */
+
+.navSection2 {
+    height: 64px;
+    width: 100vw;
+    background: linear-gradient(0deg, rgba(76, 255, 116, 0.5), rgba(76, 255, 116, 0.5)), linear-gradient(180deg, rgba(36, 130, 50, 0.5) 0%, rgba(43, 168, 74, 0.5) 419.5%);
+}
+
+.navbarContainer {
+    font-family: 'Karla', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    color: white;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+}
+
+.navbarContainer_head {
+    font-size: 1.2rem;
+
+}
+
+.navbarContainer_menu {
+    font-size: 1rem;
+    text-align: end;
+}
+
+@media (max-width:700px) {}
+
+@media (max-width:1000px) {
+
+    .navSection1,
+    .navSection2 {
+        padding: 0 10px;
+    }
+
+    .logosSection_item2 {
+        font-size: 0.7rem;
+    }
+}
