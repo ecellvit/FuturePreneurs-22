@@ -5,36 +5,37 @@ import styles from "../styles/SearchTeams.module.css";
 import Avatar from "react-avatar";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-const { data: session } = useSession();
 
 function PendingRequests() {
   const { data: session } = useSession();
   console.log(session);
   const [teamData, setTeamData] = useState([]);
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_SERVER3}/api/user/requests`, {
-      method: "GET",
-      //mode: "cors",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${session.accessTokenBackend}`,
-        "Access-Control-Allow-Origin": "*",
-      },
-    })
-      // .then((response) => {
-      // })
-      //   console.log(response.text());
-      // })
-      .then((data) => data.json())
-      .then((data) => {
-        console.log(data);
-        data.requests.map((currenTeam) => {
-          setTeamData((prevTeamData) => {
-            return [...prevTeamData, currenTeam];
+    if (session) {
+      fetch(`${process.env.NEXT_PUBLIC_SERVER3}/api/user/requests`, {
+        method: "GET",
+        //mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${session.accessTokenBackend}`,
+          "Access-Control-Allow-Origin": "*",
+        },
+      })
+        // .then((response) => {
+        // })
+        //   console.log(response.text());
+        // })
+        .then((data) => data.json())
+        .then((data) => {
+          console.log(data);
+          data.requests.map((currenTeam) => {
+            setTeamData((prevTeamData) => {
+              return [...prevTeamData, currenTeam];
+            });
           });
         });
-      });
-  }, []);
+    }
+  }, [session]);
   console.log(teamData);
   return (
     <div className={styles.Teams}>

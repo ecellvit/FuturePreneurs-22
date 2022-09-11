@@ -15,14 +15,15 @@ export default function Home() {
 
 // redirects to Dashboard if user session is logged in session!  
   
-  useEffect(()=>{
-    if (!router.isReady) return;
+  // useEffect(()=>{
+  //   if (!router.isReady) return;
 
-    if (session){
-      router.push('/dashboard')
-    }
-  }, [router.isReady, session,router])
-
+  //   if (session){
+  //     console.log(session)
+  //     router.push('/dashboard')
+  //   }
+  // }, [router.isReady, session,router])
+console.log('session in index js',session)
   return (
     <div className={styles.container}>
       <Head>
@@ -34,7 +35,7 @@ export default function Home() {
       <h1 className={styles.title}>Futurepreneurs</h1>
 
       <LoginTempComponent />
-      <Dashboard/>
+      {/* <Dashboard/> */}
     </div>
   );
 }

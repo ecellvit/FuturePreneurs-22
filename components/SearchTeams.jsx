@@ -16,7 +16,8 @@ import { useSession } from "next-auth/react";
 
 function SearchTeams() {
   const { data: session } = useSession();
-  console.log(session);
+
+  console.log(session, "in component");
   // const [count, setCount] = useState(0);
 
   // const [teamData, setTeamData] = useState([
@@ -93,31 +94,33 @@ function SearchTeams() {
   // ]);
   const [teamData, setTeamData] = useState([]);
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_SERVER3}/api/team`, {
-      method: "GET",
-      //mode: "cors",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${session.accessTokenBackend}`,
-        "Access-Control-Allow-Origin": "*",
-      },
-    })
-      // .then((response) => {
-      // })
-      //   console.log(response.text());
-      // })
-      .then((data) => data.json())
-      .then((data) => {
-        console.log(data);
-        data.teams.map((currenTeam) => {
-          if (currenTeam.members.length < 4) {
-            setTeamData((prevTeamData) => {
-              return [...prevTeamData, currenTeam];
-            });
-          }
+    if (session) {
+      fetch(`${process.env.NEXT_PUBLIC_SERVER3}/api/team`, {
+        method: "GET",
+        //mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${session.accessTokenBackend}`,
+          "Access-Control-Allow-Origin": "*",
+        },
+      })
+        // .then((response) => {
+        // })
+        //   console.log(response.text());
+        // })
+        .then((data) => data.json())
+        .then((data) => {
+          console.log(data);
+          data.teams.map((currenTeam) => {
+            if (currenTeam.members.length < 4) {
+              setTeamData((prevTeamData) => {
+                return [...prevTeamData, currenTeam];
+              });
+            }
+          });
         });
-      });
-  }, []);
+    }
+  }, [session]);
 
   return (
     <div className={styles.Teams}>
