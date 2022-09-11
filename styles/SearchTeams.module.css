@@ -15,7 +15,7 @@ body {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 4px;
+    gap: 50px;
   }
   
   .Cards {
@@ -24,7 +24,7 @@ body {
     border-radius: 10px;
     display: flex;
     flex-direction: column;
-    padding: 13px;
+    padding: 50px;
     padding-bottom: 20px;
     background-color: white;
   }
@@ -78,9 +78,10 @@ body {
     font-size: 10px;
     color: #FFFFFF;
     /* padding: 20px; */
-    width: auto;
-    height: 10p;
+    width: 300px;
+    height: 53px;
     text-align: center;
+    font-weight: bolder;
     transition-duration: 0.4s;
     text-decoration: none;
     overflow: hidden;
