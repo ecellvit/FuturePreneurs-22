@@ -12,9 +12,11 @@
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
     "@mui/material": "^5.10.4",
+    "bootstrap": "^5.2.1",
     "next": "^12.2.5",
     "next-auth": "^4.10.3",
     "react": "^18.2.0",
+    "react-bootstrap": "^2.5.0",
     "react-dom": "^18.2.0",
     "styled": "^1.0.0"
   },
