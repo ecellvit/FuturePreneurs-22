@@ -28,7 +28,9 @@ const NavigationBar = (props) => {
           <Nav className="ml-auto">
             <Nav.Link href="/">Home</Nav.Link>
             <Navbar.Collapse className="justify-content-end">
-              <Nav.Link href="/dashboard">Dashboard</Nav.Link>
+              {
+                session && <Nav.Link href="/dashboard">Dashboard</Nav.Link>
+              }
             </Navbar.Collapse>
             {/* <Nav.Link href="#pricing">Pricing</Nav.Link> */}
             {(session)?
