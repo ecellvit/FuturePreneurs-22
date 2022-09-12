@@ -8,6 +8,7 @@ import styles from "../styles/Home.module.css";
 import { useEffect } from "react";
 import { useRouter } from "next/router.js";
 import { Tab, Tabs } from "@mui/material";
+import { Landing } from "../components/Landing.jsx";
 
 // this is Landing page, here people will learn about the event and signup/login
 
@@ -37,6 +38,7 @@ export default function Home() {
 
       {/* <LoginTempComponent /> */}
       <NavigationBar/>
+      <Landing/>
       {/* <Dashboard/> */}
     </div>
   );

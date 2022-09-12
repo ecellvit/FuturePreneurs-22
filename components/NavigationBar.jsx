@@ -15,7 +15,7 @@ const NavigationBar = (props) => {
     console.log("logout here")
   };
 	const loginHandler = ()=>{
-    signIn("google");
+    signIn("google",{callbackUrl:"/details"});
     console.log(session);
     console.log("login here")
   };
