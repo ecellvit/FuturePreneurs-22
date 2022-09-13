@@ -36,12 +36,8 @@ console.log('session in index js',session)
 
       {/* <h1 className={styles.title}>Futurepreneurs</h1> */}
 
-<<<<<<< HEAD
-      <LoginTempComponent />
-=======
       {/* <LoginTempComponent /> */}
       <NavigationBar/>
->>>>>>> 9c877cea04a8db7c8e8ef05893725cc98a228c78
       {/* <Dashboard/> */}
     </div>
   );

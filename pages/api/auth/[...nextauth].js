@@ -16,8 +16,7 @@ const getTokenFromYourAPIServer = async (user, account) => {
     body: JSON.stringify({
       "token": account.id_token,
       "email": user.email,
-      "username": user.name,
-      "mobileNumber": "9346062258",
+   
     }),
     headers: {
       "Content-Type": "application/json",
@@ -56,7 +55,7 @@ export default NextAuth({
           accessToken: account.access_token,
           accessTokenExpires: account.expires_at * 1000,
           refreshToken: account.refresh_token,
-          // accessTokenFromBackend: await getTokenFromYourAPIServer(user, account),
+          accessTokenFromBackend: await getTokenFromYourAPIServer(user, account),
           user,
         };
       }
@@ -71,15 +70,14 @@ export default NextAuth({
     async session({ session, token }) {
       session.user = token.user;
       session.accessToken = token.accessToken;
-      // session.accessTokenBackend = token.accessTokenFromBackend;
+      session.accessTokenBackend = token.accessTokenFromBackend;
       session.error = token.error;
       session.idToken = token.idToken;
 
-      // if (token.accessTokenFromBackend) {
-      //   return session;
-      // }
-      // return null;
-      return session;
+      if (token.accessTokenFromBackend) {
+        return session;
+      }
+      return null;
     },
 
     async signIn({ user, account }) {
