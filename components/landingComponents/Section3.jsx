@@ -3,9 +3,12 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 
 // import "./landingComponents.css";
+import styles from "../../styles/Landing.module.css";
+
 import problemSolvingIcon from "../../resources/images/problemSolvingIcon.svg";
 import skillTestingIcon from "../../resources/images/skillTestingIcon.svg";
 import selfAnalysisIcon from "../../resources/images/selfAnalysisIcon.svg";
+import Image from "next/image";
 
 const itemsData = [
   {
@@ -30,16 +33,16 @@ const itemsData = [
 
 function Item({ icon, head, content }) {
   return (
-    <Grid container direction="column" className="section3-items">
-      <Grid item className="section3-Item1">
-        <img src={icon} alt={head} />
+    <Grid container direction="column" className={styles.section3_items}>
+      <Grid item className={styles.section3_Item1}>
+        <Image src={icon} alt={head} />
       </Grid>
 
-      <Grid item className="section3-Item2">
+      <Grid item className={styles.section3_Item2}>
         {head}
       </Grid>
 
-      <Grid item className="section3-Item3">
+      <Grid item className={styles.section3_Item3}>
         {content}
       </Grid>
     </Grid>
@@ -48,11 +51,11 @@ function Item({ icon, head, content }) {
 
 export function Section3() {
   return (
-    <Box className="section3-MainContainer">
+    <Box className={styles.section3_MainContainer}>
       <Box
         display="flex"
         justifyContent="space-between"
-        className={"section3-ItemsContainer"}
+        className={styles.section3_ItemsContainer}
         sx={{
           flexFlow: {
             xs: "column",
@@ -61,8 +64,8 @@ export function Section3() {
           },
         }}
       >
-        {itemsData.map((data) => (
-          <Item icon={data.icon} head={data.head} content={data.content} />
+        {itemsData.map((data, ind) => (
+          <Item key={ind} icon={data.icon} head={data.head} content={data.content} />
         ))}
       </Box>
     </Box>

@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { Box, Typography, Grid } from "@mui/material";
-// import { Link } from "react-router-dom";
+import { Link } from "next/link";
 
 // import "./landingComponents.css";
+import styles from "../../styles/Landing.module.css";
+
 import illus1 from "../../resources/images/illus1.jpg";
 import eventDate from "../../resources/images/eventDate.svg";
+import Image from "next/image";
 
 function EventDate() {
   return (
     <>
-      <img src={eventDate} alt={"December 4th"} />
+      <Image src={eventDate} alt={"December 4th"} />
     </>
   );
 }
@@ -27,7 +30,7 @@ function DaysLeft() {
   }, [today]);
   return (
     <>
-      <Grid item container className="section1-text" xs>
+      <Grid item container className={styles.section1_text} xs>
         Registrations closed
         {/* <div class="daysLeftDate1">{daysLeft}</div> */}
         {/* <div class="daysLeftDate2">DAYS</div> */}
@@ -40,7 +43,7 @@ export function Section1() {
   return (
     <Box
       display="flex"
-      className="section1-MainContainer"
+      className={styles.section1_MainContainer}
       sx={{
         flexFlow: {
           xs: "column-reverse",
@@ -61,10 +64,10 @@ export function Section1() {
           },
         }}
       >
-        <Grid item className="section1-head">
+        <Grid item className={styles.section1_head}>
           FuturePreneurs
         </Grid>
-        <Grid item className="section1-text">
+        <Grid item className={styles.section1_text}>
           <Typography>
             Entrepreneurship Cell, VIT brings to you Futurepreneurs 7.0, its
             business simulation competition. The event is designed to test your
@@ -84,7 +87,7 @@ export function Section1() {
           justifyContent="flex-start"
           alignItems="center"
         >
-          <Grid item className="eventDate" xs={3}>
+          <Grid item className={styles.eventDate} xs={3}>
             <EventDate />
           </Grid>
 
@@ -106,7 +109,7 @@ export function Section1() {
 
         <Grid item container xs justifyContent="flex-end" width="80%">
           <Grid item>
-            <Box className="registerButton">
+            <Box className={styles.registerButton}>
               {/* <Link */}
                 {/* to="/Login"
                 style={{ color: "white", textDecoration: "none" }}
@@ -127,7 +130,7 @@ export function Section1() {
           alignItems: "center",
         }}
       >
-        <img src={illus1} alt={"illustration"} />
+        <Image src={illus1} alt={"illustration"} />
       </Box>
     </Box>
   );

@@ -3,13 +3,16 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 
 // import "./landingComponents.css";
+import styles from "../../styles/Landing.module.css";
+
 import illus2 from "../../resources/images/illus2.svg";
+import Image from "next/image";
 
 export function Section2() {
   return (
     <Box
       display="flex"
-      className="section1-MainContainer"
+      className={styles.section1_MainContainer}
       sx={{
         flexFlow: {
           xs: "column-reverse",
@@ -27,7 +30,7 @@ export function Section2() {
           alignItems: "center",
         }}
       >
-        <img src={illus2} alt={"illustration"}></img>
+        <Image src={illus2} alt={"illustration"}></Image>
       </Box>
 
       <Grid
@@ -42,10 +45,10 @@ export function Section2() {
           },
         }}
       >
-        <Grid item className="section2-head">
+        <Grid item className={styles.section2_head}>
           Business Simulation Game
         </Grid>
-        <Grid item className="section1-text" alignSelf="center">
+        <Grid item className={styles.section1_text} alignSelf="center">
           <p>
             A 15-minute eliminator quiz to get you into your problem-solving
             self. The results of the quiz will make way for the best and

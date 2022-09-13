@@ -2,12 +2,15 @@ import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 
 // import "./landingComponents.css";
+import styles from "../../styles/Landing.module.css";
+
 // import HorizontalTimeline from "../../resources/images/TimelineSection.svg";
 import HorizontalTimeline from "../../resources/images/TimelineNew.svg";
 
 
 // import VerticalTimeline from "../../resources/images/TimelineSectionPhone.svg";
 import VerticalTimeline from "../../resources/images/NewTimelinePhone.svg";
+import Image from "next/image";
 
 
 export function Timeline() {
@@ -47,10 +50,10 @@ export function Timeline() {
   }, []);
 
   return (
-    <Box className="timelineContainer">
-      <Box class="sectionHead">Timeline</Box>
-      <Box class="timelineImageContainer">
-        <img src={TimelineImage} alt={"Timeline"} />
+    <Box className={styles.timelineContainer}>
+      <Box className={styles.sectionHead}>Timeline</Box>
+      <Box className={styles.timelineImageContainer}>
+        <Image src={TimelineImage} alt={"Timeline"} />
       </Box>
     </Box>
   );

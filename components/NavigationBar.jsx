@@ -22,7 +22,7 @@ const NavigationBar = (props) => {
 
 	return (
 		<>
-      <Navbar variant="light" style={{backgroundColor:"#ffddaa"}}>
+      <Navbar variant="light" style={{backgroundColor:"#00dfc0"}}>
         <Container>
           <Navbar.Brand href="/">Futurepreneurs 8.0</Navbar.Brand>
           <Nav className="ml-auto">

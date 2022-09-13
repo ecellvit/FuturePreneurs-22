@@ -3,13 +3,16 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 
 // import "./landingComponents.css";
+import styles from "../../styles/Landing.module.css";
+
 import illus4 from "../../resources/images/illus4.jpg";
+import Image from "next/image";
 
 export function Section4() {
   return (
     <Box
       display="flex"
-      className="section1-MainContainer"
+      className={styles.section1_MainContainer}
       sx={{
         flexFlow: {
           xs: "column-reverse",
@@ -18,8 +21,8 @@ export function Section4() {
         },
       }}
     >
-      <Box class="illusContainer">
-        <img src={illus4} alt={"illustration"}></img>
+      <Box className={styles.illusContainer}>
+        <Image src={illus4} alt={"illustration"}></Image>
       </Box>
 
       <Grid
@@ -34,10 +37,10 @@ export function Section4() {
           },
         }}
       >
-        <Grid item className="section2-head">
+        <Grid item className={styles.section2_head}>
           Story Behind...
         </Grid>
-        <Grid item className="section1-text" alignSelf="center">
+        <Grid item className={styles.section1_text} alignSelf="center">
           <p>
             To shed light upon the unforeseen and brainstorm for the ideation of
             pragmatic remedies for technical problems, E-Cell, VIT brings to you
