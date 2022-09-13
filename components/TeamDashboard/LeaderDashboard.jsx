@@ -1,39 +1,94 @@
-import React from "react";
+import React, { useState } from "react";
+import { useSession } from "next-auth/react";
 import TeamMemberLeader from "./TeamMemberLeader";
 import styles from "../../styles/Dashboard.module.css";
-const LeaderDashboard = (props) => {
-  const { teamData } = props;
-  const teamLink = "https://myvit.live/https://myvit.live/";
+import { CopyToClipboard } from "react-copy-to-clipboard";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+const LeaderDashboard = ({ teamData,handleTeamDelete }) => {
+  // console.log("id")
+  // console.log(teamData.teamId)
+  const [text, setText] = useState("http://localhost:3000/join-team-link/631f7f6135c312a489c3a967");
+  const [isCopied, setIsCopied] = useState(false);
+  const { data: session } = useSession();
+
+  const showToastMessage = () => {
+    toast('Copied to Clipboard!', {
+      position: toast.POSITION.BOTTOM_CENTER,
+      className: 'toast-message'
+    });
+  };
+
+  const onCopyText = () => {
+    //alert("Copied");
+    setIsCopied(true);
+    setTimeout(() => {
+      setIsCopied(false);
+    }, 1000);
+  };
+
+  const handleDelete = () => {
+    fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/team/${teamData.teamId._id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${session.accessTokenBackend}`,
+        "Access-Control-Allow-Origin": "*",
+      },
+    })
+    .then(data => data.json())
+    .then(data => {
+      handleTeamDelete(false)
+    })
+  }
+
   return (
     <div className={styles.team_member_section}>
       <div className={styles.team_member_section_wrapper}>
-        {/* Team Details */}
+
         <h2 className={styles.team_name}>
-          {/* Printing team name */}
-          Team - {teamData.teamId.teamName}
+          Team - {teamData?.teamId?.teamName}
         </h2>
         <h2 className={styles.invite_link_container}>
-          ( Link -{" "}
-          <a href="#" className={styles.invite_link_a}>
-            {teamLink}
-          </a>{" "}
-          )
+          <label >Team Link:</label>
+          <input
+            type="text"
+            value={text}
+            placeholder="Type some text here"
+            onChange={(event) => setText(event.target.value)}
+            className={styles.input}
+          />
+          <CopyToClipboard text={text} onCopy={onCopyText}>
+            <div className="copy-area">
+              <button onClick={showToastMessage}>copy</button>
+              <ToastContainer />
+            </div>
+          </CopyToClipboard>
         </h2>
         <div className={`${styles.team_row} ${styles.align_centre}`}>
-          {/* Returning Team Members */}
-          {teamData.teamId.members.map((team) => {
+
+          {teamData?.teamId?.members?.map((team) => {
             return (
               <TeamMemberLeader
+                key={team._id}
                 teamName={team.name}
                 mobileNumber={team.mobileNumber}
                 email={team.email}
-                key={team.id}
+                id={team._id}
+                //teamRole={team.teamId.teamRole} //pass down team role,if team role === 0 disable remove button 
               ></TeamMemberLeader>
             );
           })}
         </div>
       </div>
-      {/* Start Quiz Button */}
+      <button
+        className={`${styles.leave_team_btn} ${styles.team_leader_btn} ${styles.w_button}`}
+        onClick={handleDelete}
+      >
+        Delete Team
+      </button>
+
       <button className={`${styles.start_quiz} ${styles.w_button}`}>
         Start Quiz
       </button>

@@ -6,7 +6,7 @@ import gradient from "../img/grad.jpg";
 import phone from "../img/phone-icon.png";
 import mailer from "../img/mail-icon.png";
 import styles from "../styles/SearchTeams.module.css";
-import { Cookies } from "react-cookie";
+// import { Cookies } from "react-cookie";
 //const handleClick =
 function SearchTeams() {
   // const [count, setCount] = useState(0);

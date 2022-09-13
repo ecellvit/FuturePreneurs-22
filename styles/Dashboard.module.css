@@ -132,7 +132,7 @@
 
 .leave_team_btn:hover {
   border: 1px solid #096ad0;
-  background-color: #096ad0;
+  background-color: red;
   box-shadow: 0 6px 20px 0 rgba(1, 58, 117, 0.33);
   transform: translate(0px, -4px);
   color: #fff;
@@ -367,7 +367,7 @@
 
 .remove_team_btn:hover {
   border: 1px solid #096ad0;
-  background-color: #096ad0;
+  background-color: red;
   box-shadow: 0 6px 20px 0 rgba(1, 58, 117, 0.33);
   transform: translate(0px, -4px);
   color: #fff;
@@ -424,7 +424,8 @@
   }
 }
 .invite_link_container {
-  display: block;
+  display:flex;
+  align-items:center;
   margin: -30px auto 40px;
   padding-right: 10px;
   padding-left: 10px;
@@ -448,4 +449,20 @@
   .invite_link_a {
     display: block;
   }
+}
+
+
+.input {
+  border:0px;
+  width:28rem;
+  text-align:center;
+  background-color:grey;
+  color:grey;
+  border-radius:10px;
+  margin-right:1rem;
+  margin-left:1rem;
+}
+
+.input:hover{
+  background-color:#ffff;
 }

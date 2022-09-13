@@ -2,8 +2,8 @@ import React, { useRef } from "react";
 import { useSession } from "next-auth/react";
 import styles from "../../styles/CreateTeam.module.css";
 import Link from "next/link";
-const CreateTeam = () => {
-  // need team id for this function
+
+const CreateTeam = ({handleTeamCreate}) => {
   const teamNameRef = useRef(null);
   const { data: session } = useSession();
 
@@ -17,19 +17,21 @@ const CreateTeam = () => {
       }),
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${session.idToken}`,
+        Authorization: `Bearer ${session.accessTokenBackend}`,
         "Access-Control-Allow-Origin": "*",
       },
     })
       .then((data) => data.json())
-      .then((data) => console.log(data));
+      .then((data) => {
+        handleTeamCreate()
+      });
   };
   console.log(session, "in dashboard");
 
   return (
     <div className={styles.big_image}>
       <div className={styles.wrapper}>
-        <div className={styles.section_title}>Hi, Chiranjeev Vishnnoi</div>
+        <div className={styles.section_title}>{`Hi,${session.user.name} `}</div>
         <h2 className={styles.h1_create}>Join a Team or Create a Team</h2>
         <p className={styles.p_create}>
           The event is designed to test your analytical thinking. Glaze up your
@@ -68,7 +70,7 @@ const CreateTeam = () => {
               className={`${styles.input_team} ${styles.w_input}`}
               placeholder="Enter Your Team Name"
             />
-            <button className={`${styles.join_create_btn} ${styles.w_button}`}>
+            <button className={`${styles.join_create_btn} ${styles.w_button}`} onClick={handleCreate}>
               Create
             </button>
           </form>
