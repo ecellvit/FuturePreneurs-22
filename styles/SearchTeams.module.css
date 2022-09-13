@@ -74,7 +74,8 @@ body {
   .button {
     position: relative;
     background-color: #4CAF50;
-    border: none;
+    /* margin: 20p; */
+    border: 20p;
     font-size: 10px;
     color: #FFFFFF;
     /* padding: 20px; */
@@ -102,6 +103,43 @@ body {
   }
   
   .button:active:after {
+    padding: 0;
+    margin: 0;
+    opacity: 1;
+    transition: 0s
+  }
+  .button2 {
+    position: relative;
+    background-color: cyan;
+    /* margin: 20p; */
+    border: 20p;
+    font-size: 10px;
+    color: black;
+    /* padding: 20px; */
+    width: 300px;
+    height: 53px;
+    text-align: center;
+    font-weight: 1000;
+    transition-duration: 0.4s;
+    text-decoration: none;
+    overflow: hidden;
+    cursor: pointer;
+  }
+  
+  .button2:after {
+    content: "";
+    background: #f1f1f1;
+    display: block;
+    position: absolute;
+    padding-top: 300%;
+    padding-left: 350%;
+    margin-left: -20px !important;
+    margin-top: -120%;
+    opacity: 0;
+    transition: all 0.8s
+  }
+  
+  .button2:active:after {
     padding: 0;
     margin: 0;
     opacity: 1;

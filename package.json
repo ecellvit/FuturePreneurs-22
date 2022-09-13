@@ -11,6 +11,7 @@
   "dependencies": {
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
+<<<<<<< HEAD
     "@mui/material": "^5.10.5",
     "@mui/styled-engine-sc": "^5.10.3",
     "next": "^12.2.5",
@@ -20,6 +21,16 @@
     "react-dom": "^18.2.0",
     "react-toastify": "^9.0.8",
     "styled-components": "^5.3.5"
+=======
+    "@mui/material": "^5.10.4",
+    "bootstrap": "^5.2.1",
+    "next": "^12.2.5",
+    "next-auth": "^4.10.3",
+    "react": "^18.2.0",
+    "react-bootstrap": "^2.5.0",
+    "react-dom": "^18.2.0",
+    "styled": "^1.0.0"
+>>>>>>> 9c877cea04a8db7c8e8ef05893725cc98a228c78
   },
   "devDependencies": {
     "eslint": "8.22.0",
