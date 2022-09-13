@@ -6,24 +6,29 @@ import NavigationBar from '../../components/NavigationBar.jsx';
 import { Router, useRouter } from 'next/router.js';
 
 function Main() {
-    // if session is not logged in dont show dashboard.
-    const router = useRouter();
-    const {data:session} = useSession();
+  // if session is not logged in dont show dashboard.
+  const router = useRouter();
+  const { data: session, status } = useSession();
 
-    useEffect(()=>{
-      if (router.isReady){
-        if (!session){
-            router.push("/")
-        }
+  useEffect(() => {
+    console.log("status", status);
+    if (router.isReady) {
+      if (status === "unauthenticated" && status !== "loading") {
+        router.push("/")
       }
-    }, [session, router])
+    }
+  }, [status, router])
 
-    return (
+  return (
+    <>
+      {status === "authenticated" &&
         <div className='main'>
-            <NavigationBar/>
-            <Dashboard/>
+          <NavigationBar />
+          <Dashboard />
         </div>
-    )
+      }
+    </>
+  )
 }
 
 export default Main
