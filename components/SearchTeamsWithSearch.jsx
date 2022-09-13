@@ -114,7 +114,7 @@ function SearchTeamsWithSearch() {
         .then((data) => data.json())
         .then((data) => {
           console.log(data);
-          data.teams.map((currenTeam) => {
+          data.paginatedResult.results.map((currenTeam) => {
             if (currenTeam.members.length < 4) {
               setTeamData((prevTeamData) => {
                 return [...prevTeamData, currenTeam];

@@ -18,6 +18,8 @@ import Autocomplete from "@mui/material/Autocomplete";
 //const handleClick =
 
 function SearchTeams(props) {
+  let next;
+  let prev;
   const [selectedTeam, setSelectedTeam] = useState(null);
 
   const { data: session } = useSession();
@@ -100,7 +102,7 @@ function SearchTeams(props) {
   const [teamData, setTeamData] = useState([]);
   useEffect(() => {
     if (session) {
-      fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/team`, {
+      fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/team?page=1&limit=9`, {
         method: "GET",
         //mode: "cors",
         headers: {
@@ -116,7 +118,11 @@ function SearchTeams(props) {
         .then((data) => data.json())
         .then((data) => {
           console.log(data);
-          data.teams.map((currenTeam) => {
+          next = data.paginatedResult.next;
+          prev = data.paginatedResult.previous;
+          console.log(next);
+          console.log(prev);
+          data.paginatedResult.results.map((currenTeam) => {
             if (currenTeam.members.length < 4) {
               setTeamData((prevTeamData) => {
                 return [...prevTeamData, currenTeam];
@@ -149,7 +155,6 @@ function SearchTeams(props) {
             console.log(selectedTeam);
           }}
         /> */}
-
         {teamData.map((team) => {
           console.log(team);
           return (
@@ -295,7 +300,7 @@ function SearchTeams(props) {
                         onClick={() => {
                           console.log("click");
                           fetch(
-                            `${process.env.NEXT_PUBLIC_SERVER}/api/user/requests/${team._id}`,
+                            `${process.env.NEXT_PUBLIC_SERVER}/api/user/requests/${props.data.teamData._id}`,
                             {
                               method: "POST",
                               //mode: "cors",
@@ -335,6 +340,7 @@ function SearchTeams(props) {
                 }
               })}
             </div>
+
             {/* <div className={styles.infogroup}></div> */}
           </div>
         }
