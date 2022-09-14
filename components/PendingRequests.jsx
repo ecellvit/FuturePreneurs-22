@@ -12,19 +12,14 @@ function PendingRequests() {
   const [teamData, setTeamData] = useState([]);
   useEffect(() => {
     if (session) {
-      fetch(`${process.env.NEXT_PUBLIC_SERVER3}/api/user/requests`, {
+      fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/user/requests`, {
         method: "GET",
-        //mode: "cors",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${session.accessTokenBackend}`,
           "Access-Control-Allow-Origin": "*",
         },
       })
-        // .then((response) => {
-        // })
-        //   console.log(response.text());
-        // })
         .then((data) => data.json())
         .then((data) => {
           console.log(data);
@@ -83,7 +78,7 @@ function PendingRequests() {
                           onClick={() => {
                             console.log("click");
                             fetch(
-                              `${process.env.NEXT_PUBLIC_SERVER3}/api/user/requests/${team.teamId._id}`,
+                              `${process.env.NEXT_PUBLIC_SERVER}/api/user/requests/${team.teamId._id}`,
                               {
                                 method: "PATCH",
                                 //mode: "cors",

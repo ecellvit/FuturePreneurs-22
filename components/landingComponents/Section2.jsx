@@ -22,7 +22,7 @@ export function Section2() {
       }}
     >
       <Box
-        class="illusContainer1"
+        className="illusContainer1"
         sx={{
           height: "100%",
           display: "flex",

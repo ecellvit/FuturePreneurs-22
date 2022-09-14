@@ -122,7 +122,7 @@ export function Section1() {
       </Grid>
 
       <Box
-        class="illusContainer"
+        className="illusContainer"
         sx={{
           height: "100%",
           display: "flex",

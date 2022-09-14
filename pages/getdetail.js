@@ -11,10 +11,8 @@ export default function Component() {
     if (session && router.isReady) {
       fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/auth/`, {
         method: "POST",
-        // cors:'no-cors',
         headers: {
           "Content-Type": "application/json",
-          // Authorization: `Bearer ${session.accessTokenBackend}`,
           "Access-Control-Allow-Origin": "*",
         },
         body: JSON.stringify({
