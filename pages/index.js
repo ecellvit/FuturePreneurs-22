@@ -2,9 +2,13 @@ import Head from "next/head";
 import {useSession} from "next-auth/react";
 import { NextResponse } from "next/server.js";
 import LoginTempComponent from "../components/LoginTempComponent.jsx";
+import Dashboard from "../components/TeamDashboard/Dashboard.jsx";
+import NavigationBar from "../components/NavigationBar.jsx";
 import styles from "../styles/Home.module.css";
 import { useEffect } from "react";
 import { useRouter } from "next/router.js";
+import { Tab, Tabs } from "@mui/material";
+import { Landing } from "../components/Landing.jsx";
 
 // this is Landing page, here people will learn about the event and signup/login
 
@@ -30,9 +34,12 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <h1 className={styles.title}>Futurepreneurs</h1>
+      {/* <h1 className={styles.title}>Futurepreneurs</h1> */}
 
-      <LoginTempComponent />
+      {/* <LoginTempComponent /> */}
+      <NavigationBar/>
+      <Landing/>
+      {/* <Dashboard/> */}
     </div>
   );
 }

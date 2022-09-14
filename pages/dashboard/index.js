@@ -1,23 +1,34 @@
 import { useSession } from 'next-auth/react';
-import React from 'react'
+import React, { useEffect } from 'react'
 import Dashboard from "../../components/TeamDashboard/Dashboard.jsx";
 import LoginTempComponent from '../../components/LoginTempComponent';
+import NavigationBar from '../../components/NavigationBar.jsx';
+import { Router, useRouter } from 'next/router.js';
 
 function Main() {
-    // if session is not logged in dont show dashboard.
-    const {data:session} = useSession();
-    if (!session){
-        return
-    }
+  // if session is not logged in dont show dashboard.
+  const router = useRouter();
+  const { data: session, status } = useSession();
 
-    return (
+  useEffect(() => {
+    console.log("status", status);
+    if (router.isReady) {
+      if (status === "unauthenticated" && status !== "loading") {
+        router.push("/")
+      }
+    }
+  }, [status, router])
+
+  return (
+    <>
+      {status === "authenticated" &&
         <div className='main'>
-            <div className='heading'>
-                <h1>FUTUREPRENEURS</h1>
-            </div>
-            <Dashboard/>
+          <NavigationBar />
+          <Dashboard />
         </div>
-    )
+      }
+    </>
+  )
 }
 
 export default Main

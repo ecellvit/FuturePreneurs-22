@@ -54,7 +54,7 @@ export default NextAuth({
           accessToken: account.access_token,
           accessTokenExpires: account.expires_at * 1000,
           refreshToken: account.refresh_token,
-          accessTokenFromBackend: await getTokenFromYourAPIServer(user, account),
+          // accessTokenFromBackend: await getTokenFromYourAPIServer(user, account),
           user,
         };
       }
@@ -73,10 +73,11 @@ export default NextAuth({
       session.error = token.error;
       session.idToken = token.idToken;
 
-      if (token.accessTokenFromBackend) {
-        return session;
-      }
-      return null;
+      // if (token.accessTokenFromBackend) {
+      //   return session;
+      // }
+      // return null;
+      return session;
     },
 
     async signIn({ user, account }) {
