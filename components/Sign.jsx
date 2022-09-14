@@ -5,21 +5,33 @@ import { useSession } from "next-auth/react";
 import SignLayout from "./SignLayout";
 
 const Sign = () => {
-  const [hasDetails, setDetails] = useState(false);
+  const [loading, setLoading] = useState(true);
   const { data: session } = useSession();
   const router = useRouter();
-
-  // redirects to Dashboard if user session is logged in session!
+  console.log(session.user.email);
 
   useEffect(() => {
-    if (!router.isReady) return;
-  }, [router.isReady, router]);
-  useEffect(() => {
-    if (hasDetails) {
-      router.push("/dashboard");
-    }
-  }, [hasDetails]);
-  return <div>{!hasDetails ? <SignLayout /> : null}</div>;
+    // setLoading(true);
+    fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/user`, {
+      method: "PATCH",
+      body: JSON.stringify({
+        token: session.idToken,
+        email: session.user.email,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((data) => data.json())
+      .then((data) => {
+        if (data.hasFilledDetails === true) {
+          router.push("/dashboard");
+        } else {
+          setLoading(false);
+        }
+      }, []);
+  });
+  return !loading ? <SignLayout /> : null;
 };
 
 export default Sign;
