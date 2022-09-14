@@ -8,12 +8,12 @@ const TeamMembers = ({ teamData }) => {
         {/* Team Details */}
         <h2 className={styles.team_name}>
           {/* Printing team name */}
-          Team - {teamData.teamId.teamName}
+          Team - {teamData.teamName}
         </h2>
         <div className={`${styles.team_row} ${styles.align_centre}`}>
           {/* /////////////////////////////////////Returning Team Members//////////////////////////////////////// */}
 
-          {teamData.teamId.members.map((team) => {
+          {teamData.members?.map((team) => {
             return (
               <TeamMember
                 teamName={team.name}
@@ -25,10 +25,7 @@ const TeamMembers = ({ teamData }) => {
           })}
         </div>
       </div>
-      {/* Leave Team Button */}
-      <a href="#" className={`${styles.leave_team_btn} ${styles.w_button}`}>
-        Leave Team
-      </a>
+      
     </div>
   );
 };

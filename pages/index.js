@@ -2,7 +2,6 @@ import Head from "next/head";
 import {useSession} from "next-auth/react";
 import { NextResponse } from "next/server.js";
 import LoginTempComponent from "../components/LoginTempComponent.jsx";
-import Dashboard from "../components/TeamDashboard/Dashboard.jsx";
 import styles from "../styles/Home.module.css";
 import { useEffect } from "react";
 import { useRouter } from "next/router.js";
@@ -15,13 +14,13 @@ export default function Home() {
 
 // redirects to Dashboard if user session is logged in session!  
   
-  useEffect(()=>{
-    if (!router.isReady) return;
+  // useEffect(()=>{
+  //   if (!router.isReady) return;
 
-    if (session){
-      router.push('/dashboard')
-    }
-  }, [router.isReady, session,router])
+  //   if (session){
+  //     router.push('/dashboard')
+  //   }
+  // }, [router.isReady, session,router])
 
   return (
     <div className={styles.container}>
@@ -34,7 +33,6 @@ export default function Home() {
       <h1 className={styles.title}>Futurepreneurs</h1>
 
       <LoginTempComponent />
-      <Dashboard/>
     </div>
   );
 }
