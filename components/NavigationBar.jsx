@@ -15,14 +15,14 @@ const NavigationBar = (props) => {
     console.log("logout here")
   };
 	const loginHandler = ()=>{
-    signIn("google");
+    signIn("google",{callbackUrl:"/details"});
     console.log(session);
     console.log("login here")
   };
 
 	return (
 		<>
-      <Navbar variant="light" style={{backgroundColor:"#ffddaa"}}>
+      <Navbar variant="light" style={{backgroundColor:"#00dfc0"}}>
         <Container>
           <Navbar.Brand href="/">Futurepreneurs 8.0</Navbar.Brand>
           <Nav className="ml-auto">
