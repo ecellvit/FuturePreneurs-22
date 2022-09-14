@@ -2,16 +2,18 @@ import Head from "next/head";
 import {useSession} from "next-auth/react";
 import { NextResponse } from "next/server.js";
 import LoginTempComponent from "../components/LoginTempComponent.jsx";
-import Dashboard from "../components/Dashboard.jsx";
+// import Dashboard from "../components/Dashboard.jsx";
 import styles from "../styles/Home.module.css";
 import { useEffect } from "react";
 import { useRouter } from "next/router.js";
 import SearchTeams from "../components/SearchTeams.jsx";
+import SearchTeamsWithSearch from "../components/SearchTeamsWithSearch.jsx";
 
 // this is Landing page, here people will learn about the event and signup/login
 
 export default function Home() {
   const {data:session} = useSession();
+  console.log(session)
   const router = useRouter();
 
 // redirects to Dashboard if user session is logged in session!  
@@ -24,6 +26,7 @@ export default function Home() {
     }
   }, [router.isReady, session,router])
 
+  console.log(session,'in search team page')
   return (
     <div className={styles.container}>
       <Head>
@@ -33,7 +36,7 @@ export default function Home() {
       </Head>
 
       <h1 className={styles.title}>Futurepreneurs</h1>
-      <SearchTeams/>
+      <SearchTeamsWithSearch/>
 
       {/* <LoginTempComponent />
       <Dashboard/> */}

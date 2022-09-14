@@ -1,7 +1,9 @@
 import { useSession } from 'next-auth/react';
-import React, { useEffect } from 'react'
+import React, { useEffect }, { useEffect } from 'react'
 import Dashboard from "../../components/TeamDashboard/Dashboard.jsx";
 import LoginTempComponent from '../../components/LoginTempComponent';
+import NavigationBar from '../../components/NavigationBar.jsx';
+import { Router, useRouter } from 'next/router.js';
 import NavigationBar from '../../components/NavigationBar.jsx';
 import { Router, useRouter } from 'next/router.js';
 
