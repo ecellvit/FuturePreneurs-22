@@ -15,10 +15,6 @@ function JoiningIdPage() {
       signIn('google',{ callbackurl: `/join-team-link/${joiningId}`})
     }
   }, [status])
-
-  useEffect(() => {
-    
-  }, [])
   
   
   return (
