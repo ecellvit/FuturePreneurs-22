@@ -4,7 +4,6 @@ import { NextResponse } from "next/server.js";
 import LoginTempComponent from "../components/LoginTempComponent.jsx";
 import Dashboard from "../components/TeamDashboard/Dashboard.jsx";
 import NavigationBar from "../components/NavigationBar.jsx";
-import NavigationBar from "../components/NavigationBar.jsx";
 import styles from "../styles/Home.module.css";
 import { useEffect } from "react";
 import { useRouter } from "next/router.js";

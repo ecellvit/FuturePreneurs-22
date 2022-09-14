@@ -4,27 +4,72 @@ import imgSrc from "../public/sign.png";
 import React, { useEffect, useRef } from "react";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const SignLayout = () => {
   const regnoRef = useRef("");
+  const lnameRef = useRef("");
+  const fnameRef = useRef("");
   const mobileNumberRef = useRef("");
   const router = useRouter();
-
+  const { data: session } = useSession();
+  const errortoast = () => toast.error("Please fill correct details");
   const [hasError, setError] = useState(true);
+  const regName = /^[a-zA-Z]+$/;
+  const re = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
+  const regtest = /^[1-9][0-9][a-zA-Z]{3}[0-9]{4}$/;
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(regnoRef.current.value);
-    console.log(mobileNumberRef.current.value);
-    regnoRef.current.value === "" || mobileNumberRef.current.value === ""
-      ? setError(true)
-      : setError(false);
+    if (
+      mobileNumberRef.current.value === "" ||
+      mobileNumberRef.current.value.length != 10
+    ) {
+      toast.error("Moblie number must be 10 digits only");
+      setError(true);
+    } else if (
+      !re.test(String(mobileNumberRef.current.value)) ||
+      lnameRef.current.value === "" ||
+      !regName.test(lnameRef.current.value) ||
+      !regName.test(fnameRef.current.value) ||
+      fnameRef.current.value === ""
+    ) {
+      errortoast();
+    } else if (
+      regnoRef.current.value === "" ||
+      !regtest.test(regnoRef.current.value)
+    ) {
+      errortoast();
+    } else {
+      setError(false);
+    }
   };
-  useEffect(() => {
-    hasError
-      ? console.log("Please fill all the details")
-      : router.push("/dashboard");
-  }, [hasError]);
-
+  useEffect(
+    () => {
+      hasError
+        ? toast("Please fill all details")
+        : fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/user`, {
+            method: "PUT",
+            body: JSON.stringify({
+              firstName: fnameRef.current.value,
+              lastName: lnameRef.current.value,
+              regNo: regnoRef.current.value,
+              mobileNumber: mobileNumberRef.current.value,
+            }),
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${session.accessTokenBackend}`,
+              "Access-Control-Allow-Origin": "*",
+            },
+          })
+            .then((data) => data.json())
+            .then((data) => router.push("/dashboard"));
+    },
+    [hasError],
+    handleSubmit
+  );
   return (
     <div className={styled.sign_in_wrapper}>
       <div className={styled.sign_section}>
@@ -41,11 +86,21 @@ const SignLayout = () => {
                   FIll The following details to dive into FuturePreneurs
                 </label>
 
-                <label className={styled.label}>Name *</label>
+                <label className={styled.label}>First Name *</label>
                 <input
                   type="text"
                   className={`${styled.input_signin} ${styled.w_input}`}
                   placeholder=""
+                  id="field"
+                  ref={fnameRef}
+                  required={true}
+                />
+                <label className={styled.label}>Last Name *</label>
+                <input
+                  type="text"
+                  className={`${styled.input_signin} ${styled.w_input}`}
+                  placeholder=""
+                  ref={lnameRef}
                   id="field"
                   required={true}
                 />
@@ -56,7 +111,8 @@ const SignLayout = () => {
               <input
                 className={`${styled.input_signin} ${styled.w_input}`}
                 name="mobile"
-                type="text"
+                type="number"
+                minLength="10"
                 ref={mobileNumberRef}
                 placeholder=""
                 required={true}
@@ -70,8 +126,6 @@ const SignLayout = () => {
                 type="text"
                 name="regno"
                 ref={regnoRef}
-                //   onChange={e => setName(e.target.value)}
-
                 className={`${styled.input_signin} ${styled.w_input}`}
                 required={true}
               />
@@ -79,7 +133,7 @@ const SignLayout = () => {
                 * These Fields are compulsory
               </label>
             </div>
-
+            <ToastContainer />
             <button
               onClick={handleSubmit}
               className={`${styled.sign_btn} ${styled.w_button}`}

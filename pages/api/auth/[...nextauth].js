@@ -54,7 +54,7 @@ export default NextAuth({
           accessToken: account.access_token,
           accessTokenExpires: account.expires_at * 1000,
           refreshToken: account.refresh_token,
-          // accessTokenFromBackend: await getTokenFromYourAPIServer(user, account),
+          accessTokenFromBackend: await getTokenFromYourAPIServer(user, account),
           user,
         };
       }

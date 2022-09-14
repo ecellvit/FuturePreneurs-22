@@ -16,15 +16,15 @@ import Autocomplete from "@mui/material/Autocomplete";
 
 //import { Cookies } from "react-cookie";
 //const handleClick =
+let next;
+let prev;
 
 function SearchTeams(props) {
-  let next;
-  let prev;
   const [selectedTeam, setSelectedTeam] = useState(null);
 
   const { data: session } = useSession();
 
-  console.log(session, "in component");
+  //console.log(session, "in component");
   // const [count, setCount] = useState(0);
 
   // const [teamData, setTeamData] = useState([
@@ -113,15 +113,15 @@ function SearchTeams(props) {
       })
         // .then((response) => {
         // })
-        //   console.log(response.text());
+        //   //console.log(response.text());
         // })
         .then((data) => data.json())
         .then((data) => {
-          console.log(data);
+          //console.log(data);
           next = data.paginatedResult.next;
           prev = data.paginatedResult.previous;
-          console.log(next);
-          console.log(prev);
+          teamData.splice(0, teamData.length);
+
           data.paginatedResult.results.map((currenTeam) => {
             if (currenTeam.members.length < 4) {
               setTeamData((prevTeamData) => {
@@ -137,13 +137,16 @@ function SearchTeams(props) {
     labels[i] = { teamData, label: teamData[i].teamName };
   }
 
-  console.log(teamData);
-  console.log(labels);
-  console.log(props.data);
+  //console.log(teamData);
+  //console.log(labels);
+  //console.log(props.data);
+  //console.log(prev);
+  //console.log(next);
   if (props.data === null) {
     return (
       <div className={styles.Teams}>
-        {/* <Autocomplete
+        <div className={styles.Teams}>
+          {/* <Autocomplete
           disablePortal
           id="combo-box-demo"
           options={labels}
@@ -152,77 +155,77 @@ function SearchTeams(props) {
           value={selectedTeam}
           onChange={(_event, newTeam) => {
             setSelectedTeam(newTeam);
-            console.log(selectedTeam);
+            //console.log(selectedTeam);
           }}
         /> */}
-        {teamData.map((team) => {
-          console.log(team);
-          return (
-            <div className={styles.Cards} key={team._id}>
-              {/* <Image className={styles.CardsImg} src={gradient} alt="Gradient" /> */}
-              <Avatar
-                name={team.teamName}
-                className={styles.CardsImg}
-                // color="gradient"
-                // bordered
-                // squared
-                // //size="$300"
-                // height="$300"
+          {teamData.map((team) => {
+            //console.log(team);
+            return (
+              <div className={styles.Cards} key={team._id}>
+                {/* <Image className={styles.CardsImg} src={gradient} alt="Gradient" /> */}
+                <Avatar
+                  name={team.teamName}
+                  className={styles.CardsImg}
+                  // color="gradient"
+                  // bordered
+                  // squared
+                  // //size="$300"
+                  // height="$300"
 
-                size="300"
-              />
+                  size="300"
+                />
 
-              <div className={styles.infogroup}>
-                {team.members.map((teamLead) => {
-                  console.log(teamLead.teamRole);
-                  if (teamLead.teamRole == 0) {
-                    return (
-                      <div>
-                        <h3 className={styles.Cardsh3}>
-                          TeamName:{team.teamName}
-                        </h3>
-                        <h3 className={styles.Cardsh3}>
-                          Team Size:{team.members.length}/4
-                        </h3>
-                        <h3 className={styles.Cardsh3}>
-                          Team Leader:{teamLead.name}
-                        </h3>
-                        {/* <h3 className={styles.Cardsh3}>
+                <div className={styles.infogroup}>
+                  {team.members.map((teamLead) => {
+                    //console.log(teamLead.teamRole);
+                    if (teamLead.teamRole == 0) {
+                      return (
+                        <div>
+                          <h3 className={styles.Cardsh3}>
+                            TeamName:{team.teamName}
+                          </h3>
+                          <h3 className={styles.Cardsh3}>
+                            Team Size:{team.members.length}/4
+                          </h3>
+                          <h3 className={styles.Cardsh3}>
+                            Team Leader:{teamLead.name}
+                          </h3>
+                          {/* <h3 className={styles.Cardsh3}>
                         Team Leader Number:{teamLead.mobileNumber}
                       </h3> */}
-                        <h3 className={styles.Cardsh3}>
-                          Mail:{teamLead.email}
-                        </h3>
-                        <button
-                          className={styles.button}
-                          onClick={() => {
-                            console.log("click");
-                            fetch(
-                              `${process.env.NEXT_PUBLIC_SERVER}/api/user/requests/${team._id}`,
-                              {
-                                method: "POST",
-                                //mode: "cors",
-                                headers: {
-                                  "Content-Type": "application/json",
-                                  Authorization: `Bearer ${session.accessTokenBackend}`,
-                                  "Access-Control-Allow-Origin": "*",
-                                },
-                              }
-                            )
-                              .then((data) => data.json())
-                              .then((data) => {
-                                console.log(data.message);
-                                toast.success(`${data.message}`, {
-                                  position: toast.POSITION.TOP_RIGHT,
+                          <h3 className={styles.Cardsh3}>
+                            Mail:{teamLead.email}
+                          </h3>
+                          <button
+                            className={styles.button}
+                            onClick={() => {
+                              //console.log("click");
+                              fetch(
+                                `${process.env.NEXT_PUBLIC_SERVER}/api/user/requests/${team._id}`,
+                                {
+                                  method: "POST",
+                                  //mode: "cors",
+                                  headers: {
+                                    "Content-Type": "application/json",
+                                    Authorization: `Bearer ${session.accessTokenBackend}`,
+                                    "Access-Control-Allow-Origin": "*",
+                                  },
+                                }
+                              )
+                                .then((data) => data.json())
+                                .then((data) => {
+                                  //console.log(data.message);
+                                  toast.success(`${data.message}`, {
+                                    position: toast.POSITION.TOP_RIGHT,
+                                  });
                                 });
-                              });
-                            //console.log(Cookies);
-                          }}
-                        >
-                          Join Team
-                          <ToastContainer />
-                        </button>
-                        {/* <button
+                              ////console.log(Cookies);
+                            }}
+                          >
+                            Join Team
+                            <ToastContainer />
+                          </button>
+                          {/* <button
                         className={styles.button}
                         onClick={() => {
                           toast.success("Success Notification !", {
@@ -233,19 +236,124 @@ function SearchTeams(props) {
                         Popup Team
                         <ToastContainer />
                       </button> */}
-                      </div>
-                    );
-                  }
-                })}
+                        </div>
+                      );
+                    }
+                  })}
+                </div>
+                {/* <div className={styles.infogroup}></div> */}
               </div>
-              {/* <div className={styles.infogroup}></div> */}
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
+        <button
+          className={styles.button2}
+          onClick={() => {
+            if (prev != undefined) {
+              //console.log("click");
+              fetch(
+                `${process.env.NEXT_PUBLIC_SERVER}/api/team?page=${prev.page}&limit=${prev.limit}`,
+                {
+                  method: "GET",
+                  //mode: "cors",
+                  headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${session.accessTokenBackend}`,
+                    "Access-Control-Allow-Origin": "*",
+                  },
+                }
+              )
+                // .then((response) => {
+                // })
+                //   //console.log(response.text());
+                // })
+                .then((data) => data.json())
+                .then((data) => {
+                  //console.log(data);
+                  next = data.paginatedResult.next;
+                  prev = data.paginatedResult.previous;
+                  teamData.splice(0, teamData.length);
+                  //console.log(teamData);
+                  // toast.success(`${data.message}`, {
+                  //   position: toast.POSITION.TOP_RIGHT,
+                  // });
+
+                  data.paginatedResult.results.map((currenTeam) => {
+                    if (currenTeam.members.length < 4) {
+                      setTeamData((prevTeamData) => {
+                        return [...prevTeamData, currenTeam];
+                      });
+                    }
+                  });
+                });
+              ////console.log(Cookies);
+            } else {
+              toast.success(`No Previous Page Found`, {
+                position: toast.POSITION.TOP_RIGHT,
+              });
+            }
+          }}
+        >
+          Previous
+          <ToastContainer />
+        </button>
+        <button
+          className={styles.button2}
+          onClick={() => {
+            if (next != undefined) {
+              //console.log("click");
+              fetch(
+                `${process.env.NEXT_PUBLIC_SERVER}/api/team?page=${next.page}&limit=${next.limit}`,
+                {
+                  method: "GET",
+                  //mode: "cors",
+                  headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${session.accessTokenBackend}`,
+                    "Access-Control-Allow-Origin": "*",
+                  },
+                }
+              )
+                // .then((response) => {
+                // })
+                //   //console.log(response.text());
+                // })
+                .then((data) => data.json())
+                .then((data) => {
+                  // toast.success(`${data.message}`, {
+                  //   position: toast.POSITION.TOP_RIGHT,
+                  // });
+                  //console.log(data);
+                  next = data.paginatedResult.next;
+                  prev = data.paginatedResult.previous;
+                  teamData.splice(0, teamData.length);
+                  //console.log(teamData);
+
+                  data.paginatedResult.results.map((currenTeam) => {
+                    if (currenTeam.members.length < 4) {
+                      setTeamData((prevTeamData) => {
+                        return [...prevTeamData, currenTeam];
+                      });
+                    }
+                  });
+                });
+
+              ////console.log(Cookies);
+            } else {
+              toast.success(`No Next Page Found`, {
+                position: toast.POSITION.TOP_RIGHT,
+              });
+            }
+          }}
+        >
+          Next
+          <ToastContainer />
+        </button>
       </div>
     );
   } else {
-    console.log(props.data);
+    console.log(props);
+
     return (
       <div className={styles.Teams}>
         {/* <Autocomplete
@@ -257,15 +365,15 @@ function SearchTeams(props) {
           value={selectedTeam}
           onChange={(_event, newTeam) => {
             setSelectedTeam(newTeam);
-            console.log(selectedTeam);
+            //console.log(selectedTeam);
           }}
         /> */}
 
         {
-          <div className={styles.Cards} key={props.data.teamData._id}>
+          <div className={styles.Cards} key={props.data.team._id}>
             {/* <Image className={styles.CardsImg} src={gradient} alt="Gradient" /> */}
             <Avatar
-              name={props.data.teamData.teamName}
+              name={props.data.team.teamName}
               className={styles.CardsImg}
               // color="gradient"
               // bordered
@@ -277,19 +385,19 @@ function SearchTeams(props) {
             />
 
             <div className={styles.infogroup}>
-              {props.data.teamData.members.map((teamLead) => {
-                console.log(teamLead.teamRole);
+              {props.data.team.members.map((teamLead) => {
+                //console.log(teamLead.teamRole);
                 if (teamLead.teamRole == 0) {
                   return (
                     <div>
                       <h3 className={styles.Cardsh3}>
-                        TeamName:{props.data.teamData.teamName}
+                        TeamName:{props.data.team.teamName}
                       </h3>
                       <h3 className={styles.Cardsh3}>
-                        Team Size:{props.data.teamData.members.length}/4
+                        Team Size:{props.data.team.members.length}/4
                       </h3>
                       <h3 className={styles.Cardsh3}>
-                        Team Leader:{props.data.teamData.name}
+                        Team Leader:{teamLead.firstName} {teamLead.lastName}
                       </h3>
                       {/* <h3 className={styles.Cardsh3}>
                         Team Leader Number:{teamLead.mobileNumber}
@@ -298,9 +406,9 @@ function SearchTeams(props) {
                       <button
                         className={styles.button}
                         onClick={() => {
-                          console.log("click");
+                          //console.log("click");
                           fetch(
-                            `${process.env.NEXT_PUBLIC_SERVER}/api/user/requests/${props.data.teamData._id}`,
+                            `${process.env.NEXT_PUBLIC_SERVER}/api/user/requests/${props.data.team._id}`,
                             {
                               method: "POST",
                               //mode: "cors",
@@ -313,12 +421,12 @@ function SearchTeams(props) {
                           )
                             .then((data) => data.json())
                             .then((data) => {
-                              console.log(data.message);
+                              //console.log(data.message);
                               toast.success(`${data.message}`, {
                                 position: toast.POSITION.TOP_RIGHT,
                               });
                             });
-                          //console.log(Cookies);
+                          ////console.log(Cookies);
                         }}
                       >
                         Join Team

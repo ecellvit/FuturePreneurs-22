@@ -23,9 +23,9 @@ function PendingUserRequests() {
       })
         .then((data) => data.json())
         .then((data) => {
-          // console.log(data);
+          console.log(data);
           console.log(data.user.teamId);
-          if (data.user.teamId != undefined) {
+          if (data.user.teamId != undefined && data.user.teamId != null) {
             data.user.teamId.members.map((teamLead) => {
               if (teamLead.teamRole === 0) {
                 if (teamLead._id === data.user._id) {
@@ -98,7 +98,7 @@ function PendingUserRequests() {
                 {
                   <div>
                     <h3 className={styles.Cardsh3}>
-                      User Name:{user.userId.email}
+                      User Name:{user.userId.firstName} {user.userId.lastName}
                     </h3>
                     {/* <h3 className={styles.Cardsh3}>
                     Team Size:{team.members.length}/4
@@ -135,7 +135,7 @@ function PendingUserRequests() {
                             },
                             body: JSON.stringify({
                               userId: user.userId._id,
-                              status: 0,
+                              status: 1,
                             }),
                           }
                         )
@@ -171,7 +171,7 @@ function PendingUserRequests() {
                             },
                             body: JSON.stringify({
                               userId: user.userId._id,
-                              status: 1,
+                              status: 0,
                             }),
                           }
                         )

@@ -8,7 +8,6 @@ import { useEffect } from "react";
 import { useRouter } from "next/router.js";
 import SearchTeams from "../components/SearchTeams.jsx";
 import PendingRequests from "../components/PendingRequests.jsx"
-
 // this is Landing page, here people will learn about the event and signup/login
 
 export default function Home() {
