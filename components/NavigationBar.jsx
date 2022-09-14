@@ -11,8 +11,6 @@ const NavigationBar = (props) => {
   const [hasSignedUp, setHasSignedUp] = useState();
   const router = useRouter();
 
-  
-
   const isLoggedIn = true;
   console.log(session);
   const logoutHandler = () => {
@@ -20,6 +18,7 @@ const NavigationBar = (props) => {
     console.log(session);
     console.log("logout here")
   };
+
   const loginHandler = () => {
     signIn("google", { callbackUrl: "/getdetail" });
     console.log(session);
