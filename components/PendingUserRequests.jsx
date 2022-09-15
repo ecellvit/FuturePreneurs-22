@@ -8,7 +8,6 @@ import "react-toastify/dist/ReactToastify.css";
 
 function PendingUserRequests() {
   const { data: session } = useSession();
-  dddd(session);
   const [userData, setUserData] = useState([]);
   useEffect(() => {
     if (session) {
@@ -23,13 +22,10 @@ function PendingUserRequests() {
       })
         .then((data) => data.json())
         .then((data) => {
-          dddd(data);
-          dddd(data.user.teamId);
           if (data.user.teamId != undefined && data.user.teamId != null) {
             data.user.teamId.members.map((teamLead) => {
               if (teamLead.teamRole === 0) {
                 if (teamLead._id === data.user._id) {
-                  dddd(data.user.teamId._id);
                   fetch(
                     `${process.env.NEXT_PUBLIC_SERVER}/api/team/requests/${data.user.teamId._id}`,
                     {
@@ -45,7 +41,6 @@ function PendingUserRequests() {
                   )
                     .then((data) => data.json())
                     .then((data) => {
-                      dddd(data);
                       data.requests.map((currentUser) => {
                         setUserData((prevUserData) => {
                           return [...prevUserData, currentUser];
@@ -59,7 +54,6 @@ function PendingUserRequests() {
         });
     }
   }, [session]);
-  dddd(userData);
 
   return (
     <div className={styles.Teams}>
@@ -72,13 +66,11 @@ function PendingUserRequests() {
         value={selectedTeam}
         onChange={(_event, newTeam) => {
           setSelectedTeam(newTeam);
-          dddd(selectedTeam);
         }}
       /> */}
 
       {userData.map((user) => {
         if (user.userId != null) {
-          dddd(user);
           return (
             <div className={styles.Cards} key={user._id}>
               {/* <Image className={styles.CardsImg} src={gradient} alt="Gradient" /> */}
@@ -115,7 +107,7 @@ function PendingUserRequests() {
                     <button
                       className={styles.button}
                       onClick={() => {
-                        dddd(
+                        console.log(
                           JSON.stringify({
                             userid: user.userId._id,
                             status: 1,
@@ -141,7 +133,6 @@ function PendingUserRequests() {
                         )
                           .then((data) => data.json())
                           .then((data) => {
-                            dddd(data.message);
                             toast.success(`${data.message}`, {
                               position: toast.POSITION.TOP_RIGHT,
                             });
@@ -154,7 +145,6 @@ function PendingUserRequests() {
                     <button
                       className={styles.button}
                       onClick={() => {
-                        dddd("click");
                         fetch(
                           `${process.env.NEXT_PUBLIC_SERVER}/api/team/requests/${user.teamId}`,
                           {
@@ -175,7 +165,6 @@ function PendingUserRequests() {
                         )
                           .then((data) => data.json())
                           .then((data) => {
-                            dddd(data.message);
                             toast.success(`${data.message}`, {
                               position: toast.POSITION.TOP_RIGHT,
                             });
