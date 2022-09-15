@@ -16,7 +16,6 @@ function PendingUserRequests() {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${session.accessTokenBackend}`,
-          // Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzE1YjIxMWViMWIxN2M5MzE5Y2YzN2YiLCJpYXQiOjE2NjMwODc1MTMsImV4cCI6MTY2MzUxOTUxM30.IsQBnMGMJfpc0W16dCGrAY-2nfIgcSOk24UK-WQmBCw`,
           "Access-Control-Allow-Origin": "*",
         },
       })
@@ -33,18 +32,22 @@ function PendingUserRequests() {
                       headers: {
                         "Content-Type": "application/json",
                         Authorization: `Bearer ${session.accessTokenBackend}`,
-                        // Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzE1YjIxMWViMWIxN2M5MzE5Y2YzN2YiLCJpYXQiOjE2NjMwODc1MTMsImV4cCI6MTY2MzUxOTUxM30.IsQBnMGMJfpc0W16dCGrAY-2nfIgcSOk24UK-WQmBCw`,
-
                         "Access-Control-Allow-Origin": "*",
                       },
                     }
                   )
                     .then((data) => data.json())
                     .then((data) => {
-                      data.requests.map((currentUser) => {
-                        setUserData((prevUserData) => {
-                          return [...prevUserData, currentUser];
-                        });
+                      data.requests.map((currenTeam) => {
+                        if (
+                          teamData.findIndex(
+                            (x) => x._id === currenTeam._id
+                          ) === -1
+                        ) {
+                          setTeamData((prevTeamData) => {
+                            return [...prevTeamData, currenTeam];
+                          });
+                        }
                       });
                     });
                 }
@@ -57,32 +60,13 @@ function PendingUserRequests() {
 
   return (
     <div className={styles.Teams}>
-      {/* <Autocomplete
-        disablePortal
-        id="combo-box-demo"
-        options={labels}
-        sx={{ width: 300 }}
-        renderInput={(params) => <TextField {...params} label="Teams" />}
-        value={selectedTeam}
-        onChange={(_event, newTeam) => {
-          setSelectedTeam(newTeam);
-        }}
-      /> */}
-
       {userData.map((user) => {
         if (user.userId != null) {
           return (
             <div className={styles.Cards} key={user._id}>
-              {/* <Image className={styles.CardsImg} src={gradient} alt="Gradient" /> */}
               <Avatar
                 name={user.userId.email}
                 className={styles.CardsImg}
-                // color="gradient"
-                // bordered
-                // squared
-                // //size="$300"
-                // height="$300"
-
                 size="300"
               />
 
@@ -92,15 +76,9 @@ function PendingUserRequests() {
                     <h3 className={styles.Cardsh3}>
                       User Name:{user.userId.firstName} {user.userId.lastName}
                     </h3>
-                    {/* <h3 className={styles.Cardsh3}>
-                    Team Size:{team.members.length}/4
-                  </h3> */}
                     <h3 className={styles.Cardsh3}>
                       Phone Number:{user.userId.mobileNumber}
                     </h3>
-                    {/* <h3 className={styles.Cardsh3}>
-              Team Leader Number:{teamLead.mobileNumber}
-            </h3> */}
                     <h3 className={styles.Cardsh3}>
                       User Mail:{user.userId.email}
                     </h3>
@@ -117,12 +95,9 @@ function PendingUserRequests() {
                           `${process.env.NEXT_PUBLIC_SERVER}/api/team/requests/${user.teamId}`,
                           {
                             method: "PATCH",
-                            //mode: "cors",
                             headers: {
                               "Content-Type": "application/json",
                               Authorization: `Bearer ${session.accessTokenBackend}`,
-                              // Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzE1YjIxMWViMWIxN2M5MzE5Y2YzN2YiLCJpYXQiOjE2NjMwODc1MTMsImV4cCI6MTY2MzUxOTUxM30.IsQBnMGMJfpc0W16dCGrAY-2nfIgcSOk24UK-WQmBCw`,
-
                               "Access-Control-Allow-Origin": "*",
                             },
                             body: JSON.stringify({
@@ -149,12 +124,9 @@ function PendingUserRequests() {
                           `${process.env.NEXT_PUBLIC_SERVER}/api/team/requests/${user.teamId}`,
                           {
                             method: "PATCH",
-                            //mode: "cors",
                             headers: {
                               "Content-Type": "application/json",
                               Authorization: `Bearer ${session.accessTokenBackend}`,
-                              // Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzE1YjIxMWViMWIxN2M5MzE5Y2YzN2YiLCJpYXQiOjE2NjMwODc1MTMsImV4cCI6MTY2MzUxOTUxM30.IsQBnMGMJfpc0W16dCGrAY-2nfIgcSOk24UK-WQmBCw`,
-
                               "Access-Control-Allow-Origin": "*",
                             },
                             body: JSON.stringify({
@@ -174,21 +146,9 @@ function PendingUserRequests() {
                       Decline Request
                       <ToastContainer />
                     </button>
-                    {/* <button
-              className={styles.button}
-              onClick={() => {
-                toast.success("Success Notification !", {
-                  position: toast.POSITION.TOP_RIGHT,
-                });
-              }}
-            >
-              Popup Team
-              <ToastContainer />
-            </button> */}
                   </div>
                 }
               </div>
-              {/* <div className={styles.infogroup}></div> */}
             </div>
           );
         }
