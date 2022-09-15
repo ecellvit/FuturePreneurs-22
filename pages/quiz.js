@@ -1,4 +1,5 @@
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import NavigationBar from "../components/NavigationBar";
 import Questions from "../components/Questions";

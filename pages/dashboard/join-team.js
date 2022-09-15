@@ -1,4 +1,5 @@
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 import React from "react";
 import NavigationBar from "../../components/NavigationBar";
 import SearchTeams from "../../components/SearchTeams";
