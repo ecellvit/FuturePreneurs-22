@@ -6,7 +6,6 @@ import SearchTeamsWithSearch from "../../components/SearchTeamsWithSearch";
 
 function JoinTeamPage() {
   const { data: session } = useSession()
-  console.log(session)
   return (
     <div>
       <NavigationBar/>

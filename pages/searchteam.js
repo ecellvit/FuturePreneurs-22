@@ -8,7 +8,6 @@ import NavigationBar from "../components/NavigationBar";
 
 export default function Home() {
   const {data:session} = useSession();
-  console.log(session)
   const router = useRouter();
   
   useEffect(()=>{
@@ -19,7 +18,6 @@ export default function Home() {
     }
   }, [router.isReady, session,router])
 
-  console.log(session,'in search team page')
   return (
     <div className={styles.container}>
       <Head>

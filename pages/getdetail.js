@@ -24,7 +24,6 @@ export default function Component() {
           return response.json();
         })
         .then((data) => {
-          console.log(data)
           if(data.isRegistered){
             router.push('/dashboard')
           };
@@ -35,9 +34,7 @@ export default function Component() {
     }
   }, [session, router])
 
-  console.log(session);
   useEffect(()=>{
-    console.log("status",status);
     if (router.isReady){
       if (status === "unauthenticated" && status!=="loading"){
           router.push("/")

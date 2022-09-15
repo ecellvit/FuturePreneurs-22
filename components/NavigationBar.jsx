@@ -12,17 +12,12 @@ const NavigationBar = (props) => {
   const router = useRouter();
 
   const isLoggedIn = true;
-  console.log(session);
   const logoutHandler = () => {
     signOut();
-    console.log(session);
-    console.log("logout here")
   };
 
   const loginHandler = () => {
     signIn("google", { callbackUrl: "/getdetail" });
-    console.log(session);
-    console.log("login here")
   };
 
   return (

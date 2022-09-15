@@ -6,7 +6,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { useSession } from "next-auth/react";
 
 function SearchTeams(props) {
-  console.log(props, "props!!!");
   const [next, setNext] = useState();
   const [prev, setPrev] = useState();
 
@@ -112,7 +111,6 @@ function SearchTeams(props) {
     }
   }, [status]);
 
-  console.log(props.data, "in search teams");
   if (!props.data) {
     return (
       <div className={styles.Teams}>

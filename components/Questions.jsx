@@ -24,7 +24,6 @@ function Questions(props) {
   const curQuestionIndex = 1;
 
   function ansSelect(ind) {
-    console.log(ind);
     fetch(`${process.env.NEXT_PUBLIC_SERVER}api/team/quiz/${TEAM_ID}`, {
       method: "POST",
       // cors:'no-cors',
@@ -42,15 +41,12 @@ function Questions(props) {
         return response.json();
       })
       .then((data) => {
-        console.log(data);
       })
       .catch((err) => {
-        console.log("errrr", err);
       });
   }
 
   function startQuiz() {
-    console.log("quiz starting");
     fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/team/quiz/${TEAM_ID}`, {
       headers: {
         "Content-Type": "application/json",
@@ -59,21 +55,17 @@ function Questions(props) {
       },
     })
       .then(async (response) => {
-        // console.log(response.ok, response.status)
         return response.json();
       })
       .then((data) => {
         if (data.message == "Maximum Questions capacity reached") {
-          console.log(data.message);
         } else if (data.message == "get question successfull") {
           setQuestion(data.question.question);
           setAnswers(data.question.answers);
           setQuestionId(data.question._id);
-          console.log(data);
           const Timer = setInterval(() => {
             const now = Date.now();
             const end = Date.parse(data.endTime);
-            console.log(end, data.endTime);
             let minutes = Math.floor((end - now) / 1000 / 60);
             let seconds = Math.floor((end - now) / 1000) % 60;
             if (minutes.toString().length < 2) {
@@ -82,13 +74,11 @@ function Questions(props) {
             if (seconds.toString().length < 2) {
               seconds = "0" + seconds.toString();
             }
-            // console.log(minutes, seconds)
             setCurTime([minutes, seconds]);
           }, 1000);
         }
       })
       .catch((err) => {
-        console.log("erorrr", err);
       });
   }
 

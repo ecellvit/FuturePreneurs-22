@@ -8,7 +8,6 @@ const Sign = () => {
   const [loading, setLoading] = useState(true);
   const { data: session } = useSession();
   const router = useRouter();
-  console.log(session.user.email);
 
   useEffect(() => {
     // setLoading(true);

@@ -9,7 +9,6 @@ const CreateTeam = ({handleTeamCreate}) => {
 
   const handleCreate = (e) => {
     e.preventDefault();
-    console.log(teamNameRef.current.value);
     fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/team`, {
       method: "POST",
       body: JSON.stringify({
@@ -26,7 +25,6 @@ const CreateTeam = ({handleTeamCreate}) => {
         handleTeamCreate()
       });
   };
-  console.log(session, "in dashboard");
 
   return (
     <div className={styles.big_image}>
