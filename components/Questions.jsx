@@ -60,10 +60,10 @@ function Questions(props) {
     })
       .then(async (response) => {
         // console.log(response.ok, response.status)
-        return response.json()
+        return response.json();
       })
       .then((data) => {
-        if (data.message == "Maximum Questions capacity reached"){
+        if (data.message == "Maximum Questions capacity reached") {
           console.log(data.message);
         } else if (data.message == "get question successfull") {
           setQuestion(data.question.question);
@@ -164,7 +164,7 @@ function Questions(props) {
           <div className={styles.timer}>
             <div className={styles.time_left_txt}> Time Left </div>{" "}
             <div className={styles.timer_sec}>
-              {" "} 
+              {" "}
               {curTime[0]}:{curTime[1]}{" "}
             </div>{" "}
           </div>{" "}

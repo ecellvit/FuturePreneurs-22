@@ -7,8 +7,6 @@ function LinkJoining({ joiningId }) {
 
   const { data: session } = useSession();
 
-  
-
   const handleJoin = () => {
     fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/user/token`, {
       method: "PATCH",
