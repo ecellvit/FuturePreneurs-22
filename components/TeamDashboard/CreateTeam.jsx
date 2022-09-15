@@ -1,11 +1,13 @@
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import styles from "../../styles/CreateTeam.module.css";
 import Link from "next/link";
+import PendingRequests from "../../pages/dashboard/PendingRequests";
 
-const CreateTeam = ({handleTeamCreate}) => {
+const CreateTeam = ({ handleTeamCreate }) => {
   const teamNameRef = useRef(null);
   const { data: session } = useSession();
+  const [teamData, setTeamData] = useState({});
 
   const handleCreate = (e) => {
     e.preventDefault();
@@ -27,6 +29,29 @@ const CreateTeam = ({handleTeamCreate}) => {
       });
   };
   console.log(session, "in dashboard");
+
+  useEffect(() => {
+    if (session) {
+      fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/user/requests`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${session.accessTokenBackend}`,
+          "Access-Control-Allow-Origin": "*",
+        },
+      })
+        .then((data) => data.json())
+        .then((data) => {
+          console.log(data);
+          // data.requests.map((currenTeam) => {
+          //   setTeamData((prevTeamData) => {
+          //     return [...prevTeamData, currenTeam];
+          //   });
+          // });
+          setTeamData(data.requests);
+        });
+    }
+  }, []);
 
   return (
     <div className={styles.big_image}>
@@ -55,26 +80,43 @@ const CreateTeam = ({handleTeamCreate}) => {
             </Link>
           </form>
         </div>
-        <div className={styles.form_block}>
-          <div className={styles.team_form}>
-            <h1 className={styles.or_form}>Or</h1>
+
+
+        {teamData.length == 0 ? (
+          <div>
+            <div className={styles.form_block}>
+              <div className={styles.team_form}>
+                <h1 className={styles.or_form}>Or</h1>
+              </div>
+            </div>
+            <div className={styles.form_block}>
+              <div className={styles.create_team_h1}>Create a Team</div>
+              <form className={styles.team_form}>
+                <input
+                  type="text"
+                  name="name"
+                  ref={teamNameRef}
+                  className={`${styles.input_team} ${styles.w_input}`}
+                  placeholder="Enter Your Team Name"
+                />
+                <button className={`${styles.join_create_btn} ${styles.w_button}`} onClick={handleCreate}>
+                  Create
+                </button>
+              </form>
+            </div>
           </div>
-        </div>
-        <div className={styles.form_block}>
-          <div className={styles.create_team_h1}>Create a Team</div>
-          <form className={styles.team_form}>
-            <input
-              type="text"
-              name="name"
-              ref={teamNameRef}
-              className={`${styles.input_team} ${styles.w_input}`}
-              placeholder="Enter Your Team Name"
-            />
-            <button className={`${styles.join_create_btn} ${styles.w_button}`} onClick={handleCreate}>
-              Create
+        ) :
+
+          <Link href="/dashboard/PendingRequests">
+            <button
+              type="submit"
+              placeholder="Pending requests"
+              className={`${styles.join_create_btn} ${styles.join_btn}  ${styles.w_button}`}
+            >
+              Pending requests
             </button>
-          </form>
-        </div>
+          </Link>
+        }
       </div>
     </div>
   );
