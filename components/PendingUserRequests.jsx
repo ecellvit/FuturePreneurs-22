@@ -118,7 +118,7 @@ function PendingUserRequests() {
                         console.log(
                           JSON.stringify({
                             userid: user.userId._id,
-                            status: 0,
+                            status: 1,
                           })
                         );
                         fetch(
@@ -135,7 +135,7 @@ function PendingUserRequests() {
                             },
                             body: JSON.stringify({
                               userId: user.userId._id,
-                              status: 0,
+                              status: 1,
                             }),
                           }
                         )
@@ -145,7 +145,7 @@ function PendingUserRequests() {
                             toast.success(`${data.message}`, {
                               position: toast.POSITION.TOP_RIGHT,
                             });
-                            window.location.reload(false);
+                            // window.location.reload(false);
                           });
                         //console.log(Cookies);
                       }}
@@ -171,7 +171,7 @@ function PendingUserRequests() {
                             },
                             body: JSON.stringify({
                               userId: user.userId._id,
-                              status: 1,
+                              status: 0,
                             }),
                           }
                         )
@@ -181,7 +181,7 @@ function PendingUserRequests() {
                             toast.success(`${data.message}`, {
                               position: toast.POSITION.TOP_RIGHT,
                             });
-                            window.location.reload(false);
+                            // window.location.reload(false);
                           });
                         //console.log(Cookies);
                       }}
@@ -212,3 +212,4 @@ function PendingUserRequests() {
   );
 }
 export default PendingUserRequests;
+

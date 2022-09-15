@@ -6,10 +6,14 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const LeaderDashboard = ({ teamData,handleTeamDelete }) => {
-  // console.log("id")
-  // console.log(teamData.teamId)
-  const [text, setText] = useState("http://localhost:3000/join-team-link/631f7f6135c312a489c3a967");
+const LeaderDashboard = ({ teamData,handleTeamDelete,teamToken,handleMemberRemove }) => {
+  console.log(teamData)
+  console.log(teamData.teamId)
+  console.log("team id leaderdashboard")
+  console.log(teamData.teamId._id)
+
+  const [teamId,setTeamId] = useState(teamData.teamId._id)
+  
   const [isCopied, setIsCopied] = useState(false);
   const { data: session } = useSession();
 
@@ -19,6 +23,8 @@ const LeaderDashboard = ({ teamData,handleTeamDelete }) => {
       className: 'toast-message'
     });
   };
+
+
 
   const onCopyText = () => {
     //alert("Copied");
@@ -39,6 +45,7 @@ const LeaderDashboard = ({ teamData,handleTeamDelete }) => {
     })
     .then(data => data.json())
     .then(data => {
+      console.log(data)
       handleTeamDelete(false)
     })
   }
@@ -54,12 +61,12 @@ const LeaderDashboard = ({ teamData,handleTeamDelete }) => {
           <label >Team Link:</label>
           <input
             type="text"
-            value={text}
+            value={`http://localhost:3000/join-team-link/${teamToken}`}
             placeholder="Type some text here"
             onChange={(event) => setText(event.target.value)}
             className={styles.input}
           />
-          <CopyToClipboard text={text} onCopy={onCopyText}>
+          <CopyToClipboard text={`http://localhost:3000/join-team-link/${teamToken}`} onCopy={onCopyText}>
             <div className="copy-area">
               <button onClick={showToastMessage}>copy</button>
               <ToastContainer />
@@ -75,7 +82,10 @@ const LeaderDashboard = ({ teamData,handleTeamDelete }) => {
                 teamName={team.name}
                 mobileNumber={team.mobileNumber}
                 email={team.email}
-                id={team._id}
+                teamId={teamId}
+                userId={team._id}
+                handleMemberRemove={handleMemberRemove}
+                teamRole={team.teamRole}
                 //teamRole={team.teamId.teamRole} //pass down team role,if team role === 0 disable remove button 
               ></TeamMemberLeader>
             );
