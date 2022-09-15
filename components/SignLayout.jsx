@@ -52,7 +52,7 @@ const SignLayout = () => {
     hasError
       ? toast("Please fill all details")
       : fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/user`, {
-          method: "PATCH",
+          method: "PUT",
           body: JSON.stringify({
             firstName: fnameRef.current.value,
             lastName: lnameRef.current.value,

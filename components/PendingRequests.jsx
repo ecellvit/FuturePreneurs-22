@@ -21,7 +21,7 @@ function PendingRequests() {
       })
         .then((data) => data.json())
         .then((data) => {
-          data.requests.map((currenTeam) => {
+          data.requests?.map((currenTeam) => {
             if (teamData.findIndex((x) => x._id === currenTeam._id) === -1) {
               setTeamData((prevTeamData) => {
                 return [...prevTeamData, currenTeam];
