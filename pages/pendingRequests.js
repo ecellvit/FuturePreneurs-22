@@ -10,16 +10,17 @@ import PendingRequests from "../components/PendingRequests.jsx"
 import NavigationBar from "../components/NavigationBar.jsx";
 
 export default function Home() {
-  const {data:session} = useSession();
+  const {data:session, status} = useSession();
   const router = useRouter();
   
+  // redirects to home if user not logged in 
   useEffect(()=>{
-    if (!router.isReady) return;
-
-    if (session===null){
-      router.push('/')
+    if (router.isReady){
+      if (status === "unauthenticated" && status!=="loading"){
+          router.push("/")
+      }
     }
-  }, [router.isReady, session,router])
+  }, [status, router])
 
   return (
     <div className={styles.container}>

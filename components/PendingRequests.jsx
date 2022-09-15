@@ -21,10 +21,12 @@ function PendingRequests() {
       })
         .then((data) => data.json())
         .then((data) => {
-          data.requests.map((currenTeam) => {
-            setTeamData((prevTeamData) => {
-              return [...prevTeamData, currenTeam];
-            });
+          data.requests?.map((currenTeam) => {
+            if (teamData.findIndex((x) => x._id === currenTeam._id) === -1) {
+              setTeamData((prevTeamData) => {
+                return [...prevTeamData, currenTeam];
+              });
+            }
           });
         });
     }
@@ -35,16 +37,9 @@ function PendingRequests() {
         if (team.teamId != null) {
           return (
             <div className={styles.Cards} key={team.teamId._id}>
-              {/* <Image className={styles.CardsImg} src={gradient} alt="Gradient" /> */}
               <Avatar
                 name={team.teamId.teamName}
                 className={styles.CardsImg}
-                // color="gradient"
-                // bordered
-                // squared
-                // //size="$300"
-                // height="$300"
-
                 size="300"
               />
 
@@ -60,33 +55,36 @@ function PendingRequests() {
                     Team Leader:{team.teamId.teamLeaderId.firstName}
                     {team.teamId.teamLeaderId.lastName}
                   </h3>
-                  {/* <h3 className={styles.Cardsh3}>
-                        Team Leader Number:{teamLead.mobileNumber}
-                      </h3> */}
                   <h3 className={styles.Cardsh3}>
                     Mail:{team.teamId.teamLeaderId.email}
                   </h3>
                   <button
                     className={styles.button}
                     onClick={() => {
-                      fetch(
-                        `${process.env.NEXT_PUBLIC_SERVER3}/api/user/requests/${team.teamId._id}`,
-                        {
-                          method: "PATCH",
-                          //mode: "cors",
-                          headers: {
-                            "Content-Type": "application/json",
-                            Authorization: `Bearer ${session.accessTokenBackend}`,
-                            "Access-Control-Allow-Origin": "*",
-                          },
-                        }
-                      )
-                        .then((data) => data.json())
-                        .then((data) => {
-                          toast.success(`${data.message}`, {
-                            position: toast.POSITION.TOP_RIGHT,
+                      if (team.teamId._id) {
+                        fetch(
+                          `${process.env.NEXT_PUBLIC_SERVER}/api/user/requests/${team.teamId._id}`,
+                          {
+                            method: "PATCH",
+                            headers: {
+                              "Content-Type": "application/json",
+                              Authorization: `Bearer ${session.accessTokenBackend}`,
+                              "Access-Control-Allow-Origin": "*",
+                            },
+                          }
+                        )
+                          .then((data) => data.json())
+                          .then((data) => {
+                            console.log(data);
+                            toast.success(`${data.message}`, {
+                              position: toast.POSITION.TOP_RIGHT,
+                            });
                           });
+                      } else {
+                        toast.error(`Please Create a Team first!`, {
+                          position: toast.POSITION.TOP_RIGHT,
                         });
+                      }
                     }}
                   >
                     DELETE REQUEST

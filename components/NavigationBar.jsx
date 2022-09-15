@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import Link from "next/link";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
@@ -58,7 +59,7 @@ const NavigationBar = (props) => {
                 status === "authenticated" && <Nav.Link href="/dashboard">Dashboard</Nav.Link>
               }
             </Navbar.Collapse>
-            {!isLeader?<Nav.Link href="/pendingRequests">Pending Requests</Nav.Link>:<Nav.Link href="/pendingUserRequests">Pending User Requests</Nav.Link>}
+            {status==="authenticated" && (!isLeader?<Nav.Link href="/pendingRequests">Pending Requests</Nav.Link>:<Nav.Link href="/pendingUserRequests">Pending User Requests</Nav.Link>)}
             {(status === "authenticated") ?
               <Nav.Link onClick={() => logoutHandler()}>Sign Out</Nav.Link>
               :

@@ -48,7 +48,7 @@ const CreateTeam = ({ handleTeamCreate,isLeader }) => {
           setTeamData(data.requests);
         });
     }
-  }, []);
+  }, [session]);
 
   return (
     <div className={styles.big_image}>
@@ -66,7 +66,7 @@ const CreateTeam = ({ handleTeamCreate,isLeader }) => {
 
         <div className={styles.form_block}>
           <form className={styles.team_form}>
-            <Link href="/dashboard/join-team">
+            <Link href="/searchTeams">
               <button
                 type="submit"
                 placeholder="Find Teams to Join"
@@ -78,8 +78,7 @@ const CreateTeam = ({ handleTeamCreate,isLeader }) => {
           </form>
         </div>
 
-
-        {teamData?.length == 0 ? (
+        {teamData?.length === 0 ? (
           <div>
             <div className={styles.form_block}>
               <div className={styles.team_form}>

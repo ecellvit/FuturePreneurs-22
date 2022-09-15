@@ -56,12 +56,12 @@ const LeaderDashboard = ({ teamData,handleTeamDelete,teamToken,handleMemberRemov
           <label >Team Link:</label>
           <input
             type="text"
-            value={`http://localhost:3000/join-team-link/${teamToken}`}
+            value={`https://future-preneurs-22.vercel.app/join-team-link/${teamToken}`}
             placeholder="Type some text here"
             onChange={(event) => setText(event.target.value)}
             className={styles.input}
           />
-          <CopyToClipboard text={`http://localhost:3000/join-team-link/${teamToken}`} onCopy={onCopyText}>
+          <CopyToClipboard text={`https://future-preneurs-22.vercel.app/join-team-link/${teamToken}`} onCopy={onCopyText}>
             <div className="copy-area">
               <button onClick={showToastMessage}>copy</button>
               <ToastContainer />
