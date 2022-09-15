@@ -8,7 +8,6 @@ import "react-toastify/dist/ReactToastify.css";
 
 function PendingRequests() {
   const { data: session } = useSession();
-  console.log(session);
   const [teamData, setTeamData] = useState([]);
   useEffect(() => {
     if (session) {
@@ -22,7 +21,6 @@ function PendingRequests() {
       })
         .then((data) => data.json())
         .then((data) => {
-          console.log(data);
           data.requests.map((currenTeam) => {
             setTeamData((prevTeamData) => {
               return [...prevTeamData, currenTeam];
@@ -31,11 +29,9 @@ function PendingRequests() {
         });
     }
   }, [session]);
-  console.log(teamData);
   return (
     <div className={styles.Teams}>
       {teamData.map((team) => {
-        console.log(session.accessTokenBackend);
         if (team.teamId != null) {
           return (
             <div className={styles.Cards} key={team.teamId._id}>
@@ -73,7 +69,6 @@ function PendingRequests() {
                   <button
                     className={styles.button}
                     onClick={() => {
-                      console.log("click");
                       fetch(
                         `${process.env.NEXT_PUBLIC_SERVER3}/api/user/requests/${team.teamId._id}`,
                         {
@@ -88,12 +83,10 @@ function PendingRequests() {
                       )
                         .then((data) => data.json())
                         .then((data) => {
-                          console.log(data);
                           toast.success(`${data.message}`, {
                             position: toast.POSITION.TOP_RIGHT,
                           });
                         });
-                      //console.log(Cookies);
                     }}
                   >
                     DELETE REQUEST

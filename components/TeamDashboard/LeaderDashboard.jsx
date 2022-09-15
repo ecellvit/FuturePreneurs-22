@@ -7,10 +7,6 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const LeaderDashboard = ({ teamData,handleTeamDelete,teamToken,handleMemberRemove }) => {
-  console.log(teamData)
-  console.log(teamData.teamId)
-  console.log("team id leaderdashboard")
-  console.log(teamData.teamId._id)
 
   const [teamId,setTeamId] = useState(teamData.teamId._id)
   
@@ -45,7 +41,6 @@ const LeaderDashboard = ({ teamData,handleTeamDelete,teamToken,handleMemberRemov
     })
     .then(data => data.json())
     .then(data => {
-      console.log(data)
       handleTeamDelete(false)
     })
   }

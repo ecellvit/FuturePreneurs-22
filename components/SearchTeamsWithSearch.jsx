@@ -10,7 +10,6 @@ function SearchTeamsWithSearch() {
   const [labels, setLabels] = useState([]);
   const { data: session, status } = useSession();
 
-  //console.log(session, "in component");
   // const [count, setCount] = useState(0);
 
   // const [teamData, setTeamData] = useState([
@@ -127,7 +126,6 @@ function SearchTeamsWithSearch() {
         renderInput={(params) => <TextField {...params} label="Teams" />}
         value={selectedTeam}
         onChange={(_event, newTeam) => {
-          console.log(newTeam);
           fetch(
             `${process.env.NEXT_PUBLIC_SERVER}/api/team/${newTeam.teamData._id}`,
             {
@@ -141,7 +139,6 @@ function SearchTeamsWithSearch() {
           )
             .then((data) => data.json())
             .then((data) => {
-              console.log(data);
               setSelectedTeam(data);
             })
             .catch((err) => console.log(err));

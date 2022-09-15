@@ -8,7 +8,6 @@ import "react-toastify/dist/ReactToastify.css";
 
 function PendingUserRequests() {
   const { data: session } = useSession();
-  console.log(session);
   const [userData, setUserData] = useState([]);
   useEffect(() => {
     if (session) {
@@ -23,13 +22,10 @@ function PendingUserRequests() {
       })
         .then((data) => data.json())
         .then((data) => {
-          console.log(data);
-          console.log(data.user.teamId);
           if (data.user.teamId != undefined && data.user.teamId != null) {
             data.user.teamId.members.map((teamLead) => {
               if (teamLead.teamRole === 0) {
                 if (teamLead._id === data.user._id) {
-                  console.log(data.user.teamId._id);
                   fetch(
                     `${process.env.NEXT_PUBLIC_SERVER}/api/team/requests/${data.user.teamId._id}`,
                     {
@@ -45,7 +41,6 @@ function PendingUserRequests() {
                   )
                     .then((data) => data.json())
                     .then((data) => {
-                      console.log(data);
                       data.requests.map((currentUser) => {
                         setUserData((prevUserData) => {
                           return [...prevUserData, currentUser];
@@ -59,7 +54,6 @@ function PendingUserRequests() {
         });
     }
   }, [session]);
-  console.log(userData);
 
   return (
     <div className={styles.Teams}>
@@ -72,13 +66,11 @@ function PendingUserRequests() {
         value={selectedTeam}
         onChange={(_event, newTeam) => {
           setSelectedTeam(newTeam);
-          console.log(selectedTeam);
         }}
       /> */}
 
       {userData.map((user) => {
         if (user.userId != null) {
-          console.log(user);
           return (
             <div className={styles.Cards} key={user._id}>
               {/* <Image className={styles.CardsImg} src={gradient} alt="Gradient" /> */}
@@ -141,7 +133,6 @@ function PendingUserRequests() {
                         )
                           .then((data) => data.json())
                           .then((data) => {
-                            console.log(data.message);
                             toast.success(`${data.message}`, {
                               position: toast.POSITION.TOP_RIGHT,
                             });
@@ -154,7 +145,6 @@ function PendingUserRequests() {
                     <button
                       className={styles.button}
                       onClick={() => {
-                        console.log("click");
                         fetch(
                           `${process.env.NEXT_PUBLIC_SERVER}/api/team/requests/${user.teamId}`,
                           {
@@ -175,7 +165,6 @@ function PendingUserRequests() {
                         )
                           .then((data) => data.json())
                           .then((data) => {
-                            console.log(data.message);
                             toast.success(`${data.message}`, {
                               position: toast.POSITION.TOP_RIGHT,
                             });

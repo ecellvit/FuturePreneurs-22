@@ -2,11 +2,6 @@ import styles from "../../styles/Dashboard.module.css";
 import { useSession } from "next-auth/react";
 const TeamMemberLeader = ({ teamName, mobileNumber, email, teamId, userId, handleMemberRemove, teamRole }) => {
 
-  console.log("team id")
-  console.log(teamId);
-  console.log("user id")
-  console.log(userId)
-
   const { data: session } = useSession();
   const handleRemove = () => {
     fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/team/remove/${teamId}`, {
@@ -23,7 +18,6 @@ const TeamMemberLeader = ({ teamName, mobileNumber, email, teamId, userId, handl
     })
       .then(data => data.json())
       .then(data => {
-        console.log(data)
         handleMemberRemove();
       })
   }

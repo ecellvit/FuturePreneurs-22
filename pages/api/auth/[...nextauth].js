@@ -21,7 +21,6 @@ const getTokenFromYourAPIServer = async (user, account) => {
       "Content-Type": "application/json",
     },
   }).then(data => data.json()).then(data => {
-    console.log(data)
     tokenFromBackend = data.accessToken;
   })
   return tokenFromBackend;

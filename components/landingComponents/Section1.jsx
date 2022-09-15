@@ -22,7 +22,6 @@ function DaysLeft() {
   const [today, setToday] = useState(new Date());
   const secondDate = new Date(2021, 11, 2);
   const [daysLeft, setDaysLeft] = useState(2);
-  // console.log(today, secondDate);
   useEffect(() => {
     setDaysLeft((prevDaysLeft) =>
       Math.round(Math.abs((today - secondDate) / oneDay))

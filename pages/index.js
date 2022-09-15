@@ -19,11 +19,9 @@ export default function Home() {
   //   if (!router.isReady) return;
 
   // //   if (session){
-  //     console.log(session)
   // //     router.push('/dashboard')
   // //   }
   // // }, [router.isReady, session,router])
-console.log('session in index js',session)
   return (
     <div className={styles.container}>
       <Head>

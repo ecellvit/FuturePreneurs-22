@@ -27,10 +27,6 @@ function LinkJoining({ joiningId }) {
         if (data.team) {
           setTeamDetails(data.team);
         }
-        console.log("data")
-        console.log(data);
-        // console.log("data.user")
-        // console.log(data.user);
       })
   }
 

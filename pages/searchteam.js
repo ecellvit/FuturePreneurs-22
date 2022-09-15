@@ -4,10 +4,10 @@ import styles from "../styles/Home.module.css";
 import { useEffect } from "react";
 import { useRouter } from "next/router.js";
 import SearchTeamsWithSearch from "../components/SearchTeamsWithSearch.jsx";
+import NavigationBar from "../components/NavigationBar";
 
 export default function Home() {
   const {data:session} = useSession();
-  console.log(session)
   const router = useRouter();
   
   useEffect(()=>{
@@ -18,7 +18,6 @@ export default function Home() {
     }
   }, [router.isReady, session,router])
 
-  console.log(session,'in search team page')
   return (
     <div className={styles.container}>
       <Head>
@@ -28,7 +27,8 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <h1 className={styles.title}>Futurepreneurs</h1>
+      <NavigationBar/>
+      <br/>
       <SearchTeamsWithSearch/>
     </div>
   );

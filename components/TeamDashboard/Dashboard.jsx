@@ -27,7 +27,6 @@ function Dashboard() {
     setUseEffectTrigger((prevTeamStatus) => !prevTeamStatus);
   };
 
-  console.log(session, "in dashboard");
 
   // for getting user details
   useEffect(() => {
@@ -49,7 +48,6 @@ function Dashboard() {
           setIsLeader(true);
         }
         setTeamData(data.user);
-        console.log(data);
       })
 
       .catch((error) => {
@@ -60,7 +58,6 @@ function Dashboard() {
       });
   }, [useEffectTrigger, session.accessTokenBackend]);
 
-  console.log(hasTeam, "has team");
 
   //token id
   useEffect(() => {
@@ -85,7 +82,7 @@ function Dashboard() {
 
   return (
     <div>
-      <Counter />
+      {/* <Counter /> */}
       {hasTeam ? (
         isLeader ? (
           <LeaderDashboard

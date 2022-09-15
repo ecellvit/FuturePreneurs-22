@@ -10,7 +10,6 @@ function Main() {
   const { status } = useSession();
 
   useEffect(() => {
-    console.log("status", status);
     if (router.isReady) {
       if (status === "unauthenticated" && status !== "loading") {
         router.push("/")
