@@ -8,12 +8,12 @@ const TeamMembers = ({ teamData }) => {
         {/* Team Details */}
         <h2 className={styles.team_name}>
           {/* Printing team name */}
-          Team - {teamData.teamName}
+          Team - {teamData?.teamId?.teamName}
         </h2>
         <div className={`${styles.team_row} ${styles.align_centre}`}>
           {/* /////////////////////////////////////Returning Team Members//////////////////////////////////////// */}
 
-          {teamData.members?.map((team) => {
+          {teamData?.teamId?.members?.map((team) => {
             return (
               <TeamMember
                 teamName={team.name}
