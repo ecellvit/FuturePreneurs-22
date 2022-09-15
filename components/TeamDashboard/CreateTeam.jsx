@@ -79,7 +79,7 @@ const CreateTeam = ({ handleTeamCreate,isLeader }) => {
         </div>
 
 
-        {teamData.length == 0 ? (
+        {teamData?.length == 0 ? (
           <div>
             <div className={styles.form_block}>
               <div className={styles.team_form}>
