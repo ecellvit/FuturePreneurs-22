@@ -1,7 +1,7 @@
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import Sign from "../components/sign";
+import Sign from "../components/Sign";
 
 export default function Component() {
   const { data: session, status } = useSession();
@@ -25,7 +25,7 @@ export default function Component() {
         })
         .then((data) => {
           console.log(data)
-          if(data.isRegistered){
+          if (data.isRegistered) {
             router.push('/dashboard')
           };
         })
@@ -36,18 +36,18 @@ export default function Component() {
   }, [session, router])
 
   console.log(session);
-  useEffect(()=>{
-    console.log("status",status);
-    if (router.isReady){
-      if (status === "unauthenticated" && status!=="loading"){
-          router.push("/")
+  useEffect(() => {
+    console.log("status", status);
+    if (router.isReady) {
+      if (status === "unauthenticated" && status !== "loading") {
+        router.push("/")
       }
     }
   }, [status, router])
 
   return (
     <>
-    {status === "authenticated" && <Sign/>}
+      {status === "authenticated" && <Sign />}
     </>
   )
 }
