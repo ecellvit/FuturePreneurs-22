@@ -48,7 +48,7 @@ const CreateTeam = ({ handleTeamCreate }) => {
           setTeamData(data.requests);
         });
     }
-  }, []);
+  }, [session]);
 
   return (
     <div className={styles.big_image}>
@@ -66,7 +66,7 @@ const CreateTeam = ({ handleTeamCreate }) => {
 
         <div className={styles.form_block}>
           <form className={styles.team_form}>
-            <Link href="/dashboard/join-team">
+            <Link href="/searchTeams">
               <button
                 type="submit"
                 placeholder="Find Teams to Join"

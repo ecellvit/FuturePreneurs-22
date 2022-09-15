@@ -14,18 +14,17 @@ import NavigationBar from "../components/NavigationBar.jsx";
 // this is Landing page, here people will learn about the event and signup/login
 
 export default function Home() {
-  const {data:session} = useSession();
+  const {data:session, status} = useSession();
   const router = useRouter();
 
-// redirects to Dashboard if user session is logged in session!  
-
+  // redirects to home if user not logged in 
   useEffect(()=>{
-    if (!router.isReady) return;
-
-    if (session===null){
-      router.push('/')
+    if (router.isReady){
+      if (status === "unauthenticated" && status!=="loading"){
+          router.push("/")
+      }
     }
-  }, [router.isReady, session,router])
+  }, [status, router])
 
   return (
     <div className={styles.container}>
