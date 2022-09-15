@@ -14,7 +14,7 @@ function JoiningIdPage() {
       // router.push('/api/auth/signin')
       signIn('google',{ callbackurl: `/join-team-link/${joiningId}`})
     }
-  }, [status])
+  }, [joiningId, status])
   
   
   return (
