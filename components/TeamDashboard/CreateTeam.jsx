@@ -2,7 +2,6 @@ import React, { useRef, useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import styles from "../../styles/CreateTeam.module.css";
 import Link from "next/link";
-import PendingRequests from "../../pages/dashboard/PendingRequests";
 
 const CreateTeam = ({ handleTeamCreate }) => {
   const teamNameRef = useRef(null);

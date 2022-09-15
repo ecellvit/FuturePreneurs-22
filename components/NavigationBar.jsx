@@ -58,7 +58,7 @@ const NavigationBar = (props) => {
                 status === "authenticated" && <Nav.Link href="/dashboard">Dashboard</Nav.Link>
               }
             </Navbar.Collapse>
-            {!isLeader?<Nav.Link href="/pendingRequests">Pending Requests</Nav.Link>:<Nav.Link href="/pendingUserRequests">Pending User Requests</Nav.Link>}
+            {status==="authenticated" && (!isLeader?<Nav.Link href="/pendingRequests">Pending Requests</Nav.Link>:<Nav.Link href="/pendingUserRequests">Pending User Requests</Nav.Link>)}
             {(status === "authenticated") ?
               <Nav.Link onClick={() => logoutHandler()}>Sign Out</Nav.Link>
               :
