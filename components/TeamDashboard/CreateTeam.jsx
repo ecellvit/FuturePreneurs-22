@@ -107,7 +107,7 @@ const CreateTeam = ({ handleTeamCreate }) => {
           </div>
         ) :
 
-          <Link href="/dashboard/PendingRequests">
+          <Link href="/PendingRequests">
             <button
               type="submit"
               placeholder="Pending requests"
