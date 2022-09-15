@@ -70,7 +70,7 @@ function PendingRequests() {
                     className={styles.button}
                     onClick={() => {
                       fetch(
-                        `${process.env.NEXT_PUBLIC_SERVER3}/api/user/requests/${team.teamId._id}`,
+                        `${process.env.NEXT_PUBLIC_SERVER}/api/user/requests/${team.teamId._id}`,
                         {
                           method: "PATCH",
                           //mode: "cors",
