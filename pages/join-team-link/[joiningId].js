@@ -7,19 +7,19 @@ import LinkJoining from '../../components/LinkJoining';
 function JoiningIdPage() {
   const router = useRouter();
   const { joiningId } = router.query;
-  const { data: session ,status} = useSession();
+  const { data: session, status } = useSession();
 
-  useEffect(()=>{
-    if (status === "unauthenticated" && status !== "loading"){
+  useEffect(() => {
+    if (status === "unauthenticated" && status !== "loading") {
       // router.push('/api/auth/signin')
-      signIn('google',{ callbackurl: `/join-team-link/${joiningId}`})
+      signIn('google', { callbackurl: `/join-team-link/${joiningId}` })
     }
-  }, [status])
-  
-  
+  }, [status, joiningId])
+
+
   return (
     <div>
-      {session ? <LinkJoining joiningId={joiningId}/> : "nothing"}
+      {session ? <LinkJoining joiningId={joiningId} /> : "nothing"}
     </div>
 
   )
