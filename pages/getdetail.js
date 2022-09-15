@@ -1,7 +1,7 @@
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import Sign from "../components/sign";
+import Sign from "../components/Sign";
 
 export default function Component() {
   const { data: session, status } = useSession();
@@ -24,7 +24,8 @@ export default function Component() {
           return response.json();
         })
         .then((data) => {
-          if(data.isRegistered){
+          console.log(data)
+          if (data.isRegistered) {
             router.push('/dashboard')
           };
         })
@@ -44,7 +45,7 @@ export default function Component() {
 
   return (
     <>
-    {status === "authenticated" && <Sign/>}
+      {status === "authenticated" && <Sign />}
     </>
   )
 }
