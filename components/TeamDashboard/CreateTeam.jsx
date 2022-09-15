@@ -2,12 +2,11 @@ import React, { useRef, useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import styles from "../../styles/CreateTeam.module.css";
 import Link from "next/link";
-import PendingRequests from "../../pages/dashboard/PendingRequests";
 
-const CreateTeam = ({ handleTeamCreate }) => {
+const CreateTeam = ({ handleTeamCreate,isLeader }) => {
   const teamNameRef = useRef(null);
   const { data: session } = useSession();
-  const [teamData, setTeamData] = useState({});
+  const [teamData, setTeamData] = useState([]);
 
   const handleCreate = (e) => {
     e.preventDefault();
@@ -29,7 +28,7 @@ const CreateTeam = ({ handleTeamCreate }) => {
   };
 
   useEffect(() => {
-    if (session) {
+    if (session && !isLeader) {
       fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/user/requests`, {
         method: "GET",
         headers: {
@@ -105,7 +104,7 @@ const CreateTeam = ({ handleTeamCreate }) => {
           </div>
         ) :
 
-          <Link href="/PendingRequests">
+          <Link href="/pendingRequests">
             <button
               type="submit"
               placeholder="Pending requests"

@@ -95,7 +95,7 @@ function Dashboard() {
           <TeamMembers teamData={teamData} />
         )
       ) : (
-        <CreateTeam handleTeamCreate={handleTeamCreate} />
+        <CreateTeam isLeader={isLeader} handleTeamCreate={handleTeamCreate} />
       )}
     </div>
   );
