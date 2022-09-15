@@ -4,6 +4,7 @@ import styles from "../styles/Home.module.css";
 import { useEffect } from "react";
 import { useRouter } from "next/router.js";
 import SearchTeamsWithSearch from "../components/SearchTeamsWithSearch.jsx";
+import NavigationBar from "../components/NavigationBar";
 
 export default function Home() {
   const {data:session} = useSession();
@@ -28,7 +29,8 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <h1 className={styles.title}>Futurepreneurs</h1>
+      <NavigationBar/>
+      <br/>
       <SearchTeamsWithSearch/>
     </div>
   );

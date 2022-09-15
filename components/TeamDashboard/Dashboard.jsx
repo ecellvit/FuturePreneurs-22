@@ -85,7 +85,7 @@ function Dashboard() {
 
   return (
     <div>
-      <Counter />
+      {/* <Counter /> */}
       {hasTeam ? (
         isLeader ? (
           <LeaderDashboard

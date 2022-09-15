@@ -27,9 +27,12 @@ const NavigationBar = (props) => {
 
   return (
     <>
-      <Navbar variant="light" style={{ backgroundColor: "#ffddaa" }}>
+      <Navbar variant="light" style={{ backgroundColor: "#00dfc1" }}>
         <Container>
           <Navbar.Brand href="/">Futurepreneurs 8.0</Navbar.Brand>
+          <Navbar.Collapse>
+          Time Left: 12 hrs 12 mins 12 secs
+          </Navbar.Collapse>
           <Nav className="ml-auto">
             <Nav.Link href="/">Home</Nav.Link>
             <Navbar.Collapse className="justify-content-end">
