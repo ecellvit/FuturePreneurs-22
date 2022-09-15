@@ -5,7 +5,18 @@ import SearchTeams from "../../components/SearchTeams";
 import SearchTeamsWithSearch from "../../components/SearchTeamsWithSearch";
 
 function JoinTeamPage() {
-  const { data: session } = useSession()
+  const {data:session, status} = useSession();
+  const router = useRouter();
+
+  // redirects to home if user not logged in 
+  useEffect(()=>{
+    if (router.isReady){
+      if (status === "unauthenticated" && status!=="loading"){
+          router.push("/")
+      }
+    }
+  }, [status, router])
+  
   return (
     <div>
       <NavigationBar/>

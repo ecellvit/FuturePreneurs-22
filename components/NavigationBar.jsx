@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import Link from "next/link";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
