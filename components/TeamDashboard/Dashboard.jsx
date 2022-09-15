@@ -78,7 +78,7 @@ function Dashboard() {
           setTeamToken(data.teamToken);
         });
     }
-  }, [teamData]);
+  }, [session.accessTokenBackend, teamData]);
 
   return (
     <div>

@@ -7,16 +7,17 @@ import SearchTeamsWithSearch from "../components/SearchTeamsWithSearch.jsx";
 import NavigationBar from "../components/NavigationBar";
 
 export default function Home() {
-  const {data:session} = useSession();
+  const {data:session, status} = useSession();
   const router = useRouter();
-  
-  useEffect(()=>{
-    if (!router.isReady) return;
 
-    if (session===null){
-      router.push('/')
+  // redirects to home if user not logged in 
+  useEffect(()=>{
+    if (router.isReady){
+      if (status === "unauthenticated" && status!=="loading"){
+          router.push("/")
+      }
     }
-  }, [router.isReady, session,router])
+  }, [status, router])
 
   return (
     <div className={styles.container}>

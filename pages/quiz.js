@@ -3,6 +3,18 @@ import NavigationBar from "../components/NavigationBar";
 import Questions from "../components/Questions";
 
 function RoundOnePage() {
+    const {data:session, status} = useSession();
+    const router = useRouter();
+    
+    // redirects to home if user not logged in 
+    useEffect(()=>{
+      if (router.isReady){
+        if (status === "unauthenticated" && status!=="loading"){
+            router.push("/")
+        }
+      }
+    }, [status, router])
+
   return (
     <>
       {/* <NavigationBar/> */}

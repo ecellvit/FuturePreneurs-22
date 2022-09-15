@@ -16,7 +16,6 @@ function JoiningIdPage() {
     }
   }, [status, joiningId])
 
-
   return (
     <div>
       {session ? <LinkJoining joiningId={joiningId} /> : "nothing"}
