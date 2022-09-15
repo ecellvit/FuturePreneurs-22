@@ -45,7 +45,7 @@ export function Section1() {
       display="flex"
       className={styles.section1_MainContainer}
       sx={{
-        flexFlow: {
+        flexDirection: {
           xs: "column-reverse",
           sm: "row-reverse",
           md: "row",
@@ -81,7 +81,7 @@ export function Section1() {
         <Grid
           item
           container
-          flexFlow="row"
+          flexDirection="row"
           xs
           spacing={2}
           justifyContent="flex-start"
@@ -111,7 +111,7 @@ export function Section1() {
           <Grid item>
             <Box className={styles.registerButton}>
               {/* <Link */}
-                {/* to="/Login"
+              {/* to="/Login"
                 style={{ color: "white", textDecoration: "none" }}
               >
                 Get In */}

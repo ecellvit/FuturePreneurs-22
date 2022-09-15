@@ -145,9 +145,7 @@ function PendingUserRequests() {
                             toast.success(`${data.message}`, {
                               position: toast.POSITION.TOP_RIGHT,
                             });
-                            // window.location.reload(false);
                           });
-                        //console.log(Cookies);
                       }}
                     >
                       Accept Request
@@ -181,9 +179,7 @@ function PendingUserRequests() {
                             toast.success(`${data.message}`, {
                               position: toast.POSITION.TOP_RIGHT,
                             });
-                            // window.location.reload(false);
                           });
-                        //console.log(Cookies);
                       }}
                     >
                       Decline Request

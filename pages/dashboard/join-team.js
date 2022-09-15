@@ -1,7 +1,11 @@
+import { useSession } from "next-auth/react";
 import React from "react";
 import SearchTeams from "../../components/SearchTeams";
+import SearchTeamsWithSearch from "../../components/SearchTeamsWithSearch";
 
 function JoinTeamPage() {
+  const { data: session } = useSession()
+  console.log(session)
   return (
     <div>
       <SearchTeams />

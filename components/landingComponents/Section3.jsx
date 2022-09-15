@@ -57,10 +57,10 @@ export function Section3() {
         justifyContent="space-between"
         className={styles.section3_ItemsContainer}
         sx={{
-          flexFlow: {
+          flexDirection: {
             xs: "column",
             sm: "row wrap",
-            md: "row wrap",
+            md: "row",
           },
         }}
       >

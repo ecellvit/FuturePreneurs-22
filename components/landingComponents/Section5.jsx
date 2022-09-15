@@ -7,7 +7,7 @@ import yhills from "../../resources/sponsor/IMG_1109.PNG";
 import insightone from "../../resources/sponsor/insightone2.png";
 import simpliclarify from "../../resources/sponsor/SIMPLICLARIFY TITLE SPONSOR.png";
 import SNLogo from "../../resources/sponsor/SN Logo.jpg";
-import ventureCatalyst from "../../resources/sponsor/Venture Catalysts Logo Transparent BG.png";
+import ventureCatalyst from "../../resources/sponsor/VentureCatalystsLogo.png";
 import gsc from "../../resources/sponsor/GSC.jpeg";
 import grabon from "../../resources/sponsor/GrabOn_highres_white_primary.png";
 import Image from "next/image";
@@ -27,11 +27,7 @@ export function Section5() {
               <Image
                 src={simpliclarify}
                 className={styles.center}
-                style={{
-                  width: "80%",
-                  paddingTop: "10px",
-                  background: "black",
-                }}
+                layout="responsive"
                 alt="altimage"
               />
             </Link>
@@ -45,11 +41,7 @@ export function Section5() {
               <Image
                 src={grabon}
                 className={styles.center}
-                style={{
-                  width: "310px",
-                  paddingTop: "10px",
-                  backgroundColor: "#071938",
-                }}
+                layout="responsive"
                 alt="altimage"
               />
             </Link>
@@ -62,7 +54,7 @@ export function Section5() {
               <Image
                 src={yhills}
                 className={styles.center}
-                style={{ width: "70%", paddingTop: "10px" }}
+                layout="responsive"
                 alt="altimage"
               />
             </Link>
@@ -74,7 +66,7 @@ export function Section5() {
               <Image
                 src={insightone}
                 className={styles.center}
-                style={{ width: "80%", paddingTop: "10px" }}
+                layout="responsive"
                 alt="altimage"
               />
             </Link>
@@ -86,7 +78,7 @@ export function Section5() {
               <Image
                 src={SNLogo}
                 className={styles.center}
-                style={{ width: "80%", paddingTop: "10px" }}
+                layout="responsive"
                 alt="altimage"
               />
             </Link>
@@ -100,7 +92,7 @@ export function Section5() {
               <Image
                 src={ventureCatalyst}
                 className={styles.center}
-                style={{ width: "80%", paddingTop: "10px" }}
+                layout="fill"
                 alt="altimage"
               />
             </Link>
@@ -113,16 +105,13 @@ export function Section5() {
               <Image
                 src={gsc}
                 className={styles.center}
-                style={{ width: "300px", paddingTop: "10px" }}
+                layout="responsive"
                 alt="altimage"
               />
             </Link>
-            {/* <br /> */}
           </div>
         </Grid>
       </Grid>
     </div>
   );
 }
-
-

@@ -1,16 +1,6 @@
 import { useEffect, useState } from "react";
-//import reactLogo from "./assets/react.svg";
-//import "./styles/SearchTeams.module.css";
-import Image from "next/image";
-import gradient from "../img/grad.jpg";
-import phone from "../img/phone-icon.png";
-import mailer from "../img/mail-icon.png";
-import styles from "../styles/SearchTeams.module.css";
-import Avatar from "react-avatar";
-import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useSession } from "next-auth/react";
-// import * as React from "react";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import SearchTeams from "./SearchTeams";
@@ -107,22 +97,18 @@ function SearchTeamsWithSearch() {
           "Access-Control-Allow-Origin": "*",
         },
       })
-        // .then((response) => {
-        // })
-        //   //console.log(response.text());
-        // })
         .then((data) => data.json())
         .then((data) => {
-          //console.log(data);
           data.paginatedResult.results.map((currenTeam) => {
             setTeamData((prevTeamData) => {
               return [...prevTeamData, currenTeam];
             });
           });
-        });
+        })
+        .catch((err) => console.log(err));
     }
   }, [status]);
-  //console.log("first", session);
+
   useEffect(() => {
     setLabels(
       teamData.map((team) => {
@@ -131,9 +117,6 @@ function SearchTeamsWithSearch() {
     );
   }, [teamData]);
 
-  console.log(teamData);
-  //console.log(labels);
-  //   //console.log(props);
   return (
     <div>
       <Autocomplete
@@ -149,7 +132,6 @@ function SearchTeamsWithSearch() {
             `${process.env.NEXT_PUBLIC_SERVER}/api/team/${newTeam.teamData._id}`,
             {
               method: "GET",
-              //mode: "cors",
               headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${session.accessTokenBackend}`,
@@ -161,9 +143,8 @@ function SearchTeamsWithSearch() {
             .then((data) => {
               console.log(data);
               setSelectedTeam(data);
-            });
-
-          //console.log(selectedTeam);
+            })
+            .catch((err) => console.log(err));
         }}
       />
       <SearchTeams data={selectedTeam} />

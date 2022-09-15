@@ -14,7 +14,7 @@ export function Section2() {
       display="flex"
       className={styles.section1_MainContainer}
       sx={{
-        flexFlow: {
+        flexDirection: {
           xs: "column-reverse",
           sm: "row-reverse",
           md: "row",

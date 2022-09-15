@@ -7,47 +7,23 @@ import styles from "../../styles/Landing.module.css";
 // import HorizontalTimeline from "../../resources/images/TimelineSection.svg";
 import HorizontalTimeline from "../../resources/images/TimelineNew.svg";
 
-
 // import VerticalTimeline from "../../resources/images/TimelineSectionPhone.svg";
 import VerticalTimeline from "../../resources/images/NewTimelinePhone.svg";
 import Image from "next/image";
-
+import useWindowSize from "../../store/useWIndowSize";
 
 export function Timeline() {
-  const [TimelineImage, settimelineImage] = useState(VerticalTimeline);
+  const [TimelineImage, settimelineImage] = useState(HorizontalTimeline);
+
+  const size = useWindowSize();
 
   useEffect(() => {
-    window.addEventListener("load", () => {
-      if (window.innerWidth < 1000) {
-        settimelineImage(VerticalTimeline);
-      } else {
-        settimelineImage(HorizontalTimeline);
-      }
-    });
-    window.addEventListener("resize", () => {
-      if (window.innerWidth < 1000) {
-        settimelineImage(VerticalTimeline);
-      } else {
-        settimelineImage(HorizontalTimeline);
-      }
-    });
-    return () => {
-      window.addEventListener("load", () => {
-        if (window.innerWidth < 1000) {
-          settimelineImage(VerticalTimeline);
-        } else {
-          settimelineImage(HorizontalTimeline);
-        }
-      });
-      window.addEventListener("resize", () => {
-        if (window.innerWidth < 1000) {
-          settimelineImage(VerticalTimeline);
-        } else {
-          settimelineImage(HorizontalTimeline);
-        }
-      });
-    };
-  }, []);
+    if (size?.width < 1000) {
+      settimelineImage(VerticalTimeline);
+    } else {
+      settimelineImage(HorizontalTimeline);
+    }
+  }, [size]);
 
   return (
     <Box className={styles.timelineContainer}>

@@ -7,7 +7,7 @@ import LeaderDashboard from "./LeaderDashboard";
 import TeamMembers from "./TeamMembers";
 function Dashboard() {
   const [hasTeam, setHasTeam] = useState(false);
-  const [useEffectTrigger, setUseEffectTrigger] = useState(false)
+  const [useEffectTrigger, setUseEffectTrigger] = useState(false);
   const [isLeader, setIsLeader] = useState(false);
   const [teamData, setTeamData] = useState({});
   const [teamToken, setTeamToken] = useState();
@@ -24,8 +24,8 @@ function Dashboard() {
   };
 
   const handleMemberRemove = () => {
-    setUseEffectTrigger(prevTeamStatus => !prevTeamStatus);
-  }
+    setUseEffectTrigger((prevTeamStatus) => !prevTeamStatus);
+  };
 
   console.log(session, "in dashboard");
 
@@ -42,19 +42,14 @@ function Dashboard() {
       .then((data) => data.json())
 
       .then((data) => {
-        console.log("data fetched again called")
-
-        if (data.user?.teamId !== null) {
+        if (data.user.teamId) {
           setHasTeam(true);
         }
         if (data.user?.teamRole === 0) {
           setIsLeader(true);
         }
         setTeamData(data.user);
-        console.log("data")
         console.log(data);
-        // console.log("data.user")
-        // console.log(data.user);
       })
 
       .catch((error) => {
@@ -63,58 +58,48 @@ function Dashboard() {
           error
         );
       });
-    console.log(hasTeam);
+  }, [useEffectTrigger, session.accessTokenBackend]);
 
-  }, [useEffectTrigger]);
-
-  console.log("state data new")
-  console.log(teamData);
-  console.log("teamid")
-  console.log(teamData.teamId?._id)
-  console.log("closed")
+  console.log(hasTeam, "has team");
 
   //token id
   useEffect(() => {
     if (teamData?.teamId?._id) {
-      console.log('teamData inside use effect!!!!!!', teamData?.teamId?._id)
-      fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/team/token/${teamData.teamId._id}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${session.accessTokenBackend}`,
-          "Access-Control-Allow-Origin": "*",
-        },
-      })
+      fetch(
+        `${process.env.NEXT_PUBLIC_SERVER}/api/team/token/${teamData.teamId._id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${session.accessTokenBackend}`,
+            "Access-Control-Allow-Origin": "*",
+          },
+        }
+      )
         .then((data) => data.json())
         .then((data) => {
-          console.log("token data")
-          console.log(data);
-          console.log(data.teamToken);
           setTeamToken(data.teamToken);
-        })
+        });
     }
   }, [teamData]);
-
-
 
   return (
     <div>
       <Counter />
       {hasTeam ? (
         isLeader ? (
-          <LeaderDashboard teamData={teamData} handleTeamDelete={handleTeamDelete} teamToken={teamToken} handleMemberRemove={handleMemberRemove} />
+          <LeaderDashboard
+            teamData={teamData}
+            handleTeamDelete={handleTeamDelete}
+            teamToken={teamToken}
+            handleMemberRemove={handleMemberRemove}
+          />
+        ) : (
+          <TeamMembers teamData={teamData} />
         )
-          :
-          (
-            <TeamMembers teamData={teamData} />
-          )
-
-      )
-        : (
-          // If team is not there
-          <CreateTeam handleTeamCreate={handleTeamCreate} />
-        )
-      }
+      ) : (
+        <CreateTeam handleTeamCreate={handleTeamCreate} />
+      )}
     </div>
   );
 }

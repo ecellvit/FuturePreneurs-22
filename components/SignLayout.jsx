@@ -8,17 +8,12 @@ import { useSession } from "next-auth/react";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useSession } from "next-auth/react";
-
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 const SignLayout = () => {
   const regnoRef = useRef("");
   const lnameRef = useRef("");
   const fnameRef = useRef("");
-  const lnameRef = useRef("");
-  const fnameRef = useRef("");
+
   const mobileNumberRef = useRef("");
   const router = useRouter();
   const { data: session } = useSession();
@@ -27,20 +22,18 @@ const SignLayout = () => {
   const regName = /^[a-zA-Z]+$/;
   const re = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
   const regtest = /^[1-9][0-9][a-zA-Z]{3}[0-9]{4}$/;
-  const regName = /^[a-zA-Z]+$/;
-  const re = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
-  const regtest = /^[1-9][0-9][a-zA-Z]{3}[0-9]{4}$/;
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (
       mobileNumberRef.current.value === "" ||
       mobileNumberRef.current.value.length != 10
     ) {
-      toast.error("Moblie number must be 10 digits only");
+      toast.error("Mobile number must be 10 digits only");
       setError(true);
     } else if (
-      !re.test(String(mobileNumberRef.current.value)) ||
-      lnameRef.current.value === "" ||
+      !re.test(String(mobileNumberRef.current?.value)) ||
+      lnameRef.current?.value === "" ||
       !regName.test(lnameRef.current.value) ||
       !regName.test(fnameRef.current.value) ||
       fnameRef.current.value === ""
@@ -55,30 +48,27 @@ const SignLayout = () => {
       setError(false);
     }
   };
-  useEffect(
-    () => {
-      hasError
-        ? toast("Please fill all details")
-        : fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/user`, {
-            method: "PATCH",
-            body: JSON.stringify({
-              firstName: fnameRef.current.value,
-              lastName: lnameRef.current.value,
-              regNo: regnoRef.current.value,
-              mobileNumber: mobileNumberRef.current.value,
-            }),
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${session.accessTokenBackend}`,
-              "Access-Control-Allow-Origin": "*",
-            },
-          })
-            .then((data) => data.json())
-            .then((data) => router.push("/dashboard"));
-    },
-    [hasError],
-    handleSubmit
-  );
+  useEffect(() => {
+    hasError
+      ? toast("Please fill all details")
+      : fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/user`, {
+          method: "PATCH",
+          body: JSON.stringify({
+            firstName: fnameRef.current.value,
+            lastName: lnameRef.current.value,
+            regNo: regnoRef.current.value,
+            mobileNumber: mobileNumberRef.current.value,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${session.accessTokenBackend}`,
+            "Access-Control-Allow-Origin": "*",
+          },
+        })
+          .then((data) => data.json())
+          .then((data) => router.push("/dashboard"));
+  }, [hasError, router]);
+  
   return (
     <div className={styled.sign_in_wrapper}>
       <div className={styled.sign_section}>
