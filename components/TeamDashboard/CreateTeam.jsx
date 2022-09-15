@@ -78,7 +78,6 @@ const CreateTeam = ({ handleTeamCreate,isLeader }) => {
           </form>
         </div>
 
-
         {teamData?.length === 0 ? (
           <div>
             <div className={styles.form_block}>
