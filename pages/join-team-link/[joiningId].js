@@ -3,7 +3,7 @@ import { useRouter } from "next/router"
 import { signIn, useSession } from "next-auth/react";
 import { useEffect } from "react";
 import LinkJoining from '../../components/LinkJoining';
-import NavigationBar from "./components/NavigationBar";
+import NavigationBar from "../../components/NavigationBar.jsx";
 
 function JoiningIdPage() {
   const router = useRouter();
