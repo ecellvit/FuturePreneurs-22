@@ -8,9 +8,15 @@ import { useSession } from "next-auth/react";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useSession } from "next-auth/react";
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const SignLayout = () => {
   const regnoRef = useRef("");
+  const lnameRef = useRef("");
+  const fnameRef = useRef("");
   const lnameRef = useRef("");
   const fnameRef = useRef("");
   const mobileNumberRef = useRef("");
@@ -18,6 +24,9 @@ const SignLayout = () => {
   const { data: session } = useSession();
   const errortoast = () => toast.error("Please fill correct details");
   const [hasError, setError] = useState(true);
+  const regName = /^[a-zA-Z]+$/;
+  const re = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
+  const regtest = /^[1-9][0-9][a-zA-Z]{3}[0-9]{4}$/;
   const regName = /^[a-zA-Z]+$/;
   const re = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
   const regtest = /^[1-9][0-9][a-zA-Z]{3}[0-9]{4}$/;

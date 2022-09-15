@@ -17,11 +17,11 @@ function Dashboard() {
 
   const handleTeamDelete = (currentTeamStatus) => {
     setHasTeam(currentTeamStatus);
-  }
+  };
 
   const handleTeamCreate = () => {
-    setUseEffectTrigger(prevTeamStatus => !prevTeamStatus);
-  }
+    setUseEffectTrigger((prevTeamStatus) => !prevTeamStatus);
+  };
 
   const handleMemberRemove = () => {
     setUseEffectTrigger(prevTeamStatus => !prevTeamStatus);

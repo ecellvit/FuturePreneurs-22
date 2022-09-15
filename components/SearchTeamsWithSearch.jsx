@@ -17,10 +17,10 @@ import SearchTeams from "./SearchTeams";
 
 function SearchTeamsWithSearch() {
   const [selectedTeam, setSelectedTeam] = useState(null);
+  const [labels, setLabels] = useState([]);
+  const { data: session, status } = useSession();
 
-  const { data: session } = useSession();
-
-  console.log(session, "in component");
+  //console.log(session, "in component");
   // const [count, setCount] = useState(0);
 
   // const [teamData, setTeamData] = useState([
@@ -97,7 +97,7 @@ function SearchTeamsWithSearch() {
   // ]);
   const [teamData, setTeamData] = useState([]);
   useEffect(() => {
-    if (session) {
+    if (status !== "loading" && status !== "unauthenticated") {
       fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/team`, {
         method: "GET",
         //mode: "cors",
@@ -109,29 +109,31 @@ function SearchTeamsWithSearch() {
       })
         // .then((response) => {
         // })
-        //   console.log(response.text());
+        //   //console.log(response.text());
         // })
         .then((data) => data.json())
         .then((data) => {
-          console.log(data);
+          //console.log(data);
           data.paginatedResult.results.map((currenTeam) => {
-            if (currenTeam.members.length < 4) {
-              setTeamData((prevTeamData) => {
-                return [...prevTeamData, currenTeam];
-              });
-            }
+            setTeamData((prevTeamData) => {
+              return [...prevTeamData, currenTeam];
+            });
           });
         });
     }
-  }, [session]);
-  const labels = [];
-  for (let i = 0; i < teamData.length; i++) {
-    labels[i] = { teamData: teamData[i], label: teamData[i].teamName };
-  }
+  }, [status]);
+  //console.log("first", session);
+  useEffect(() => {
+    setLabels(
+      teamData.map((team) => {
+        return { teamData: team, label: team.teamName };
+      })
+    );
+  }, [teamData]);
 
   console.log(teamData);
-  console.log(labels);
-  //   console.log(props);
+  //console.log(labels);
+  //   //console.log(props);
   return (
     <div>
       <Autocomplete
@@ -142,8 +144,26 @@ function SearchTeamsWithSearch() {
         renderInput={(params) => <TextField {...params} label="Teams" />}
         value={selectedTeam}
         onChange={(_event, newTeam) => {
-          setSelectedTeam(newTeam);
-          console.log(selectedTeam);
+          console.log(newTeam);
+          fetch(
+            `${process.env.NEXT_PUBLIC_SERVER}/api/team/${newTeam.teamData._id}`,
+            {
+              method: "GET",
+              //mode: "cors",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${session.accessTokenBackend}`,
+                "Access-Control-Allow-Origin": "*",
+              },
+            }
+          )
+            .then((data) => data.json())
+            .then((data) => {
+              console.log(data);
+              setSelectedTeam(data);
+            });
+
+          //console.log(selectedTeam);
         }}
       />
       <SearchTeams data={selectedTeam} />
