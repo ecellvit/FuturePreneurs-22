@@ -17,9 +17,7 @@ const SignLayout = () => {
   const mobileNumberRef = useRef("");
   const router = useRouter();
   const { data: session } = useSession();
-  const errortoast = () => toast.error("Please fill correct details");
   const [hasError, setError] = useState(true);
-  const regName = /^[a-zA-Z]+$/;
   const re = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
   const regtest = /^[1-9][0-9][a-zA-Z]{3}[0-9]{4}$/;
 
@@ -27,23 +25,21 @@ const SignLayout = () => {
     e.preventDefault();
     if (
       mobileNumberRef.current.value === "" ||
-      mobileNumberRef.current.value.length != 10
+      mobileNumberRef.current.value.length != 10 ||
+      !re.test(String(mobileNumberRef.current?.value))
     ) {
-      toast.error("Mobile number must be 10 digits only");
+      toast.error("Mobile number must be 10 digits only!");
       setError(true);
     } else if (
-      !re.test(String(mobileNumberRef.current?.value)) ||
       lnameRef.current?.value === "" ||
-      !regName.test(lnameRef.current.value) ||
-      !regName.test(fnameRef.current.value) ||
       fnameRef.current.value === ""
     ) {
-      errortoast();
+      toast.error("Please enter name correctly!");
     } else if (
       regnoRef.current.value === "" ||
       !regtest.test(regnoRef.current.value)
     ) {
-      errortoast();
+      toast.error("Please enter correct registration number!");
     } else {
       setError(false);
     }
@@ -68,7 +64,7 @@ const SignLayout = () => {
           .then((data) => data.json())
           .then((data) => router.push("/dashboard"));
   }, [hasError, router]);
-  
+
   return (
     <div className={styled.sign_in_wrapper}>
       <div className={styled.sign_section}>

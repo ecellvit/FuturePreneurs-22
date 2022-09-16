@@ -9,6 +9,32 @@ import "react-toastify/dist/ReactToastify.css";
 function PendingRequests() {
   const { data: session } = useSession();
   const [teamData, setTeamData] = useState([]);
+  const handleDeleteRequest = (team) => {
+    if (team.teamId._id) {
+      fetch(
+        `${process.env.NEXT_PUBLIC_SERVER}/api/user/requests/${team.teamId._id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${session.accessTokenBackend}`,
+            "Access-Control-Allow-Origin": "*",
+          },
+        }
+      )
+        .then((data) => data.json())
+        .then((data) => {
+          console.log(data);
+          toast.success(`${data.message}`, {
+            position: toast.POSITION.TOP_RIGHT,
+          });
+        });
+    } else {
+      toast.error(`Please Create a Team first!`, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+    }
+  };
   useEffect(() => {
     if (session) {
       fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/user/requests`, {
@@ -66,30 +92,7 @@ function PendingRequests() {
                   <button
                     className={styles.button}
                     onClick={() => {
-                      if (team.teamId._id) {
-                        fetch(
-                          `${process.env.NEXT_PUBLIC_SERVER}/api/user/requests/${team.teamId._id}`,
-                          {
-                            method: "PATCH",
-                            headers: {
-                              "Content-Type": "application/json",
-                              Authorization: `Bearer ${session.accessTokenBackend}`,
-                              "Access-Control-Allow-Origin": "*",
-                            },
-                          }
-                        )
-                          .then((data) => data.json())
-                          .then((data) => {
-                            console.log(data);
-                            toast.success(`${data.message}`, {
-                              position: toast.POSITION.TOP_RIGHT,
-                            });
-                          });
-                      } else {
-                        toast.error(`Please Create a Team first!`, {
-                          position: toast.POSITION.TOP_RIGHT,
-                        });
-                      }
+                      handleDeleteRequest(team);
                     }}
                   >
                     DELETE REQUEST
@@ -97,7 +100,6 @@ function PendingRequests() {
                   </button>
                 </div>
               </div>
-              {/* <div className={styles.infogroup}></div> */}
             </div>
           );
         }
