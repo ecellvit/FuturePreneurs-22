@@ -4,6 +4,8 @@ import Avatar from "react-avatar";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useSession } from "next-auth/react";
+import Image from "next/image";
+import imgSrc from "../img/grad.png";
 
 function SearchTeams(props) {
   const [next, setNext] = useState();
@@ -128,7 +130,13 @@ function SearchTeams(props) {
   if (!props.data) {
     console.log(teamData);
     return (
-      <div className={styles.Teams}>
+      <div>
+        <div className={styles.images}>
+          {/* <Image src={imgSrc}
+           layout="intrinsic" objectFit="contain" /> */}
+          {/* <Image src={imgSrc} layout="intrinsic" /> */}
+        </div>
+
         <div className={styles.Teams}>
           {teamData.map((team) => {
             return (
@@ -164,7 +172,6 @@ function SearchTeams(props) {
                             }}
                           >
                             Join Team
-                            <ToastContainer />
                           </button>
                         </div>
                       );
@@ -175,24 +182,25 @@ function SearchTeams(props) {
             );
           })}
         </div>
-        <button
-          className={styles.button2}
-          onClick={() => {
-            handlePreviousButtonClick();
-          }}
-        >
-          Previous
-          <ToastContainer />
-        </button>
-        <button
-          className={styles.button2}
-          onClick={() => {
-            handleNextButtonClick();
-          }}
-        >
-          Next
-          <ToastContainer />
-        </button>
+        <div className={styles.buttonPlacer}>
+          <button
+            className={styles.button2}
+            onClick={() => {
+              handlePreviousButtonClick();
+            }}
+          >
+            Previous
+          </button>
+          <button
+            className={styles.button2}
+            onClick={() => {
+              handleNextButtonClick();
+            }}
+          >
+            Next
+          </button>
+        </div>
+        <ToastContainer />
       </div>
     );
   } else {
@@ -228,13 +236,13 @@ function SearchTeams(props) {
                         }}
                       >
                         Join Team
-                        <ToastContainer />
                       </button>
                     </div>
                   );
                 }
               })}
             </div>
+            <ToastContainer />
           </div>
         }
       </div>

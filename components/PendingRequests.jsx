@@ -91,10 +91,10 @@ function PendingRequests() {
                     }}
                   >
                     DELETE REQUEST
-                    <ToastContainer />
                   </button>
                 </div>
               </div>
+              <ToastContainer />
             </div>
           );
         }
