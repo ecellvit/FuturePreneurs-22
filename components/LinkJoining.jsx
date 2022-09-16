@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import styles from "../styles/LinkJoining.module.css";
+
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Loading from "./Loading";
 
 function LinkJoining({ joiningId }) {
   const [teamDetails, setTeamDetails] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
   const { data: session } = useSession();
 
   const handleJoin = () => {
+    setIsLoading(true);
     fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/user/token`, {
       method: "PATCH",
       body: JSON.stringify({
@@ -35,6 +39,7 @@ function LinkJoining({ joiningId }) {
             progress: undefined,
           });
         }
+        setIsLoading(false);
         if (data.team) {
           setTeamDetails(data.team);
         }
@@ -42,7 +47,9 @@ function LinkJoining({ joiningId }) {
   };
 
   return (
-    <div className={styles.container}>
+
+    <>
+      {isLoading?<Loading/>:(<div className={styles.container}>
       <ToastContainer
         ToastContainer
         position="top-right"
@@ -59,7 +66,8 @@ function LinkJoining({ joiningId }) {
       <button className={styles.btn} onClick={handleJoin}>
         join team
       </button>
-    </div>
+    </div>)}
+    </>
   );
 }
 
