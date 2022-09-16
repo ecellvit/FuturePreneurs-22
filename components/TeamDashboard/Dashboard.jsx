@@ -27,6 +27,10 @@ function Dashboard() {
     setUseEffectTrigger((prevTeamStatus) => !prevTeamStatus);
   };
 
+  const handleMemberLeave = () => {
+    setUseEffectTrigger((prevTeamStatus) => !prevTeamStatus);
+  };
+
 
   // for getting user details
   useEffect(() => {
@@ -43,6 +47,8 @@ function Dashboard() {
       .then((data) => {
         if (data.user.teamId) {
           setHasTeam(true);
+        }else{
+          setHasTeam(false);
         }
         if (data.user?.teamRole === 0) {
           setIsLeader(true);
@@ -92,7 +98,7 @@ function Dashboard() {
             handleMemberRemove={handleMemberRemove}
           />
         ) : (
-          <TeamMembers teamData={teamData} />
+          <TeamMembers teamData={teamData} handleMemberLeave={handleMemberLeave}/>
         )
       ) : (
         <CreateTeam isLeader={isLeader} handleTeamCreate={handleTeamCreate} />
