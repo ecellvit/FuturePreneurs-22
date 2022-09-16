@@ -97,8 +97,13 @@ const NavigationBar = (props) => {
             </div>
             </Navbar.Collapse>
             {(status === "authenticated") ?
+<<<<<<< Updated upstream
               <Nav.Link onClick={() => logoutHandler()}>Sign Out</Nav.Link>
               :
+=======
+              (<Nav.Link onClick={() => logoutHandler()}>Sign Out</Nav.Link>
+            ) : (
+>>>>>>> Stashed changes
               <Nav.Link onClick={() => loginHandler()}>Sign in</Nav.Link>
             }
           </Nav>
