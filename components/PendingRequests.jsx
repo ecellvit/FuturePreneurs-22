@@ -31,6 +31,11 @@ function PendingRequests() {
         });
     }
   }, [session]);
+
+  useEffect(()=>{
+    console.log(teamData);
+  }, [teamData])
+
   return (
     <div className={styles.Teams}>
       {teamData.map((team) => {
