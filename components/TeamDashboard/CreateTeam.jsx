@@ -2,10 +2,12 @@ import React, { useRef, useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import styles from "../../styles/CreateTeam.module.css";
 import Link from "next/link";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { ThreeDots } from 'react-loader-spinner'
 import Loading from "../Loading";
 
-const CreateTeam = ({ handleTeamCreate,isLeader }) => {
+const CreateTeam = ({ handleTeamCreate, isLeader }) => {
   const teamNameRef = useRef(null);
   const { data: session } = useSession();
   const [teamData, setTeamData] = useState([]);
@@ -27,7 +29,18 @@ const CreateTeam = ({ handleTeamCreate,isLeader }) => {
     })
       .then((data) => data.json())
       .then((data) => {
-        handleTeamCreate()
+        console.log(data);
+        if (data.error.errorCode) {
+          toast.error(`${data.message}`, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+        }
         setIsLoading(false);
       });
   };
@@ -46,6 +59,17 @@ const CreateTeam = ({ handleTeamCreate,isLeader }) => {
         .then((data) => data.json())
         .then((data) => {
           console.log(data);
+          if (data.error.errorCode) {
+            toast.error(`${data.message}`, {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
+          }
           // data.requests.map((currenTeam) => {
           //   setTeamData((prevTeamData) => {
           //     return [...prevTeamData, currenTeam];
@@ -63,6 +87,18 @@ const CreateTeam = ({ handleTeamCreate,isLeader }) => {
       <Loading/>
       :
     (<div className={styles.big_image}>
+      <ToastContainer
+        ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <div className={styles.wrapper}>
         <div className={styles.section_title}>{`Hi,${session.user.name} `}</div>
         <h2 className={styles.h1_create}>Join a Team or Create a Team</h2>
@@ -106,14 +142,16 @@ const CreateTeam = ({ handleTeamCreate,isLeader }) => {
                   className={`${styles.input_team} ${styles.w_input}`}
                   placeholder="Enter Your Team Name"
                 />
-                <button className={`${styles.join_create_btn} ${styles.w_button}`} onClick={handleCreate}>
+                <button
+                  className={`${styles.join_create_btn} ${styles.w_button}`}
+                  onClick={handleCreate}
+                >
                   Create
                 </button>
               </form>
             </div>
           </div>
-        ) :
-
+        ) : (
           <Link href="/pendingRequests">
             <button
               type="submit"
@@ -123,7 +161,7 @@ const CreateTeam = ({ handleTeamCreate,isLeader }) => {
               Pending requests
             </button>
           </Link>
-        }
+        )}
       </div>
     </div>)}
     </>

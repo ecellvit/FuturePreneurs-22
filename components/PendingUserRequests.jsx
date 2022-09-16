@@ -57,6 +57,17 @@ function PendingUserRequests() {
     )
       .then((data) => data.json())
       .then((data) => {
+        if (data.error.errorCode) {
+          toast.error(`${data.message}`, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+        }
         toast.success(`${data.message}`, {
           position: toast.POSITION.TOP_RIGHT,
         });
@@ -91,6 +102,17 @@ function PendingUserRequests() {
                   )
                     .then((data) => data.json())
                     .then((data) => {
+                      if (data.error.errorCode) {
+                        toast.error(`${data.message}`, {
+                          position: "top-right",
+                          autoClose: 5000,
+                          hideProgressBar: false,
+                          closeOnClick: true,
+                          pauseOnHover: true,
+                          draggable: true,
+                          progress: undefined,
+                        });
+                      }
                       data.requests.map((currentUser) => {
                         setUserData((prevUserData) => {
                           return [...prevUserData, currentUser];

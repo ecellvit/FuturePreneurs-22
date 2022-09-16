@@ -24,7 +24,17 @@ function PendingRequests() {
       )
         .then((data) => data.json())
         .then((data) => {
-          console.log(data);
+          if (data.error.errorCode) {
+            toast.error(`${data.message}`, {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
+          }
           toast.success(`${data.message}`, {
             position: toast.POSITION.TOP_RIGHT,
           });
@@ -47,6 +57,17 @@ function PendingRequests() {
       })
         .then((data) => data.json())
         .then((data) => {
+          if (data.error.errorCode) {
+            toast.error(`${data.message}`, {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
+          }
           data.requests?.map((currenTeam) => {
             if (teamData.findIndex((x) => x._id === currenTeam._id) === -1) {
               setTeamData((prevTeamData) => {
