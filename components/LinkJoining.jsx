@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import styles from "../styles/LinkJoining.module.css";
 
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loading from "./Loading";
 
@@ -28,7 +28,8 @@ function LinkJoining({ joiningId }) {
       .then((data) => data.json())
 
       .then((data) => {
-        if (data.error.errorCode) {
+        setIsLoading(false);
+        if (data.error?.errorCode) {
           toast.error(`${data.message}`, {
             position: "top-right",
             autoClose: 5000,
@@ -38,8 +39,8 @@ function LinkJoining({ joiningId }) {
             draggable: true,
             progress: undefined,
           });
+          return;
         }
-        setIsLoading(false);
         if (data.team) {
           setTeamDetails(data.team);
         }
@@ -47,26 +48,19 @@ function LinkJoining({ joiningId }) {
   };
 
   return (
-
     <>
-      {isLoading?<Loading/>:(<div className={styles.container}>
-      <ToastContainer
-        ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
-      <div className={styles.teamName}>Team Name : {teamDetails.teamName}</div>
-      <button className={styles.btn} onClick={handleJoin}>
-        join team
-      </button>
-    </div>)}
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <div className={styles.container}>
+          <div className={styles.teamName}>
+            Team Name : {teamDetails.teamName}
+          </div>
+          <button className={styles.btn} onClick={handleJoin}>
+            join team
+          </button>
+        </div>
+      )}
     </>
   );
 }

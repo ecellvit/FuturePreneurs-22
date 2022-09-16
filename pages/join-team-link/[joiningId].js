@@ -8,10 +8,10 @@ import NavigationBar from "../../components/NavigationBar.jsx";
 function JoiningIdPage() {
   const router = useRouter();
   const { joiningId } = router.query;
-  const { data: session, status } = useSession();
+  const { status } = useSession();
 
   useEffect(() => {
-    if (status === "unauthenticated" && status !== "loading") {
+    if (status !== "loading" && status === "unauthenticated") {
       // router.push('/api/auth/signin')
       signIn('google', { callbackurl: `/join-team-link/${joiningId}` })
     }
@@ -19,8 +19,8 @@ function JoiningIdPage() {
 
   return (
     <div>
-      <NavigationBar/>
-      {session ? <LinkJoining joiningId={joiningId} /> : "nothing"}
+      <NavigationBar />
+      {status === "authenticated" && <LinkJoining joiningId={joiningId} />}
     </div>
 
   )

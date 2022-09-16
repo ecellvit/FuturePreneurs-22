@@ -43,7 +43,8 @@ function Dashboard() {
     })
       .then((data) => data.json())
       .then((data) => {
-        if (data.error.errorCode) {
+        setIsLoading(false);
+        if (data.error?.errorCode) {
           toast.error(`${data.message}`, {
             position: "top-right",
             autoClose: 5000,
@@ -53,6 +54,7 @@ function Dashboard() {
             draggable: true,
             progress: undefined,
           });
+          return;
         }
         if (data.user.teamId) {
           setHasTeam(true);
@@ -61,7 +63,6 @@ function Dashboard() {
           setIsLeader(true);
         }
         setTeamData(data.user);
-        setIsLoading(false);
       })
 
       .catch((error) => {
@@ -97,24 +98,22 @@ function Dashboard() {
 
   return (
     <div>
-      {isLoading ?
-        <Loading/>
-        :
-        (hasTeam ? (
-          isLeader ? (
-            <LeaderDashboard
-              teamData={teamData}
-              handleTeamDelete={handleTeamDelete}
-              teamToken={teamToken}
-              handleMemberRemove={handleMemberRemove}
-            />
-          ) : (
-            <TeamMembers teamData={teamData} />
-          )
+      {isLoading ? (
+        <Loading />
+      ) : hasTeam ? (
+        isLeader ? (
+          <LeaderDashboard
+            teamData={teamData}
+            handleTeamDelete={handleTeamDelete}
+            teamToken={teamToken}
+            handleMemberRemove={handleMemberRemove}
+          />
         ) : (
-          <CreateTeam isLeader={isLeader} handleTeamCreate={handleTeamCreate} />
-        ))}
-
+          <TeamMembers teamData={teamData} />
+        )
+      ) : (
+        <CreateTeam isLeader={isLeader} handleTeamCreate={handleTeamCreate} />
+      )}
     </div>
   );
 }

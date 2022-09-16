@@ -3,7 +3,7 @@ import { useSession } from "next-auth/react";
 import TeamMemberLeader from "./TeamMemberLeader";
 import styles from "../../styles/Dashboard.module.css";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import { ToastContainer, toast } from "react-toastify";
+import {  toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loading from "../Loading";
 
@@ -51,7 +51,8 @@ const LeaderDashboard = ({
       )
         .then((data) => data.json())
         .then((data) => {
-          if (data.error.errorCode) {
+          setIsLoading(false);
+          if (data.error?.errorCode) {
             toast.error(`${data.message}`, {
               position: "top-right",
               autoClose: 5000,
@@ -61,9 +62,9 @@ const LeaderDashboard = ({
               draggable: true,
               progress: undefined,
             });
+            return;
           }
           handleTeamDelete(false);
-          setIsLoading(false);
         });
     } else {
       toast.error("Please remove all team members first", {
@@ -71,13 +72,12 @@ const LeaderDashboard = ({
       });
     }
   };
-  <ToastContainer />;
   return (
     <>
-      {isLoading ?
+      {isLoading ? (
         <Loading />
-        :
-        (<div className={styles.team_member_section}>
+      ) : (
+        <div className={styles.team_member_section}>
           <div className={styles.team_member_section_wrapper}>
             <h2 className={styles.team_name}>
               Team - {teamData?.teamId?.teamName}
@@ -112,7 +112,7 @@ const LeaderDashboard = ({
                     userId={team._id}
                     handleMemberRemove={handleMemberRemove}
                     teamRole={team.teamRole}
-                  //teamRole={team.teamId.teamRole} //pass down team role,if team role === 0 disable remove button
+                    //teamRole={team.teamId.teamRole} //pass down team role,if team role === 0 disable remove button
                   ></TeamMemberLeader>
                 );
               })}
@@ -125,10 +125,11 @@ const LeaderDashboard = ({
             Delete Team
           </button>
 
-          <button className={`${styles.start_quiz} ${styles.w_button}`}>
+          {/* <button className={`${styles.start_quiz} ${styles.w_button}`}>
             Start Quiz
-          </button>
-        </div>)}
+          </button> */}
+        </div>
+      )}
     </>
   );
 };

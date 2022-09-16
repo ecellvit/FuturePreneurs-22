@@ -1,5 +1,5 @@
 import styles from "../../styles/Dashboard.module.css";
-import { ToastContainer, toast } from "react-toastify";
+import {  toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useSession } from "next-auth/react";
 const TeamMemberLeader = ({
@@ -26,7 +26,7 @@ const TeamMemberLeader = ({
     })
       .then((data) => data.json())
       .then((data) => {
-        if (data.error.errorCode) {
+        if (data.error?.errorCode) {
           toast.error(`${data.message}`, {
             position: "top-right",
             autoClose: 5000,
@@ -36,6 +36,7 @@ const TeamMemberLeader = ({
             draggable: true,
             progress: undefined,
           });
+          return;
         }
         console.log(data);
         toast.success(`${data.message}`, {
@@ -49,7 +50,6 @@ const TeamMemberLeader = ({
     <div
       className={`${styles.col} ${styles.lg4} ${styles.md3} ${styles.xs2} ${styles.flex_stretch}`}
     >
-      <ToastContainer />
       <div className={styles.member_container}>
         <div className={`${styles.centre_align} ${styles.bottom_margin}`}>
           <h4 className={styles.member_name}>{teamName}</h4>

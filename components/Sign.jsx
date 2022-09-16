@@ -22,7 +22,7 @@ const Sign = () => {
     })
       .then((data) => data.json())
       .then((data) => {
-        if (data.error.errorCode) {
+        if (data.error?.errorCode) {
           toast.error(`${data.message}`, {
             position: "top-right",
             autoClose: 5000,
@@ -32,6 +32,7 @@ const Sign = () => {
             draggable: true,
             progress: undefined,
           });
+          return;
         }
         if (data.hasFilledDetails === true) {
           router.push("/dashboard");

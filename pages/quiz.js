@@ -5,17 +5,17 @@ import NavigationBar from "../components/NavigationBar";
 import Questions from "../components/Questions";
 
 function RoundOnePage() {
-    const {data:session, status} = useSession();
-    const router = useRouter();
-    
-    // redirects to home if user not logged in 
-    useEffect(()=>{
-      if (router.isReady){
-        if (status === "unauthenticated" && status!=="loading"){
-            router.push("/")
-        }
+  const { data: session, status } = useSession();
+  const router = useRouter();
+
+  // redirects to home if user not logged in 
+  useEffect(() => {
+    if (router.isReady) {
+      if (status !== "loading" && status === "unauthenticated") {
+        router.push("/")
       }
-    }, [status, router])
+    }
+  }, [status, router])
 
   return (
     <>
