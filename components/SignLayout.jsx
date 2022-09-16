@@ -44,15 +44,16 @@ const SignLayout = () => {
       setError(false);
     }
   };
+
   useEffect(() => {
     hasError
       ? toast("Please fill all details")
       : fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/user`, {
           method: "PUT",
           body: JSON.stringify({
-            firstName: fnameRef.current.value,
-            lastName: lnameRef.current.value,
-            regNo: regnoRef.current.value,
+            firstName: fnameRef.current.value.trim(),
+            lastName: lnameRef.current.value.trim(),
+            regNo: regnoRef.current.value.trim(),
             mobileNumber: mobileNumberRef.current.value,
           }),
           headers: {
@@ -63,7 +64,7 @@ const SignLayout = () => {
         })
           .then((data) => data.json())
           .then((data) => router.push("/dashboard"));
-  }, [hasError, router]);
+  }, [hasError, router, session.accessTokenBackend]);
 
   return (
     <div className={styled.sign_in_wrapper}>

@@ -10,7 +10,6 @@ const Sign = () => {
   const router = useRouter();
 
   useEffect(() => {
-    // setLoading(true);
     fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/user`, {
       method: "PATCH",
       body: JSON.stringify({
