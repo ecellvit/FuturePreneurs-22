@@ -2,14 +2,18 @@ import React, { useRef, useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import styles from "../../styles/CreateTeam.module.css";
 import Link from "next/link";
+import { ThreeDots } from 'react-loader-spinner'
+import Loading from "../Loading";
 
 const CreateTeam = ({ handleTeamCreate,isLeader }) => {
   const teamNameRef = useRef(null);
   const { data: session } = useSession();
   const [teamData, setTeamData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleCreate = (e) => {
     e.preventDefault();
+    setIsLoading(true);
     fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/team`, {
       method: "POST",
       body: JSON.stringify({
@@ -24,11 +28,13 @@ const CreateTeam = ({ handleTeamCreate,isLeader }) => {
       .then((data) => data.json())
       .then((data) => {
         handleTeamCreate()
+        setIsLoading(false);
       });
   };
 
   useEffect(() => {
     if (session && !isLeader) {
+      setIsLoading(true);
       fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/user/requests`, {
         method: "GET",
         headers: {
@@ -46,12 +52,17 @@ const CreateTeam = ({ handleTeamCreate,isLeader }) => {
           //   });
           // });
           setTeamData(data.requests);
+          setIsLoading(false);
         });
     }
   }, [session]);
 
   return (
-    <div className={styles.big_image}>
+    <>
+    {isLoading?
+      <Loading/>
+      :
+    (<div className={styles.big_image}>
       <div className={styles.wrapper}>
         <div className={styles.section_title}>{`Hi,${session.user.name} `}</div>
         <h2 className={styles.h1_create}>Join a Team or Create a Team</h2>
@@ -114,7 +125,8 @@ const CreateTeam = ({ handleTeamCreate,isLeader }) => {
           </Link>
         }
       </div>
-    </div>
+    </div>)}
+    </>
   );
 };
 

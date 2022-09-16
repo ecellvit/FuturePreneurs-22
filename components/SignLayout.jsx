@@ -85,7 +85,7 @@ const SignLayout = () => {
                 <input
                   type="text"
                   className={`${styled.input_signin} ${styled.w_input}`}
-                  placeholder=""
+                  placeholder="eg. Sai"
                   id="field"
                   ref={fnameRef}
                   required={true}
@@ -94,7 +94,7 @@ const SignLayout = () => {
                 <input
                   type="text"
                   className={`${styled.input_signin} ${styled.w_input}`}
-                  placeholder=""
+                  placeholder="eg. Gupta"
                   ref={lnameRef}
                   id="field"
                   required={true}
@@ -109,7 +109,7 @@ const SignLayout = () => {
                 type="number"
                 minLength="10"
                 ref={mobileNumberRef}
-                placeholder=""
+                placeholder="eg. 9876543210"
                 required={true}
               />
             </div>
@@ -122,6 +122,7 @@ const SignLayout = () => {
                 name="regno"
                 ref={regnoRef}
                 className={`${styled.input_signin} ${styled.w_input}`}
+                placeholder="eg. 21BCYXXXX"
                 required={true}
               />
               <label className={`${styled.label} ${styled.block}`}>
