@@ -3,8 +3,11 @@ import {useSession} from "next-auth/react";
 import styles from "../styles/Home.module.css";
 import { useEffect } from "react";
 import { useRouter } from "next/router.js";
+import Avatar, { ConfigProvider } from 'react-avatar';
 import SearchTeamsWithSearch from "../components/SearchTeamsWithSearch.jsx";
-import NavigationBar from "../components/NavigationBar";
+
+
+// import NavigationBar from "../components/NavigationBar";
 
 export default function Home() {
   const {data:session, status} = useSession();
@@ -20,6 +23,7 @@ export default function Home() {
   }, [status, router])
 
   return (
+    <ConfigProvider colors={['#130AE6','#236DCE','#BC304B','#BF3EC3','#E69951']}>
     <div className={styles.container}>
       <Head>
 
@@ -28,9 +32,10 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <NavigationBar/>
+      {/* <NavigationBar/> */}
       <br/>
-      <SearchTeamsWithSearch/>
+      <SearchTeamsWithSearch />
     </div>
+    </ConfigProvider>
   );
 }

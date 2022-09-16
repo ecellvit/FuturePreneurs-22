@@ -1,15 +1,15 @@
 /* * {
   box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  font-family: 'Inter', sans-serif;
-  background-color: whitesmoke;
 } */
+
+.Home {
+  background-color: #070F0F;
+  
+}
+.images{
+  position: absolute;
+  opacity: 0.4;  
+}
   
   .Teams {
     display: flex;
@@ -17,18 +17,34 @@ body {
     flex-wrap: wrap;
     gap: 50px;
   }
+  .buttonPlacer{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 50px;
+
+  }
   
   .Cards {
     flex-basis: 22.5px;
     box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.25);
-    border-radius: 10px;
+    /* border-color: pa;
+    border-radius: 10px; */
+    /* border: 10px;
+    border-color: white; */
     display: flex;
     flex-direction: column;
     padding: 50px;
     padding-bottom: 20px;
-    background-color: white;
+    background-color: #13111A;
+    /* background-image: linear-gradient(to right top, #070f0f, #001f27, #002e46, #003a68, #004187, #2a3f8c, #443d8f, #5a3890, #5c3382, #5b2e75, #592a68, #56275c); */
   }
-  
+  .border_gradient {
+    border: 10px solid;
+    border-image-slice: 1;
+    border-width: 3px;
+    border-image-source: linear-gradient(to right, #743ad5, #d53a9d);
+  }
   .Cards > img {
     width: 100%;
     height: auto;
@@ -37,11 +53,16 @@ body {
     object-fit: cover;
   }
   
-  .Cards > h3 {
+  .Cardsh3 {
+    margin: 0;
+    min-height: 100%;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+    color: white;
     font-weight: 100;
-    font-size: 10px;
-    margin: 0%;
     text-align: center;
+
     
   }
   
@@ -66,19 +87,22 @@ body {
   .info-group > p {
     margin-block: 1px;
     font-size: 10px;
-    color: #2B283A;
+    color: white;
     text-align: center;
     
   }
   
   .button {
     position: relative;
-    background-color: #4CAF50;
-    /* margin: 20p; */
-    border: 20p;
+    background-color: #181620;
+    opacity: 0.8;
+    border: 10px solid transparent;
+    border-image-slice: 1;
+    border-width: 3px;
+    border-image-source: linear-gradient(to right, #743ad5, #d53a9d);
+    border-radius: 15px;
     font-size: 10px;
     color: #FFFFFF;
-    /* padding: 20px; */
     width: 300px;
     height: 53px;
     text-align: center;
@@ -88,13 +112,17 @@ body {
     overflow: hidden;
     cursor: pointer;
   }
-  
+  .button:hover{
+    background: linear-gradient(45deg,red,blue) border-box; /*3*/
+    border-radius: 15px;
+
+  }
   .button:after {
     content: "";
     background: #f1f1f1;
     display: block;
     position: absolute;
-    padding-top: 300%;
+    border-radius: 15px;  padding-top: 300%;
     padding-left: 350%;
     margin-left: -20px !important;
     margin-top: -120%;
@@ -109,6 +137,7 @@ body {
     transition: 0s
   }
   .button2 {
+    margin-top: 10px;
     position: relative;
     background-color: cyan;
     /* margin: 20p; */

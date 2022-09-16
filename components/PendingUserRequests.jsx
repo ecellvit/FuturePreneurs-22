@@ -160,7 +160,6 @@ function PendingUserRequests() {
                       }}
                     >
                       Accept Request
-                      <ToastContainer />
                     </button>
                     <button
                       className={styles.button}
@@ -169,11 +168,11 @@ function PendingUserRequests() {
                       }}
                     >
                       Decline Request
-                      <ToastContainer />
                     </button>
                   </div>
                 }
               </div>
+              <ToastContainer />
             </div>
           );
         }
