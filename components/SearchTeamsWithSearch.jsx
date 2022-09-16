@@ -25,6 +25,17 @@ function SearchTeamsWithSearch() {
       )
         .then((data) => data.json())
         .then((data) => {
+          if (data.error.errorCode) {
+            toast.error(`${data.message}`, {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
+          }
           setSelectedTeam(data);
         })
         .catch((err) => console.log(err));
@@ -46,6 +57,17 @@ function SearchTeamsWithSearch() {
       })
         .then((data) => data.json())
         .then((data) => {
+          if (data.error.errorCode) {
+            toast.error(`${data.message}`, {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
+          }
           data.paginatedResult.results.map((currenTeam) => {
             setTeamData((prevTeamData) => {
               return [...prevTeamData, currenTeam];

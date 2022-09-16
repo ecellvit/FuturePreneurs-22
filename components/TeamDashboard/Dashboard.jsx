@@ -27,7 +27,6 @@ function Dashboard() {
     setUseEffectTrigger((prevTeamStatus) => !prevTeamStatus);
   };
 
-
   // for getting user details
   useEffect(() => {
     fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/user/team`, {
@@ -41,6 +40,17 @@ function Dashboard() {
       .then((data) => data.json())
 
       .then((data) => {
+        if (data.error.errorCode) {
+          toast.error(`${data.message}`, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+        }
         if (data.user.teamId) {
           setHasTeam(true);
         }
@@ -57,7 +67,6 @@ function Dashboard() {
         );
       });
   }, [useEffectTrigger, session.accessTokenBackend]);
-
 
   //token id
   useEffect(() => {

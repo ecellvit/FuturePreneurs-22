@@ -35,10 +35,10 @@ export default function Component() {
     }
   }, [session, router])
 
-  useEffect(()=>{
-    if (router.isReady){
-      if (status === "unauthenticated" && status!=="loading"){
-          router.push("/")
+  useEffect(() => {
+    if (router.isReady) {
+      if (status === "unauthenticated" && status !== "loading") {
+        router.push("/")
       }
     }
   }, [status, router])
