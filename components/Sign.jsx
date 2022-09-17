@@ -10,7 +10,6 @@ const Sign = () => {
   const router = useRouter();
 
   useEffect(() => {
-    // setLoading(true);
     fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/user`, {
       method: "PATCH",
       body: JSON.stringify({
@@ -23,7 +22,7 @@ const Sign = () => {
     })
       .then((data) => data.json())
       .then((data) => {
-        if (data.error.errorCode) {
+        if (data.error?.errorCode) {
           toast.error(`${data.message}`, {
             position: "top-right",
             autoClose: 5000,
@@ -33,6 +32,7 @@ const Sign = () => {
             draggable: true,
             progress: undefined,
           });
+          return;
         }
         if (data.hasFilledDetails === true) {
           router.push("/dashboard");

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import styles from "../styles/SearchTeams.module.css";
 import Avatar from "react-avatar";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function PendingRequests() {
@@ -24,7 +24,7 @@ function PendingRequests() {
       )
         .then((data) => data.json())
         .then((data) => {
-          if (data.error.errorCode) {
+          if (data.error?.errorCode) {
             toast.error(`${data.message}`, {
               position: "top-right",
               autoClose: 5000,
@@ -57,7 +57,7 @@ function PendingRequests() {
       })
         .then((data) => data.json())
         .then((data) => {
-          if (data.error.errorCode) {
+          if (data.error?.errorCode) {
             toast.error(`${data.message}`, {
               position: "top-right",
               autoClose: 5000,
@@ -79,9 +79,9 @@ function PendingRequests() {
     }
   }, [session]);
 
-  useEffect(()=>{
+  useEffect(() => {
     console.log(teamData);
-  }, [teamData])
+  }, [teamData]);
 
   return (
     <div className={styles.Teams}>
@@ -117,7 +117,6 @@ function PendingRequests() {
                     }}
                   >
                     DELETE REQUEST
-                    <ToastContainer />
                   </button>
                 </div>
               </div>

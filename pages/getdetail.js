@@ -1,14 +1,19 @@
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Sign from "../components/Sign";
+import Loading from "../components/Loading";
+import { ToastContainer } from "react-toastify";
 
-export default function Component() {
+export default function GetUserDetailsPage() {
   const { data: session, status } = useSession();
   const router = useRouter();
 
+  const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
-    if (session && router.isReady) {
+    if (status !== "loading" && status === "authenticated" && router.isReady) {
+      setIsLoading(true);
       fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/auth/`, {
         method: "POST",
         headers: {
@@ -24,20 +29,20 @@ export default function Component() {
           return response.json();
         })
         .then((data) => {
-          console.log(data)
+          setIsLoading(false)
           if (data.isRegistered) {
             router.push('/dashboard')
           };
         })
         .catch((err) => {
-          console.log("errrr", err);
+          console.log("error", err);
         });
     }
-  }, [session, router])
+  }, [status, router])
 
   useEffect(() => {
     if (router.isReady) {
-      if (status === "unauthenticated" && status !== "loading") {
+      if (status !== "loading" && status === "unauthenticated") {
         router.push("/")
       }
     }
@@ -45,7 +50,10 @@ export default function Component() {
 
   return (
     <>
-      {status === "authenticated" && <Sign />}
+      <ToastContainer />
+      {isLoading ? <Loading /> :
+        status === "authenticated" && <Sign />}
     </>
+
   )
 }

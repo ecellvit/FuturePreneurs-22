@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import Noty from "./Noty";
 import Image from "next/image";
 import fpLogo from "../img/fpLogo.svg";
+
 import ecellLogo from "../img/ecellLogo.svg";
 import menuicon from "../img/menuicon.svg";
 import styles from "../styles/NavigationBar.module.css";

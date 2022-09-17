@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import styles from "../styles/SearchTeams.module.css";
 import Avatar from "react-avatar";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useSession } from "next-auth/react";
+import Image from "next/image";
+import imgSrc from "../img/grad.png";
+import Loading from "./Loading";
 
 function SearchTeams(props) {
   const [next, setNext] = useState();
@@ -11,9 +14,11 @@ function SearchTeams(props) {
 
   const { data: session, status } = useSession();
 
+  const [isLoading, setIsLoading] = useState(true);
+
   const [teamData, setTeamData] = useState([]);
   const handlePreviousButtonClick = () => {
-    if (prev != undefined) {
+    if (prev) {
       fetch(
         `${process.env.NEXT_PUBLIC_SERVER}/api/team?page=${prev.page}&limit=${prev.limit}`,
         {
@@ -27,7 +32,7 @@ function SearchTeams(props) {
       )
         .then((data) => data.json())
         .then((data) => {
-          if (data.error.errorCode) {
+          if (data.error?.errorCode) {
             toast.error(`${data.message}`, {
               position: "top-right",
               autoClose: 5000,
@@ -58,7 +63,7 @@ function SearchTeams(props) {
     }
   };
   const handleNextButtonClick = () => {
-    if (next != undefined) {
+    if (next) {
       fetch(
         `${process.env.NEXT_PUBLIC_SERVER}/api/team?page=${next.page}&limit=${next.limit}`,
         {
@@ -72,7 +77,7 @@ function SearchTeams(props) {
       )
         .then((data) => data.json())
         .then((data) => {
-          if (data.error.errorCode) {
+          if (data.error?.errorCode) {
             toast.error(`${data.message}`, {
               position: "top-right",
               autoClose: 5000,
@@ -113,7 +118,7 @@ function SearchTeams(props) {
     })
       .then((data) => data.json())
       .then((data) => {
-        if (data.error.errorCode) {
+        if (data.error?.errorCode) {
           toast.error(`${data.message}`, {
             position: "top-right",
             autoClose: 5000,
@@ -123,6 +128,7 @@ function SearchTeams(props) {
             draggable: true,
             progress: undefined,
           });
+          return;
         }
         console.log(data);
         toast.success(`${data.message}`, {
@@ -130,7 +136,9 @@ function SearchTeams(props) {
         });
       });
   };
+
   useEffect(() => {
+    setIsLoading(true);
     if (status !== "loading" && status === "authenticated") {
       fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/team?page=1&limit=9`, {
         method: "GET",
@@ -142,7 +150,8 @@ function SearchTeams(props) {
       })
         .then((data) => data.json())
         .then((data) => {
-          if (data.error.errorCode) {
+          setIsLoading(false);
+          if (data.error?.errorCode) {
             toast.error(`${data.message}`, {
               position: "top-right",
               autoClose: 5000,
@@ -170,9 +179,19 @@ function SearchTeams(props) {
   }, [status]);
 
   if (!props.data) {
-    console.log(teamData);
-    return (
-      <div className={styles.Teams}>
+    return isLoading ? (
+      <Loading />
+    ) : (
+      <div>
+        <div className={styles.images}>
+          <Image
+            src={imgSrc}
+            layout="intrinsic"
+            objectFit="contain"
+            alt="bg-img"
+          />
+        </div>
+
         <div className={styles.Teams}>
           {teamData.map((team) => {
             return (
@@ -208,7 +227,6 @@ function SearchTeams(props) {
                             }}
                           >
                             Join Team
-                            <ToastContainer />
                           </button>
                         </div>
                       );
@@ -219,28 +237,30 @@ function SearchTeams(props) {
             );
           })}
         </div>
-        <button
-          className={styles.button2}
-          onClick={() => {
-            handlePreviousButtonClick();
-          }}
-        >
-          Previous
-          <ToastContainer />
-        </button>
-        <button
-          className={styles.button2}
-          onClick={() => {
-            handleNextButtonClick();
-          }}
-        >
-          Next
-          <ToastContainer />
-        </button>
+        <div className={styles.buttonPlacer}>
+          <button
+            className={styles.button2}
+            onClick={() => {
+              handlePreviousButtonClick();
+            }}
+          >
+            Previous
+          </button>
+          <button
+            className={styles.button2}
+            onClick={() => {
+              handleNextButtonClick();
+            }}
+          >
+            Next
+          </button>
+        </div>
       </div>
     );
   } else {
-    return (
+    return isLoading ? (
+      <Loading />
+    ) : (
       <div className={styles.Teams}>
         {
           <div className={styles.Cards} key={props.data.team._id}>
@@ -272,7 +292,6 @@ function SearchTeams(props) {
                         }}
                       >
                         Join Team
-                        <ToastContainer />
                       </button>
                     </div>
                   );

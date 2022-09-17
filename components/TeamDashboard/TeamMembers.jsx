@@ -1,25 +1,29 @@
 import styles from "../../styles/Dashboard.module.css";
 import TeamMember from "./TeamMember";
-const TeamMembers = ({ teamData }) => {
+import React, { useState } from "react";
+const TeamMembers = ({ teamData,handleMemberLeave}) => {
   
+  const [teamId, setTeamId] = useState(teamData?.teamId?._id);
+
   return (
     <div className={styles.team_member_section}>
       <div className={styles.team_member_section_wrapper}>
-        {/* Team Details */}
         <h2 className={styles.team_name}>
-          {/* Printing team name */}
           Team - {teamData?.teamId?.teamName}
         </h2>
         <div className={`${styles.team_row} ${styles.align_centre}`}>
-          {/* /////////////////////////////////////Returning Team Members//////////////////////////////////////// */}
 
           {teamData?.teamId?.members?.map((team) => {
             return (
               <TeamMember
-                teamName={team.name}
-                mobileNumber={team.mobileNumber}
-                email={team.email}
-                key={team.id}
+                key={team._id}
+                  teamName={team.name}
+                  mobileNumber={team.mobileNumber}
+                  email={team.email}
+                  teamId={teamId}
+                  userId={team._id}
+                  handleMemberLeave={handleMemberLeave}
+                  teamRole={team.teamRole}
               ></TeamMember>
             );
           })}

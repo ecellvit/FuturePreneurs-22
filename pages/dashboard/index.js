@@ -3,15 +3,18 @@ import React, { useEffect } from 'react'
 import Dashboard from "../../components/TeamDashboard/Dashboard.jsx";
 import NavigationBar from '../../components/NavigationBar.jsx';
 import { useRouter } from 'next/router.js';
+import { toast, ToastContainer } from 'react-toastify';
+import Loading from '../../components/Loading.jsx';
 
-function Main() {
+export default function DashboardPage() {
   // if session is not logged in dont show dashboard.
   const router = useRouter();
   const { status } = useSession();
 
   useEffect(() => {
     if (router.isReady) {
-      if (status === "unauthenticated" && status !== "loading") {
+      if (status !== "loading" && status === "unauthenticated") {
+        toast.error(`Please login first!`)
         router.push("/")
       }
     }
@@ -19,14 +22,12 @@ function Main() {
 
   return (
     <>
-      {status === "authenticated" &&
+      <ToastContainer />
+      {status === "loading" ? <Loading /> : status === "authenticated" &&
         <div className='main'>
           <NavigationBar />
           <Dashboard />
-        </div>
-      }
+        </div>}
     </>
   )
 }
-
-export default Main

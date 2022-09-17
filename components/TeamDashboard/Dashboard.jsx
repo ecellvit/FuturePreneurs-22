@@ -3,6 +3,7 @@ import React, { useContext, useRef } from "react";
 import { useEffect, useState } from "react";
 import CreateTeam from "./CreateTeam";
 import Counter from "./Counter";
+import styles from "../../styles/Dashboard.module.css";
 import LeaderDashboard from "./LeaderDashboard";
 import TeamMembers from "./TeamMembers";
 import Loading from "../Loading";
@@ -30,6 +31,10 @@ function Dashboard() {
     setUseEffectTrigger((prevTeamStatus) => !prevTeamStatus);
   };
 
+  const handleMemberLeave = () => {
+    setUseEffectTrigger((prevTeamStatus) => !prevTeamStatus);
+  };
+
   // for getting user details
   useEffect(() => {
     setIsLoading(true);
@@ -43,7 +48,8 @@ function Dashboard() {
     })
       .then((data) => data.json())
       .then((data) => {
-        if (data.error.errorCode) {
+        setIsLoading(false);
+        if (data.error?.errorCode) {
           toast.error(`${data.message}`, {
             position: "top-right",
             autoClose: 5000,
@@ -53,15 +59,17 @@ function Dashboard() {
             draggable: true,
             progress: undefined,
           });
+          return;
         }
         if (data.user.teamId) {
           setHasTeam(true);
+        } else {
+          setHasTeam(false);
         }
         if (data.user?.teamRole === 0) {
           setIsLeader(true);
         }
         setTeamData(data.user);
-        setIsLoading(false);
       })
 
       .catch((error) => {
@@ -96,25 +104,26 @@ function Dashboard() {
   }, [session.accessTokenBackend, teamData]);
 
   return (
-    <div>
-      {isLoading ?
-        <Loading/>
-        :
-        (hasTeam ? (
-          isLeader ? (
-            <LeaderDashboard
-              teamData={teamData}
-              handleTeamDelete={handleTeamDelete}
-              teamToken={teamToken}
-              handleMemberRemove={handleMemberRemove}
-            />
-          ) : (
-            <TeamMembers teamData={teamData} />
-          )
+    <div className={styles.bodyContainer}>
+      {isLoading ? (
+        <Loading />
+      ) : hasTeam ? (
+        isLeader ? (
+          <LeaderDashboard
+            teamData={teamData}
+            handleTeamDelete={handleTeamDelete}
+            teamToken={teamToken}
+            handleMemberRemove={handleMemberRemove}
+          />
         ) : (
-          <CreateTeam isLeader={isLeader} handleTeamCreate={handleTeamCreate} />
-        ))}
-
+          <TeamMembers
+            teamData={teamData}
+            handleMemberLeave={handleMemberLeave}
+          />
+        )
+      ) : (
+        <CreateTeam isLeader={isLeader} handleTeamCreate={handleTeamCreate} />
+      )}
     </div>
   );
 }

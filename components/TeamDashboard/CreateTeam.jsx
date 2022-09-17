@@ -2,24 +2,27 @@ import React, { useRef, useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import styles from "../../styles/CreateTeam.module.css";
 import Link from "next/link";
-import { ToastContainer, toast } from "react-toastify";
+import {  toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { ThreeDots } from 'react-loader-spinner'
 import Loading from "../Loading";
 
 const CreateTeam = ({ handleTeamCreate, isLeader }) => {
   const teamNameRef = useRef(null);
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const [teamData, setTeamData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleCreate = (e) => {
     e.preventDefault();
+    if (teamNameRef.current.value.trim() === "") {
+      toast.error(`Team name can't be empty!`);
+      return;
+    }
     setIsLoading(true);
     fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/team`, {
       method: "POST",
       body: JSON.stringify({
-        teamName: teamNameRef.current.value,
+        teamName: teamNameRef.current.value.trim(),
       }),
       headers: {
         "Content-Type": "application/json",
@@ -29,8 +32,8 @@ const CreateTeam = ({ handleTeamCreate, isLeader }) => {
     })
       .then((data) => data.json())
       .then((data) => {
-        console.log(data);
-        if (data.error.errorCode) {
+        setIsLoading(false);
+        if (data.error?.errorCode) {
           toast.error(`${data.message}`, {
             position: "top-right",
             autoClose: 5000,
@@ -40,13 +43,14 @@ const CreateTeam = ({ handleTeamCreate, isLeader }) => {
             draggable: true,
             progress: undefined,
           });
+          return;
         }
-        setIsLoading(false);
+        handleTeamCreate();
       });
   };
 
   useEffect(() => {
-    if (session && !isLeader) {
+    if (status !== "loading" && status === "authenticated" && !isLeader) {
       setIsLoading(true);
       fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/user/requests`, {
         method: "GET",
@@ -58,8 +62,9 @@ const CreateTeam = ({ handleTeamCreate, isLeader }) => {
       })
         .then((data) => data.json())
         .then((data) => {
-          console.log(data);
-          if (data.error.errorCode) {
+          setIsLoading(false);
+          console.log("?????????????????????",data)
+          if (data.error?.errorCode) {
             toast.error(`${data.message}`, {
               position: "top-right",
               autoClose: 5000,
@@ -69,101 +74,87 @@ const CreateTeam = ({ handleTeamCreate, isLeader }) => {
               draggable: true,
               progress: undefined,
             });
+            return;
           }
-          // data.requests.map((currenTeam) => {
-          //   setTeamData((prevTeamData) => {
-          //     return [...prevTeamData, currenTeam];
-          //   });
-          // });
           setTeamData(data.requests);
-          setIsLoading(false);
         });
     }
-  }, [session]);
+  }, [session.accessTokenBackend, status, isLeader]);
 
   return (
     <>
-    {isLoading?
-      <Loading/>
-      :
-    (<div className={styles.big_image}>
-      <ToastContainer
-        ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
-      <div className={styles.wrapper}>
-        <div className={styles.section_title}>{`Hi,${session.user.name} `}</div>
-        <h2 className={styles.h1_create}>Join a Team or Create a Team</h2>
-        <p className={styles.p_create}>
-          The event is designed to test your analytical thinking. Glaze up your
-          business skills with the added knowledge about consumers and the
-          trends they tend to follow. Touch it all up with a study of financial
-          products and their marketing strategies.So what you are waiting for ,
-          find your perfect team and get ready to dive into business simulation
-          competition.
-        </p>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <div className={styles.big_image}>
+          <div className={styles.wrapper}>
+            <div
+              className={styles.section_title}
+            >{`Hi, ${session.user.name} `}</div>
+            <h2 className={styles.h1_create}>Join a Team or Create a Team</h2>
+            <p className={styles.p_create}>
+              The event is designed to test your analytical thinking. Glaze up
+              your business skills with the added knowledge about consumers and
+              the trends they tend to follow. Touch it all up with a study of
+              financial products and their marketing strategies.So what you are
+              waiting for , find your perfect team and get ready to dive into
+              business simulation competition.
+            </p>
 
-        <div className={styles.form_block}>
-          <form className={styles.team_form}>
-            <Link href="/searchTeams">
-              <button
-                type="submit"
-                placeholder="Find Teams to Join"
-                className={`${styles.join_create_btn} ${styles.join_btn}  ${styles.w_button}`}
-              >
-                Find Teams to Join
-              </button>
-            </Link>
-          </form>
-        </div>
-
-        {teamData?.length === 0 ? (
-          <div>
             <div className={styles.form_block}>
-              <div className={styles.team_form}>
-                <h1 className={styles.or_form}>Or</h1>
-              </div>
-            </div>
-            <div className={styles.form_block}>
-              <div className={styles.create_team_h1}>Create a Team</div>
               <form className={styles.team_form}>
-                <input
-                  type="text"
-                  name="name"
-                  ref={teamNameRef}
-                  className={`${styles.input_team} ${styles.w_input}`}
-                  placeholder="Enter Your Team Name"
-                />
-                <button
-                  className={`${styles.join_create_btn} ${styles.w_button}`}
-                  onClick={handleCreate}
-                >
-                  Create
-                </button>
+                <Link href="/searchTeams">
+                  <button
+                    type="submit"
+                    placeholder="Find Teams to Join"
+                    className={`${styles.join_create_btn} ${styles.join_btn}  ${styles.w_button}`}
+                  >
+                    Find Teams to Join
+                  </button>
+                </Link>
               </form>
             </div>
+
+            {teamData?.length === 0 ? (
+              <div>
+                <div className={styles.form_block}>
+                  <div className={styles.team_form}>
+                    <h1 className={styles.or_form}>Or</h1>
+                  </div>
+                </div>
+                <div className={styles.form_block}>
+                  <div className={styles.create_team_h1}>Create a Team</div>
+                  <form className={styles.team_form}>
+                    <input
+                      type="text"
+                      name="name"
+                      ref={teamNameRef}
+                      className={`${styles.input_team} ${styles.w_input}`}
+                      placeholder="Enter Your Team Name"
+                    />
+                    <button
+                      className={`${styles.join_create_btn} ${styles.w_button}`}
+                      onClick={handleCreate}
+                    >
+                      Create
+                    </button>
+                  </form>
+                </div>
+              </div>
+            ) : (
+              <Link href="/pendingRequests">
+                <button
+                  type="submit"
+                  placeholder="Pending requests"
+                  className={`${styles.join_create_btn} ${styles.join_btn}  ${styles.w_button}`}
+                >
+                  Pending requests
+                </button>
+              </Link>
+            )}
           </div>
-        ) : (
-          <Link href="/pendingRequests">
-            <button
-              type="submit"
-              placeholder="Pending requests"
-              className={`${styles.join_create_btn} ${styles.join_btn}  ${styles.w_button}`}
-            >
-              Pending requests
-            </button>
-          </Link>
-        )}
-      </div>
-    </div>)}
+        </div>
+      )}
     </>
   );
 };

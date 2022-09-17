@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import styles from "../styles/SearchTeams.module.css";
 import Avatar from "react-avatar";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function PendingUserRequests() {
@@ -57,7 +57,7 @@ function PendingUserRequests() {
     )
       .then((data) => data.json())
       .then((data) => {
-        if (data.error.errorCode) {
+        if (data.error?.errorCode) {
           toast.error(`${data.message}`, {
             position: "top-right",
             autoClose: 5000,
@@ -67,6 +67,7 @@ function PendingUserRequests() {
             draggable: true,
             progress: undefined,
           });
+          return;
         }
         toast.success(`${data.message}`, {
           position: toast.POSITION.TOP_RIGHT,
@@ -102,7 +103,7 @@ function PendingUserRequests() {
                   )
                     .then((data) => data.json())
                     .then((data) => {
-                      if (data.error.errorCode) {
+                      if (data.error?.errorCode) {
                         toast.error(`${data.message}`, {
                           position: "top-right",
                           autoClose: 5000,
@@ -160,7 +161,6 @@ function PendingUserRequests() {
                       }}
                     >
                       Accept Request
-                      <ToastContainer />
                     </button>
                     <button
                       className={styles.button}
@@ -169,7 +169,6 @@ function PendingUserRequests() {
                       }}
                     >
                       Decline Request
-                      <ToastContainer />
                     </button>
                   </div>
                 }
