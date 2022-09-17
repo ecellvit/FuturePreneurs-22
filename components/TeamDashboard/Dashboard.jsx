@@ -3,6 +3,7 @@ import React, { useContext, useRef } from "react";
 import { useEffect, useState } from "react";
 import CreateTeam from "./CreateTeam";
 import Counter from "./Counter";
+import styles from "../../styles/Dashboard.module.css";
 import LeaderDashboard from "./LeaderDashboard";
 import TeamMembers from "./TeamMembers";
 function Dashboard() {
@@ -87,7 +88,7 @@ function Dashboard() {
   }, [session.accessTokenBackend, teamData]);
 
   return (
-    <div>
+    <div className={styles.bodyContainer}>
       {/* <Counter /> */}
       {hasTeam ? (
         isLeader ? (

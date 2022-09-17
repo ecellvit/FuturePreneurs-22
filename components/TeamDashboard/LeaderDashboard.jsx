@@ -65,7 +65,7 @@ const LeaderDashboard = ({
             Team - {teamData?.teamId?.teamName}
           </h2>
           <h2 className={styles.invite_link_container}>
-            <label>Team Link:</label>
+            <label className={styles.label}>Team Link:</label>
             <input
               type="text"
               value={`https://future-preneurs-22.vercel.app/join-team-link/${teamToken}`}
@@ -78,7 +78,13 @@ const LeaderDashboard = ({
               onCopy={onCopyText}
             >
               <div className="copy-area">
-                <button onClick={showToastMessage}>copy</button>
+                <button className={`${styles.btnCopy} ${styles.glow_on_hover} ${styles.animated_button1}`} onClick={showToastMessage}>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  copy
+                </button>
               </div>
             </CopyToClipboard>
           </h2>
@@ -94,7 +100,6 @@ const LeaderDashboard = ({
                   userId={team._id}
                   handleMemberRemove={handleMemberRemove}
                   teamRole={team.teamRole}
-                  //teamRole={team.teamId.teamRole} //pass down team role,if team role === 0 disable remove button
                 ></TeamMemberLeader>
               );
             })}
@@ -107,9 +112,9 @@ const LeaderDashboard = ({
           Delete Team
         </button>
 
-        <button className={`${styles.start_quiz} ${styles.w_button}`}>
+        {/* <button className={`${styles.start_quiz} ${styles.w_button}`}>
           Start Quiz
-        </button>
+        </button> */}
       </div>
     </>
   );
