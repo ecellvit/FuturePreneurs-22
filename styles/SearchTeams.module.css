@@ -5,6 +5,16 @@
 .Home {
   background-color: #070f0f;
 }
+.SearchBar{
+  margin: auto;
+  width: 33.33%;
+  border: 10px solid;
+  border-image-slice: 1;
+  border-width: 3px;
+  border-image-source: linear-gradient(to right, #743ad5, #d53a9d);
+  padding: 10px;
+  justify-content: center;
+}
 
 .images {
   position: absolute;

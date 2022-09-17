@@ -5,6 +5,7 @@ import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import SearchTeams from "./SearchTeams";
 import Loading from "./Loading";
+import styles from "../styles/SearchTeams.module.css";
 
 function SearchTeamsWithSearch() {
   const [selectedTeam, setSelectedTeam] = useState(null);
@@ -14,6 +15,14 @@ function SearchTeamsWithSearch() {
   const [isLoading, setIsLoading] = useState(false);
 
   const [teamData, setTeamData] = useState([]);
+  const handleTextBox = (selectedTeam) => {
+    console.log(selectedTeam);
+    if (selectedTeam) {
+      return selectedTeam.team.teamName;
+    } else {
+      return selectedTeam;
+    }
+  };
 
   const handleTeamChange = (newTeam) => {
     if (newTeam) {
@@ -101,19 +110,30 @@ function SearchTeamsWithSearch() {
     <Loading />
   ) : (
     <div>
-      <Autocomplete
-        disablePortal
-        id="combo-box-demo"
-        options={labels}
-        sx={{ width: 300 }}
-        renderInput={(params) => {
-          return <TextField {...params} label="Teams" />;
-        }}
-        value={selectedTeam}
-        onChange={(_event, newTeam) => {
-          handleTeamChange(newTeam);
-        }}
-      />
+      <div className={styles.SearchBar}>
+        <Autocomplete
+          disablePortal
+          id="combo-box-demo"
+          options={labels}
+          renderInput={(params) => {
+            console.log(selectedTeam);
+            return (
+              <TextField
+                {...params}
+                label="Teams"
+                style={{
+                  backgroundColor: "white",
+                }}
+              />
+            );
+          }}
+          value={handleTextBox(selectedTeam)}
+          onChange={(_event, newTeam) => {
+            handleTeamChange(newTeam);
+            console.log(labels);
+          }}
+        />
+      </div>
       <SearchTeams data={selectedTeam} />
     </div>
   );
