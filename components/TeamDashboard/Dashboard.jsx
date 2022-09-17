@@ -3,6 +3,7 @@ import React, { useContext, useRef } from "react";
 import { useEffect, useState } from "react";
 import CreateTeam from "./CreateTeam";
 import Counter from "./Counter";
+import styles from "../../styles/Dashboard.module.css";
 import LeaderDashboard from "./LeaderDashboard";
 import TeamMembers from "./TeamMembers";
 import Loading from "../Loading";
@@ -27,6 +28,10 @@ function Dashboard() {
   };
 
   const handleMemberRemove = () => {
+    setUseEffectTrigger((prevTeamStatus) => !prevTeamStatus);
+  };
+
+  const handleMemberLeave = () => {
     setUseEffectTrigger((prevTeamStatus) => !prevTeamStatus);
   };
 
@@ -58,6 +63,8 @@ function Dashboard() {
         }
         if (data.user.teamId) {
           setHasTeam(true);
+        }else{
+          setHasTeam(false);
         }
         if (data.user?.teamRole === 0) {
           setIsLeader(true);
@@ -97,7 +104,8 @@ function Dashboard() {
   }, [session.accessTokenBackend, teamData]);
 
   return (
-    <div>
+
+    <div className={styles.bodyContainer}>
       {isLoading ? (
         <Loading />
       ) : hasTeam ? (
@@ -109,7 +117,7 @@ function Dashboard() {
             handleMemberRemove={handleMemberRemove}
           />
         ) : (
-          <TeamMembers teamData={teamData} />
+          <TeamMembers teamData={teamData} handleMemberLeave={handleMemberLeave}/>
         )
       ) : (
         <CreateTeam isLeader={isLeader} handleTeamCreate={handleTeamCreate} />

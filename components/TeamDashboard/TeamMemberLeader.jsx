@@ -48,9 +48,9 @@ const TeamMemberLeader = ({
 
   return (
     <div
-      className={`${styles.col} ${styles.lg4} ${styles.md3} ${styles.xs2} ${styles.flex_stretch}`}
+      className={`${styles.col} ${styles.lg4} ${styles.md3} ${styles.xs2} ${styles.flex_stretch}  ${styles.zoom}`}
     >
-      <div className={styles.member_container}>
+      <div className={`${styles.member_container} ${styles.border_gradient} `}>
         <div className={`${styles.centre_align} ${styles.bottom_margin}`}>
           <h4 className={styles.member_name}>{teamName}</h4>
           {teamRole == 0 ? (
@@ -67,7 +67,7 @@ const TeamMemberLeader = ({
             <></>
           ) : (
             <button
-              className={`${styles.remove_team_btn} ${styles.w_button} `}
+              className={`${styles.remove_team_btn} ${styles.w_button}`}
               onClick={handleRemove}
             >
               Remove

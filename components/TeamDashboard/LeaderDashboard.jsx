@@ -74,49 +74,50 @@ const LeaderDashboard = ({
   };
   return (
     <>
-      {isLoading ? (
-        <Loading />
-      ) : (
-        <div className={styles.team_member_section}>
-          <div className={styles.team_member_section_wrapper}>
-            <h2 className={styles.team_name}>
-              Team - {teamData?.teamId?.teamName}
-            </h2>
-            <h2 className={styles.invite_link_container}>
-              <label>Team Link:</label>
-              <input
-                type="text"
-                value={`https://future-preneurs-22.vercel.app/join-team-link/${teamToken}`}
-                placeholder="Type some text here"
-                onChange={(event) => setText(event.target.value)}
-                className={styles.input}
-              />
-              <CopyToClipboard
-                text={`https://future-preneurs-22.vercel.app/join-team-link/${teamToken}`}
-                onCopy={onCopyText}
-              >
-                <div className="copy-area">
-                  <button onClick={showToastMessage}>copy</button>
-                </div>
-              </CopyToClipboard>
-            </h2>
-            <div className={`${styles.team_row} ${styles.align_centre}`}>
-              {teamData?.teamId?.members?.map((team) => {
-                return (
-                  <TeamMemberLeader
-                    key={team._id}
-                    teamName={team.name}
-                    mobileNumber={team.mobileNumber}
-                    email={team.email}
-                    teamId={teamId}
-                    userId={team._id}
-                    handleMemberRemove={handleMemberRemove}
-                    teamRole={team.teamRole}
-                    //teamRole={team.teamId.teamRole} //pass down team role,if team role === 0 disable remove button
-                  ></TeamMemberLeader>
-                );
-              })}
-            </div>
+      <div className={styles.team_member_section}>
+        <div className={styles.team_member_section_wrapper}>
+          <h2 className={styles.team_name}>
+            Team - {teamData?.teamId?.teamName}
+          </h2>
+          <h2 className={styles.invite_link_container}>
+            <label className={styles.label}>Team Link:</label>
+            <input
+              type="text"
+              value={`https://future-preneurs-22.vercel.app/join-team-link/${teamToken}`}
+              placeholder="Type some text here"
+              onChange={(event) => setText(event.target.value)}
+              className={styles.input}
+            />
+            <CopyToClipboard
+              text={`https://future-preneurs-22.vercel.app/join-team-link/${teamToken}`}
+              onCopy={onCopyText}
+            >
+              <div className="copy-area">
+                <button className={`${styles.btnCopy} ${styles.glow_on_hover} ${styles.animated_button1}`} onClick={showToastMessage}>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  copy
+                </button>
+              </div>
+            </CopyToClipboard>
+          </h2>
+          <div className={`${styles.team_row} ${styles.align_centre}`}>
+            {teamData?.teamId?.members?.map((team) => {
+              return (
+                <TeamMemberLeader
+                  key={team._id}
+                  teamName={team.name}
+                  mobileNumber={team.mobileNumber}
+                  email={team.email}
+                  teamId={teamId}
+                  userId={team._id}
+                  handleMemberRemove={handleMemberRemove}
+                  teamRole={team.teamRole}
+                ></TeamMemberLeader>
+              );
+            })}
           </div>
           <button
             className={`${styles.leave_team_btn} ${styles.team_leader_btn} ${styles.w_button}`}
