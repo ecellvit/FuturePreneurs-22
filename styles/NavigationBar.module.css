@@ -1,3 +1,72 @@
-.navColor{
-  background-color: blanchedalmond;
+.navbar {
+  background-color: black;
+  display: flex;
+  color: white;
+  padding-right: 2%;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.logoBrand {
+  text-decoration: none;
+  color: red;
+}
+
+.flexLeft {
+  padding-top: 8px;
+}
+
+.flexLeft ul li {
+  display: inline-block;
+  padding-right: 20px;
+}
+
+.flexRight button {
+  background-color: transparent;
+  outline: none;
+  border: 1px solid transparent;
+}
+.flexLeftPosition {
+  position: relative;
+  bottom: 20px;
+}
+.flexRight ul li {
+  display: inline;
+}
+.flexRight a {
+  cursor: pointer;
+}
+
+.flexRightPosition {
+  position: relative;
+  bottom: 25px;
+  padding-right: 20px;
+}
+
+.flexRightBell {
+  background-color: transparent;
+  position: relative;
+  bottom: 8px;
+  padding-right: 15px;
+}
+
+.hamburgerMenu {
+  display: none;
+}
+
+@media only screen and (max-width: 900px) {
+  .navbar {
+    /* margin-left: 10%; */
+    width: 105%;
+  }
+  .responsive {
+    display: none;
+  }
+
+  .hamburgerMenu {
+    display: inline-block;
+    position: relative;
+    bottom: 25px;
+    padding-left: 20px;
+  }
 }
