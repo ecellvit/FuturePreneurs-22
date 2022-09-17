@@ -63,6 +63,7 @@ const CreateTeam = ({ handleTeamCreate, isLeader }) => {
         .then((data) => data.json())
         .then((data) => {
           setIsLoading(false);
+          console.log("?????????????????????",data)
           if (data.error?.errorCode) {
             toast.error(`${data.message}`, {
               position: "top-right",
@@ -87,7 +88,7 @@ const CreateTeam = ({ handleTeamCreate, isLeader }) => {
           <div className={styles.wrapper}>
             <div
               className={styles.section_title}
-            >{`Hi,${session.user.name} `}</div>
+            >{`Hi, ${session.user.name} `}</div>
             <h2 className={styles.h1_create}>Join a Team or Create a Team</h2>
             <p className={styles.p_create}>
               The event is designed to test your analytical thinking. Glaze up

@@ -13,7 +13,7 @@ const notyNumStyle = {
   color: "white",
   display: "inline",
   padding: "2px 4px",
-  borderRadius: "15px"
+  borderRadius: "15px",
 };
 
 export default function Noty({ width, color, count }) {

@@ -104,7 +104,6 @@ function Dashboard() {
   }, [session.accessTokenBackend, teamData]);
 
   return (
-
     <div className={styles.bodyContainer}>
       {isLoading ? (
         <Loading />

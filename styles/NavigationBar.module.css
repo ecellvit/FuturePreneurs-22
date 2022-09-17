@@ -1,3 +1,112 @@
-.navColor{
-  background-color: blanchedalmond;
+.navbar {
+  background-color: black;
+  display: flex;
+  color: white;
+  padding-right: 2%;
+  justify-content: space-between;
+  width: 100%;
+  height: 16vh;
+  border-bottom: 1px solid white;
+}
+
+.logoBrand {
+  text-decoration: none;
+  color: red;
+}
+
+.flexLeft {
+  padding-top: 8px;
+}
+
+.flexLeft ul li {
+  display: inline-block;
+  padding-right: 20px;
+}
+
+.flexMid .counterWrapper {
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+}
+
+.flexMid .headerMid {
+  margin-top: 1%;
+  word-spacing: 5px;
+  font-weight: lighter;
+  text-align: center;
+}
+.flexMid .counterCard {
+  margin-right: 5%;
+  margin-top: 3%;
+  padding-top: 5%;
+  padding-bottom: 5%;
+  background-color: #5e5b71;
+  border-radius: 30%;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+.flexMid .counterCardHead {
+  position: relative;
+  padding-bottom: 2%;
+  left: 4%;
+  font-size: 9px;
+}
+
+.flexMid .counterCardBody {
+  text-align: center;
+  font-weight: bolder;
+  font-size: 20px;
+}
+
+.flexRight button {
+  background-color: transparent;
+  outline: none;
+  border: 1px solid transparent;
+}
+.flexLeftPosition {
+  position: relative;
+  bottom: 20px;
+}
+.flexRight ul li {
+  display: inline;
+}
+.flexRight a {
+  cursor: pointer;
+}
+
+.flexRightPosition {
+  position: relative;
+  bottom: 25px;
+  padding-right: 20px;
+}
+
+.flexRightBell {
+  background-color: transparent;
+  position: relative;
+  bottom: 8px;
+  padding-right: 15px;
+}
+
+.hamburgerMenu {
+  display: none;
+}
+
+@media only screen and (max-width: 900px) {
+  .navbar {
+    margin-top: -1%;
+    padding-right: 10%;
+    width: 105%;
+    height: 12vh;
+  }
+  .responsive {
+    display: none;
+  }
+
+  .hamburgerMenu {
+    display: inline-block;
+    position: relative;
+    bottom: 25px;
+    padding-left: 20px;
+  }
 }
