@@ -105,7 +105,31 @@ const NavigationBar = (props) => {
               </li>
             </ul>
           </div>
-          <div className={`${styles.flexMid} ${styles.responsive}`}>TEST</div>
+          <div className={`${styles.flexMid} ${styles.responsive}`}>
+            <div className={styles.headerMid}>
+              REGISTRATION ENDS IN&nbsp;&nbsp;
+            </div>
+            <div className={styles.counterWrapper}>
+              <div className={`${styles.counterCard} ${styles.counterCard1}`}>
+                <div className={styles.counterCardHead}>
+                  &nbsp;&nbsp;&nbsp;DAYS&nbsp;&nbsp;&nbsp;
+                </div>
+                <div className={styles.counterCardBody}>11</div>
+              </div>
+              <div className={`${styles.counterCard} ${styles.counterCard2}`}>
+                <div className={styles.counterCardHead}>&nbsp;HOURS&nbsp;</div>
+                <div className={styles.counterCardBody}>11</div>
+              </div>
+              <div className={`${styles.counterCard} ${styles.counterCard3}`}>
+                <div className={styles.counterCardHead}>MINUTES</div>
+                <div className={styles.counterCardBody}>11</div>
+              </div>
+              <div className={`${styles.counterCard} ${styles.counterCard4}`}>
+                <div className={styles.counterCardHead}>SECONDS</div>
+                <div className={styles.counterCardBody}>11</div>
+              </div>
+            </div>
+          </div>
           <div className={styles.flexRight}>
             <ul>
               <li>

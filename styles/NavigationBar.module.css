@@ -5,6 +5,8 @@
   padding-right: 2%;
   justify-content: space-between;
   width: 100%;
+  height: 16vh;
+  border-bottom: 1px solid white;
 }
 
 .logoBrand {
@@ -19,6 +21,42 @@
 .flexLeft ul li {
   display: inline-block;
   padding-right: 20px;
+}
+
+.flexMid .counterWrapper {
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+}
+
+.flexMid .headerMid {
+  margin-top: 1%;
+  word-spacing: 5px;
+  font-weight: lighter;
+  text-align: center;
+}
+.flexMid .counterCard {
+  margin-right: 5%;
+  margin-top: 3%;
+  padding-top: 5%;
+  padding-bottom: 5%;
+  background-color: #5e5b71;
+  border-radius: 30%;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+.flexMid .counterCardHead {
+  position: relative;
+  padding-bottom: 2%;
+  left: 4%;
+  font-size: 9px;
+}
+
+.flexMid .counterCardBody {
+  text-align: center;
+  font-weight: bolder;
+  font-size: 20px;
 }
 
 .flexRight button {
@@ -56,7 +94,6 @@
 
 @media only screen and (max-width: 900px) {
   .navbar {
-    /* margin-left: 10%; */
     width: 105%;
   }
   .responsive {
