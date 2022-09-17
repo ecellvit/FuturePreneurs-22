@@ -93,7 +93,8 @@ function PendingRequests() {
     <>
     {isLoading ? <Loading/> :
     (<div className={styles.Teams}>
-      {teamData.map((team) => {
+      {(teamData.length==0) ? <text style={{color:"white"}}>There are no Requests</text> : 
+        teamData.map((team) => {
         if (team.teamId != null) {
           return (
             <div className={styles.Cards} key={team.teamId._id}>
