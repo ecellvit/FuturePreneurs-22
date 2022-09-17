@@ -48,7 +48,6 @@ function Dashboard() {
     })
       .then((data) => data.json())
       .then((data) => {
-        setIsLoading(false);
         if (data.error?.errorCode) {
           toast.error(`${data.message}`, {
             position: "top-right",
@@ -70,6 +69,7 @@ function Dashboard() {
           setIsLeader(true);
         }
         setTeamData(data.user);
+        setIsLoading(false);
       })
 
       .catch((error) => {
