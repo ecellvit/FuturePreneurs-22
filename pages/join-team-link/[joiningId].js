@@ -4,6 +4,7 @@ import { signIn, useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import LinkJoining from '../../components/LinkJoining';
 import Sign from '../../components/Sign';
+import NavigationBar from '../../components/NavigationBar';
 
 function JoiningIdPage() {
   const router = useRouter();
@@ -81,8 +82,8 @@ function JoiningIdPage() {
 
   return (
     <div>
-      // {session ?  <Sign/>  : "nothing"}
-      <NavigationBar />
+    <NavigationBar/>
+       {session ?  <Sign/>  : "nothing"}
       {status === "authenticated" && <LinkJoining joiningId={joiningId} />}
     </div>
 

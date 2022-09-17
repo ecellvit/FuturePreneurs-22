@@ -221,7 +221,7 @@ function SearchTeams(props) {
                             Mail:{teamLead.email}
                           </h3>
                           <button
-                            className={styles.button}
+                            className={`${styles.button} ${styles.glow_on_hover}` }
                             onClick={() => {
                               handleJoinTeam(team);
                             }}
