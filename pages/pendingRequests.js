@@ -15,7 +15,6 @@ export default function PendingRequestsPage() {
   useEffect(() => {
     if (router.isReady) {
       if (status !== "loading" && status === "unauthenticated") {
-        toast.error(`Please login first!`)
         router.push("/")
       }
     }

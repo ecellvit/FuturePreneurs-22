@@ -8,6 +8,7 @@ import SearchTeamsWithSearch from "../components/SearchTeamsWithSearch.jsx";
 import { toast, ToastContainer } from "react-toastify";
 import Loading from "../components/Loading";
 import ScrollProgressAnimation from "../components/animationComponents/ScrollProgress";
+import NavigationBar from "../components/NavigationBar";
 
 export default function SearchTeamsPage() {
   const { status } = useSession();
@@ -17,7 +18,6 @@ export default function SearchTeamsPage() {
   useEffect(() => {
     if (router.isReady) {
       if (status !== "loading" && status === "unauthenticated") {
-        toast.error(`Please login first!`)
         router.push("/")
       }
     }
@@ -35,6 +35,7 @@ export default function SearchTeamsPage() {
               <link rel="icon" href="/favicon.ico" />
             </Head>
             <br />
+            <NavigationBar />
             <ScrollProgressAnimation />
             <SearchTeamsWithSearch />
           </div>
