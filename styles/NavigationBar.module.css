@@ -94,7 +94,10 @@
 
 @media only screen and (max-width: 900px) {
   .navbar {
+    margin-top: -1%;
+    padding-right: 10%;
     width: 105%;
+    height: 12vh;
   }
   .responsive {
     display: none;
