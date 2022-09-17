@@ -73,7 +73,7 @@ const LeaderDashboard = ({
     }
   };
   return (
-    <>
+    <div>
       <div className={styles.team_member_section}>
         <div className={styles.team_member_section_wrapper}>
           <h2 className={styles.team_name}>
@@ -125,13 +125,9 @@ const LeaderDashboard = ({
           >
             Delete Team
           </button>
-
-          {/* <button className={`${styles.start_quiz} ${styles.w_button}`}>
-            Start Quiz
-          </button> */}
         </div>
-      )}
-    </>
+        </div>
+    </div>
   );
 };
 
