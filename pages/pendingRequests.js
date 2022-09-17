@@ -28,7 +28,7 @@ export default function PendingRequestsPage() {
         <Loading /> :
         status === "authenticated" &&
         <div className={styles.container}>
-          <NavigationBar />
+          {/* <NavigationBar /> */}
           <br />
           <PendingRequests />
         </div>}

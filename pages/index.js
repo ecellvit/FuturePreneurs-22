@@ -11,7 +11,7 @@ export default function Home() {
         <meta name="FuturePreneurs VIT Vellore" content="FuturePreneurs 8.0 VIT Vellore, E-Cell" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <NavigationBar />
+      {/* <NavigationBar /> */}
       <Landing />
     </div>
   );

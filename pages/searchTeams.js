@@ -35,7 +35,7 @@ export default function SearchTeamsPage() {
               <link rel="icon" href="/favicon.ico" />
             </Head>
             <br />
-            <NavigationBar />
+            {/* <NavigationBar /> */}
             <ScrollProgressAnimation />
             <SearchTeamsWithSearch />
           </div>
