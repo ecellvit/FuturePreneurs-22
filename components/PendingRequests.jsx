@@ -37,7 +37,11 @@ function PendingRequests() {
               draggable: true,
               progress: undefined,
             });
+            return;
           }
+          setTeamData(prev => {
+            return prev.filter(elem => elem.teamId._id !== team.teamId._id);
+          })
           toast.success(`${data.message}`, {
             position: toast.POSITION.TOP_RIGHT,
           });
@@ -49,6 +53,8 @@ function PendingRequests() {
       });
     }
   };
+
+  console.log(teamData);
   useEffect(() => {
     setIsLoading(true)
     if (session) {
@@ -74,11 +80,12 @@ function PendingRequests() {
             });
           }
           data.requests?.map((currenTeam) => {
-            if (teamData.findIndex((x) => x._id === currenTeam._id) === -1) {
-              setTeamData((prevTeamData) => {
+            setTeamData((prevTeamData) => {
+              if (prevTeamData.findIndex((x) => x._id === currenTeam._id) === -1) {
                 return [...prevTeamData, currenTeam];
-              });
-            }
+              }
+              return prevTeamData;
+            });
           });
           setIsLoading(false);
         });

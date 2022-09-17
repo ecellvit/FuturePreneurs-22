@@ -123,7 +123,10 @@ function PendingUserRequests() {
                       }
                       data.requests.map((currentUser) => {
                         setUserData((prevUserData) => {
-                          return [...prevUserData, currentUser];
+                          if (prevUserData.findIndex((x) => x._id === currentUser._id) === -1) {
+                            return [...prevUserData, currentUser];
+                          }
+                          return prevUserData;
                         });
                       });
                     });
