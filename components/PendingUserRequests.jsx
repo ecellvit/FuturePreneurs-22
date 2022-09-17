@@ -14,7 +14,7 @@ function PendingUserRequests() {
   const handleTeamAccept = (user) => {
     console.log(
       JSON.stringify({
-        userid: user.userId._id,
+        userId: user.userId._id,
         status: 1,
       })
     );
@@ -39,6 +39,9 @@ function PendingUserRequests() {
         toast.success(`${data.message}`, {
           position: toast.POSITION.TOP_RIGHT,
         });
+        setUserData(prev => {
+          return prev.filter(elem => elem.userId._id !== user.userId._id);
+        })
         setIsLoading(false);
       });
   };
@@ -77,6 +80,9 @@ function PendingUserRequests() {
         toast.success(`${data.message}`, {
           position: toast.POSITION.TOP_RIGHT,
         });
+        setUserData(prev => {
+          return prev.filter(elem => elem.userId._id !== user.userId._id);
+        })
         setIsLoading(false);
       });
   };
