@@ -39,9 +39,9 @@ function PendingRequests() {
             });
             return;
           }
-          setTeamData(prev => {
-            return prev.filter(elem => elem.teamId._id !== team.teamId._id);
-          })
+          setTeamData((prev) => {
+            return prev.filter((elem) => elem.teamId._id !== team.teamId._id);
+          });
           toast.success(`${data.message}`, {
             position: toast.POSITION.TOP_RIGHT,
           });
@@ -56,7 +56,7 @@ function PendingRequests() {
 
   console.log(teamData);
   useEffect(() => {
-    setIsLoading(true)
+    setIsLoading(true);
     if (session) {
       fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/user/requests`, {
         method: "GET",
@@ -81,7 +81,9 @@ function PendingRequests() {
           }
           data.requests?.map((currenTeam) => {
             setTeamData((prevTeamData) => {
-              if (prevTeamData.findIndex((x) => x._id === currenTeam._id) === -1) {
+              if (
+                prevTeamData.findIndex((x) => x._id === currenTeam._id) === -1
+              ) {
                 return [...prevTeamData, currenTeam];
               }
               return prevTeamData;
@@ -98,50 +100,56 @@ function PendingRequests() {
 
   return (
     <>
-    {isLoading ? <Loading/> :
-    (<div className={styles.Teams}>
-      {(teamData.length==0) ? <text style={{color:"white"}}>There are no Requests</text> : 
-        teamData.map((team) => {
-        if (team.teamId != null) {
-          return (
-            <div className={styles.Cards} key={team.teamId._id}>
-              <Avatar
-                name={team.teamId.teamName}
-                className={styles.CardsImg}
-                size="300"
-              />
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <div className={styles.Teams}>
+          {teamData.length == 0 ? (
+            <text style={{ color: "white" }}>There are no Requests</text>
+          ) : (
+            teamData.map((team) => {
+              if (team.teamId != null) {
+                return (
+                  <div className={styles.Cards} key={team.teamId._id}>
+                    <Avatar
+                      name={team.teamId.teamName}
+                      className={styles.CardsImg}
+                      size="300"
+                    />
 
-              <div className={styles.infogroup}>
-                <div>
-                  <h3 className={styles.Cardsh3}>
-                    TeamName:{team.teamId.teamName}
-                  </h3>
-                  <h3 className={styles.Cardsh3}>
-                    Team Size:{team.teamId.members.length}/4
-                  </h3>
-                  <h3 className={styles.Cardsh3}>
-                    Team Leader:{team.teamId.teamLeaderId.firstName}
-                    {team.teamId.teamLeaderId.lastName}
-                  </h3>
-                  <h3 className={styles.Cardsh3}>
-                    Mail:{team.teamId.teamLeaderId.email}
-                  </h3>
-                  <button
-                    className={styles.button}
-                    onClick={() => {
-                      handleDeleteRequest(team);
-                    }}
-                  >
-                    DELETE REQUEST
-                  </button>
-                </div>
-              </div>
-            </div>
-          );
-        }
-      })}
-    </div>)}
-      </>
+                    <div className={styles.infogroup}>
+                      <div>
+                        <h3 className={styles.Cardsh3}>
+                          TeamName:{team.teamId.teamName}
+                        </h3>
+                        <h3 className={styles.Cardsh3}>
+                          Team Size:{team.teamId.members.length}/4
+                        </h3>
+                        <h3 className={styles.Cardsh3}>
+                          Team Leader:{team.teamId.teamLeaderId.firstName}
+                          {team.teamId.teamLeaderId.lastName}
+                        </h3>
+                        <h3 className={styles.Cardsh3}>
+                          Mail:{team.teamId.teamLeaderId.email}
+                        </h3>
+                        <button
+                          className={`${styles.button} ${styles.glow_on_hover}`}
+                          onClick={() => {
+                            handleDeleteRequest(team);
+                          }}
+                        >
+                          DELETE REQUEST
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                );
+              }
+            })
+          )}
+        </div>
+      )}
+    </>
   );
 }
 export default PendingRequests;
