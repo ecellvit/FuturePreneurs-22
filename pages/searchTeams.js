@@ -7,6 +7,7 @@ import { ConfigProvider } from 'react-avatar';
 import SearchTeamsWithSearch from "../components/SearchTeamsWithSearch.jsx";
 import { toast, ToastContainer } from "react-toastify";
 import Loading from "../components/Loading";
+import ScrollProgressAnimation from "../components/animationComponents/ScrollProgress";
 
 export default function SearchTeamsPage() {
   const { status } = useSession();
@@ -34,6 +35,7 @@ export default function SearchTeamsPage() {
               <link rel="icon" href="/favicon.ico" />
             </Head>
             <br />
+            <ScrollProgressAnimation />
             <SearchTeamsWithSearch />
           </div>
         </ConfigProvider>}

@@ -14,7 +14,7 @@ function SearchTeams(props) {
 
   const { data: session, status } = useSession();
 
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const [teamData, setTeamData] = useState([]);
   const handlePreviousButtonClick = () => {
@@ -136,9 +136,10 @@ function SearchTeams(props) {
         });
       });
   };
+
   useEffect(() => {
+    setIsLoading(true);
     if (status !== "loading" && status === "authenticated") {
-      setIsLoading(true);
       fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/team?page=1&limit=9`, {
         method: "GET",
         headers: {
@@ -183,9 +184,12 @@ function SearchTeams(props) {
     ) : (
       <div>
         <div className={styles.images}>
-          {/* <Image src={imgSrc}
-           layout="intrinsic" objectFit="contain" /> */}
-          {/* <Image src={imgSrc} layout="intrinsic" /> */}
+          <Image
+            src={imgSrc}
+            layout="intrinsic"
+            objectFit="contain"
+            alt="bg-img"
+          />
         </div>
 
         <div className={styles.Teams}>
