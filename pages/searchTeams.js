@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/router.js";
 import { ConfigProvider } from 'react-avatar';
 import SearchTeamsWithSearch from "../components/SearchTeamsWithSearch.jsx";
-import { toast, ToastContainer } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import Loading from "../components/Loading";
 import ScrollProgressAnimation from "../components/animationComponents/ScrollProgress";
 import NavigationBar from "../components/NavigationBar";

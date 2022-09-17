@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import Noty from "./Noty";
 import Image from "next/image";
 import fpLogo from "../img/fpLogo.svg";
+import Loading from "./Loading";
 
 import ecellLogo from "../img/ecellLogo.svg";
 import menuicon from "../img/menuicon.svg";
@@ -182,8 +183,8 @@ const NavigationBar = (props) => {
                   <Image
                     alt="Logo"
                     src={menuicon}
-                    width={20}
-                    height={20}
+                    width={25}
+                    height={25}
                     onClick
                   />
                 </div>
