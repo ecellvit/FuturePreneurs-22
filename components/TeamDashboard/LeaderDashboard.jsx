@@ -93,7 +93,7 @@ const LeaderDashboard = ({
               onCopy={onCopyText}
             >
               <div className="copy-area">
-                <button className={`${styles.btnCopy} ${styles.glow_on_hover} ${styles.animated_button1}`} onClick={showToastMessage}>
+                <button className={`${styles.btnCopy} ${styles.glow_on_hover}`} onClick={showToastMessage}>
                   <span></span>
                   <span></span>
                   <span></span>

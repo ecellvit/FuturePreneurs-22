@@ -2,7 +2,6 @@
 
 .bodyContainer{
   background-color:#070F0F;
-  height:100vh;
   color:#ffff;
   font-family: 'Poppins', sans-serif;
   font-family: 'Roboto', sans-serif;
@@ -62,8 +61,8 @@
   font-size:2.5rem;
 }
 
-/* .glow_on_hover {
-  width: 220px;
+.glow_on_hover {
+  width: 5rem;
   height: 50px;
   border: none;
   outline: none;
@@ -77,7 +76,8 @@
 
 .glow_on_hover:before {
   content: '';
-  background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+  background: linear-gradient(45deg, #130AE6, #236DCE, #BF3EC3, #BC304B, #E69951);
+  //background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
   position: absolute;
   top: -2px;
   left:-2px;
@@ -102,9 +102,9 @@
 
 .glow_on_hover:hover:before {
   opacity: 1;
-} */
+}
 
-/* .glow_on_hover:after {
+ .glow_on_hover:after {
   z-index: -1;
   content: '';
   position: absolute;
@@ -114,14 +114,14 @@
   left: 0;
   top: 0;
   border-radius: 10px;
-} */
+} 
 
 
-/* @keyframes glowing {
+@keyframes glowing {
   0% { background-position: 0 0; }
   50% { background-position: 400% 0; }
   100% { background-position: 0 0; }
-} */
+}
 
 .member_name {
   margin-top: 0px;
@@ -350,6 +350,18 @@
   }
 }
 
+@media screen and (min-width: 767px) {
+  .bodyContainer{
+    background-color:#070F0F;
+    height:100vh;
+    color:#ffff;
+    font-family: 'Poppins', sans-serif;
+    font-family: 'Roboto', sans-serif;
+    font-family: 'Teko', sans-serif;
+    letter-spacing: .5px;
+  }
+}
+
 @media screen and (max-width: 767px) {
   .member_container {
     padding: 30px 40px 10px;
@@ -531,7 +543,6 @@
   justify-content: center;
   color: #5b3acc;
   font-size: 27px;
-  font-style: italic;
   font-weight: 400;
   text-align: center;
   color:#ffff;
@@ -552,7 +563,27 @@
   .invite_link_container {
     overflow: hidden;
     font-size: 19px;
-    line-height: 28px;
+
+    /* line-height: 28px; */
+  }
+
+  .btnCopy{
+    height:2.2rem;
+    width:3rem;
+  }
+
+  .member_container{
+    margin-top:.1rem;
+  } 
+
+  .team_name{
+    font-size:2.5rem;
+  }
+
+  .label{
+    font-size:1rem;
+    width:5rem;
+    height:2rem;
   }
   .invite_link_a {
     display: block;
@@ -750,7 +781,7 @@
 }
 
 .animated_button1 {
-  background: linear-gradient(-30deg, #3d0b0b 50%, #2b0808 50%);
+  background: linear-gradient(-30deg, #5E5B71 50%, #5E5B71 50%);
   padding: 20px 40px;
   margin: 12px;
   display: inline-block;
