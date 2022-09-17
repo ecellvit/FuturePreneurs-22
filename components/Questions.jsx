@@ -40,10 +40,8 @@ function Questions(props) {
       .then((response) => {
         return response.json();
       })
-      .then((data) => {
-      })
-      .catch((err) => {
-      });
+      .then((data) => {})
+      .catch((err) => {});
   }
 
   function startQuiz() {
@@ -78,8 +76,7 @@ function Questions(props) {
           }, 1000);
         }
       })
-      .catch((err) => {
-      });
+      .catch((err) => {});
   }
 
   useEffect(() => {

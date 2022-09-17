@@ -3,8 +3,9 @@ import { useSession } from "next-auth/react";
 import TeamMemberLeader from "./TeamMemberLeader";
 import styles from "../../styles/Dashboard.module.css";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import { ToastContainer, toast } from "react-toastify";
+import {  toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Loading from "../Loading";
 
 const LeaderDashboard = ({
   teamData,
@@ -13,6 +14,7 @@ const LeaderDashboard = ({
   handleMemberRemove,
 }) => {
   const [teamId, setTeamId] = useState(teamData.teamId._id);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [isCopied, setIsCopied] = useState(false);
   const { data: session } = useSession();
@@ -35,6 +37,7 @@ const LeaderDashboard = ({
 
   const handleDelete = () => {
     if (teamData.teamId.members.length === 1) {
+      setIsLoading(true);
       fetch(
         `${process.env.NEXT_PUBLIC_SERVER}/api/team/${teamData.teamId._id}`,
         {
@@ -48,6 +51,19 @@ const LeaderDashboard = ({
       )
         .then((data) => data.json())
         .then((data) => {
+          setIsLoading(false);
+          if (data.error?.errorCode) {
+            toast.error(`${data.message}`, {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
+            return;
+          }
           handleTeamDelete(false);
         });
     } else {
@@ -56,7 +72,6 @@ const LeaderDashboard = ({
       });
     }
   };
-  <ToastContainer />;
   return (
     <>
       <div className={styles.team_member_section}>
@@ -104,18 +119,18 @@ const LeaderDashboard = ({
               );
             })}
           </div>
-        </div>
-        <button
-          className={`${styles.leave_team_btn} ${styles.team_leader_btn} ${styles.w_button}`}
-          onClick={handleDelete}
-        >
-          Delete Team
-        </button>
+          <button
+            className={`${styles.leave_team_btn} ${styles.team_leader_btn} ${styles.w_button}`}
+            onClick={handleDelete}
+          >
+            Delete Team
+          </button>
 
-        {/* <button className={`${styles.start_quiz} ${styles.w_button}`}>
-          Start Quiz
-        </button> */}
-      </div>
+          {/* <button className={`${styles.start_quiz} ${styles.w_button}`}>
+            Start Quiz
+          </button> */}
+        </div>
+      )}
     </>
   );
 };

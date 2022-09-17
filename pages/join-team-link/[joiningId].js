@@ -8,11 +8,12 @@ import Sign from '../../components/Sign';
 function JoiningIdPage() {
   const router = useRouter();
   const { joiningId } = router.query;
+
   const [loading, setLoading] = useState(true);
   const { data: session, status } = useSession();
 
   useEffect(() => {
-    if (status === "unauthenticated" && status !== "loading") {
+    if (status !== "loading" && status === "unauthenticated") {
       // router.push('/api/auth/signin')
       signIn('google', { callbackurl: `/join-team-link/${joiningId}` })
     }
@@ -80,8 +81,9 @@ function JoiningIdPage() {
 
   return (
     <div>
-      {session ?  <Sign/>  : "nothing"}
-
+      // {session ?  <Sign/>  : "nothing"}
+      <NavigationBar />
+      {status === "authenticated" && <LinkJoining joiningId={joiningId} />}
     </div>
 
   )

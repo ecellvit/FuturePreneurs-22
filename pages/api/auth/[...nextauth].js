@@ -20,9 +20,16 @@ const getTokenFromYourAPIServer = async (user, account) => {
     headers: {
       "Content-Type": "application/json",
     },
-  }).then(data => data.json()).then(data => {
-    tokenFromBackend = data.accessToken;
   })
+    .then(data => {
+      return data.json()
+    })
+    .then(data => {
+      if (data.error?.statusCode) {
+        return null;
+      }
+      tokenFromBackend = data.accessToken;
+    })
   return tokenFromBackend;
 }
 
@@ -72,11 +79,10 @@ export default NextAuth({
       session.error = token.error;
       session.idToken = token.idToken;
 
-      // if (token.accessTokenFromBackend) {
-      //   return session;
-      // }
-      // return null;
-      return session;
+      if (token.accessTokenFromBackend) {
+        return session;
+      }
+      return null;
     },
 
     async signIn({ user, account }) {

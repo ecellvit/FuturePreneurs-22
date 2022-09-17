@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import styles from "../styles/SearchTeams.module.css";
 import Avatar from "react-avatar";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function PendingRequests() {
@@ -24,7 +24,17 @@ function PendingRequests() {
       )
         .then((data) => data.json())
         .then((data) => {
-          console.log(data);
+          if (data.error?.errorCode) {
+            toast.error(`${data.message}`, {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
+          }
           toast.success(`${data.message}`, {
             position: toast.POSITION.TOP_RIGHT,
           });
@@ -47,6 +57,17 @@ function PendingRequests() {
       })
         .then((data) => data.json())
         .then((data) => {
+          if (data.error?.errorCode) {
+            toast.error(`${data.message}`, {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
+          }
           data.requests?.map((currenTeam) => {
             if (teamData.findIndex((x) => x._id === currenTeam._id) === -1) {
               setTeamData((prevTeamData) => {
@@ -57,6 +78,11 @@ function PendingRequests() {
         });
     }
   }, [session]);
+
+  useEffect(() => {
+    console.log(teamData);
+  }, [teamData]);
+
   return (
     <div className={styles.Teams}>
       {teamData.map((team) => {
@@ -91,7 +117,6 @@ function PendingRequests() {
                     }}
                   >
                     DELETE REQUEST
-                    <ToastContainer />
                   </button>
                 </div>
               </div>

@@ -17,6 +17,7 @@
     "@mui/material": "^5.10.5",
     "@mui/styled-engine-sc": "^5.10.3",
     "bootstrap": "^5.2.1",
+    "framer-motion": "^7.3.5",
     "next": "^12.2.5",
     "next-auth": "^4.10.3",
     "react": "^18.2.0",
@@ -25,6 +26,7 @@
     "react-copy-to-clipboard": "^5.1.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.4.0",
+    "react-loader-spinner": "^5.3.4",
     "react-toastify": "^9.0.8",
     "styled": "^1.0.0",
     "styled-components": "^5.3.5"
