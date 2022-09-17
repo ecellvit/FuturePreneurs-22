@@ -10,6 +10,7 @@ import { useRouter } from "next/router";
 import Noty from "./Noty";
 import Image from "next/image";
 import fpLogo from "../img/fpLogo.svg";
+import Loading from "./Loading";
 
 const NavigationBar = (props) => {
   const { data: session, status } = useSession();
@@ -76,7 +77,7 @@ const NavigationBar = (props) => {
 
   return (
     <>
-      <Navbar variant="light" style={{ backgroundColor: "#333333" }}>
+      <Navbar variant="light" style={{ backgroundColor: "#666666" }}>
         <Container>
           <Navbar.Brand href="/">
             <Image alt=" " src={fpLogo} width={50} height={50} />
@@ -104,9 +105,9 @@ const NavigationBar = (props) => {
               </div>
             </Navbar.Collapse>
             {status === "authenticated" ? (
-              <Nav.Link onClick={() => logoutHandler()}>Sign Out</Nav.Link>
+              <Nav.Link color="white" onClick={() => logoutHandler()}>Sign Out</Nav.Link>
             ) : (
-              <Nav.Link onClick={() => loginHandler()}>Sign in</Nav.Link>
+              <Nav.Link color="white" onClick={() => loginHandler()}>Sign in</Nav.Link>
             )}
           </Nav>
         </Container>

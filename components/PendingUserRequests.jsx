@@ -5,10 +5,12 @@ import styles from "../styles/SearchTeams.module.css";
 import Avatar from "react-avatar";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Loading from "./Loading";
 
 function PendingUserRequests() {
   const { data: session } = useSession();
   const [userData, setUserData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const handleTeamAccept = (user) => {
     console.log(
       JSON.stringify({
@@ -16,6 +18,7 @@ function PendingUserRequests() {
         status: 1,
       })
     );
+    setIsLoading(true);
     fetch(
       `${process.env.NEXT_PUBLIC_SERVER}/api/team/requests/${user.teamId}`,
       {
@@ -36,9 +39,11 @@ function PendingUserRequests() {
         toast.success(`${data.message}`, {
           position: toast.POSITION.TOP_RIGHT,
         });
+        setIsLoading(false);
       });
   };
   const handleTeamDecline = (user) => {
+    setIsLoading(true);
     fetch(
       `${process.env.NEXT_PUBLIC_SERVER}/api/team/requests/${user.teamId}`,
       {
@@ -72,10 +77,12 @@ function PendingUserRequests() {
         toast.success(`${data.message}`, {
           position: toast.POSITION.TOP_RIGHT,
         });
+        setIsLoading(false);
       });
   };
   useEffect(() => {
     if (session) {
+      setIsLoading(true);
       fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/user/team`, {
         method: "GET",
         headers: {
@@ -124,60 +131,64 @@ function PendingUserRequests() {
               }
             });
           }
+          setIsLoading(false);
         });
     }
   }, [session]);
 
   return (
-    <div className={styles.Teams}>
-      {userData.map((user) => {
-        if (user.userId != null) {
-          return (
-            <div className={styles.Cards} key={user._id}>
-              <Avatar
-                name={user.userId.email}
-                className={styles.CardsImg}
-                size="300"
-              />
+    <>
+      {isLoading ? <Loading /> :
+        (<div className={styles.Teams}>
+          {userData.map((user) => {
+            if (user.userId != null) {
+              return (
+                <div className={styles.Cards} key={user._id}>
+                  <Avatar
+                    name={user.userId.email}
+                    className={styles.CardsImg}
+                    size="300"
+                  />
 
-              <div className={styles.infogroup}>
-                {
-                  <div>
-                    <h3 className={styles.Cardsh3}>
-                      User Name:{user.userId.firstName} {user.userId.lastName}
-                    </h3>
+                  <div className={styles.infogroup}>
+                    {
+                      <div>
+                        <h3 className={styles.Cardsh3}>
+                          User Name:{user.userId.firstName} {user.userId.lastName}
+                        </h3>
 
-                    <h3 className={styles.Cardsh3}>
-                      Phone Number:{user.userId.mobileNumber}
-                    </h3>
+                        <h3 className={styles.Cardsh3}>
+                          Phone Number:{user.userId.mobileNumber}
+                        </h3>
 
-                    <h3 className={styles.Cardsh3}>
-                      User Mail:{user.userId.email}
-                    </h3>
-                    <button
-                      className={styles.button}
-                      onClick={() => {
-                        handleTeamAccept(user);
-                      }}
-                    >
-                      Accept Request
-                    </button>
-                    <button
-                      className={styles.button}
-                      onClick={() => {
-                        handleTeamDecline(user);
-                      }}
-                    >
-                      Decline Request
-                    </button>
+                        <h3 className={styles.Cardsh3}>
+                          User Mail:{user.userId.email}
+                        </h3>
+                        <button
+                          className={styles.button}
+                          onClick={() => {
+                            handleTeamAccept(user);
+                          }}
+                        >
+                          Accept Request
+                        </button>
+                        <button
+                          className={styles.button}
+                          onClick={() => {
+                            handleTeamDecline(user);
+                          }}
+                        >
+                          Decline Request
+                        </button>
+                      </div>
+                    }
                   </div>
-                }
-              </div>
-            </div>
-          );
-        }
-      })}
-    </div>
+                </div>
+              );
+            }
+          })}
+        </div>)}
+    </>
   );
 }
 export default PendingUserRequests;

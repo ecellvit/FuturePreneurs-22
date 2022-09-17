@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import styles from "../../styles/CreateTeam.module.css";
 import Link from "next/link";
-import {  toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loading from "../Loading";
 
@@ -82,10 +82,8 @@ const CreateTeam = ({ handleTeamCreate, isLeader }) => {
 
   return (
     <>
-      {isLoading ? (
-        <Loading />
-      ) : (
-        <div className={styles.big_image}>
+      {isLoading ? <Loading /> :
+        (<div className={styles.big_image}>
           <div className={styles.wrapper}>
             <div
               className={styles.section_title}
@@ -153,7 +151,7 @@ const CreateTeam = ({ handleTeamCreate, isLeader }) => {
             )}
           </div>
         </div>
-      )}
+        )}
     </>
   );
 };

@@ -5,12 +5,15 @@ import styles from "../styles/SearchTeams.module.css";
 import Avatar from "react-avatar";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Loading from "./Loading";
 
 function PendingRequests() {
   const { data: session } = useSession();
   const [teamData, setTeamData] = useState([]);
+  const [isLoading, setIsLoading] = useState();
   const handleDeleteRequest = (team) => {
     if (team.teamId._id) {
+      setIsLoading(true);
       fetch(
         `${process.env.NEXT_PUBLIC_SERVER}/api/user/requests/${team.teamId._id}`,
         {
@@ -38,6 +41,7 @@ function PendingRequests() {
           toast.success(`${data.message}`, {
             position: toast.POSITION.TOP_RIGHT,
           });
+          setIsLoading(false);
         });
     } else {
       toast.error(`Please Create a Team first!`, {
@@ -46,6 +50,7 @@ function PendingRequests() {
     }
   };
   useEffect(() => {
+    setIsLoading(true)
     if (session) {
       fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/user/requests`, {
         method: "GET",
@@ -75,6 +80,7 @@ function PendingRequests() {
               });
             }
           });
+          setIsLoading(false);
         });
     }
   }, [session]);
@@ -84,7 +90,9 @@ function PendingRequests() {
   }, [teamData]);
 
   return (
-    <div className={styles.Teams}>
+    <>
+    {isLoading ? <Loading/> :
+    (<div className={styles.Teams}>
       {teamData.map((team) => {
         if (team.teamId != null) {
           return (
@@ -124,7 +132,8 @@ function PendingRequests() {
           );
         }
       })}
-    </div>
+    </div>)}
+      </>
   );
 }
 export default PendingRequests;
