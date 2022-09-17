@@ -5,12 +5,15 @@ import styles from "../styles/SearchTeams.module.css";
 import Avatar from "react-avatar";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Loading from "./Loading";
 
 function PendingRequests() {
   const { data: session } = useSession();
   const [teamData, setTeamData] = useState([]);
+  const [isLoading, setIsLoading] = useState();
   const handleDeleteRequest = (team) => {
     if (team.teamId._id) {
+      setIsLoading(true);
       fetch(
         `${process.env.NEXT_PUBLIC_SERVER}/api/user/requests/${team.teamId._id}`,
         {
@@ -34,10 +37,15 @@ function PendingRequests() {
               draggable: true,
               progress: undefined,
             });
+            return;
           }
+          setTeamData(prev => {
+            return prev.filter(elem => elem.teamId._id !== team.teamId._id);
+          })
           toast.success(`${data.message}`, {
             position: toast.POSITION.TOP_RIGHT,
           });
+          setIsLoading(false);
         });
     } else {
       toast.error(`Please Create a Team first!`, {
@@ -45,7 +53,10 @@ function PendingRequests() {
       });
     }
   };
+
+  console.log(teamData);
   useEffect(() => {
+    setIsLoading(true)
     if (session) {
       fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/user/requests`, {
         method: "GET",
@@ -69,12 +80,14 @@ function PendingRequests() {
             });
           }
           data.requests?.map((currenTeam) => {
-            if (teamData.findIndex((x) => x._id === currenTeam._id) === -1) {
-              setTeamData((prevTeamData) => {
+            setTeamData((prevTeamData) => {
+              if (prevTeamData.findIndex((x) => x._id === currenTeam._id) === -1) {
                 return [...prevTeamData, currenTeam];
-              });
-            }
+              }
+              return prevTeamData;
+            });
           });
+          setIsLoading(false);
         });
     }
   }, [session]);
@@ -84,8 +97,11 @@ function PendingRequests() {
   }, [teamData]);
 
   return (
-    <div className={styles.Teams}>
-      {teamData.map((team) => {
+    <>
+    {isLoading ? <Loading/> :
+    (<div className={styles.Teams}>
+      {(teamData.length==0) ? <text style={{color:"white"}}>There are no Requests</text> : 
+        teamData.map((team) => {
         if (team.teamId != null) {
           return (
             <div className={styles.Cards} key={team.teamId._id}>
@@ -124,7 +140,8 @@ function PendingRequests() {
           );
         }
       })}
-    </div>
+    </div>)}
+      </>
   );
 }
 export default PendingRequests;

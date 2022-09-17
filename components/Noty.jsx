@@ -4,6 +4,7 @@ const notyIconStyle = {
   position: "relative",
   display: "inline",
 };
+
 const notyNumStyle = {
   position: "absolute",
   right: "0",
@@ -14,6 +15,7 @@ const notyNumStyle = {
   padding: "2px 4px",
   borderRadius: "15px",
 };
+
 export default function Noty({ width, color, count }) {
   return (
     <div>

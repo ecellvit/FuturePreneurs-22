@@ -51,7 +51,6 @@ const LeaderDashboard = ({
       )
         .then((data) => data.json())
         .then((data) => {
-          setIsLoading(false);
           if (data.error?.errorCode) {
             toast.error(`${data.message}`, {
               position: "top-right",
@@ -65,6 +64,7 @@ const LeaderDashboard = ({
             return;
           }
           handleTeamDelete(false);
+          setIsLoading(false);
         });
     } else {
       toast.error("Please remove all team members first", {
