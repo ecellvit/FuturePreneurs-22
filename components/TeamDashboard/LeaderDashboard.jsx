@@ -3,7 +3,7 @@ import { useSession } from "next-auth/react";
 import TeamMemberLeader from "./TeamMemberLeader";
 import styles from "../../styles/Dashboard.module.css";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import {  toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loading from "../Loading";
 
@@ -72,6 +72,7 @@ const LeaderDashboard = ({
       });
     }
   };
+
   return (
     <div>
       <div className={styles.team_member_section}>

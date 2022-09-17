@@ -24,7 +24,7 @@ export default function SearchTeamsPage() {
   }, [status, router])
 
   return (
-    <>
+    <div>
       <ToastContainer />
       {status === "loading" ? <Loading /> : status === "authenticated" &&
         <ConfigProvider colors={['#130AE6', '#236DCE', '#BC304B', '#BF3EC3', '#E69951']}>
@@ -39,6 +39,6 @@ export default function SearchTeamsPage() {
             <SearchTeamsWithSearch />
           </div>
         </ConfigProvider>}
-    </>
+    </div>
   );
 }

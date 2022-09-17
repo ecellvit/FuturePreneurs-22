@@ -1,15 +1,15 @@
 import React, { useState, useContext, useEffect } from "react";
-import Container from "react-bootstrap/Container";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
 import Link from "next/link";
 
-import "bootstrap/dist/css/bootstrap.min.css";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import Noty from "./Noty";
 import Image from "next/image";
 import fpLogo from "../img/fpLogo.svg";
+
+import ecellLogo from "../img/ecellLogo.svg";
+import menuicon from "../img/menuicon.svg";
+import styles from "../styles/NavigationBar.module.css";
 
 const NavigationBar = (props) => {
   const { data: session, status } = useSession();
@@ -76,41 +76,98 @@ const NavigationBar = (props) => {
 
   return (
     <>
-      <Navbar variant="light" style={{ backgroundColor: "#333333" }}>
-        <Container>
-          <Navbar.Brand href="/">
-            <Image alt=" " src={fpLogo} width={50} height={50} />
-            Futurepreneurs 8.0
-          </Navbar.Brand>
-          <Nav className="ml-auto">
-            <Nav.Link href="/">Home</Nav.Link>
-            <Navbar.Collapse className="justify-content-end">
-              {status === "authenticated" && (
-                <Nav.Link href="/dashboard">Dashboard</Nav.Link>
-              )}
-
-              <div
-                onClick={() => {
-                  isLeader
-                    ? router.push("/pendingUserRequests")
-                    : router.push("/pendingRequests");
-                }}
-              >
-                <Noty
-                  width={"50"}
-                  color={"#122C34"}
-                  count={userRequests.length}
-                />
-              </div>
-            </Navbar.Collapse>
-            {status === "authenticated" ? (
-              <Nav.Link onClick={() => logoutHandler()}>Sign Out</Nav.Link>
-            ) : (
-              <Nav.Link onClick={() => loginHandler()}>Sign in</Nav.Link>
-            )}
-          </Nav>
-        </Container>
-      </Navbar>
+      <nav>
+        <div className={styles.navbar}>
+          <div className={styles.flexLeft}>
+            <ul>
+              <li>
+                <Link href="/">
+                  <Image alt="Logo" src={fpLogo} width={50} height={50} />
+                </Link>
+              </li>
+              <li>
+                <Link href={"/"}>
+                  <a
+                    className={`${styles.flexLeftPosition} ${styles.responsive}`}
+                  >
+                    Futurepreneurs 8.0
+                  </a>
+                </Link>
+              </li>
+              <li>
+                <Link href="/">
+                  <a
+                    className={`${styles.flexLeftPosition} ${styles.responsive}`}
+                  >
+                    Home
+                  </a>
+                </Link>
+              </li>
+            </ul>
+          </div>
+          <div className={`${styles.flexMid} ${styles.responsive}`}>TEST</div>
+          <div className={styles.flexRight}>
+            <ul>
+              <li>
+                <button
+                  className={`${styles.flexRightBell} ${styles.responsive}`}
+                  onClick={() => {
+                    isLeader
+                      ? router.push("/pendingUserRequests")
+                      : router.push("/pendingRequests");
+                  }}
+                >
+                  <Noty
+                    width={"40"}
+                    color={"#122C34"}
+                    count={userRequests.length}
+                  />
+                </button>
+                {status === "authenticated" && (
+                  <Link href="/dashboard">
+                    <a
+                      className={`${styles.flexRightPosition} ${styles.responsive}`}
+                    >
+                      Dashboard
+                    </a>
+                  </Link>
+                )}
+              </li>
+              <li>
+                {status === "authenticated" ? (
+                  <a
+                    className={`${styles.flexRightPosition} ${styles.responsive}`}
+                    onClick={() => logoutHandler()}
+                  >
+                    Sign Out
+                  </a>
+                ) : (
+                  <a
+                    className={`${styles.flexRightPosition} ${styles.responsive}`}
+                    onClick={() => loginHandler()}
+                  >
+                    Sign in
+                  </a>
+                )}{" "}
+              </li>
+              <li>
+                <Image alt="Logo" src={ecellLogo} width={70} height={70} />
+              </li>
+              <li>
+                <div className={styles.hamburgerMenu}>
+                  <Image
+                    alt="Logo"
+                    src={menuicon}
+                    width={20}
+                    height={20}
+                    onClick
+                  />
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
     </>
   );
 };
