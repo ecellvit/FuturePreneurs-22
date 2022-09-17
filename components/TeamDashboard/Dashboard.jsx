@@ -63,7 +63,7 @@ function Dashboard() {
         }
         if (data.user.teamId) {
           setHasTeam(true);
-        }else{
+        } else {
           setHasTeam(false);
         }
         if (data.user?.teamRole === 0) {
@@ -104,7 +104,6 @@ function Dashboard() {
   }, [session.accessTokenBackend, teamData]);
 
   return (
-
     <div className={styles.bodyContainer}>
       {isLoading ? (
         <Loading />
@@ -117,7 +116,10 @@ function Dashboard() {
             handleMemberRemove={handleMemberRemove}
           />
         ) : (
-          <TeamMembers teamData={teamData} handleMemberLeave={handleMemberLeave}/>
+          <TeamMembers
+            teamData={teamData}
+            handleMemberLeave={handleMemberLeave}
+          />
         )
       ) : (
         <CreateTeam isLeader={isLeader} handleTeamCreate={handleTeamCreate} />
