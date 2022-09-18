@@ -27,7 +27,7 @@ const Section1 = () => {
             </div>
             <img
               onClick={() => {
-                signIn();
+                signIn("google");
               }}
               style={{ cursor: "pointer" }}
               src="getin-min.png"
