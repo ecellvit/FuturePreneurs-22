@@ -16,7 +16,6 @@ const Landing_main = () => {
       <Section4 />
       <Section5 />
       <Section6 />
-      <Footer />
     </div>
   );
 };

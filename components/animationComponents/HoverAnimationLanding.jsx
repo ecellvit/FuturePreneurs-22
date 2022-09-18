@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 
 export const HoverAnimationLanding = ({ children }) => (
-  <motion.div whileHover={{ scale: 2.1 }} whileTap={{ scale: 2.1 }}>
+  <motion.div whileHover={{ scale: 1.5 }}>
     {children}
   </motion.div>
 );
