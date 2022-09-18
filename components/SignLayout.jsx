@@ -9,10 +9,12 @@ import { useSession } from "next-auth/react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const SignLayout = () => {
+const SignLayout = ({handleLinkSubmit}) => {
   const regnoRef = useRef("");
   const lnameRef = useRef("");
   const fnameRef = useRef("");
+
+ 
 
   const mobileNumberRef = useRef("");
   const router = useRouter();
@@ -63,7 +65,8 @@ const SignLayout = () => {
           },
         })
           .then((data) => data.json())
-          .then((data) => router.push("/dashboard"));
+          .then((data) => handleLinkSubmit())
+          // .then((data) => router.push("/dashboard"));
   }, [hasError, router, session.accessTokenBackend]);
 
   return (
