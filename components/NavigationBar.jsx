@@ -21,12 +21,12 @@ const NavigationBar = () => {
   const [userRequests, setUserRequests] = useState([]);
   const router = useRouter();
 
-  const END_TIME = 1663522813000 + 60*60*24*1000*2
+  const END_TIME = new Date(2022, 10, 4, 17, 0, 0)
 
   useEffect(()=>{
     let timer = setTimeout(()=>{
       let a = Date.now()
-      let d = END_TIME - a
+      let d = END_TIME.getTime() - a
       let dys = Math.floor(d/1000/60/60/24)
       let hrs = Math.floor(d/1000/60/60)%24
       let mins = Math.floor(d/1000/60)%60
