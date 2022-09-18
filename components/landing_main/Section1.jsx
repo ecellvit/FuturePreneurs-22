@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { signIn } from "next-auth/react";
 import styles from "../../styles/Landingr.module.css";
 const Section1 = () => {
   return (
@@ -25,16 +25,16 @@ const Section1 = () => {
                 className={styles.date_img}
               />
             </div>
-            <Link href="/getdetail">
-              <a className={styles.getin}>
-                <img
-                  src="getin-min.png"
-                  sizes="(max-width: 479px) 92.5px, (max-width: 767px) 148px, 197px"
-                  width="197"
-                  className={styles.get_in_gradient}
-                />
-              </a>
-            </Link>
+            <img
+              onClick={() => {
+                signIn();
+              }}
+              style={{ cursor: "pointer" }}
+              src="getin-min.png"
+              sizes="(max-width: 479px) 92.5px, (max-width: 767px) 148px, 197px"
+              width="197"
+              className={styles.get_in_gradient}
+            />
           </div>
         </div>
         <div className={styles.main_text}>
