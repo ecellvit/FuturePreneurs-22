@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 
 import { signIn, signOut, useSession } from "next-auth/react";
@@ -6,15 +6,13 @@ import { useRouter } from "next/router";
 import Noty from "./Noty";
 import Image from "next/image";
 import fpLogo from "../img/fpLogo.svg";
-import Loading from "./Loading";
 
 import ecellLogo from "../img/ecellLogo.svg";
 import menuicon from "../img/menuicon.svg";
 import styles from "../styles/NavigationBar.module.css";
 
-const NavigationBar = (props) => {
+const NavigationBar = () => {
   const { data: session, status } = useSession();
-  const [hasSignedUp, setHasSignedUp] = useState();
   const [isLeader, setIsLeader] = useState();
   const router = useRouter();
 
@@ -68,7 +66,7 @@ const NavigationBar = (props) => {
   }, [session]);
 
   const logoutHandler = () => {
-    signOut();
+    signOut({ callbackUrl: "/" });
   };
 
   const loginHandler = () => {

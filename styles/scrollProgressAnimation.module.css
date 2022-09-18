@@ -3,7 +3,11 @@
   top: 0;
   left: 0;
   right: 0;
+<<<<<<< HEAD
   height: 3.33px;
+=======
+  height: 3px;
+>>>>>>> 133fdb48a25e9488a6c0d7ae9721e48480179b2b
   background: linear-gradient(to right, #743ad5, #d53a9d);
   transform-origin: 0%;
 }

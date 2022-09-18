@@ -6,6 +6,7 @@ import Autocomplete from "@mui/material/Autocomplete";
 import SearchTeams from "./SearchTeams";
 import Loading from "./Loading";
 import styles from "../styles/SearchTeams.module.css";
+import { toast } from "react-toastify";
 
 function SearchTeamsWithSearch() {
   const [selectedTeam, setSelectedTeam] = useState(null);

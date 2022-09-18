@@ -1,6 +1,7 @@
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import NavigationBar from "../components/NavigationBar";
 import Questions from "../components/Questions";
 
@@ -12,6 +13,7 @@ function RoundOnePage() {
   useEffect(() => {
     if (router.isReady) {
       if (status !== "loading" && status === "unauthenticated") {
+        toast.error("Please Login First!")
         router.push("/")
       }
     }

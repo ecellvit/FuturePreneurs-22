@@ -14,7 +14,7 @@ export default function DashboardPage() {
   useEffect(() => {
     if (router.isReady) {
       if (status !== "loading" && status === "unauthenticated") {
-        toast.error(`Please login first!`)
+        toast.error("Please Login First!")
         router.push("/")
       }
     }
@@ -25,7 +25,7 @@ export default function DashboardPage() {
       <ToastContainer />
       {status === "loading" ? <Loading /> : status === "authenticated" &&
         <div className='main'>
-          <NavigationBar />
+          {/* <NavigationBar /> */}
           <Dashboard />
         </div>}
     </>

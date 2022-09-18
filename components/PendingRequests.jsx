@@ -6,6 +6,7 @@ import Avatar from "react-avatar";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loading from "./Loading";
+import Layout from "./animationComponents/Layouts";
 
 function PendingRequests() {
   const { data: session } = useSession();
@@ -40,7 +41,9 @@ function PendingRequests() {
             return;
           }
           setTeamData((prev) => {
-            return prev.filter((elem) => elem.teamId._id !== team.teamId._id);
+            return prev.filter((elem) => {
+              return elem.teamId?._id !== team.teamId?._id;
+            });
           });
           toast.success(`${data.message}`, {
             position: toast.POSITION.TOP_RIGHT,
@@ -54,7 +57,6 @@ function PendingRequests() {
     }
   };
 
-  console.log(teamData);
   useEffect(() => {
     setIsLoading(true);
     if (session) {
@@ -68,6 +70,7 @@ function PendingRequests() {
       })
         .then((data) => data.json())
         .then((data) => {
+          setIsLoading(false);
           if (data.error?.errorCode) {
             toast.error(`${data.message}`, {
               position: "top-right",
@@ -78,6 +81,7 @@ function PendingRequests() {
               draggable: true,
               progress: undefined,
             });
+            return;
           }
           data.requests?.map((currenTeam) => {
             setTeamData((prevTeamData) => {
@@ -89,7 +93,6 @@ function PendingRequests() {
               return prevTeamData;
             });
           });
-          setIsLoading(false);
         });
     }
   }, [session]);
@@ -103,51 +106,53 @@ function PendingRequests() {
       {isLoading ? (
         <Loading />
       ) : (
-        <div className={styles.Teams}>
-          {teamData.length == 0 ? (
-            <text style={{ color: "white" }}>There are no Requests</text>
-          ) : (
-            teamData.map((team) => {
-              if (team.teamId != null) {
-                return (
-                  <div className={styles.Cards} key={team.teamId._id}>
-                    <Avatar
-                      name={team.teamId.teamName}
-                      className={styles.CardsImg}
-                      size="300"
-                    />
+        <Layout>
+          <div className={styles.Teams}>
+            {teamData.length == 0 ? (
+              <text style={{ color: "white" }}>There are no Requests</text>
+            ) : (
+              teamData.map((team) => {
+                if (team.teamId != null) {
+                  return (
+                    <div className={styles.Cards} key={team.teamId._id}>
+                      <Avatar
+                        name={team.teamId.teamName}
+                        className={styles.CardsImg}
+                        size="300"
+                      />
 
-                    <div className={styles.infogroup}>
-                      <div>
-                        <h3 className={styles.Cardsh3}>
-                          TeamName:{team.teamId.teamName}
-                        </h3>
-                        <h3 className={styles.Cardsh3}>
-                          Team Size:{team.teamId.members.length}/4
-                        </h3>
-                        <h3 className={styles.Cardsh3}>
-                          Team Leader:{team.teamId.teamLeaderId.firstName}
-                          {team.teamId.teamLeaderId.lastName}
-                        </h3>
-                        <h3 className={styles.Cardsh3}>
-                          Mail:{team.teamId.teamLeaderId.email}
-                        </h3>
-                        <button
-                          className={`${styles.button} ${styles.glow_on_hover}`}
-                          onClick={() => {
-                            handleDeleteRequest(team);
-                          }}
-                        >
-                          DELETE REQUEST
-                        </button>
+                      <div className={styles.infogroup}>
+                        <div>
+                          <h3 className={styles.Cardsh3}>
+                            TeamName:{team.teamId.teamName}
+                          </h3>
+                          <h3 className={styles.Cardsh3}>
+                            Team Size:{team.teamId.members.length}/4
+                          </h3>
+                          <h3 className={styles.Cardsh3}>
+                            Team Leader:{team.teamId.teamLeaderId.firstName}
+                            {team.teamId.teamLeaderId.lastName}
+                          </h3>
+                          <h3 className={styles.Cardsh3}>
+                            Mail:{team.teamId.teamLeaderId.email}
+                          </h3>
+                          <button
+                            className={`${styles.button} ${styles.glow_on_hover}`}
+                            onClick={() => {
+                              handleDeleteRequest(team);
+                            }}
+                          >
+                            DELETE REQUEST
+                          </button>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                );
-              }
-            })
-          )}
-        </div>
+                  );
+                }
+              })
+            )}
+          </div>
+        </Layout>
       )}
     </>
   );

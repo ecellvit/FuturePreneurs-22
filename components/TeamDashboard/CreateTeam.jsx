@@ -5,8 +5,9 @@ import Link from "next/link";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loading from "../Loading";
+import Layout from "../animationComponents/Layouts";
 
-const CreateTeam = ({ handleTeamCreate, isLeader }) => {
+const CreateTeam = ({ handleTeamCreate }) => {
   const teamNameRef = useRef(null);
   const { data: session, status } = useSession();
   const [teamData, setTeamData] = useState([]);
@@ -50,7 +51,7 @@ const CreateTeam = ({ handleTeamCreate, isLeader }) => {
   };
 
   useEffect(() => {
-    if (status !== "loading" && status === "authenticated" && !isLeader) {
+    if (status !== "loading" && status === "authenticated") {
       setIsLoading(true);
       fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/user/requests`, {
         method: "GET",
@@ -63,7 +64,6 @@ const CreateTeam = ({ handleTeamCreate, isLeader }) => {
         .then((data) => data.json())
         .then((data) => {
           setIsLoading(false);
-          console.log("?????????????????????",data)
           if (data.error?.errorCode) {
             toast.error(`${data.message}`, {
               position: "top-right",
@@ -79,80 +79,84 @@ const CreateTeam = ({ handleTeamCreate, isLeader }) => {
           setTeamData(data.requests);
         });
     }
-  }, [session.accessTokenBackend, status, isLeader]);
+  }, [session, status]);
 
   return (
     <>
-      {isLoading ? <Loading /> :
-        (<div className={styles.big_image}>
-          <div className={styles.wrapper}>
-            <div
-              className={styles.section_title}
-            >{`Hi, ${session.user.name} `}</div>
-            <h2 className={styles.h1_create}>Join a Team or Create a Team</h2>
-            <p className={styles.p_create}>
-              The event is designed to test your analytical thinking. Glaze up
-              your business skills with the added knowledge about consumers and
-              the trends they tend to follow. Touch it all up with a study of
-              financial products and their marketing strategies.So what you are
-              waiting for , find your perfect team and get ready to dive into
-              business simulation competition.
-            </p>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <Layout>
+          <div className={styles.big_image}>
+            <div className={styles.wrapper}>
+              <div
+                className={styles.section_title}
+              >{`Hi, ${session.user.name} `}</div>
+              <h2 className={styles.h1_create}>Join a Team or Create a Team</h2>
+              <p className={styles.p_create}>
+                The event is designed to test your analytical thinking. Glaze up
+                your business skills with the added knowledge about consumers
+                and the trends they tend to follow. Touch it all up with a study
+                of financial products and their marketing strategies.So what you
+                are waiting for , find your perfect team and get ready to dive
+                into business simulation competition.
+              </p>
 
-            <div className={styles.form_block}>
-              <form className={styles.team_form}>
-                <Link href="/searchTeams">
-                  <button
-                    type="submit"
-                    placeholder="Find Teams to Join"
-                    className={`${styles.join_create_btn} ${styles.join_btn}  ${styles.w_button}`}
-                  >
-                    Find Teams to Join
-                  </button>
-                </Link>
-              </form>
-            </div>
+              <div className={styles.form_block}>
+                <form className={styles.team_form}>
+                  <Link href="/searchTeams">
+                    <button
+                      type="submit"
+                      placeholder="Find Teams to Join"
+                      className={`${styles.join_create_btn} ${styles.join_btn}  ${styles.w_button}`}
+                    >
+                      Find Teams to Join
+                    </button>
+                  </Link>
+                </form>
+              </div>
 
-            {teamData?.length === 0 ? (
-              <div>
-                <div className={styles.form_block}>
-                  <div className={styles.team_form}>
-                    <h1 className={styles.or_form}>Or</h1>
+              {teamData?.length === 0 ? (
+                <div>
+                  <div className={styles.form_block}>
+                    <div className={styles.team_form}>
+                      <h1 className={styles.or_form}>Or</h1>
+                    </div>
+                  </div>
+                  <div className={styles.form_block}>
+                    <div className={styles.create_team_h1}>Create a Team</div>
+                    <form className={styles.team_form}>
+                      <input
+                        type="text"
+                        name="name"
+                        ref={teamNameRef}
+                        className={`${styles.input_team} ${styles.w_input}`}
+                        placeholder="Enter Your Team Name"
+                      />
+                      <button
+                        className={`${styles.join_create_btn} ${styles.w_button}`}
+                        onClick={handleCreate}
+                      >
+                        Create
+                      </button>
+                    </form>
                   </div>
                 </div>
-                <div className={styles.form_block}>
-                  <div className={styles.create_team_h1}>Create a Team</div>
-                  <form className={styles.team_form}>
-                    <input
-                      type="text"
-                      name="name"
-                      ref={teamNameRef}
-                      className={`${styles.input_team} ${styles.w_input}`}
-                      placeholder="Enter Your Team Name"
-                    />
-                    <button
-                      className={`${styles.join_create_btn} ${styles.w_button}`}
-                      onClick={handleCreate}
-                    >
-                      Create
-                    </button>
-                  </form>
-                </div>
-              </div>
-            ) : (
-              <Link href="/pendingRequests">
-                <button
-                  type="submit"
-                  placeholder="Pending requests"
-                  className={`${styles.join_create_btn} ${styles.join_btn}  ${styles.w_button}`}
-                >
-                  Pending requests
-                </button>
-              </Link>
-            )}
+              ) : (
+                <Link href="/pendingRequests">
+                  <button
+                    type="submit"
+                    placeholder="Pending requests"
+                    className={`${styles.join_create_btn} ${styles.join_btn}  ${styles.w_button}`}
+                  >
+                    Pending requests
+                  </button>
+                </Link>
+              )}
+            </div>
           </div>
-        </div>
-        )}
+        </Layout>
+      )}
     </>
   );
 };

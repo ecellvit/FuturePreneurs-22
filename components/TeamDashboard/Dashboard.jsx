@@ -7,6 +7,8 @@ import styles from "../../styles/Dashboard.module.css";
 import LeaderDashboard from "./LeaderDashboard";
 import TeamMembers from "./TeamMembers";
 import Loading from "../Loading";
+import Layout from "../animationComponents/Layouts";
+import { toast } from "react-toastify";
 
 function Dashboard() {
   const [hasTeam, setHasTeam] = useState(false);
@@ -116,7 +118,10 @@ function Dashboard() {
             handleMemberRemove={handleMemberRemove}
           />
         ) : (
-          <TeamMembers teamData={teamData} handleMemberLeave={handleMemberLeave} />
+          <TeamMembers
+            teamData={teamData}
+            handleMemberLeave={handleMemberLeave}
+          />
         )
       ) : (
         <CreateTeam isLeader={isLeader} handleTeamCreate={handleTeamCreate} />
