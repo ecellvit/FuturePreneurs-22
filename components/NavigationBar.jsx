@@ -27,7 +27,7 @@ const NavigationBar = () => {
     let timer = setTimeout(()=>{
       let a = Date.now()
       let d = END_TIME.getTime() - a
-      let dys = Math.floor(d/1000/60/60/24)
+      let dys = Math.floor(d/1000/60/60/24)%30
       let hrs = Math.floor(d/1000/60/60)%24
       let mins = Math.floor(d/1000/60)%60
       let secs = Math.floor(d/1000)%60
