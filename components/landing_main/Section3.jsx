@@ -1,5 +1,7 @@
 import React from "react";
 import styles from "../../styles/Landingr.module.css";
+import { HoverAnimationLanding } from "../animationComponents/HoverAnimationLanding";
+
 const Section3 = () => {
   return (
     <div className={`${styles.sec_3}`}>
@@ -18,38 +20,46 @@ const Section3 = () => {
         <div className={styles.line_team}></div>
       </div>
       <div className={styles.round_imgparts_container}>
-        <div className={styles.img_container}>
-          <div className={styles.round_text}>Round-0</div>
-          <img
-            src="box_web-min.png"
-            width="177.5"
-            className={styles.round_imgparts}
-          />
-        </div>
-        <div className={styles.img_container}>
-          <div className={styles.round_text}>Round-1</div>
-          <img
-            src="box_web-min.png"
-            width="177.5"
-            className={styles.round_imgparts}
-          />
-        </div>
-        <div className={styles.img_container}>
-          <div className={styles.round_text}>Round-2</div>
-          <img
-            src="box_web-min.png"
-            width="177.5"
-            className={styles.round_imgparts}
-          />
-        </div>
-        <div className={styles.img_container}>
-          <div className={styles.round_text}>Round-3</div>
-          <img
-            src="box_web-min.png"
-            width="177.5"
-            className={styles.round_imgparts}
-          />
-        </div>
+        <HoverAnimationLanding>
+          <div className={styles.img_container}>
+            <div className={styles.round_text}>Round-0</div>
+            <img
+              src="box_web-min.png"
+              width="177.5"
+              className={styles.round_imgparts}
+            />
+          </div>
+        </HoverAnimationLanding>
+        <HoverAnimationLanding>
+          <div className={styles.img_container}>
+            <div className={styles.round_text}>Round-1</div>
+            <img
+              src="box_web-min.png"
+              width="177.5"
+              className={styles.round_imgparts}
+            />
+          </div>
+        </HoverAnimationLanding>
+        <HoverAnimationLanding>
+          <div className={styles.img_container}>
+            <div className={styles.round_text}>Round-2</div>
+            <img
+              src="box_web-min.png"
+              width="177.5"
+              className={styles.round_imgparts}
+            />
+          </div>
+        </HoverAnimationLanding>
+        <HoverAnimationLanding>
+          <div className={styles.img_container}>
+            <div className={styles.round_text}>Round-3</div>
+            <img
+              src="box_web-min.png"
+              width="177.5"
+              className={styles.round_imgparts}
+            />
+          </div>
+        </HoverAnimationLanding>
       </div>
     </div>
   );
