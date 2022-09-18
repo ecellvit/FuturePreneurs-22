@@ -183,7 +183,10 @@ function SearchTeams(props) {
       <Loading />
     ) : (
       <div>
-        <div className={styles.images}>
+        <div
+          className={styles.images}
+          style={{ width: "100%", height: "100%" }}
+        >
           <Image
             src={imgSrc}
             layout="intrinsic"
