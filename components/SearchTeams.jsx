@@ -8,6 +8,7 @@ import Image from "next/image";
 import imgSrc from "../img/grad.png";
 import Loading from "./Loading";
 import Layout from "./animationComponents/Layouts";
+import { HoverAnimation } from "./animationComponents/HoverAnimation";
 
 function SearchTeams(props) {
   const [next, setNext] = useState();
@@ -197,46 +198,48 @@ function SearchTeams(props) {
           <div className={styles.Teams}>
             {teamData.map((team) => {
               return (
-                <div className={styles.Cards} key={team._id}>
-                  <Avatar
-                    name={team.teamName}
-                    className={styles.CardsImg}
-                    size="300"
-                  />
+                <HoverAnimation key={team._id}>
+                  <div className={styles.Cards}>
+                    <Avatar
+                      name={team.teamName}
+                      className={styles.CardsImg}
+                      size="300"
+                    />
 
-                  <div className={styles.infogroup}>
-                    {team.members.map((teamLead) => {
-                      if (teamLead.teamRole == 0) {
-                        return (
-                          <div>
-                            <h3 className={styles.Cardsh3}>
-                              TeamName:{team.teamName}
-                            </h3>
-                            <h3 className={styles.Cardsh3}>
-                              Team Size:{team.members.length}/4
-                            </h3>
-                            <h3 className={styles.Cardsh3}>
-                              Team Leader:{teamLead.firstName}{" "}
-                              {teamLead.lastName}
-                            </h3>
+                    <div className={styles.infogroup}>
+                      {team.members.map((teamLead) => {
+                        if (teamLead.teamRole == 0) {
+                          return (
+                            <div>
+                              <h3 className={styles.Cardsh3}>
+                                TeamName:{team.teamName}
+                              </h3>
+                              <h3 className={styles.Cardsh3}>
+                                Team Size:{team.members.length}/4
+                              </h3>
+                              <h3 className={styles.Cardsh3}>
+                                Team Leader:{teamLead.firstName}{" "}
+                                {teamLead.lastName}
+                              </h3>
 
-                            <h3 className={styles.Cardsh3}>
-                              Mail:{teamLead.email}
-                            </h3>
-                            <button
-                              className={`${styles.button} ${styles.glow_on_hover}`}
-                              onClick={() => {
-                                handleJoinTeam(team);
-                              }}
-                            >
-                              Join Team
-                            </button>
-                          </div>
-                        );
-                      }
-                    })}
+                              <h3 className={styles.Cardsh3}>
+                                Mail:{teamLead.email}
+                              </h3>
+                              <button
+                                className={`${styles.button} ${styles.glow_on_hover}`}
+                                onClick={() => {
+                                  handleJoinTeam(team);
+                                }}
+                              >
+                                Join Team
+                              </button>
+                            </div>
+                          );
+                        }
+                      })}
+                    </div>
                   </div>
-                </div>
+                </HoverAnimation>
               );
             })}
           </div>
@@ -268,44 +271,46 @@ function SearchTeams(props) {
       <Layout>
         <div className={styles.Teams}>
           {
-            <div className={styles.Cards} key={props.data.team._id}>
-              <Avatar
-                name={props.data.team.teamName}
-                className={styles.CardsImg}
-                size="300"
-              />
+            <HoverAnimation>
+              <div className={styles.Cards} key={props.data.team._id}>
+                <Avatar
+                  name={props.data.team.teamName}
+                  className={styles.CardsImg}
+                  size="300"
+                />
 
-              <div className={styles.infogroup}>
-                {props.data.team.members.map((teamLead) => {
-                  if (teamLead.teamRole == 0) {
-                    return (
-                      <div>
-                        <h3 className={styles.Cardsh3}>
-                          TeamName:{props.data.team.teamName}
-                        </h3>
-                        <h3 className={styles.Cardsh3}>
-                          Team Size:{props.data.team.members.length}/4
-                        </h3>
-                        <h3 className={styles.Cardsh3}>
-                          Team Leader:{teamLead.firstName} {teamLead.lastName}
-                        </h3>
-                        <h3 className={styles.Cardsh3}>
-                          Mail:{teamLead.email}
-                        </h3>
-                        <button
-                          className={`${styles.button} ${styles.glow_on_hover}`}
-                          onClick={() => {
-                            handleJoinTeam(props.data.team);
-                          }}
-                        >
-                          Join Team
-                        </button>
-                      </div>
-                    );
-                  }
-                })}
+                <div className={styles.infogroup}>
+                  {props.data.team.members.map((teamLead) => {
+                    if (teamLead.teamRole == 0) {
+                      return (
+                        <div>
+                          <h3 className={styles.Cardsh3}>
+                            TeamName:{props.data.team.teamName}
+                          </h3>
+                          <h3 className={styles.Cardsh3}>
+                            Team Size:{props.data.team.members.length}/4
+                          </h3>
+                          <h3 className={styles.Cardsh3}>
+                            Team Leader:{teamLead.firstName} {teamLead.lastName}
+                          </h3>
+                          <h3 className={styles.Cardsh3}>
+                            Mail:{teamLead.email}
+                          </h3>
+                          <button
+                            className={`${styles.button} ${styles.glow_on_hover}`}
+                            onClick={() => {
+                              handleJoinTeam(props.data.team);
+                            }}
+                          >
+                            Join Team
+                          </button>
+                        </div>
+                      );
+                    }
+                  })}
+                </div>
               </div>
-            </div>
+            </HoverAnimation>
           }
         </div>
       </Layout>

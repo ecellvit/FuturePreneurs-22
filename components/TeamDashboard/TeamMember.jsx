@@ -1,9 +1,6 @@
 import styles from "../../styles/Dashboard.module.css";
-import React, { useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import React from "react";
 import "react-toastify/dist/ReactToastify.css";
-import { useSession } from "next-auth/react";
-import Loading from "../Loading";
 
 const TeamMember = ({
   teamName,

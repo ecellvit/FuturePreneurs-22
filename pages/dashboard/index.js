@@ -14,6 +14,7 @@ export default function DashboardPage() {
   useEffect(() => {
     if (router.isReady) {
       if (status !== "loading" && status === "unauthenticated") {
+        toast.error("Please Login First!")
         router.push("/")
       }
     }

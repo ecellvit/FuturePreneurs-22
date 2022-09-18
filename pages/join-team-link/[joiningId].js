@@ -18,7 +18,7 @@ function JoiningIdPage() {
       // router.push('/api/auth/signin')
       signIn('google', { callbackurl: `/join-team-link/${joiningId}` })
     }
-  }, [status])
+  }, [status, joiningId])
 
   const handleJoin = async () => {
     console.log("handle login function")
@@ -55,15 +55,15 @@ function JoiningIdPage() {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${session.accessTokenBackend}`,
-            "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Origin": "*",
         }
-      // fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/user/team`, {
-      //   method: "GET",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //     Authorization: `Bearer ${session.accessTokenBackend}`,
-      //     "Access-Control-Allow-Origin": "*",
-      //   },
+        // fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/user/team`, {
+        //   method: "GET",
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //     Authorization: `Bearer ${session.accessTokenBackend}`,
+        //     "Access-Control-Allow-Origin": "*",
+        //   },
       })
         .then((data) => data.json())
         .then(async (data) => {
@@ -82,8 +82,8 @@ function JoiningIdPage() {
 
   return (
     <div>
-    <NavigationBar/>
-       {session ?  <Sign/>  : "nothing"}
+      <NavigationBar />
+      {session ? <Sign /> : "nothing"}
       {status === "authenticated" && <LinkJoining joiningId={joiningId} />}
     </div>
 

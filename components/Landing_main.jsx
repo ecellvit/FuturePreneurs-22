@@ -11,8 +11,7 @@ import NavigationBar from "./NavigationBar";
 const Landing_main = () => {
   return (
     <div className={styles.body}>
-      <NavigationBar />
-      <Section1></Section1>
+      <Section1 />
       <Section2 />
       <Section3 />
       <Section4 />

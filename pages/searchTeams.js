@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/router.js";
 import { ConfigProvider } from 'react-avatar';
 import SearchTeamsWithSearch from "../components/SearchTeamsWithSearch.jsx";
-import { ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import Loading from "../components/Loading";
 import ScrollProgressAnimation from "../components/animationComponents/ScrollProgress";
 import NavigationBar from "../components/NavigationBar";
@@ -18,6 +18,7 @@ export default function SearchTeamsPage() {
   useEffect(() => {
     if (router.isReady) {
       if (status !== "loading" && status === "unauthenticated") {
+        toast.error("Please Login First!")
         router.push("/")
       }
     }

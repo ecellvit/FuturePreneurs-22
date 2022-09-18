@@ -25,14 +25,16 @@ const Section1 = () => {
                 className={styles.date_img}
               />
             </div>
-            <a className={styles.getin} Link href="/about">
-              <img
-                src="getin-min.png"
-                sizes="(max-width: 479px) 92.5px, (max-width: 767px) 148px, 197px"
-                width="197"
-                className={styles.get_in_gradient}
-              />
-            </a>
+            <Link href="/getdetail">
+              <a className={styles.getin}>
+                <img
+                  src="getin-min.png"
+                  sizes="(max-width: 479px) 92.5px, (max-width: 767px) 148px, 197px"
+                  width="197"
+                  className={styles.get_in_gradient}
+                />
+              </a>
+            </Link>
           </div>
         </div>
         <div className={styles.main_text}>
