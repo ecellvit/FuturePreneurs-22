@@ -11,6 +11,7 @@ const Sign = () => {
   const router = useRouter();
 
   useEffect(() => {
+    setLoading(true);
     fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/user`, {
       method: "PATCH",
       body: JSON.stringify({
@@ -23,6 +24,8 @@ const Sign = () => {
     })
       .then((data) => data.json())
       .then((data) => {
+        console.log(data);
+        setLoading(false);
         if (data.error?.errorCode) {
           toast.error(`${data.message}`, {
             position: "top-right",
@@ -37,11 +40,11 @@ const Sign = () => {
         }
         if (data.hasFilledDetails === true) {
           router.push("/dashboard");
-        } else {
-          setLoading(false);
         }
-      }, []);
-  });
+      })
+      .catch((err) => console.log(err));
+  }, [session]);
+
   return !loading ? <SignLayout /> : null;
 };
 

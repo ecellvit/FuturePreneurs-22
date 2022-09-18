@@ -5,8 +5,7 @@ import Section3 from "./landing_main/Section3";
 import Section4 from "./landing_main/Section4";
 import Section5 from "./landing_main/Section5";
 import Section6 from "./landing_main/Section6";
-import Footer from "./landing_main/Footer";
-import NavigationBar from "./NavigationBar";
+import Footer from "./landing_main/Footer";``
 
 const Landing_main = () => {
   return (
