@@ -38,7 +38,7 @@ export default function GetUserDetailsPage() {
           console.log("error", err);
         });
     }
-  }, [status, router])
+  }, [status, router, session])
 
   useEffect(() => {
     if (router.isReady) {
