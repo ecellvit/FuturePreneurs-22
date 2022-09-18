@@ -3,12 +3,42 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import SignLayout from "./SignLayout";
-import { toast } from "react-toastify";
 
-const Sign = () => {
+import { toast } from "react-toastify";
+// import { useCookies } from 'react-cookie'
+import Cookies from 'js-cookie'
+
+const Sign = ({joiningId}) => {
   const [loading, setLoading] = useState(true);
   const { data: session } = useSession();
   const router = useRouter();
+
+  const [useEffectTrigger, setUseEffectTrigger] = useState(false);
+
+  const handleLinkSubmit = () => {
+    setUseEffectTrigger((prevTeamStatus) => !prevTeamStatus);
+  };
+
+  const handleJoin = async () => {
+    console.log('handle login function')
+    fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/user/token`, {
+      method: 'PATCH',
+      body: JSON.stringify({
+        token: `${joiningId}`,
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${session.accessTokenBackend}`,
+        'Access-Control-Allow-Origin': '*',
+      },
+    })
+      .then((data) => data.json())
+
+      .then((data) => {
+        console.log('handle join')
+        console.log(data)
+      })
+  }
 
   useEffect(() => {
     setLoading(true);
@@ -38,14 +68,22 @@ const Sign = () => {
           });
           return;
         }
+        console.log(data.hasFilledDetails);
+        if (data.hasFilledDetails === true && Cookies.get('user') === joiningId ) {
+          handleJoin();
+          Cookies.remove('user')
+        }
         if (data.hasFilledDetails === true) {
           router.push("/dashboard");
         }
       })
       .catch((err) => console.log(err));
-  }, [session]);
+  }, [useEffectTrigger]);
 
-  return !loading ? <SignLayout /> : null;
+  console.log('cookies in sign in')
+  console.log(Cookies.get('user'))
+
+  return !loading ? <SignLayout handleLinkSubmit={handleLinkSubmit}/> : null;
 };
 
 export default Sign;
