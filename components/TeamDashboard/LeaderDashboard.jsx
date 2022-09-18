@@ -86,15 +86,18 @@ const LeaderDashboard = ({
               type="text"
               value={`https://future-preneurs-22.vercel.app/join-team-link/${teamToken}`}
               placeholder="Type some text here"
-              onChange={(event) => setText(event.target.value)}
               className={styles.input}
+              readOnly
             />
             <CopyToClipboard
               text={`https://future-preneurs-22.vercel.app/join-team-link/${teamToken}`}
               onCopy={onCopyText}
             >
               <div className="copy-area">
-                <button className={`${styles.btnCopy} ${styles.glow_on_hover}`} onClick={showToastMessage}>
+                <button
+                  className={`${styles.btnCopy} ${styles.glow_on_hover}`}
+                  onClick={showToastMessage}
+                >
                   <span></span>
                   <span></span>
                   <span></span>
@@ -127,7 +130,7 @@ const LeaderDashboard = ({
             Delete Team
           </button>
         </div>
-        </div>
+      </div>
     </div>
   );
 };
