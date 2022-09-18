@@ -10,10 +10,12 @@ import Loading from "./Loading";
 import Layout from "./animationComponents/Layouts";
 import { HoverAnimation } from "./animationComponents/HoverAnimation";
 import { Rotating } from "./animationComponents/Rotating";
+import { useCookies } from "react-cookie";
 
 function SearchTeams(props) {
   const [next, setNext] = useState();
   const [prev, setPrev] = useState();
+  const [cookies, setCookie] = useCookies(["requests"]);
 
   const { data: session, status } = useSession();
 
@@ -111,38 +113,58 @@ function SearchTeams(props) {
     }
   };
   const handleJoinTeam = (team) => {
-    fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/user/requests/${team._id}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${session.accessTokenBackend}`,
-        "Access-Control-Allow-Origin": "*",
-      },
-    })
-      .then((data) => data.json())
-      .then((data) => {
-        if (data.error?.errorCode) {
-          toast.error(`${data.message}`, {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
+    if (cookies.requests == undefined || cookies.requests < 5) {
+      fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/user/requests/${team._id}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${session.accessTokenBackend}`,
+          "Access-Control-Allow-Origin": "*",
+        },
+      })
+        .then((data) => data.json())
+        .then((data) => {
+          if (data.error?.errorCode) {
+            toast.error(`${data.message}`, {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
+            if (data.message == "Can't send more than 5 requests") {
+              setCookie("requests", 5);
+            }
+            return;
+          }
+          if (!cookies.requests) {
+            console.log(cookies.requests);
+
+            setCookie("requests", 1);
+          } else {
+            console.log(cookies.requests);
+            setCookie("requests", ++cookies.requests);
+          }
+          console.log(cookies.requests);
+
+          toast.success(`${data.message}`, {
+            position: toast.POSITION.TOP_RIGHT,
           });
-          return;
-        }
-        console.log(data);
-        toast.success(`${data.message}`, {
-          position: toast.POSITION.TOP_RIGHT,
         });
+    } else {
+      toast.error(`You have already sent request to 5 teams`, {
+        position: toast.POSITION.TOP_RIGHT,
       });
+    }
   };
 
   useEffect(() => {
     setIsLoading(true);
     if (status !== "loading" && status === "authenticated") {
+      setCookie("requests", 0);
+
       fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/team?page=1&limit=9`, {
         method: "GET",
         headers: {
