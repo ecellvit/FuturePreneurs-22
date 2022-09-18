@@ -14,8 +14,8 @@ export default function GetUserDetailsPage() {
   useEffect(() => {
     if (status !== "loading" && status === "authenticated" && router.isReady) {
       setIsLoading(true);
-      fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/auth/`, {
-        method: "POST",
+      fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/user`, {
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
