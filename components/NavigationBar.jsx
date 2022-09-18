@@ -14,9 +14,34 @@ import styles from "../styles/NavigationBar.module.css";
 const NavigationBar = () => {
   const { data: session, status } = useSession();
   const [isLeader, setIsLeader] = useState();
+  const [days, setDays] = useState();
+  const [hours, setHours] = useState();
+  const [minutes, setMinutes] = useState();
+  const [seconds, setSeconds] = useState();
+  const [userRequests, setUserRequests] = useState([]);
   const router = useRouter();
 
-  const [userRequests, setUserRequests] = useState([]);
+  const END_TIME = 1663522813000 + 60*60*24*1000*2
+
+  useEffect(()=>{
+    let timer = setTimeout(()=>{
+      let a = Date.now()
+      let d = END_TIME - a
+      let dys = Math.floor(d/1000/60/60/24)
+      let hrs = Math.floor(d/1000/60/60)%24
+      let mins = Math.floor(d/1000/60)%60
+      let secs = Math.floor(d/1000)%60
+
+      setDays(dys)
+      setHours(hrs)
+      setMinutes(mins)
+      setSeconds(secs)
+    }, 1000);
+    return ()=>{
+      clearTimeout(timer);
+    }
+  })
+
   useEffect(() => {
     if (session) {
       fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/user/requests`, {
@@ -113,19 +138,19 @@ const NavigationBar = () => {
                 <div className={styles.counterCardHead}>
                   &nbsp;&nbsp;&nbsp;DAYS&nbsp;&nbsp;&nbsp;
                 </div>
-                <div className={styles.counterCardBody}>11</div>
+                <div className={styles.counterCardBody}>{days}</div>
               </div>
               <div className={`${styles.counterCard} ${styles.counterCard2}`}>
                 <div className={styles.counterCardHead}>&nbsp;HOURS&nbsp;</div>
-                <div className={styles.counterCardBody}>11</div>
+                <div className={styles.counterCardBody}>{hours}</div>
               </div>
               <div className={`${styles.counterCard} ${styles.counterCard3}`}>
                 <div className={styles.counterCardHead}>MINUTES</div>
-                <div className={styles.counterCardBody}>11</div>
+                <div className={styles.counterCardBody}>{minutes}</div>
               </div>
               <div className={`${styles.counterCard} ${styles.counterCard4}`}>
                 <div className={styles.counterCardHead}>SECONDS</div>
-                <div className={styles.counterCardBody}>11</div>
+                <div className={styles.counterCardBody}>{seconds}</div>
               </div>
             </div>
           </div>
