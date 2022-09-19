@@ -158,20 +158,23 @@ const NavigationBar = () => {
           <div className={styles.flexRight}>
             <ul>
               <li>
-                <button
-                  className={`${styles.flexRightBell} ${styles.responsive}`}
-                  onClick={() => {
-                    isLeader
-                      ? router.push("/pendingUserRequests")
-                      : router.push("/pendingRequests");
-                  }}
-                >
-                  <Noty
-                    width={"40"}
-                    color={"#122C34"}
-                    count={userRequests.length}
-                  />
-                </button>
+                {status === "authenticated" && (
+                  <button
+                    className={`${styles.flexRightBell} ${styles.responsive}`}
+                    onClick={() => {
+                      isLeader
+                        ? router.push("/pendingUserRequests")
+                        : router.push("/pendingRequests");
+                    }}
+                  >
+                    <Noty
+                      width={"40"}
+                      color={"#122C34"}
+                      count={userRequests.length}
+                    />
+                  </button>
+                )}
+
                 {status === "authenticated" && (
                   <Link href="/dashboard">
                     <a
@@ -213,7 +216,7 @@ const NavigationBar = () => {
                   />
                 </div>
               </li> */}
-              <HamburgerAnimation />
+              {/* <HamburgerAnimation /> */}
             </ul>
           </div>
         </div>

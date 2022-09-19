@@ -561,7 +561,7 @@
 }
 .invite_link_container {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   margin: -30px auto 40px;
   padding-right: 10px;
   padding-left: 10px;
@@ -596,10 +596,12 @@
     /* line-height: 28px; */
   }
 
-  /* .btnCopy {
-    height: 2.2rem;
-    width: 3rem;
-  } */
+  .btnCopy {
+    /* height: 2.2rem;
+    width: 3rem; */
+    margin-top:1rem;
+    margin-bottom:1rem;
+  }
 
   .member_container {
     margin-top: 0.1rem;
