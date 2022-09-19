@@ -14,8 +14,6 @@ const SignLayout = ({handleLinkSubmit}) => {
   const lnameRef = useRef("");
   const fnameRef = useRef("");
 
- 
-
   const mobileNumberRef = useRef("");
   const router = useRouter();
   const { data: session } = useSession();

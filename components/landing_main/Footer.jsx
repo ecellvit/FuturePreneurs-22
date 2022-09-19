@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "../../styles/Landingr.module.css";
+import Developers from "./Developers";
 const Footer = () => {
   return (
     <div className={`${styles.footer_section}`}>
@@ -49,6 +50,7 @@ const Footer = () => {
           </a>
         </div>
       </div>
+      {/* <Developers /> */}
       <div className={styles.contact_card_container}>
         <div className={styles.contact_card}>
           <img src="call.svg" width="15" className={styles.contact_img} />

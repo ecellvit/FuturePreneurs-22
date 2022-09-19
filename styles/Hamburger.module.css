@@ -21,9 +21,10 @@
 .background {
   position: absolute;
   top: 0;
-  left: -300;
+  left: 0;
+  z-index: 2;
   bottom: 0;
-  width: 300px;
+  width: 380px;
   background: #fff;
 }
 
@@ -35,6 +36,7 @@
   -ms-user-select: none;
   cursor: pointer;
   position: absolute;
+  z-index: 3;
   top: 18px;
   left: 15px;
   width: 50px;
@@ -52,6 +54,7 @@
 .ul {
   padding: 25px;
   position: absolute;
+  z-index: 5;
   top: 100px;
   width: 230px;
 }
@@ -59,6 +62,8 @@
 .li {
   list-style: none;
   margin-bottom: 20px;
+  position: relative;
+  z-index: 10;
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -69,6 +74,8 @@
   height: 40px;
   border-radius: 50%;
   flex: 40px 0;
+  position: relative;
+  z-index: 3;
   margin-right: 20px;
 }
 
@@ -76,6 +83,8 @@
   border-radius: 5px;
   width: 200px;
   height: 20px;
+  position: relative;
+  z-index: 3;
   flex: 1;
 }
 

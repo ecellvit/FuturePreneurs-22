@@ -10,6 +10,7 @@ import fpLogo from "../img/fpLogo.svg";
 import ecellLogo from "../img/ecellLogo.svg";
 import menuicon from "../img/menuicon.svg";
 import styles from "../styles/NavigationBar.module.css";
+import { HamburgerAnimation } from "./animationComponents/hamburger-animation/HBAnimation";
 
 const NavigationBar = () => {
   const { data: session, status } = useSession();
@@ -21,26 +22,26 @@ const NavigationBar = () => {
   const [userRequests, setUserRequests] = useState([]);
   const router = useRouter();
 
-  const END_TIME = 1663522813000 + 60*60*24*1000*2
+  const END_TIME = 1664739240000;
 
-  useEffect(()=>{
-    let timer = setTimeout(()=>{
-      let a = Date.now()
-      let d = END_TIME - a
-      let dys = Math.floor(d/1000/60/60/24)
-      let hrs = Math.floor(d/1000/60/60)%24
-      let mins = Math.floor(d/1000/60)%60
-      let secs = Math.floor(d/1000)%60
+  useEffect(() => {
+    let timer = setTimeout(() => {
+      let a = Date.now();
+      let d = END_TIME - a;
+      let dys = Math.floor(d / 1000 / 60 / 60 / 24);
+      let hrs = Math.floor(d / 1000 / 60 / 60) % 24;
+      let mins = Math.floor(d / 1000 / 60) % 60;
+      let secs = Math.floor(d / 1000) % 60;
 
-      setDays(dys)
-      setHours(hrs)
-      setMinutes(mins)
-      setSeconds(secs)
+      setDays(dys);
+      setHours(hrs);
+      setMinutes(mins);
+      setSeconds(secs);
     }, 1000);
-    return ()=>{
+    return () => {
       clearTimeout(timer);
-    }
-  })
+    };
+  });
 
   useEffect(() => {
     if (session) {
@@ -201,7 +202,7 @@ const NavigationBar = () => {
               <li>
                 <Image alt="Logo" src={ecellLogo} width={70} height={70} />
               </li>
-              <li>
+              {/* <li>
                 <div className={styles.hamburgerMenu}>
                   <Image
                     alt="Logo"
@@ -211,7 +212,8 @@ const NavigationBar = () => {
                     onClick
                   />
                 </div>
-              </li>
+              </li> */}
+              <HamburgerAnimation />
             </ul>
           </div>
         </div>
