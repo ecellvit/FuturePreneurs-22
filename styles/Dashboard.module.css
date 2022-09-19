@@ -208,6 +208,7 @@
   flex-wrap: nowrap;
   align-items: flex-start;
   flex: 0 auto;
+  margin-bottom:5rem;
 }
 
 .col.lg4 {
