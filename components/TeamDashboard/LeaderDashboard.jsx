@@ -36,7 +36,6 @@ const LeaderDashboard = ({
       className: "toast-message",
     });
   };
-  console.log(teamData);
 
   const onCopyText = () => {
     //alert("Copied");
