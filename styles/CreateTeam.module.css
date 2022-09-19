@@ -67,8 +67,8 @@
 
 .border_gradient {
   border: 10px solid;
-  border-image-slice: 1;
   border-width: 3px;
+  border-image-slice: 1;
   border-image-source: linear-gradient(to right, #743ad5, #d53a9d);
 }
 

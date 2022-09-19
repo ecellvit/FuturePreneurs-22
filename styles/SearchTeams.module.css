@@ -10,8 +10,8 @@
   margin-bottom: 30px;
   width: 33.33%;
   border: 10px solid;
-  border-image-slice: 1;
   border-width: 3px;
+  border-image-slice: 1;
   border-image-source: linear-gradient(to right, #743ad5, #d53a9d);
   padding: 10px;
   justify-content: center;
@@ -54,8 +54,8 @@
 }
 .border_gradient {
   border: 10px solid;
-  border-image-slice: 1;
   border-width: 3px;
+  border-image-slice: 1;
   border-image-source: linear-gradient(to right, #743ad5, #d53a9d);
 }
 .CardsImg {
@@ -76,12 +76,12 @@
   color: white;
   font-weight: 100;
   text-align: left;
+  max-width: 40px;
 }
 
 .Cardsh4 {
- 
   font-size: 15px;
-  
+  text-align: center;
   color: white;
   font-weight: 800;
 }
@@ -130,6 +130,14 @@
   overflow: hidden;
   cursor: pointer;
   margin-top: 30px;
+}
+
+.warning{
+  font-size: 10px;
+  color: red;
+  font-weight: 800;
+  max-width: 300px;
+  text-align: center;
 }
 
 .button2:after {

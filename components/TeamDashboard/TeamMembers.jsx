@@ -48,7 +48,7 @@ const TeamMembers = ({ teamData, handleMemberLeave }) => {
             return (
               <TeamMember
                 key={team._id}
-                teamName={team.name}
+                teamName={`${team.firstName} ${team.lastName}`}
                 mobileNumber={team.mobileNumber}
                 email={team.email}
                 teamId={teamId}

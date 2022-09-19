@@ -1,4 +1,5 @@
 import styles from "../styles/Landingr.module.css";
+import Footer from "./landing_main/Footer";
 import Section1 from "./landing_main/Section1";
 import Section2 from "./landing_main/Section2";
 import Section3 from "./landing_main/Section3";
@@ -15,6 +16,7 @@ const Landing_main = () => {
       <Section4 />
       <Section5 />
       <Section6 />
+      <Footer />
     </div>
   );
 };
