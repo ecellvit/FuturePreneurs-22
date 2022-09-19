@@ -17,8 +17,9 @@ const Section1 = () => {
         />
         <img
           onClick={() => {
+            if(session){
             signIn("google", { callbackUrl: "/getdetail" });
-          }}
+          }}}
           style={{ cursor: "pointer" }}
           src="getin-min.png"
           sizes="(max-width: 479px) 92.5px, (max-width: 767px) 148px, 197px"
