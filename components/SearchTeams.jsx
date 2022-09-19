@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import styles from "../styles/SearchTeams.module.css";
 import Avatar from "react-avatar";
 import { toast } from "react-toastify";
@@ -11,6 +11,7 @@ import Layout from "./animationComponents/Layouts";
 import { HoverAnimation } from "./animationComponents/HoverAnimation";
 import { Rotating } from "./animationComponents/Rotating";
 import { useCookies } from "react-cookie";
+import myContext from "../store/myContext";
 
 function SearchTeams(props) {
   const [next, setNext] = useState();
@@ -18,6 +19,8 @@ function SearchTeams(props) {
   const [cookies, setCookie] = useCookies(["requests"]);
 
   const { data: session, status } = useSession();
+
+  const myCtx = useContext(myContext);
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -148,6 +151,8 @@ function SearchTeams(props) {
             setCookie("requests", ++cookies.requests);
           }
           console.log(cookies.requests);
+
+          myCtx.notyHandler(myCtx.notys+1)
 
           toast.success(`${data.message}`, {
             position: toast.POSITION.TOP_RIGHT,

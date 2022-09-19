@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useContext } from "react";
 import { useSession } from "next-auth/react";
 import styles from "../../styles/CreateTeam.module.css";
 import Link from "next/link";
@@ -6,12 +6,14 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loading from "../Loading";
 import Layout from "../animationComponents/Layouts";
+import myContext from "../../store/myContext";
 
 const CreateTeam = ({ handleTeamCreate }) => {
   const teamNameRef = useRef(null);
   const { data: session, status } = useSession();
   const [teamData, setTeamData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const myCtx = useContext(myContext);
 
   const handleCreate = (e) => {
     e.preventDefault();
@@ -47,6 +49,7 @@ const CreateTeam = ({ handleTeamCreate }) => {
           return;
         }
         handleTeamCreate();
+        myCtx.leaderHandler(true);
       });
   };
 

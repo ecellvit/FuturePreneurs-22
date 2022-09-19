@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useSession } from "next-auth/react";
 import TeamMemberLeader from "./TeamMemberLeader";
 import styles from "../../styles/Dashboard.module.css";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Loading from "../Loading";
+import myContext from "../../store/myContext";
 import { AnimatePresence, motion } from "framer-motion";
 import Modal from "../modal";
 import styles1 from "../../styles/Modal.module.css";
+
 const LeaderDashboard = ({
   teamData,
   handleTeamDelete,
@@ -24,6 +27,8 @@ const LeaderDashboard = ({
 
   const [isCopied, setIsCopied] = useState(false);
   const { data: session } = useSession();
+
+  const myCtx = useContext(myContext);
 
   const showToastMessage = () => {
     toast("Copied Invite Link to Clipboard!", {
@@ -71,6 +76,7 @@ const LeaderDashboard = ({
           }
           handleTeamDelete(false);
           setIsLoading(false);
+          myCtx.leaderHandler(false);
         });
     } else {
       toast.error("Please remove all team members first", {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import styles from "../styles/SearchTeams.module.css";
@@ -9,12 +9,15 @@ import Loading from "./Loading";
 import Layout from "./animationComponents/Layouts";
 import Link from "next/link";
 import { useCookies } from "react-cookie";
+import myContext from "../store/myContext";
 
 function PendingRequests() {
   const { data: session } = useSession();
   const [teamData, setTeamData] = useState([]);
   const [isLoading, setIsLoading] = useState();
   const [cookies, setCookie] = useCookies(["requests"]);
+  const myCtx = useContext(myContext);
+
 
   const handleDeleteRequest = (team) => {
     if (team.teamId._id) {
@@ -54,6 +57,7 @@ function PendingRequests() {
           toast.success(`${data.message}`, {
             position: toast.POSITION.TOP_RIGHT,
           });
+          myCtx.notyHandler(myCtx.notys-1)
           setIsLoading(false);
         });
     } else {

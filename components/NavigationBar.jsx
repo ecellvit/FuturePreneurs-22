@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Link from "next/link";
 
 import { signIn, signOut, useSession } from "next-auth/react";
@@ -11,10 +11,10 @@ import ecellLogo from "../img/ecellLogo.svg";
 import menuicon from "../img/menuicon.svg";
 import styles from "../styles/NavigationBar.module.css";
 import { HamburgerAnimation } from "./animationComponents/hamburger-animation/HBAnimation";
+import myContext from "../store/myContext";
 
 const NavigationBar = () => {
   const { data: session, status } = useSession();
-  const [isLeader, setIsLeader] = useState();
   const [days, setDays] = useState();
   const [hours, setHours] = useState();
   const [minutes, setMinutes] = useState();
@@ -22,7 +22,9 @@ const NavigationBar = () => {
   const [userRequests, setUserRequests] = useState([]);
   const router = useRouter();
 
-  const END_TIME = new Date(2022, 10, 4, 17, 0, 0);
+  const myCtx = useContext(myContext);
+
+  const END_TIME = new Date(2022, 10, 4, 17, 0, 0)
 
   useEffect(() => {
     let timer = setTimeout(() => {
@@ -42,6 +44,10 @@ const NavigationBar = () => {
       clearTimeout(timer);
     };
   }, [END_TIME]);
+
+  useEffect(()=>{
+    myCtx.notyHandler(userRequests.length);
+  }, [userRequests])
 
   useEffect(() => {
     if (session) {
@@ -82,7 +88,9 @@ const NavigationBar = () => {
 
         .then((data) => {
           if (data.user?.teamRole === 0) {
-            setIsLeader(true);
+            myCtx.leaderHandler(true);
+          } else {
+            myCtx.leaderHandler(false);
           }
         })
         .catch((error) => {
@@ -162,7 +170,7 @@ const NavigationBar = () => {
                   <button
                     className={`${styles.flexRightBell} ${styles.responsive}`}
                     onClick={() => {
-                      isLeader
+                      myCtx.isLeader
                         ? router.push("/pendingUserRequests")
                         : router.push("/pendingRequests");
                     }}
@@ -170,7 +178,7 @@ const NavigationBar = () => {
                     <Noty
                       width={"40"}
                       color={"#fff"}
-                      count={userRequests.length}
+                      count={myCtx.notys}
                     />
                   </button>
                 )}
