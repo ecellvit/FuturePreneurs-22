@@ -156,7 +156,16 @@ function PendingUserRequests() {
       ) : (
         <div className={styles.Teams}>
           {userData.length == 0 ? (
-            <text style={{ color: "white" }}>There are no Requests</text>
+            <div>
+              <h3 className={styles.Cardsh4}>
+                {"Your team doesn't have anymore joining requests!"}
+              </h3>
+              <p className={styles.warning}>
+                {
+                  "If your teammates' requests aren't showing up, please try refreshing the page!"
+                }
+              </p>
+            </div>
           ) : (
             userData.map((user) => {
               if (user.userId != null) {

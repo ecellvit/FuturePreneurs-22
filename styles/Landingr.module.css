@@ -330,7 +330,9 @@
 
 .story_text_cont {
   width: 600px;
-  margin-left: 60px;
+  position: absolute;
+  right: 10vw;
+  top: 10vh;
 }
 
 .story_h1 {
@@ -1017,7 +1019,7 @@
   .get_in_gradient {
     position: absolute;
     left: 130px;
-    bottom: 25vh;
+    bottom: 15vh;
     max-width: 25%;
     margin-top: 178px;
     margin-left: 25.4vw;
@@ -1126,7 +1128,10 @@
   }
 
   .story_text_cont {
-    width: 280px;
+    width: 200px;
+    position: relative;
+    top: -60px;
+
   }
 
   .story_h1 {
@@ -1145,8 +1150,9 @@
     font-size: 18px;
     line-height: 22px;
     text-align: center;
-    width: 400px;
+    width: 250px;
     position: relative;
+    right: 5vw;
   }
 
   .story_gradient {
@@ -1259,6 +1265,9 @@
 }
 .footer,
 .push {
-  border: 1px solid #ff00ff;
   height: 40vh; /* '.push' must be the same height as 'footer' */
+}
+
+.footer {
+  border: 1px solid #ff00ff;
 }

@@ -5,14 +5,20 @@ import styles from "../../styles/Dashboard.module.css";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Loading from "../Loading";
-
+import { AnimatePresence, motion } from "framer-motion";
+import Modal from "../modal";
+import styles1 from "../../styles/Modal.module.css";
 const LeaderDashboard = ({
   teamData,
   handleTeamDelete,
   teamToken,
   handleMemberRemove,
 }) => {
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const close = () => setModalOpen(false);
+  const open = () => setModalOpen(true);
+
   const [teamId, setTeamId] = useState(teamData.teamId._id);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -112,7 +118,7 @@ const LeaderDashboard = ({
               return (
                 <TeamMemberLeader
                   key={team._id}
-                  teamName={team.name}
+                  teamName={`${team.firstName} ${team.lastName}`}
                   mobileNumber={team.mobileNumber}
                   email={team.email}
                   teamId={teamId}
@@ -123,12 +129,33 @@ const LeaderDashboard = ({
               );
             })}
           </div>
-          <button
-            className={`${styles.leave_team_btn} ${styles.team_leader_btn} ${styles.w_button}`}
-            onClick={handleDelete}
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            className={`${styles1["save-button"]} ${styles1["button"]}`}
+            onClick={() => (modalOpen ? close() : open())}
           >
             Delete Team
-          </button>
+          </motion.button>
+          <AnimatePresence
+            initial={false}
+            exitBeforeEnter={true}
+            onExitComplete={() => null}
+          >
+            {modalOpen && (
+              <Modal
+                modalOpen={modalOpen}
+                handleClose={close}
+                text={
+                  "Are you sure you want to delete your team?"
+                }
+                text1={
+                  "This action can't be reversed!!"
+                }
+                deleteTeam={handleDelete}
+              />
+            )}
+          </AnimatePresence>
         </div>
       </div>
     </div>

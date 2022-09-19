@@ -119,8 +119,11 @@ function PendingRequests() {
               // <text style={{ color: "white" }}>There are no Requests</text>
               <div>
                 <h3 className={styles.Cardsh4}>
-                  There are no pending requests.
+                    {"Currently, you haven't made any requests to join a team yet!"}
                 </h3>
+                <p className={styles.warning}>
+                    {"If your requests aren't showing up, please try refreshing!"}
+                </p>
                 <Link href="/searchTeams">
                   <button
                     type="submit"
