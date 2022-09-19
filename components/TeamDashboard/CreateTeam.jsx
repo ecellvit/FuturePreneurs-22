@@ -134,7 +134,7 @@ const CreateTeam = ({ handleTeamCreate }) => {
                         placeholder="Enter Your Team Name"
                       />
                       <button
-                        className={`${styles.join_create_btn} ${styles.w_button} ${styles.button}`}
+                        className={`${styles.join_create_btn} ${styles.w_button} ${styles.button} ${styles.create}`}
                         onClick={handleCreate}
                       >
                         Create
