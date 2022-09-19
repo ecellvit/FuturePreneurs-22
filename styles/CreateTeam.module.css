@@ -193,6 +193,10 @@
   text-transform: none;
 }
 
+.pending_btn{
+  margin-left:.5rem;
+}
+
 .h1_create {
   margin-left:15.5rem;
   margin-bottom:1rem;

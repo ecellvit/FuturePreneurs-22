@@ -147,7 +147,7 @@ const CreateTeam = ({ handleTeamCreate }) => {
                   <button
                     type="submit"
                     placeholder="Pending requests"
-                    className={`${styles.join_create_btn} ${styles.join_btn}  ${styles.w_button}`}
+                    className={`${styles.join_create_btn} ${styles.join_btn}  ${styles.w_button} ${styles.button} ${styles.pending_btn}`}
                   >
                     Pending requests
                   </button>
