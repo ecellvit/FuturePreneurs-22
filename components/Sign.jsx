@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 // import { useCookies } from 'react-cookie'
 import Cookies from 'js-cookie'
 
-const Sign = ({joiningId}) => {
+const Sign = () => {
   const [loading, setLoading] = useState(true);
   const { data: session } = useSession();
   const router = useRouter();
@@ -24,7 +24,7 @@ const Sign = ({joiningId}) => {
     fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/user/token`, {
       method: 'PATCH',
       body: JSON.stringify({
-        token: `${joiningId}`,
+        token: Cookies.get('user'),
       }),
       headers: {
         'Content-Type': 'application/json',
@@ -41,7 +41,9 @@ const Sign = ({joiningId}) => {
   }
 
   useEffect(() => {
-    // setLoading(true);
+   if(session){ 
+    setLoading(true);
+
     fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/user`, {
       method: "PATCH",
       body: JSON.stringify({
@@ -53,10 +55,11 @@ const Sign = ({joiningId}) => {
       },
     })
       .then((data) => data.json())
-      .then((data) => {
+      .then(async (data) => {
         setTimeout(()=>{
           setLoading(false)
         }, 1000)
+
         console.log(data);
         // setLoading(false);
         if (data.error?.errorCode) {
@@ -71,17 +74,16 @@ const Sign = ({joiningId}) => {
           });
           return;
         }
-        console.log(data.hasFilledDetails);
-        if (data.hasFilledDetails === true && Cookies.get('user') === joiningId ) {
-          handleJoin();
+        if (data.hasFilledDetails === true && Cookies.get('user')) {
+          await handleJoin();
           Cookies.remove('user')
         }
         if (data.hasFilledDetails === true) {
           router.push("/dashboard");
         }
       })
-      .catch((err) => console.log(err));
-  }, [useEffectTrigger]);
+      .catch((err) => console.log(err));}
+  }, [session,useEffectTrigger]);
 
   console.log('cookies in sign in')
   console.log(Cookies.get('user'))

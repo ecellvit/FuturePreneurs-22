@@ -7,11 +7,15 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loading from "./Loading";
 import Layout from "./animationComponents/Layouts";
+import Link from "next/link";
+import { useCookies } from "react-cookie";
 
 function PendingRequests() {
   const { data: session } = useSession();
   const [teamData, setTeamData] = useState([]);
   const [isLoading, setIsLoading] = useState();
+  const [cookies, setCookie] = useCookies(["requests"]);
+
   const handleDeleteRequest = (team) => {
     if (team.teamId._id) {
       setIsLoading(true);
@@ -41,6 +45,8 @@ function PendingRequests() {
             return;
           }
           setTeamData((prev) => {
+            setCookie("requests", --cookies.requests);
+
             return prev.filter((elem) => {
               return elem.teamId?._id !== team.teamId?._id;
             });
@@ -99,6 +105,7 @@ function PendingRequests() {
 
   useEffect(() => {
     console.log(teamData);
+    setCookie("requests", teamData.length);
   }, [teamData]);
 
   return (
@@ -109,7 +116,21 @@ function PendingRequests() {
         <Layout>
           <div className={styles.Teams}>
             {teamData.length == 0 ? (
-              <text style={{ color: "white" }}>There are no Requests</text>
+              // <text style={{ color: "white" }}>There are no Requests</text>
+              <div>
+                <h3 className={styles.Cardsh4}>
+                  There are no pending requests.
+                </h3>
+                <Link href="/searchTeams">
+                  <button
+                    type="submit"
+                    placeholder="Find Teams to Join"
+                    className={`${styles.join_create_btn} ${styles.join_btn}  ${styles.w_button}`}
+                  >
+                    Find Teams to Join
+                  </button>
+                </Link>
+              </div>
             ) : (
               teamData.map((team) => {
                 if (team.teamId != null) {

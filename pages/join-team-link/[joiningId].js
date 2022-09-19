@@ -2,7 +2,6 @@ import React from 'react'
 import { useRouter } from 'next/router'
 import { signIn, useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
-import LinkJoining from '../../components/LinkJoining'
 import Sign from '../../components/Sign'
 import NavigationBar from '../../components/NavigationBar'
 import Cookies from 'js-cookie'
@@ -28,12 +27,10 @@ function JoiningIdPage() {
     }
   }, [status,joiningId])
 
-  console.log('cookies')
-  console.log(Cookies.get('user'))
   return (
     <div>
       <NavigationBar />
-      {session ? <Sign joiningId={joiningId}/> : 'nothing'}
+      {session ? <Sign /> : 'nothing'}
     </div>
   )
 }

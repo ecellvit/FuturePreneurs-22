@@ -61,7 +61,7 @@
 .CardsImg {
   width: 100%;
   height: auto;
-  align-self: center;
+  align-self: left;
   border-radius: 25px;
   object-fit: cover;
   margin-bottom: 10px;
@@ -71,13 +71,20 @@
   margin: 0;
   min-height: 100%;
   font-family: Arial, sans-serif;
-  font-size: 20px;
+  font-size: 100%;
   line-height: 30px;
   color: white;
   font-weight: 100;
   text-align: left;
 }
 
+.Cardsh4 {
+ 
+  font-size: 15px;
+  
+  color: white;
+  font-weight: 800;
+}
 .info-group {
   display: flex;
   justify-content: center;
@@ -205,4 +212,36 @@
   0% { background-position: 0 0; }
   50% { background-position: 400% 0; }
   100% { background-position: 0 0; }
+}
+
+.w_button {
+  display: inline-block;
+  padding: 9px 15px;
+  background-color: #3898ec;
+  color: white;
+  border: 0;
+  line-height: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: 0;
+}
+
+.join_create_btn {
+  display: inline-block;
+  padding: 13px 22px;
+  border-radius: 0px;
+  background-color: #3b2ae5;
+  transition: all 200ms ease;
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: 600;
+  text-transform: none;
+}
+
+.join_create_btn:hover {
+  opacity: 0.8;
+}
+
+.join_create_btn.join_btn {
+  width: 100%;
 }
