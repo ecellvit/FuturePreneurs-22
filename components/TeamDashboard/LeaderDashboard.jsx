@@ -92,14 +92,14 @@ const LeaderDashboard = ({
             Team Name - {teamData?.teamId?.teamName}
           </p>
           <h2 className={styles.invite_link_container}>
-            <label className={styles.label}>Team Link:</label>
-            <input
+            {/* <label className={styles.label}>Team Link:</label> */}
+            {/* <input
               type="text"
               value={`https://fp.ecellvit.com/join-team-link/${teamToken}`}
               placeholder="Type some text here"
               className={styles.input}
               readOnly
-            />
+            /> */}
             <CopyToClipboard
               text={`https://fp.ecellvit.com/join-team-link/${teamToken}`}
               onCopy={onCopyText}
