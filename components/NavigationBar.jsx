@@ -24,7 +24,7 @@ const NavigationBar = () => {
 
   const myCtx = useContext(myContext);
 
-  const END_TIME = new Date(2022, 10, 4, 17, 0, 0)
+  const END_TIME = new Date(2022, 10, 4, 17, 0, 0);
 
   useEffect(() => {
     let timer = setTimeout(() => {
@@ -47,8 +47,10 @@ const NavigationBar = () => {
 
   useEffect(() => {
     myCtx.notyHandler(userRequests.length);
+
     console.log(userRequests.length);
   }, [userRequests])
+
 
   useEffect(() => {
     console.log(myCtx.isLeader)
@@ -214,47 +216,39 @@ const NavigationBar = () => {
               </div>
             </div>
           </div>
-          <div className={styles.flexRight}>
+          <div className={`${styles.flexRight} ${styles.responsive}`}>
             <ul>
               <li>
                 {status === "authenticated" && (
                   <button
-                    className={`${styles.flexRightBell} ${styles.responsive}`}
+                    className={`${styles.flexRightBell} `}
                     onClick={() => {
                       myCtx.isLeader
                         ? router.push("/pendingUserRequests")
                         : router.push("/pendingRequests");
                     }}
                   >
-                    <Noty
-                      width={"40"}
-                      color={"#fff"}
-                      count={myCtx.notys}
-                    />
+                    <Noty width={"40"} color={"#fff"} count={myCtx.notys} />
                   </button>
                 )}
 
                 {status === "authenticated" && (
                   <Link href="/dashboard">
-                    <a
-                      className={`${styles.flexRightPosition} ${styles.responsive}`}
-                    >
-                      Dashboard
-                    </a>
+                    <a className={`${styles.flexRightPosition} `}>Dashboard</a>
                   </Link>
                 )}
               </li>
               <li>
                 {status === "authenticated" ? (
                   <a
-                    className={`${styles.flexRightPosition} ${styles.responsive}`}
+                    className={`${styles.flexRightPosition} `}
                     onClick={() => logoutHandler()}
                   >
                     Sign Out
                   </a>
                 ) : (
                   <a
-                    className={`${styles.flexRightPosition} ${styles.responsive}`}
+                    className={`${styles.flexRightPosition} `}
                     onClick={() => loginHandler()}
                   >
                     Sign in
@@ -276,6 +270,47 @@ const NavigationBar = () => {
                 </div>
               </li> */}
               {/* <HamburgerAnimation /> */}
+            </ul>
+          </div>
+          <div className={`${styles.flexRight} ${styles.responsiveOn}`}>
+            <ul>
+              <li>
+                {status === "authenticated" && (
+                  <button
+                    className={`${styles.flexRightBell} `}
+                    onClick={() => {
+                      myCtx.isLeader
+                        ? router.push("/pendingUserRequests")
+                        : router.push("/pendingRequests");
+                    }}
+                  >
+                    <Noty width={"40"} color={"#fff"} count={myCtx.notys} />
+                  </button>
+                )}
+
+                {status === "authenticated" && (
+                  <Link href="/dashboard">
+                    <a className={`${styles.flexRightPosition}`}>Dashboard</a>
+                  </Link>
+                )}
+              </li>
+              <li>
+                {status === "authenticated" ? (
+                  <a
+                    className={`${styles.flexRightPosition} `}
+                    onClick={() => logoutHandler()}
+                  >
+                    Sign Out
+                  </a>
+                ) : (
+                  <a
+                    className={`${styles.flexRightPosition} `}
+                    onClick={() => loginHandler()}
+                  >
+                    Sign in
+                  </a>
+                )}{" "}
+              </li>
             </ul>
           </div>
         </div>
