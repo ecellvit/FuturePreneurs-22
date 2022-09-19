@@ -4,9 +4,6 @@
   background-color: #070f0f;
   color: #ffff;
   font-family: "Poppins", sans-serif;
-  font-family: "Roboto", sans-serif;
-  font-family: "Teko", sans-serif;
-  letter-spacing: 0.5px;
 }
 
 .team_member_section_wrapper {
@@ -150,6 +147,7 @@
   padding-top: 40px;
   padding-bottom: 10px;
   justify-content: center;
+  font-size:1rem;
 }
 
 .team_row {
@@ -370,7 +368,6 @@
     color: #ffff;
     font-family: "Poppins", sans-serif;
     font-family: "Roboto", sans-serif;
-    font-family: "Teko", sans-serif;
     letter-spacing: 0.5px;
   }
 }
@@ -580,7 +577,7 @@
   background-color: rgba(17, 25, 40, 0.75);
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.125);
-  padding: 5px 30px 0px 30px;
+  padding: 5px 30px 8px 30px;
 }
 
 .invite_link_a {
