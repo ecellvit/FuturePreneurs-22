@@ -169,7 +169,7 @@ const NavigationBar = () => {
                   >
                     <Noty
                       width={"40"}
-                      color={"#122C34"}
+                      color={"#fff"}
                       count={userRequests.length}
                     />
                   </button>
