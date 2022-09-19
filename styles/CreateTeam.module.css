@@ -176,6 +176,7 @@
 }
 
 .or_form {
+  padding:1rem;
   margin:auto;
 }
 
@@ -198,7 +199,7 @@
 }
 
 .h1_create {
-  margin-left:15.5rem;
+  margin-left:13rem;
   margin-bottom:1rem;
   margin-top: 0px;
   font-size: 35px;
