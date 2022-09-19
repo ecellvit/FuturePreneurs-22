@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import styles from "../styles/SearchTeams.module.css";
@@ -6,11 +6,14 @@ import Avatar from "react-avatar";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loading from "./Loading";
+import myContext from "../store/myContext";
 
 function PendingUserRequests() {
   const { data: session } = useSession();
   const [userData, setUserData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const myCtx = useContext(myContext);
+
   const handleTeamAccept = (user) => {
     console.log(
       JSON.stringify({
@@ -42,6 +45,7 @@ function PendingUserRequests() {
         setUserData((prev) => {
           return prev.filter((elem) => elem.userId._id !== user.userId._id);
         });
+        myCtx.notyHandler(myCtx.notys-1)
         setIsLoading(false);
       });
   };
@@ -83,6 +87,7 @@ function PendingUserRequests() {
         setUserData((prev) => {
           return prev.filter((elem) => elem.userId._id !== user.userId._id);
         });
+        myCtx.notyHandler(myCtx.notys-1)
         setIsLoading(false);
       });
   };
