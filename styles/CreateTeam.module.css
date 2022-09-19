@@ -299,7 +299,11 @@
 @media screen and (max-width: 400px) {
 
   .big_image{
-    margin-top:2rem;
+    margin-top:3rem;
+    margin-bottom:2rem;
+  }
+  .border_gradient{
+    margin-top:3rem;
     margin-bottom:2rem;
   }
   .join_create_btn{
@@ -322,6 +326,8 @@
   .wrapper {
     width: 100%;
     padding: 20px;
+    margin-top:2rem;
+    margin-bottom:2rem;
   }
 
   .or_form {
@@ -360,5 +366,14 @@
 
   .p_create{
     margin-left:.5rem;
+  }
+
+  .big_image {
+    display: flex;
+    padding-top: 100px;
+    padding-bottom: 100px;
+    justify-content: center;
+    align-items: center;
+    background-color: #070f0f;
   }
 }
