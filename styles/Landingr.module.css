@@ -22,7 +22,7 @@
   left: auto;
   top: auto;
   right: 0%;
-  bottom: 0%;
+  bottom: -10px;
   display: block;
   justify-content: flex-end;
   object-fit: fill;
@@ -37,7 +37,7 @@
   margin-top: 0px;
   margin-right: 0px;
   margin-left: 0px;
-  max-width: 130%;
+  max-width: 100%;
 }
 
 .grad {
@@ -150,8 +150,8 @@
   top: auto;
   right: 10%;
   bottom: auto;
-  max-width: 90%;
-  margin-right: -11px;
+  max-width: 70%;
+  margin-right: -13px;
   object-fit: fill;
 }
 
@@ -547,7 +547,7 @@
 
 .main_text {
   position: absolute;
-  right: 23vw;
+  right: 0px;
   top: 20vh;
 }
 
@@ -981,6 +981,7 @@
   .grad {
     object-fit: fill;
     margin-bottom: -125px;
+    display: none;
   }
 
   .about_para {
@@ -1019,14 +1020,15 @@
   .get_in_gradient {
     position: absolute;
     left: 130px;
-    bottom: 15vh;
+    bottom: 35%;
     max-width: 25%;
     margin-top: 178px;
     margin-left: 25.4vw;
   }
 
   .p_logo {
-    width: 350px;
+    width: 300px;
+    margin-left: 20%;
   }
 
   .date_img {
@@ -1059,6 +1061,7 @@
 
   .gradient_r {
     margin-right: 0px;
+    display: none;
   }
 
   .sec_3 {
