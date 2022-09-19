@@ -1,6 +1,7 @@
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import Landing_main from "../components/Landing_main.jsx";
+import NavigationBar from "../components/NavigationBar";
 
 export default function Home() {
   return (
@@ -13,6 +14,7 @@ export default function Home() {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <NavigationBar />
       <Landing_main />
     </div>
   );

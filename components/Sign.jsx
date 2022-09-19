@@ -41,7 +41,9 @@ const Sign = () => {
   }
 
   useEffect(() => {
-   if(session){ setLoading(true);
+   if(session){ 
+    setLoading(true);
+
     fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/user`, {
       method: "PATCH",
       body: JSON.stringify({
@@ -54,8 +56,12 @@ const Sign = () => {
     })
       .then((data) => data.json())
       .then(async (data) => {
+        setTimeout(()=>{
+          setLoading(false)
+        }, 1000)
+
         console.log(data);
-        setLoading(false);
+        // setLoading(false);
         if (data.error?.errorCode) {
           toast.error(`${data.message}`, {
             position: "top-right",

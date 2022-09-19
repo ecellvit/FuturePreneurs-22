@@ -5,6 +5,7 @@ import { useRouter } from "next/router.js";
 import PendingRequests from "../components/PendingRequests.jsx"
 import Loading from "../components/Loading";
 import { toast, ToastContainer } from "react-toastify";
+import NavigationBar from "../components/NavigationBar";
 
 export default function PendingRequestsPage() {
   const { status } = useSession();
@@ -24,6 +25,7 @@ export default function PendingRequestsPage() {
     <>
 
       <ToastContainer />
+      <NavigationBar />
       {status === "loading" ?
         <Loading /> :
         status === "authenticated" &&

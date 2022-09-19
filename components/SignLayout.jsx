@@ -46,6 +46,7 @@ const SignLayout = ({handleLinkSubmit}) => {
   };
 
   useEffect(() => {
+
     hasError
       ? toast("Please fill all details")
       : fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/user`, {
@@ -65,7 +66,7 @@ const SignLayout = ({handleLinkSubmit}) => {
           .then((data) => data.json())
           .then((data) => handleLinkSubmit())
           // .then((data) => router.push("/dashboard"));
-  }, [hasError, router, session.accessTokenBackend]);
+  }, [hasError, router, session]);
 
   return (
     <div className={styled.sign_in_wrapper}>
