@@ -1,7 +1,8 @@
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import styles from "../../styles/Landingr.module.css";
 
 const Section1 = () => {
+  const { data: session, status } = useSession();
   return (
     <div className={styles.sec_1}>
       <div className={styles.first_grad}>
@@ -17,7 +18,11 @@ const Section1 = () => {
         />
         <img
           onClick={() => {
-            signIn("google", { callbackUrl: "/getdetail" });
+            if (status==="authenticated"){
+              console.log("already siged in")
+            } else {
+              signIn("google", { callbackUrl: "/getdetail" });
+            }
           }}
           style={{ cursor: "pointer" }}
           src="getin-min.png"

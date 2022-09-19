@@ -19,7 +19,7 @@ const NavigationBar = () => {
   const [hours, setHours] = useState();
   const [minutes, setMinutes] = useState();
   const [seconds, setSeconds] = useState();
-  const [userRequests, setUserRequests] = useState([]);
+  const [Requests, setRequests] = useState([]);
   const router = useRouter();
 
   const myCtx = useContext(myContext);
@@ -46,10 +46,9 @@ const NavigationBar = () => {
   }, [END_TIME]);
 
   useEffect(() => {
-    myCtx.notyHandler(userRequests.length);
-
-    console.log(userRequests.length);
-  }, [userRequests])
+    myCtx.notyHandler(Requests.length);
+    console.log(Requests.length);
+  }, [Requests])
 
 
   useEffect(() => {
@@ -68,9 +67,9 @@ const NavigationBar = () => {
           .then((data) => {
             data.requests?.map((currenTeam) => {
               if (
-                userRequests.findIndex((x) => x._id === currenTeam._id) === -1
+                Requests.findIndex((x) => x._id === currenTeam._id) === -1
               ) {
-                setUserRequests((prevTeamData) => {
+                setRequests((prevTeamData) => {
                   return [...prevTeamData, currenTeam];
                 });
               }
@@ -105,7 +104,7 @@ const NavigationBar = () => {
                       .then((data) => data.json())
                       .then((data) => {
                         data.requests.map((currentUser) => {
-                          setUserRequests((prevUserData) => {
+                          setRequests((prevUserData) => {
                             if (
                               prevUserData.findIndex(
                                 (x) => x._id === currentUser._id
@@ -125,7 +124,7 @@ const NavigationBar = () => {
           })
       }
     }
-  }, [session])
+  }, [session, myCtx.isLeader])
 
   useEffect(() => {
     if (session) {
