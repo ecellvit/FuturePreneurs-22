@@ -43,6 +43,7 @@ const NavigationBar = () => {
   })
 
   useEffect(() => {
+    console.log("chala")
     if (session) {
       fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/user/requests`, {
         method: "GET",

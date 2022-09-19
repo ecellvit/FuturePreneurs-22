@@ -9,7 +9,6 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   return (
     <SessionProvider session={session}>
       <div className={styles.body}>
-        <NavigationBar />
         <AnimatePresence
           exitBeforeEnter
           initial={false}

@@ -15,7 +15,7 @@ export default function Home() {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {/* <NavigationBar /> */}
+      <NavigationBar />
       <Landing_main />
     </div>
   );
