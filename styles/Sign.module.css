@@ -55,14 +55,15 @@
   margin-bottom: 5px;
   padding-left: 2px;
   opacity: 0.4;
-  color: #000;
+  color: white;
   font-size: 14px;
   font-weight: 400;
+
 }
 
 .label.heading {
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-  color: #000;
+  color: white;
   font-weight: 700;
   display: block;
 }

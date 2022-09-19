@@ -15,6 +15,10 @@
   z-index: 10; */
 }
 
+.responsiveOn {
+  display: none;
+}
+
 .logoBrand {
   text-decoration: none;
 }
@@ -116,5 +120,23 @@
     bottom: 25px;
     right: 20px;
     padding-left: 30px;
+  }
+
+  .responsiveOn {
+    display: inline;
+    position: relative;
+    top: 35%;
+    padding-right: 4%;
+    font-size: 15px;
+  }
+
+  .flexLeft {
+    padding-right: 0;
+  }
+  .responsiveHome {
+    padding-left: 0;
+  }
+  .ul {
+    margin-left: -74px;
   }
 }

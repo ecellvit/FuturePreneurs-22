@@ -24,7 +24,7 @@ const NavigationBar = () => {
 
   const myCtx = useContext(myContext);
 
-  const END_TIME = new Date(2022, 10, 4, 17, 0, 0)
+  const END_TIME = new Date(2022, 10, 4, 17, 0, 0);
 
   useEffect(() => {
     let timer = setTimeout(() => {
@@ -45,34 +45,87 @@ const NavigationBar = () => {
     };
   }, [END_TIME]);
 
-  useEffect(()=>{
+  useEffect(() => {
     myCtx.notyHandler(userRequests.length);
+
+    console.log(userRequests.length);
   }, [userRequests])
 
+
   useEffect(() => {
+    console.log(myCtx.isLeader)
     if (session) {
-      fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/user/requests`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${session.accessTokenBackend}`,
-          "Access-Control-Allow-Origin": "*",
-        },
-      })
-        .then((data) => data.json())
-        .then((data) => {
-          data.requests?.map((currenTeam) => {
-            if (
-              userRequests.findIndex((x) => x._id === currenTeam._id) === -1
-            ) {
-              setUserRequests((prevTeamData) => {
-                return [...prevTeamData, currenTeam];
-              });
-            }
+      if (!myCtx.isLeader) {
+        fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/user/requests`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${session.accessTokenBackend}`,
+            "Access-Control-Allow-Origin": "*",
+          },
+        })
+          .then((data) => data.json())
+          .then((data) => {
+            data.requests?.map((currenTeam) => {
+              if (
+                userRequests.findIndex((x) => x._id === currenTeam._id) === -1
+              ) {
+                setUserRequests((prevTeamData) => {
+                  return [...prevTeamData, currenTeam];
+                });
+              }
+            });
           });
-        });
+      } else {
+        fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/user/team`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${session.accessTokenBackend}`,
+            "Access-Control-Allow-Origin": "*",
+          },
+        })
+          .then((data) => data.json())
+          .then((data) => {
+            if (data.user.teamId != undefined && data.user.teamId != null) {
+              data.user.teamId.members.map((teamLead) => {
+                if (teamLead.teamRole === 0) {
+                  if (teamLead._id === data.user._id) {
+                    fetch(
+                      `${process.env.NEXT_PUBLIC_SERVER}/api/team/requests/${data.user.teamId._id}`,
+                      {
+                        method: "GET",
+                        headers: {
+                          "Content-Type": "application/json",
+                          Authorization: `Bearer ${session.accessTokenBackend}`,
+                          "Access-Control-Allow-Origin": "*",
+                        },
+                      }
+                    )
+                      .then((data) => data.json())
+                      .then((data) => {
+                        data.requests.map((currentUser) => {
+                          setUserRequests((prevUserData) => {
+                            if (
+                              prevUserData.findIndex(
+                                (x) => x._id === currentUser._id
+                              ) === -1
+                            ) {
+                              console.log(prevUserData)
+                              return [...prevUserData, currentUser];
+                            }
+                            return prevUserData;
+                          });
+                        });
+                      })
+                  }
+                }
+              })
+            }
+          })
+      }
     }
-  }, [session]);
+  }, [session])
 
   useEffect(() => {
     if (session) {
@@ -163,47 +216,39 @@ const NavigationBar = () => {
               </div>
             </div>
           </div>
-          <div className={styles.flexRight}>
+          <div className={`${styles.flexRight} ${styles.responsive}`}>
             <ul>
               <li>
                 {status === "authenticated" && (
                   <button
-                    className={`${styles.flexRightBell} ${styles.responsive}`}
+                    className={`${styles.flexRightBell} `}
                     onClick={() => {
                       myCtx.isLeader
                         ? router.push("/pendingUserRequests")
                         : router.push("/pendingRequests");
                     }}
                   >
-                    <Noty
-                      width={"40"}
-                      color={"#fff"}
-                      count={myCtx.notys}
-                    />
+                    <Noty width={"40"} color={"#fff"} count={myCtx.notys} />
                   </button>
                 )}
 
                 {status === "authenticated" && (
                   <Link href="/dashboard">
-                    <a
-                      className={`${styles.flexRightPosition} ${styles.responsive}`}
-                    >
-                      Dashboard
-                    </a>
+                    <a className={`${styles.flexRightPosition} `}>Dashboard</a>
                   </Link>
                 )}
               </li>
               <li>
                 {status === "authenticated" ? (
                   <a
-                    className={`${styles.flexRightPosition} ${styles.responsive}`}
+                    className={`${styles.flexRightPosition} `}
                     onClick={() => logoutHandler()}
                   >
                     Sign Out
                   </a>
                 ) : (
                   <a
-                    className={`${styles.flexRightPosition} ${styles.responsive}`}
+                    className={`${styles.flexRightPosition} `}
                     onClick={() => loginHandler()}
                   >
                     Sign in
@@ -225,6 +270,47 @@ const NavigationBar = () => {
                 </div>
               </li> */}
               {/* <HamburgerAnimation /> */}
+            </ul>
+          </div>
+          <div className={`${styles.flexRight} ${styles.responsiveOn}`}>
+            <ul className={styles.ul}>
+              <li>
+                {status === "authenticated" && (
+                  <button
+                    className={`${styles.flexRightBell} `}
+                    onClick={() => {
+                      myCtx.isLeader
+                        ? router.push("/pendingUserRequests")
+                        : router.push("/pendingRequests");
+                    }}
+                  >
+                    <Noty width={"40"} color={"#fff"} count={myCtx.notys} />
+                  </button>
+                )}
+
+                {status === "authenticated" && (
+                  <Link href="/dashboard">
+                    <a className={`${styles.flexRightPosition}`}>Dashboard</a>
+                  </Link>
+                )}
+              </li>
+              <li>
+                {status === "authenticated" ? (
+                  <a
+                    className={`${styles.flexRightPosition} `}
+                    onClick={() => logoutHandler()}
+                  >
+                    Sign Out
+                  </a>
+                ) : (
+                  <a
+                    className={`${styles.flexRightPosition} `}
+                    onClick={() => loginHandler()}
+                  >
+                    Sign in
+                  </a>
+                )}{" "}
+              </li>
             </ul>
           </div>
         </div>

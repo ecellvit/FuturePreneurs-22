@@ -141,7 +141,6 @@
 .team_member_section {
   position: relative;
   display: block;
-  overflow: hidden;
   margin-right: auto;
   margin-left: auto;
   padding-top: 40px;
@@ -365,7 +364,7 @@
 @media screen and (min-width: 767px) {
   .bodyContainer {
     background-color: #070f0f;
-    height: 100vh;
+    /* height: 100vh; */
     color: #ffff;
     font-family: "Poppins", sans-serif;
     font-family: "Roboto", sans-serif;
