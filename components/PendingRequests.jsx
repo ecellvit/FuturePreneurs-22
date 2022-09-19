@@ -18,7 +18,6 @@ function PendingRequests() {
   const [cookies, setCookie] = useCookies(["requests"]);
   const myCtx = useContext(myContext);
 
-
   const handleDeleteRequest = (team) => {
     if (team.teamId._id) {
       setIsLoading(true);
