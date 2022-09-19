@@ -103,7 +103,7 @@ function Dashboard() {
           setIsLoading(false);
         });
     }
-  }, [session.accessTokenBackend, teamData]);
+  }, [session, teamData]);
 
   return (
     <div className={styles.bodyContainer}>

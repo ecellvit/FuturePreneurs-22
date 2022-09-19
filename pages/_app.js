@@ -9,18 +9,23 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   return (
     <SessionProvider session={session}>
       <div className={styles.body}>
-        <NavigationBar />
-        <AnimatePresence
-          exitBeforeEnter
-          initial={false}
-          onExitComplete={() => window.scrollTo(0, 0)}
-        >
+        <div className={styles["wrapper"]}>
+          <NavigationBar />
+          <AnimatePresence
+            exitBeforeEnter
+            initial={false}
+            onExitComplete={() => window.scrollTo(0, 0)}
+          >
 
-          <Component {...pageProps} />
-        </AnimatePresence>
-        <Footer />
+            <Component {...pageProps} />
+            <div className={styles["push"]}></div>
+          </AnimatePresence>
+        </div>
+        <div className={styles["footer"]}>
+          <Footer />
+        </div>
       </div>
-    </SessionProvider>
+    </SessionProvider >
   );
 }
 

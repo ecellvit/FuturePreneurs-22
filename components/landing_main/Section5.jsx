@@ -19,12 +19,6 @@ const Section5 = () => {
             through business simulations, made to test the trading knowledge
             besides market understanding for a precise apprehension about the
             functionality of startups.
-            <br />
-            Scrutinizing and authenticating the maneuvered schemes into an
-            effective plan of action remains the end goal of the event.
-            Futurepreneurs not only gets the participants in terms with the
-            requisites for a startup but also accentuate their road map to
-            success.
           </div>
         </div>
       </div>
