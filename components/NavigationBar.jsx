@@ -273,7 +273,7 @@ const NavigationBar = () => {
             </ul>
           </div>
           <div className={`${styles.flexRight} ${styles.responsiveOn}`}>
-            <ul>
+            <ul className={styles.ul}>
               <li>
                 {status === "authenticated" && (
                   <button

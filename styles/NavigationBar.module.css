@@ -136,4 +136,7 @@
   .responsiveHome {
     padding-left: 0;
   }
+  .ul {
+    margin-left: -74px;
+  }
 }
