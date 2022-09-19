@@ -15,7 +15,7 @@ const Section2 = () => {
         <div className={styles.about_text}>
           <div className={styles.about_heading}>Business Simulation Game</div>
           <div className={styles.about_para}>
-            Business Simulation GameLorem ipsum dolor sit amet, consectetur
+            Business Simulation Game. Lorem ipsum dolor sit amet, consectetur
             adipiscing elit, sed do eiusmod tempor incididunt ut labore et
             dolore magna aliqua.
             <br />

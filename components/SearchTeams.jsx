@@ -60,7 +60,7 @@ function SearchTeams(props) {
           });
         });
     } else {
-      toast.success(`No Previous Page Found`, {
+      toast.success(`You've reached the end!`, {
         position: toast.POSITION.TOP_RIGHT,
       });
     }
@@ -105,7 +105,7 @@ function SearchTeams(props) {
           });
         });
     } else {
-      toast.success(`No Next Page Found`, {
+      toast.success(`No more teams found!`, {
         position: toast.POSITION.TOP_RIGHT,
       });
     }

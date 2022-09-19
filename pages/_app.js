@@ -15,11 +15,14 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
           onExitComplete={() => window.scrollTo(0, 0)}
         >
 
-          <Component {...pageProps} />
-        </AnimatePresence>
-        <Footer />
-      </div>
-    </SessionProvider>
+            <Component {...pageProps} />
+            <div className={styles["push"]}></div>
+          </AnimatePresence>
+        </div>
+        <div className={styles["footer"]}>
+          <Footer />
+        </div>
+    </SessionProvider >
   );
 }
 

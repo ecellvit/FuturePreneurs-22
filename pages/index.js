@@ -1,8 +1,7 @@
 import Head from "next/head";
-import NavigationBar from "../components/NavigationBar.jsx";
 import styles from "../styles/Home.module.css";
-// import { Landing } from "../components/Landing.jsx";
 import Landing_main from "../components/Landing_main.jsx";
+import NavigationBar from "../components/NavigationBar";
 
 export default function Home() {
   return (

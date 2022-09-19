@@ -20,7 +20,7 @@ const LeaderDashboard = ({
   const { data: session } = useSession();
 
   const showToastMessage = () => {
-    toast("Copied to Clipboard!", {
+    toast("Copied Invite Link to Clipboard!", {
       position: toast.POSITION.BOTTOM_CENTER,
       className: "toast-message",
     });
@@ -77,29 +77,32 @@ const LeaderDashboard = ({
     <div>
       <div className={styles.team_member_section}>
         <div className={styles.team_member_section_wrapper}>
-          <h2 className={styles.team_name}>
-            Team - {teamData?.teamId?.teamName}
-          </h2>
+          <p className={styles.team_name}>
+            Team Name - {teamData?.teamId?.teamName}
+          </p>
           <h2 className={styles.invite_link_container}>
             <label className={styles.label}>Team Link:</label>
             <input
               type="text"
-              value={`https://future-preneurs-22.vercel.app/join-team-link/${teamToken}`}
+              value={`https://fp.ecellvit.com/join-team-link/${teamToken}`}
               placeholder="Type some text here"
-              onChange={(event) => setText(event.target.value)}
               className={styles.input}
+              readOnly
             />
             <CopyToClipboard
-              text={`https://future-preneurs-22.vercel.app/join-team-link/${teamToken}`}
+              text={`https://fp.ecellvit.com/join-team-link/${teamToken}`}
               onCopy={onCopyText}
             >
               <div className="copy-area">
-                <button className={`${styles.btnCopy} ${styles.glow_on_hover}`} onClick={showToastMessage}>
+                <button
+                  className={`${styles.btnCopy} ${styles.glow_on_hover}`}
+                  onClick={showToastMessage}
+                >
                   <span></span>
                   <span></span>
                   <span></span>
                   <span></span>
-                  copy
+                  Copy Invite Link
                 </button>
               </div>
             </CopyToClipboard>
@@ -127,7 +130,7 @@ const LeaderDashboard = ({
             Delete Team
           </button>
         </div>
-        </div>
+      </div>
     </div>
   );
 };

@@ -6,9 +6,10 @@
 }
 .sec_1 {
   display: block;
+  position: relative;
   height: auto;
   min-height: 85vh;
-  margin-top: 0vh;
+  margin-top: 5vh;
   margin-left: -200px;
   padding-top: 0vh;
   align-items: baseline;
@@ -44,10 +45,9 @@
 }
 
 .get_in_gradient {
-  position: relative;
-  left: 15.9vw;
-  top: 30vh;
-  bottom: 0%;
+  position: absolute;
+  right: 0px;
+  bottom: 10px;
   display: block;
   margin-top: 60px;
   margin-left: 50px;
@@ -56,15 +56,18 @@
 }
 
 .fp_big {
-  width: 370px;
-  height: auto;
-  margin-left: 28.6vw;
+  width: 530px;
+  height: 480px;
+  position: absolute;
+  left: 20vw;
+  top: 10vh;
 }
 
 .p_logo {
+  max-width: 100%;
+  max-height: 100%;
   position: absolute;
   display: block;
-  width: 370px;
   margin-right: 0px;
   margin-left: 32px;
 }
@@ -96,14 +99,13 @@
 }
 
 .main_para {
-  width: 500px;
-  margin: -48px 0px 0px 60px;
-  padding-right: 32px;
-  font-family: Inter, sans-serif;
+  width: 530px;
   color: #fff;
-  font-size: 15px;
-  line-height: 25px;
+  font-family: "Inter";
+  font-style: normal;
   font-weight: 400;
+  font-size: 1.5em;
+  line-height: 25px;
 }
 
 .date_div {
@@ -208,12 +210,19 @@
 
 .about_para {
   margin-top: 40px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.5em;
+  line-height: 25px;
+  letter-spacing: 0.06em;
   margin-right: 10px;
   color: #fff;
 }
 
 .image_10 {
   margin-left: 140px;
+  width: 400px;
 }
 
 .line_team {
@@ -315,6 +324,10 @@
   margin-left: 0px;
 }
 
+.story_img {
+  width: 350px;
+}
+
 .story_text_cont {
   width: 600px;
   margin-left: 60px;
@@ -330,10 +343,12 @@
 }
 
 .story_p {
-  font-family: Inter, sans-serif;
-  color: #fff;
-  font-size: 13px;
-  line-height: 27px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.5em;
+  line-height: 25px;
+  color: #ffffff;
 }
 
 .story_gradient {
@@ -383,6 +398,7 @@
 
 .footer_section {
   position: relative;
+  bottom: 0;
   min-height: 40vh;
   padding-right: 40px;
   padding-left: 40px;
@@ -517,13 +533,8 @@
 }
 
 .fp_main_div {
-  display: flex;
-  padding-top: 0vh;
-  justify-content: flex-start;
-  align-items: flex-start;
-  grid-auto-columns: 1fr;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto auto;
+  position: absolute;
+  left: 10px;
 }
 
 .logo_text {
@@ -533,7 +544,9 @@
 }
 
 .main_text {
-  padding-top: 60px;
+  position: absolute;
+  right: 23vw;
+  top: 20vh;
 }
 
 .abt_img {
@@ -700,7 +713,11 @@
   }
 
   .fp_big {
-    margin-left: 54vw;
+    width: 530px;
+    height: 480px;
+    position: absolute;
+    margin: auto;
+    top: 10vh;
   }
 
   .date_img {
@@ -827,6 +844,8 @@
   .story_p {
     margin-right: 40px;
     padding-top: 20px;
+    position: relative;
+    right: 100px;
   }
 
   .sec_6 {
@@ -962,17 +981,50 @@
     margin-bottom: -125px;
   }
 
+  .about_para {
+    width: 300px;
+    margin-top: 10px;
+    margin-right: auto;
+    margin-left: auto;
+    font-size: 1.25em;
+    text-align: center;
+    line-height: 20px;
+  }
+  .image_10 {
+    margin-left: 50px;
+    width: 350px;
+  }
+
+  .story_img {
+    width: 260px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  .sub_sec_3 {
+    margin-left: 40px;
+  }
+
+  .fp_big {
+    width: 350px;
+    height: 60vh;
+    position: absolute;
+    margin: auto;
+    top: 5vh;
+    left: 33%;
+  }
+
   .get_in_gradient {
-    left: 140px;
-    top: 2px;
+    position: absolute;
+    left: 130px;
+    bottom: 25vh;
     max-width: 25%;
     margin-top: 178px;
     margin-left: 25.4vw;
   }
 
   .p_logo {
-    width: 240px;
-    margin-left: 89px;
+    width: 350px;
   }
 
   .date_img {
@@ -994,9 +1046,9 @@
     margin-top: 0px;
     margin-right: auto;
     margin-left: auto;
-    font-size: 15px;
-    line-height: 24px;
+    font-size: 1.5em;
     text-align: center;
+    line-height: 20px;
   }
 
   .getin {
@@ -1028,8 +1080,13 @@
   }
 
   .about_heading {
-    font-size: 38px;
-    line-height: 45px;
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 30px;
+    letter-spacing: 0.06em;
+    text-align: center;
   }
 
   .line_team {
@@ -1073,18 +1130,23 @@
   }
 
   .story_h1 {
-    width: 99vw;
-    margin-top: 60px;
-    margin-right: 0px;
-    /* margin-left: -133px; */
-    padding-left: 0px;
-    font-size: 31px;
     text-align: center;
+    font-family: "Poppins";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 48px;
   }
 
   .story_p {
-    margin-right: 0px;
-    padding-right: 20px;
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+    width: 400px;
+    position: relative;
   }
 
   .story_gradient {
@@ -1182,6 +1244,21 @@
   }
 
   .main_text {
-    margin-left: 200px;
+    position: absolute;
+    bottom: 5vh;
+    top: auto;
+    left: 63vw;
+    text-align: center;
+    height: fit-content;
   }
+}
+
+.wrapper {
+  min-height: 100%;
+  margin: 0 auto -40vh; /* the bottom margin is the negative value of the footer's height */
+}
+.footer,
+.push {
+  border: 1px solid #ff00ff;
+  height: 40vh; /* '.push' must be the same height as 'footer' */
 }

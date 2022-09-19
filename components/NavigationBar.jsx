@@ -10,6 +10,7 @@ import fpLogo from "../img/fpLogo.svg";
 import ecellLogo from "../img/ecellLogo.svg";
 import menuicon from "../img/menuicon.svg";
 import styles from "../styles/NavigationBar.module.css";
+import { HamburgerAnimation } from "./animationComponents/hamburger-animation/HBAnimation";
 
 const NavigationBar = () => {
   const { data: session, status } = useSession();
@@ -32,15 +33,15 @@ const NavigationBar = () => {
       let mins = Math.floor(d/1000/60)%60
       let secs = Math.floor(d/1000)%60
 
-      setDays(dys)
-      setHours(hrs)
-      setMinutes(mins)
-      setSeconds(secs)
+      setDays(dys);
+      setHours(hrs);
+      setMinutes(mins);
+      setSeconds(secs);
     }, 1000);
-    return ()=>{
+    return () => {
       clearTimeout(timer);
-    }
-  })
+    };
+  });
 
   useEffect(() => {
     console.log("chala")
@@ -158,20 +159,23 @@ const NavigationBar = () => {
           <div className={styles.flexRight}>
             <ul>
               <li>
-                <button
-                  className={`${styles.flexRightBell} ${styles.responsive}`}
-                  onClick={() => {
-                    isLeader
-                      ? router.push("/pendingUserRequests")
-                      : router.push("/pendingRequests");
-                  }}
-                >
-                  <Noty
-                    width={"40"}
-                    color={"#122C34"}
-                    count={userRequests.length}
-                  />
-                </button>
+                {status === "authenticated" && (
+                  <button
+                    className={`${styles.flexRightBell} ${styles.responsive}`}
+                    onClick={() => {
+                      isLeader
+                        ? router.push("/pendingUserRequests")
+                        : router.push("/pendingRequests");
+                    }}
+                  >
+                    <Noty
+                      width={"40"}
+                      color={"#fff"}
+                      count={userRequests.length}
+                    />
+                  </button>
+                )}
+
                 {status === "authenticated" && (
                   <Link href="/dashboard">
                     <a
@@ -202,7 +206,7 @@ const NavigationBar = () => {
               <li>
                 <Image alt="Logo" src={ecellLogo} width={70} height={70} />
               </li>
-              <li>
+              {/* <li>
                 <div className={styles.hamburgerMenu}>
                   <Image
                     alt="Logo"
@@ -212,7 +216,8 @@ const NavigationBar = () => {
                     onClick
                   />
                 </div>
-              </li>
+              </li> */}
+              {/* <HamburgerAnimation /> */}
             </ul>
           </div>
         </div>
