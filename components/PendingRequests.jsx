@@ -152,7 +152,7 @@ function PendingRequests() {
                       <div className={styles.infogroup}>
                         <div>
                           <h3 className={styles.Cardsh3}>
-                            TeamName:{team.teamId.teamName}
+                            TeamName: {team.teamId.teamName}
                           </h3>
                           <h3 className={styles.Cardsh3}>
                             Team Size:{team.teamId.members.length}/4

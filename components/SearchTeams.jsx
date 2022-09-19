@@ -231,19 +231,18 @@ function SearchTeams(props) {
                           return (
                             <div>
                               <h3 className={styles.Cardsh3}>
-                                TeamName:
-                                {team.teamName}
+                                TeamName: {team.teamName}
                               </h3>
                               <h3 className={styles.Cardsh3}>
-                                Team Size:{team.members.length}/4
+                                Team Size: {team.members.length}/4
                               </h3>
                               <h3 className={styles.Cardsh3}>
-                                Team Leader:{teamLead.firstName}{" "}
+                                Team Leader: {teamLead.firstName}{" "}
                                 {teamLead.lastName}
                               </h3>
 
                               <h3 className={styles.Cardsh3}>
-                                Mail:{teamLead.email}
+                                Mail: {teamLead.email}
                               </h3>
                               <button
                                 className={`${styles.button} ${styles.glow_on_hover}`}

@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import Backdrop from "../Backdrop";
+import Backdrop from "../backdrop/index";
 import styles from "../../styles/Modal.module.css"
 const dropIn = {
     hidden: {
