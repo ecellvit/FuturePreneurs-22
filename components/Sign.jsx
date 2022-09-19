@@ -41,7 +41,7 @@ const Sign = ({joiningId}) => {
   }
 
   useEffect(() => {
-    setLoading(true);
+    // setLoading(true);
     fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/user`, {
       method: "PATCH",
       body: JSON.stringify({
@@ -54,8 +54,11 @@ const Sign = ({joiningId}) => {
     })
       .then((data) => data.json())
       .then((data) => {
+        setTimeout(()=>{
+          setLoading(false)
+        }, 1000)
         console.log(data);
-        setLoading(false);
+        // setLoading(false);
         if (data.error?.errorCode) {
           toast.error(`${data.message}`, {
             position: "top-right",

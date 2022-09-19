@@ -25,7 +25,7 @@ export default function DashboardPage() {
       <ToastContainer />
       {status === "loading" ? <Loading /> : status === "authenticated" &&
         <div className='main'>
-          {/* <NavigationBar /> */}
+          <NavigationBar />
           <Dashboard />
         </div>}
     </>
