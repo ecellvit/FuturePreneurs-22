@@ -88,17 +88,17 @@ const CreateTeam = ({ handleTeamCreate }) => {
       ) : (
         <Layout>
           <div className={styles.big_image}>
-            <div className={styles.wrapper}>
+            <div className={`${styles.wrapper} ${styles.border_gradient}`}>
               <div
                 className={styles.section_title}
-              >{`Hi, ${session.user.name} `}</div>
-              <h2 className={styles.h1_create}>Join a Team or Create a Team</h2>
+              >{`Hi, ${session.user.name}! `}</div>
+              <h2 className={styles.h1_create}>Join a Team</h2>
               <p className={styles.p_create}>
-                The event is designed to test your analytical thinking. Glaze up
+                The event is designed to test your analytical thinking.Glaze up
                 your business skills with the added knowledge about consumers
-                and the trends they tend to follow. Touch it all up with a study
+                and the trends they tend to follow.Touch it all up with a study
                 of financial products and their marketing strategies.So what you
-                are waiting for , find your perfect team and get ready to dive
+                are waiting for,find your perfect team and get ready to dive
                 into business simulation competition.
               </p>
 
@@ -108,7 +108,7 @@ const CreateTeam = ({ handleTeamCreate }) => {
                     <button
                       type="submit"
                       placeholder="Find Teams to Join"
-                      className={`${styles.join_create_btn} ${styles.join_btn}  ${styles.w_button}`}
+                      className={`${styles.join_create_btn} ${styles.join_btn}  ${styles.w_button} ${styles.button}`}
                     >
                       Find Teams to Join
                     </button>
@@ -124,7 +124,7 @@ const CreateTeam = ({ handleTeamCreate }) => {
                     </div>
                   </div>
                   <div className={styles.form_block}>
-                    <div className={styles.create_team_h1}>Create a Team</div>
+                    <div className={styles.h1_create}>Create a Team</div>
                     <form className={styles.team_form}>
                       <input
                         type="text"
@@ -134,7 +134,7 @@ const CreateTeam = ({ handleTeamCreate }) => {
                         placeholder="Enter Your Team Name"
                       />
                       <button
-                        className={`${styles.join_create_btn} ${styles.w_button}`}
+                        className={`${styles.join_create_btn} ${styles.w_button} ${styles.button}`}
                         onClick={handleCreate}
                       >
                         Create
@@ -147,7 +147,7 @@ const CreateTeam = ({ handleTeamCreate }) => {
                   <button
                     type="submit"
                     placeholder="Pending requests"
-                    className={`${styles.join_create_btn} ${styles.join_btn}  ${styles.w_button}`}
+                    className={`${styles.join_create_btn} ${styles.join_btn}  ${styles.w_button} ${styles.button} ${styles.pending_btn}`}
                   >
                     Pending requests
                   </button>
