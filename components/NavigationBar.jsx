@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Link from "next/link";
 
 import { signIn, signOut, useSession } from "next-auth/react";
@@ -11,16 +11,18 @@ import ecellLogo from "../img/ecellLogo.svg";
 import menuicon from "../img/menuicon.svg";
 import styles from "../styles/NavigationBar.module.css";
 import { HamburgerAnimation } from "./animationComponents/hamburger-animation/HBAnimation";
+import myContext from "../store/myContext";
 
 const NavigationBar = () => {
   const { data: session, status } = useSession();
-  const [isLeader, setIsLeader] = useState();
   const [days, setDays] = useState();
   const [hours, setHours] = useState();
   const [minutes, setMinutes] = useState();
   const [seconds, setSeconds] = useState();
   const [userRequests, setUserRequests] = useState([]);
   const router = useRouter();
+
+  const myCtx = useContext(myContext);
 
   const END_TIME = new Date(2022, 10, 4, 17, 0, 0)
 
@@ -44,7 +46,6 @@ const NavigationBar = () => {
   });
 
   useEffect(() => {
-    console.log("chala")
     if (session) {
       fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/user/requests`, {
         method: "GET",
@@ -70,6 +71,7 @@ const NavigationBar = () => {
   }, [session]);
 
   useEffect(() => {
+    console.log("chala", myCtx.isLeader)
     if (session) {
       fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/user/team`, {
         method: "GET",
@@ -83,7 +85,9 @@ const NavigationBar = () => {
 
         .then((data) => {
           if (data.user?.teamRole === 0) {
-            setIsLeader(true);
+            myCtx.LeaderHandler(true);
+          } else {
+            myCtx.LeaderHandler(false);
           }
         })
         .catch((error) => {
@@ -163,7 +167,7 @@ const NavigationBar = () => {
                   <button
                     className={`${styles.flexRightBell} ${styles.responsive}`}
                     onClick={() => {
-                      isLeader
+                      myCtx.isLeader
                         ? router.push("/pendingUserRequests")
                         : router.push("/pendingRequests");
                     }}
@@ -185,6 +189,11 @@ const NavigationBar = () => {
                     </a>
                   </Link>
                 )}
+              </li>
+              <li>
+              {myCtx.isLeader
+                        ? "Leader"
+                        : "No Leader"}
               </li>
               <li>
                 {status === "authenticated" ? (
