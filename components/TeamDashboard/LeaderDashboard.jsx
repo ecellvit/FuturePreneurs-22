@@ -68,7 +68,7 @@ const LeaderDashboard = ({
           }
           handleTeamDelete(false);
           setIsLoading(false);
-          myCtx.LeaderHandler(false);
+          myCtx.leaderHandler(false);
         });
     } else {
       toast.error("Please remove all team members first", {

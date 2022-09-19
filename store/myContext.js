@@ -6,20 +6,25 @@ import React, { useEffect, useState } from "react";
 const myContext = React.createContext({
   // all default values
   isLeader: false,
-  LeaderHandler: ()=>{},
+  leaderHandler: ()=>{},
+  notys: 0,
+  notyHandler: ()=>{},
 });
 
 export const MyContextProvidor = (props) => {
   const [isLeader, setIsLeader] = useState(false);
+  const [notys, setNotys] = useState(0);
 
 	// const {data:session} = useSession();
 
 	const contextValue = {
 		// all global variables here, can even give functions.
 		isLeader: isLeader,
-    LeaderHandler: (bool)=>{
+    leaderHandler: (bool)=>{
       setIsLeader(bool)
-    }
+    },
+    notys: notys,
+    notyHandler: (num)=>{setNotys(num)}
   };
 
   return (

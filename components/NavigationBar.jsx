@@ -45,6 +45,10 @@ const NavigationBar = () => {
     };
   });
 
+  useEffect(()=>{
+    myCtx.notyHandler(userRequests.length);
+  }, [userRequests])
+
   useEffect(() => {
     if (session) {
       fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/user/requests`, {
@@ -71,7 +75,6 @@ const NavigationBar = () => {
   }, [session]);
 
   useEffect(() => {
-    console.log("chala", myCtx.isLeader)
     if (session) {
       fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/user/team`, {
         method: "GET",
@@ -85,9 +88,9 @@ const NavigationBar = () => {
 
         .then((data) => {
           if (data.user?.teamRole === 0) {
-            myCtx.LeaderHandler(true);
+            myCtx.leaderHandler(true);
           } else {
-            myCtx.LeaderHandler(false);
+            myCtx.leaderHandler(false);
           }
         })
         .catch((error) => {
@@ -175,7 +178,7 @@ const NavigationBar = () => {
                     <Noty
                       width={"40"}
                       color={"#fff"}
-                      count={userRequests.length}
+                      count={myCtx.notys}
                     />
                   </button>
                 )}
@@ -189,11 +192,6 @@ const NavigationBar = () => {
                     </a>
                   </Link>
                 )}
-              </li>
-              <li>
-              {myCtx.isLeader
-                        ? "Leader"
-                        : "No Leader"}
               </li>
               <li>
                 {status === "authenticated" ? (

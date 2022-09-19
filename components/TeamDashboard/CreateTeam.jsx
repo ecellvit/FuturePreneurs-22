@@ -49,7 +49,7 @@ const CreateTeam = ({ handleTeamCreate }) => {
           return;
         }
         handleTeamCreate();
-        myCtx.LeaderHandler(true);
+        myCtx.leaderHandler(true);
       });
   };
 
