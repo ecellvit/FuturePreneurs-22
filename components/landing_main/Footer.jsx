@@ -57,7 +57,7 @@ const Footer = () => {
         </div>
       </div>
       <div className={styles.profiles}>
-      <h1 className={styles.title}>Our development and design team</h1>
+      <h1 className={styles.title}>Developed and designed by:</h1>
         <Stack className={styles.team} direction="row" spacing={2}>
           <a onClick={() => openInNewTab('https://github.com/anjy7')}>
             <Avatar
