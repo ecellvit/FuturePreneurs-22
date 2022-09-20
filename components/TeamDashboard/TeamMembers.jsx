@@ -1,13 +1,16 @@
 import styles from '../../styles/Dashboard.module.css'
 import TeamMember from './TeamMember'
-import React, { useState } from 'react'
+import React, { useState,useContext } from 'react'
 import { useSession } from 'next-auth/react'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import myContext from '../../store/myContext'
 
 const TeamMembers = ({ teamData, handleMemberLeave }) => {
   const [teamId, setTeamId] = useState(teamData?.teamId?._id)
   const { data: session } = useSession()
+
+  const myCtx = useContext(myContext)
 
   const openInNewTab = (url) => {
     window.open(url, '_blank', 'noopener,noreferrer')
@@ -31,7 +34,8 @@ const TeamMembers = ({ teamData, handleMemberLeave }) => {
         toast.success(`${data.message}`, {
           position: toast.POSITION.TOP_RIGHT,
         })
-        handleMemberLeave()
+        // handleMemberLeave()
+        myCtx.hasTeamHandler(false);
       })
   }
 

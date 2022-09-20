@@ -103,11 +103,11 @@ const Footer = () => {
               src="https://github.com/nitishramaraj.png"
             />
           </a>
-          <a onClick={() => openInNewTab('https://github.com/anjy7')}>
+          <a onClick={() => openInNewTab('https://linkedin.com/in/arulgoyal')}>
             <Avatar
               className={styles.zoom}
-              alt="Cindy Baker"
-              src="https://www.linkedin.com/in/anjaneya-gupta.png"
+              alt="arul"
+              src="https://github.com/arulgoyal.png"
             />
           </a>
         </Stack>

@@ -9,6 +9,7 @@ import TeamMembers from "./TeamMembers";
 import Loading from "../Loading";
 import Layout from "../animationComponents/Layouts";
 import { toast } from "react-toastify";
+import myContext from '../../store/myContext'
 
 function Dashboard() {
   const [hasTeam, setHasTeam] = useState(false);
@@ -17,6 +18,8 @@ function Dashboard() {
   const [teamData, setTeamData] = useState({});
   const [teamToken, setTeamToken] = useState();
   const [isLoading, setIsLoading] = useState(false);
+
+  const myCtx = useContext(myContext)
 
   // const teamNameRef = useRef(null);
   const { data: session } = useSession();
@@ -63,9 +66,11 @@ function Dashboard() {
           return;
         }
         if (data.user.teamId) {
-          setHasTeam(true);
+          myCtx.hasTeamHandler(true);
+          // setHasTeam(true);
         } else {
-          setHasTeam(false);
+          myCtx.hasTeamHandler(false);
+          // setHasTeam(false);
         }
         if (data.user?.teamRole === 0) {
           setIsLeader(true);
@@ -109,7 +114,7 @@ function Dashboard() {
     <div className={styles.bodyContainer}>
       {isLoading ? (
         <Loading />
-      ) : hasTeam ? (
+      ) : myCtx.hasTeam ? (
         isLeader ? (
           <LeaderDashboard
             teamData={teamData}

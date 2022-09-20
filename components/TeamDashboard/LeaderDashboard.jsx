@@ -77,7 +77,8 @@ const LeaderDashboard = ({
             })
             return
           }
-          handleTeamDelete(false)
+          // handleTeamDelete(false)
+          myCtx.hasTeamHandler(false);
           setIsLoading(false)
           myCtx.leaderHandler(false)
         })
