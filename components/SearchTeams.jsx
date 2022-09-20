@@ -143,14 +143,14 @@ function SearchTeams(props) {
             return;
           }
           if (!cookies.requests) {
-            console.log(cookies.requests);
+            // console.log(cookies.requests);
 
             setCookie("requests", 1);
           } else {
-            console.log(cookies.requests);
+            // console.log(cookies.requests);
             setCookie("requests", ++cookies.requests);
           }
-          console.log(cookies.requests);
+          // console.log(cookies.requests);
 
           myCtx.notyHandler(myCtx.notys+1)
 

@@ -1,7 +1,10 @@
 import { signIn, useSession } from "next-auth/react";
+import { useRouter } from "next/router";
+
 import styles from "../../styles/Landingr.module.css";
 
 const Section1 = () => {
+  const router = useRouter();
   const { data: session, status } = useSession();
   return (
     <div className={styles.sec_1}>
@@ -19,7 +22,8 @@ const Section1 = () => {
         <img
           onClick={() => {
             if (status === "authenticated") {
-              console.log("already siged in");
+              // console.log("already siged in");
+              router.push("/getdetail");
             } else {
               signIn("google", { callbackUrl: "/getdetail" });
             }

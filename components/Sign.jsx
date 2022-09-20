@@ -10,7 +10,7 @@ import Cookies from "js-cookie";
 import Loading from "./Loading";
 
 const Sign = () => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const { data: session } = useSession();
   const router = useRouter();
 
@@ -35,8 +35,8 @@ const Sign = () => {
       .then((data) => data.json())
 
       .then((data) => {
-        console.log("handle join");
-        console.log(data);
+        // console.log("handle join");
+        // console.log(data);
       });
   };
 
@@ -60,7 +60,7 @@ const Sign = () => {
             setLoading(false);
           }, 1000);
 
-          console.log(data);
+          // console.log(data);
           // setLoading(false);
           if (data.error?.errorCode) {
             toast.error(`${data.message}`, {
@@ -84,7 +84,7 @@ const Sign = () => {
         })
         .catch((err) => console.log(err));
     }
-  }, [session, useEffectTrigger]);
+  }, [session, useEffectTrigger, router]);
 
   return loading ? (
     <Loading />

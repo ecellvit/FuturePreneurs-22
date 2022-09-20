@@ -120,7 +120,7 @@ const SignLayout = ({ handleLinkSubmit }) => {
     })
       .then((data) => data.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setisLoading(false);
         if (data.error?.errorCode) {
           toast.error(`${data.message}`, {
@@ -137,7 +137,7 @@ const SignLayout = ({ handleLinkSubmit }) => {
         handleLinkSubmit();
       });
   };
-  console.log(isLoading);
+
   return (
     <>
       {isLoading ? (
