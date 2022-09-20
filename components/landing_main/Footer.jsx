@@ -1,7 +1,13 @@
-import React from "react";
-import styles from "../../styles/Landingr.module.css";
-import Developers from "./Developers";
+import React from 'react'
+import styles from '../../styles/Landingr.module.css'
+import Avatar from '@mui/material/Avatar'
+import Stack from '@mui/material/Stack'
+
 const Footer = () => {
+  const openInNewTab = (url) => {
+    window.open(url, '_blank', 'noopener,noreferrer')
+  }
+
   return (
     <div className={`${styles.footer_section}`}>
       <div className={styles.foot_col_1}>
@@ -50,7 +56,62 @@ const Footer = () => {
           </a>
         </div>
       </div>
-      {/* <Developers /> */}
+      <div className={styles.profiles}>
+      <h1 className={styles.title}>Developed and designed by:</h1>
+        <Stack className={styles.team} direction="row" spacing={2}>
+          <a onClick={() => openInNewTab('https://github.com/anjy7')}>
+            <Avatar
+              className={styles.zoom}
+              alt="anjy7"
+              src="https://github.com/anjy7.png"
+            />
+          </a>
+          <a onClick={() => openInNewTab('https://github.com/pratyush3124')}>
+            <Avatar
+              className={styles.zoom}
+              alt="pratyush"
+              src="https://github.com/pratyush3124.png"
+            />
+          </a>
+          <a onClick={() => openInNewTab('https://github.com/KapadiaNaitik')}>
+            <Avatar
+              className={styles.zoom}
+              alt="Naitik"
+              src="https://github.com/KapadiaNaitik.png"
+            />
+          </a>
+          <a onClick={() => openInNewTab('https://github.com/sai-sreekhar')}>
+            <Avatar
+              className={styles.zoom}
+              alt="sai"
+              src="https://github.com/sai-sreekhar.png"
+            />
+          </a>
+          <a
+            onClick={() => openInNewTab('https://github.com/Chiranjeev-droid')}
+          >
+            <Avatar
+              className={styles.zoom}
+              alt="Chiranjeev"
+              src="https://github.com/Chiranjeev-droid.png"
+            />
+          </a>
+          <a onClick={() => openInNewTab('https://github.com/nitishramaraj')}>
+            <Avatar
+              className={styles.zoom}
+              alt="nitish"
+              src="https://github.com/nitishramaraj.png"
+            />
+          </a>
+          <a onClick={() => openInNewTab('https://github.com/anjy7')}>
+            <Avatar
+              className={styles.zoom}
+              alt="Cindy Baker"
+              src="https://www.linkedin.com/in/anjaneya-gupta.png"
+            />
+          </a>
+        </Stack>
+      </div>
       <div className={styles.contact_card_container}>
         <div className={styles.contact_card}>
           <img src="call.svg" width="15" className={styles.contact_img} />
@@ -62,7 +123,7 @@ const Footer = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Footer;
+export default Footer
