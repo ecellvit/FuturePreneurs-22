@@ -69,7 +69,7 @@ const CreateTeam = ({ handleTeamCreate }) => {
           setIsLoading(false);
 
           //user already part of a team toastify error
-          
+
           // if (data.error?.errorCode) {
           //   toast.error(`${data.message}`, {
           //     position: "top-right",
@@ -99,15 +99,6 @@ const CreateTeam = ({ handleTeamCreate }) => {
                 className={styles.section_title}
               >{`Hi, ${session.user.name}! `}</div>
               <h2 className={styles.h1_create}>Join a Team</h2>
-              <p className={styles.p_create}>
-                The event is designed to test your analytical thinking.Glaze up
-                your business skills with the added knowledge about consumers
-                and the trends they tend to follow.Touch it all up with a study
-                of financial products and their marketing strategies.So what you
-                are waiting for,find your perfect team and get ready to dive
-                into business simulation competition.
-              </p>
-
               <div className={styles.form_block}>
                 <form className={styles.team_form}>
                   <Link href="/searchTeams">

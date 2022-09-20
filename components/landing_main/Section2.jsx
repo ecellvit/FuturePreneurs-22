@@ -13,19 +13,12 @@ const Section2 = () => {
           <img src="laptop_boy.svg" width="360" className={styles.image_10} />
         </div>
         <div className={styles.about_text}>
-          <div className={styles.about_heading}>Business Simulation Game</div>
+          <div className={styles.about_heading}>Business Simulation Event</div>
           <div className={styles.about_para}>
-            Business Simulation Game. Lorem ipsum dolor sit amet, consectetur
-            adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore magna aliqua.
-            <br />
-            <br /> Ut enim ad minim veniam, quis nostrud exercitation ullamco
-            laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-            dolor in reprehenderit in voluptate velit esse cillum dolore eu
-            fugiat nulla pariatur.
-            <br />
-            <br /> Excepteur sint occaecat cupidatat non proident, sunt in culpa
-            qui officia deserunt mollit anim id est laborum.
+            Futurepreneurs 8.0 brings back the zeal of scrutinizing business
+            strategies in its 8th edition. Challenging ideas and situations
+            resembling real-life conundrums are brought into the picture, to
+            test the management and decision-making skills of the participants.
           </div>
         </div>
       </div>

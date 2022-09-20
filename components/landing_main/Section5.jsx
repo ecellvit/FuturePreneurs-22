@@ -11,14 +11,15 @@ const Section5 = () => {
         <div className={styles.story_text_cont}>
           <div className={styles.story_h1}>Story Behind...</div>
           <div className={styles.story_p}>
-            To shed light upon the unforeseen and brainstorm for the ideation of
-            pragmatic remedies for technical problems, E-Cell, VIT brings to you
-            its business ideation event- Futurepreneurs. During this event,
-            participants will brainstorm for pragmatic solutions to the problems
-            faced by startups.They will also test their knowledge in real-time
-            through business simulations, made to test the trading knowledge
-            besides market understanding for a precise apprehension about the
-            functionality of startups.
+            Intending to test and invest the entrepreneurial skills of the
+            participants, Futurepreneurs gives them a taste of the dilemmas
+            faced in the working world, and an opportunity to challenge their
+            analytical and problem solving skills amongst their peers. This
+            event was built up from the scratch at the E-Cell office with the
+            sole purpose of bringing real time experiences to the participant's
+            desk. We have had countless participants from various colleges and
+            countries including some from Ivy league colleges defining the
+            success and legacy of the event.
           </div>
         </div>
       </div>
