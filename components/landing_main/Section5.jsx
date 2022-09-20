@@ -16,7 +16,7 @@ const Section5 = () => {
             faced in the working world, and an opportunity to challenge their
             analytical and problem solving skills amongst their peers. This
             event was built up from the scratch at the E-Cell office with the
-            sole purpose of bringing real time experiences to the participant's
+            sole purpose of bringing real time experiences to the participant&apos;s
             desk. We have had countless participants from various colleges and
             countries including some from Ivy league colleges defining the
             success and legacy of the event.
