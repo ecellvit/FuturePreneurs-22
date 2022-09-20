@@ -139,7 +139,7 @@ const Footer = () => {
       <div className={styles.contact_card_container}>
         <div className={styles.contact_card}>
           <img src="call.svg" width="15" className={styles.contact_img} />
-          <div className={styles.contact_text}>+91 96068 19078</div>
+          <div className={styles.contact_text}>+91 9606819078</div>
         </div>
         <div className={styles.contact_card}>
           <img src="mail.svg" width="20" className={styles.contact_img} />
