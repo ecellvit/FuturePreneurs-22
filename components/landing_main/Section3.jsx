@@ -23,7 +23,7 @@ const Section3 = () => {
         <div className={styles.round_imgparts_container}>
           <HoverAnimationLanding>
             <div className={styles.img_container}>
-              <div className={styles.round_text}>Round-0</div>
+              <div className={styles.round_text}>Qualifying Round</div>
               <img
                 src="box_web-min.png"
                 width="177.5"

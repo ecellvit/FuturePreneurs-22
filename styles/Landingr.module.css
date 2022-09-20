@@ -93,7 +93,7 @@
   margin-left: 31.7vw;
   padding-top: 15vh;
   padding-bottom: 20px;
-  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-family: sans-serif;
   color: #fff;
   font-weight: 700;
 }
@@ -101,7 +101,7 @@
 .main_para {
   width: 530px;
   color: #fff;
-  font-family: "Inter";
+  font-family: "sans-serif";
   font-style: normal;
   font-weight: 400;
   font-size: 1.5em;
@@ -141,7 +141,7 @@
   margin-left: 0px;
   padding-right: 0px;
   padding-left: 0px;
-  cursor: pointer;
+  cursor: posans-serif;
 }
 
 .legs {
@@ -210,7 +210,7 @@
 
 .about_para {
   margin-top: 40px;
-  font-family: "Inter";
+  font-family: "sans-serif";
   font-style: normal;
   font-weight: 400;
   font-size: 1.5em;
@@ -345,7 +345,7 @@
 }
 
 .story_p {
-  font-family: "Inter";
+  font-family: "sans-serif";
   font-style: normal;
   font-weight: 400;
   font-size: 1.5em;
@@ -1085,7 +1085,7 @@
   }
 
   .about_heading {
-    font-family: "Inter";
+    font-family: "sans-serif";
     font-style: normal;
     font-weight: 700;
     font-size: 20px;
@@ -1134,7 +1134,6 @@
     width: 200px;
     position: relative;
     top: -60px;
-
   }
 
   .story_h1 {
@@ -1147,7 +1146,7 @@
   }
 
   .story_p {
-    font-family: "Inter";
+    font-family: "sans-serif";
     font-style: normal;
     font-weight: 400;
     font-size: 18px;

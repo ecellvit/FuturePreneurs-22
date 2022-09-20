@@ -18,14 +18,14 @@ const Section1 = () => {
         />
         <img
           onClick={() => {
-            if (status==="authenticated"){
-              console.log("already siged in")
+            if (status === "authenticated") {
+              console.log("already siged in");
             } else {
               signIn("google", { callbackUrl: "/getdetail" });
             }
           }}
           style={{ cursor: "pointer" }}
-          src="getin-min.png"
+          src="reg.png"
           sizes="(max-width: 479px) 92.5px, (max-width: 767px) 148px, 197px"
           width="200px"
           className={styles.get_in_gradient}
