@@ -14,7 +14,7 @@ const Section1 = () => {
       </div>
       <div className={styles.fp_big}>
         <img
-          src="Component_6.png"
+          src="fpmain-min.png"
           sizes="(max-width: 479px) 100vw, (max-width: 991px) 227px, 370px"
           width="515px"
           className={styles.p_logo}
@@ -38,9 +38,11 @@ const Section1 = () => {
       <div className={styles.main_text}>
         <p className={styles.main_para}>
           Entrepreneurship Cell, VIT brings to you Futurepreneurs 8.0, its
-          business simulation competition. The event is designed to test your
-          analytical thinking. Glaze up your business skills with the added
-          knowledge about consumers and the trends they tend to follow.
+          business simulation competition. So fire up your business skills with
+          the added knowledge about consumers and the trends they tend to
+          follow. Do you have the vision, which would make you stand out amongst
+          the ebbing and flowing complexities of the event? Join the league to
+          find out and compete!
           <br />
         </p>
       </div>
