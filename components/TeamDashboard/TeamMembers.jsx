@@ -1,12 +1,20 @@
-import styles from '../../styles/Dashboard.module.css'
-import TeamMember from './TeamMember'
-import React, { useState } from 'react'
-import { useSession } from 'next-auth/react'
-import { toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
+import styles from "../../styles/Dashboard.module.css";
+import styles1 from "../../styles/Modal.module.css";
+import TeamMember from "./TeamMember";
+import React, { useState } from "react";
+import { useSession } from "next-auth/react";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { AnimatePresence, motion } from "framer-motion";
+import Modal from "../modal";
 
 const TeamMembers = ({ teamData, handleMemberLeave }) => {
-  const [teamId, setTeamId] = useState(teamData?.teamId?._id)
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const close = () => setModalOpen(false);
+  const open = () => setModalOpen(true);
+
+  const [teamId, setTeamId] = useState(teamData?.teamId?._id);
   const { data: session } = useSession()
 
   const openInNewTab = (url) => {
@@ -41,12 +49,13 @@ const TeamMembers = ({ teamData, handleMemberLeave }) => {
         <h2 className={styles.team_name}>
           Team - {teamData?.teamId?.teamName}
         </h2>
-        <button
+        {/* <button
           className={`${styles.remove_team_btn} ${styles.w_button} `}
           onClick={handleLeave}
         >
           Leave Team
-        </button>
+        </button> */}
+
         <div className={`${styles.team_row} ${styles.align_centre}`}>
           {teamData?.teamId?.members?.map((team) => {
             return (
@@ -59,9 +68,33 @@ const TeamMembers = ({ teamData, handleMemberLeave }) => {
                 userId={team._id}
                 teamRole={team.teamRole}
               ></TeamMember>
-            )
+            );
           })}
         </div>
+        <motion.button
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          className={`${styles1["save-button"]} ${styles1["button"]}`}
+          onClick={() => (modalOpen ? close() : open())}
+        >
+          Leave Team
+        </motion.button>
+        <AnimatePresence
+          initial={false}
+          exitBeforeEnter={true}
+          onExitComplete={() => null}
+        >
+          {modalOpen && (
+            <Modal
+              modalOpen={modalOpen}
+              handleClose={close}
+              text={"Are you sure you want to leave your team?"}
+              text1={"This action can't be reversed!!"}
+              text2={"Yes I'm sure"}
+              deleteTeam={handleLeave}
+            />
+          )}
+        </AnimatePresence>
       </div>
       <div className={styles.invite_link_container}>
         <div className="copy-area">
@@ -76,7 +109,7 @@ const TeamMembers = ({ teamData, handleMemberLeave }) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default TeamMembers
+export default TeamMembers;

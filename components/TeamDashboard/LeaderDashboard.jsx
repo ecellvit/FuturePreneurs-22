@@ -151,8 +151,9 @@ const LeaderDashboard = ({
               <Modal
                 modalOpen={modalOpen}
                 handleClose={close}
-                text={'Are you sure you want to delete your team?'}
+                text={"Are you sure you want to delete your team?"}
                 text1={"This action can't be reversed!!"}
+                text2={"Yes I'm sure"}
                 deleteTeam={handleDelete}
               />
             )}

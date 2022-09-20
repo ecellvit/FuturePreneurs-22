@@ -252,3 +252,9 @@
 .join_create_btn.join_btn {
   width: 100%;
 }
+
+@media screen and (max-width: 767px) {
+  .glow_on_hover:before {
+    opacity: 1;
+  }
+}

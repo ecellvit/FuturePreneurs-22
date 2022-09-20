@@ -22,22 +22,46 @@ const Footer = () => {
         <div className={styles.line_footer}></div>
         <div className={styles.link_container}>
           <div className={styles.link_div}>
-            <img src="fb.svg" width="30.5" />
+            <a
+              href="https://www.facebook.com/ecellvit/"
+              target={"_blank"}
+              rel={"noreferrer"}
+            >
+              <img src="fb.svg" width="30.5" />
+            </a>
           </div>
           <div className={styles.link_div}>
-            <img src="twitter.svg" width="29.5" />
+            <a
+              href="https://twitter.com/ecell_vit"
+              target={"_blank"}
+              rel={"noreferrer"}
+            >
+              <img src="twitter.svg" width="29.5" />
+            </a>
           </div>
           <div className={styles.link_div}>
-            <img src="linkedin.svg" width="31.5" />
+            <a
+              href="https://in.linkedin.com/company/ecellvitvellore"
+              target={"_blank"}
+              rel={"noreferrer"}
+            >
+              <img src="linkedin.svg" width="31.5" />
+            </a>
           </div>
           <div className={styles.link_div}>
-            <img src="insta.svg" width="29.5" />
+            <a
+              href="https://www.instagram.com/ecell_vit/?hl=en"
+              target={"_blank"}
+              rel={"noreferrer"}
+            >
+              <img src="insta.svg" width="29.5" />
+            </a>
           </div>
         </div>
       </div>
       <div className={styles.page_container}>
         <div className={styles.footer_pages}>
-          <a href="#" className={styles.link_page}>
+          {/* <a href="#" className={styles.link_page}>
             Timeline
           </a>
           <a href="#" className={styles.link_page}>
@@ -53,7 +77,7 @@ const Footer = () => {
           </a>
           <a href="#" className={styles.link_page}>
             Sponsors
-          </a>
+          </a> */}
         </div>
       </div>
       <div className={styles.profiles}>

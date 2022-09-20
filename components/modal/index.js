@@ -23,7 +23,7 @@ const dropIn = {
 };
 
 
-const Modal = ({ handleClose, text, text1, deleteTeam }) => {
+const Modal = ({ handleClose, text, text1, text2, deleteTeam }) => {
 
     return (
         <Backdrop onClick={handleClose}>
@@ -35,14 +35,15 @@ const Modal = ({ handleClose, text, text1, deleteTeam }) => {
                 animate="visible"
                 exit="exit"
             >
-                <button className={`${styles["button"]} ${styles["close"]}`} onClick={handleClose}>Close</button>
+                <button className={`${styles["button"]} ${styles["close"]}`} onClick={handleClose}>Cancel</button>
                 <h2>{text}</h2>
                 <h4>{text1}</h4>
                 <button
                     className={`${styles["button"]} ${styles["close-button"]}`}
                     onClick={deleteTeam}
+                    style={{marginLeft:"15vw"}}
                 >
-                    Delete Team
+                    {text2}
                 </button>
             </motion.div>
         </Backdrop>

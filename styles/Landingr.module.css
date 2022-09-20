@@ -543,7 +543,7 @@
 
 .round_text {
   position: absolute;
-  left: 30px;
+  left: 0px;
   top: 40%;
   right: 3%;
   bottom: auto;
@@ -553,9 +553,10 @@
   margin: 0px auto 86px;
   font-family: Poppins, sans-serif;
   color: #fff;
-  font-size: 20px;
+  font-size: 13px;
   font-weight: 700;
   text-align: left;
+  text-align: center;
 }
 
 .body {
@@ -1296,12 +1297,14 @@
   }
 
   .round_text {
-    left: -38px;
-    margin-top: 10px;
-    padding-right: 80px;
-    font-size: 9px;
-    line-height: 13px;
+    /* left: 0px; */
+    left: -70px;
+    top: 30px;
+    /* margin-top: 10px; */
+    /* padding-right: 80px; */
+    font-size: 5px;
     text-align: center;
+    line-height: 10px;
   }
 
   .fp_main_div {
