@@ -10,6 +10,7 @@ import Layout from "./animationComponents/Layouts";
 import Link from "next/link";
 import { useCookies } from "react-cookie";
 import myContext from "../store/myContext";
+import Router from "next/router";
 
 function PendingRequests() {
   const { data: session } = useSession();
@@ -81,6 +82,7 @@ function PendingRequests() {
         .then((data) => {
           setIsLoading(false);
           if (data.error?.errorCode) {
+            Router.push('/dashboard')
             toast.error(`${data.message}`, {
               position: "top-right",
               autoClose: 5000,
