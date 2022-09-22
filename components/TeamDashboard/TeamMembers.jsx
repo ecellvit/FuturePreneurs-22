@@ -1,15 +1,17 @@
 import styles from "../../styles/Dashboard.module.css";
 import styles1 from "../../styles/Modal.module.css";
 import TeamMember from "./TeamMember";
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
 import { useSession } from "next-auth/react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AnimatePresence, motion } from "framer-motion";
 import Modal from "../modal";
+import myContext from '../../store/myContext'
 
 const TeamMembers = ({ teamData, handleMemberLeave }) => {
   const [modalOpen, setModalOpen] = useState(false);
+  const myCtx = useContext(myContext);
 
   const close = () => setModalOpen(false);
   const open = () => setModalOpen(true);
@@ -39,7 +41,8 @@ const TeamMembers = ({ teamData, handleMemberLeave }) => {
         toast.success(`${data.message}`, {
           position: toast.POSITION.TOP_RIGHT,
         })
-        handleMemberLeave()
+        //handleMemberLeave()
+        myCtx.hasTeamHandler(false);
       })
   }
 

@@ -9,12 +9,14 @@ const myContext = React.createContext({
   leaderHandler: ()=>{},
   notys: 0,
   notyHandler: ()=>{},
+  hasTeam: false,
+  hasTeamHandler: ()=>{},
 });
 
 export const MyContextProvidor = (props) => {
   const [isLeader, setIsLeader] = useState(false);
   const [notys, setNotys] = useState(0);
-
+  const [hasTeam,setHasTeam] =useState(true);
 
 	// const {data:session} = useSession();
 
@@ -25,7 +27,12 @@ export const MyContextProvidor = (props) => {
       setIsLeader(bool)
     },
     notys: notys,
-    notyHandler: (num)=>{setNotys(num)}
+    notyHandler: (num)=>{setNotys(num)},
+    hasTeam: hasTeam,
+    hasTeamHandler: (bool)=>{
+      setHasTeam(bool)
+    },
+
   };
 
   return (

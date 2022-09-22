@@ -24,21 +24,21 @@ function Dashboard() {
   // const teamNameRef = useRef(null);
   const { data: session } = useSession();
 
-  const handleTeamDelete = (currentTeamStatus) => {
-    setHasTeam(currentTeamStatus);
-  };
+  // const handleTeamDelete = (currentTeamStatus) => {
+  //   setHasTeam(currentTeamStatus);
+  // };
 
-  const handleTeamCreate = () => {
-    setUseEffectTrigger((prevTeamStatus) => !prevTeamStatus);
-  };
+  // const handleTeamCreate = () => {
+  //   setUseEffectTrigger((prevTeamStatus) => !prevTeamStatus);
+  // };
 
   const handleMemberRemove = () => {
     setUseEffectTrigger((prevTeamStatus) => !prevTeamStatus);
   };
 
-  const handleMemberLeave = () => {
-    setUseEffectTrigger((prevTeamStatus) => !prevTeamStatus);
-  };
+  // const handleMemberLeave = () => {
+  //   setUseEffectTrigger((prevTeamStatus) => !prevTeamStatus);
+  // };
 
   // for getting user details
   useEffect(() => {
@@ -66,9 +66,11 @@ function Dashboard() {
           return;
         }
         if (data.user.teamId) {
-          setHasTeam(true);
+          //setHasTeam(true);
+          myCtx.hasTeamHandler(true);
         } else {
-          setHasTeam(false);
+          //setHasTeam(false);
+          myCtx.hasTeamHandler(false);
         }
         if (data.user?.teamRole === 0) {
           setIsLeader(true);
@@ -113,22 +115,24 @@ function Dashboard() {
     <div className={styles.bodyContainer}>
       {isLoading ? (
         <Loading />
-      ) : hasTeam ? (
+      ) : myCtx.hasTeam ? (
         myCtx.isLeader ? (
           <LeaderDashboard
             teamData={teamData}
-            handleTeamDelete={handleTeamDelete}
+            //handleTeamDelete={handleTeamDelete}
             teamToken={teamToken}
             handleMemberRemove={handleMemberRemove}
           />
         ) : (
           <TeamMembers
             teamData={teamData}
-            handleMemberLeave={handleMemberLeave}
+            //handleMemberLeave={handleMemberLeave}
           />
         )
       ) : (
-        <CreateTeam handleTeamCreate={handleTeamCreate} />
+        <CreateTeam 
+       // handleTeamCreate={handleTeamCreate} 
+       />
       )}
     </div>
   );

@@ -48,7 +48,8 @@ const CreateTeam = ({ handleTeamCreate }) => {
           });
           return;
         }
-        handleTeamCreate();
+        //handleTeamCreate();
+        myCtx.hasTeamHandler(true);
         myCtx.leaderHandler(true);
       });
   };
@@ -70,18 +71,18 @@ const CreateTeam = ({ handleTeamCreate }) => {
 
           //user already part of a team toastify error
 
-          // if (data.error?.errorCode) {
-          //   toast.error(`${data.message}`, {
-          //     position: "top-right",
-          //     autoClose: 5000,
-          //     hideProgressBar: false,
-          //     closeOnClick: true,
-          //     pauseOnHover: true,
-          //     draggable: true,
-          //     progress: undefined,
-          //   });
-          //   return;
-          // }
+          if (data.error?.errorCode) {
+            toast.error(`${data.message}`, {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
+            return;
+          }
           setTeamData(data.requests);
         });
     }
