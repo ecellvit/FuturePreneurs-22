@@ -165,7 +165,7 @@ const LeaderDashboard = ({
                 className={`${styles.btngroup} ${styles.glow_on_hover}`}
                 onClick={() =>
                   openInNewTab(
-                    'https://chat.whatsapp.com/LNZVaG2PndRFuQFyCJUDGD',
+                    'https://chat.whatsapp.com/IPrALdIYME77EV3vWdL5zG',
                   )
                 }
               >
