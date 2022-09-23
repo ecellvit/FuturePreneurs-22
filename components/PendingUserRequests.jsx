@@ -15,12 +15,12 @@ function PendingUserRequests() {
   const myCtx = useContext(myContext);
 
   const handleTeamAccept = (user) => {
-    console.log(
-      JSON.stringify({
-        userId: user.userId._id,
-        status: 1,
-      })
-    );
+    // console.log(
+    //   JSON.stringify({
+    //     userId: user.userId._id,
+    //     status: 1,
+    //   })
+    // );
     setIsLoading(true);
     fetch(
       `${process.env.NEXT_PUBLIC_SERVER}/api/team/requests/${user.teamId}`,

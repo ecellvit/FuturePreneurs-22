@@ -1,8 +1,33 @@
 import { signIn, useSession } from "next-auth/react";
+import { useRouter } from "next/router";
+import { useState, useEffect } from "react";
 import styles from "../../styles/Landingr.module.css";
+import Countup from "../animationComponents/countup";
 
 const Section1 = () => {
-  const { data: session, status } = useSession();
+  const router = useRouter();
+  const { status } = useSession();
+  const [participantCount, setParticipantCount] = useState("");
+  const [teamCount, setTeamCount] = useState("");
+
+  useEffect(() => {
+    fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/admin/user`)
+      .then((data) => data.json())
+      .then((data) => {
+        //console.log(data.usersCount)
+        setParticipantCount(data.usersCount);
+      });
+  }, []);
+
+  useEffect(() => {
+    fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/admin/team`)
+      .then((data) => data.json())
+      .then((data) => {
+        console.log(data.teamsCount);
+        setTeamCount(data.teamsCount);
+      });
+  }, []);
+
   return (
     <div className={styles.sec_1}>
       <div className={styles.first_grad}>
@@ -19,7 +44,8 @@ const Section1 = () => {
         <img
           onClick={() => {
             if (status === "authenticated") {
-              console.log("already siged in");
+              // console.log("already siged in");
+              router.push("/getdetail");
             } else {
               signIn("google", { callbackUrl: "/getdetail" });
             }
@@ -32,6 +58,19 @@ const Section1 = () => {
         />
       </div>
       <div className={styles.main_text}>
+        <div className={styles.countContainer}>
+          <div className={styles.count}>
+            Registered Participants{" "}
+            <Countup
+              end={`${participantCount}`}
+              className={`${styles.countup}`}
+            />
+          </div>
+          <div className={styles.count}>
+            Registered Teams{" "}
+            <Countup end={`${teamCount}`} className={`${styles.countup}`} />
+          </div>
+        </div>
         <p className={styles.main_para}>
           Entrepreneurship Cell, VIT brings to you Futurepreneurs 8.0, its
           business simulation competition. So fire up your business skills with

@@ -10,7 +10,7 @@ import Layout from "./animationComponents/Layouts";
 import Link from "next/link";
 import { useCookies } from "react-cookie";
 import myContext from "../store/myContext";
-import Router from "next/router";
+import { useRouter } from "next/router";
 
 function PendingRequests() {
   const { data: session } = useSession();
@@ -18,6 +18,8 @@ function PendingRequests() {
   const [isLoading, setIsLoading] = useState();
   const [cookies, setCookie] = useCookies(["requests"]);
   const myCtx = useContext(myContext);
+
+  const router = useRouter();
 
   const handleDeleteRequest = (team) => {
     if (team.teamId._id) {
@@ -82,7 +84,7 @@ function PendingRequests() {
         .then((data) => {
           setIsLoading(false);
           if (data.error?.errorCode) {
-            Router.push('/dashboard')
+            router.push('/dashboard')
             toast.error(`${data.message}`, {
               position: "top-right",
               autoClose: 5000,
@@ -109,7 +111,7 @@ function PendingRequests() {
   }, [session]);
 
   useEffect(() => {
-    console.log(teamData);
+    // console.log(teamData);
     setCookie("requests", teamData.length);
   }, [teamData]);
 

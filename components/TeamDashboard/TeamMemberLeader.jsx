@@ -44,7 +44,7 @@ const TeamMemberLeader = ({
           });
           return;
         }
-        console.log(data);
+        // console.log(data);
         toast.success(`${data.message}`, {
           position: toast.POSITION.TOP_RIGHT,
         });

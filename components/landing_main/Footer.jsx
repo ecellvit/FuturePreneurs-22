@@ -127,11 +127,11 @@ const Footer = () => {
               src="https://github.com/nitishramaraj.png"
             />
           </a>
-          <a onClick={() => openInNewTab("https://github.com/anjy7")}>
+          <a onClick={() => openInNewTab("www.linkedin.com/in/arulgoyal")}>
             <Avatar
               className={styles.zoom}
               alt="Cindy Baker"
-              src="https://www.linkedin.com/in/anjaneya-gupta.png"
+              src="https://github.com/arulgoyal.png"
             />
           </a>
         </Stack>
@@ -139,7 +139,7 @@ const Footer = () => {
       <div className={styles.contact_card_container}>
         <div className={styles.contact_card}>
           <img src="call.svg" width="15" className={styles.contact_img} />
-          <div className={styles.contact_text}>+918293622180</div>
+          <div className={styles.contact_text}>+91 9606819078</div>
         </div>
         <div className={styles.contact_card}>
           <img src="mail.svg" width="20" className={styles.contact_img} />

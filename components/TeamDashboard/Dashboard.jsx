@@ -9,6 +9,7 @@ import TeamMembers from "./TeamMembers";
 import Loading from "../Loading";
 import Layout from "../animationComponents/Layouts";
 import { toast } from "react-toastify";
+import myContext from "../../store/myContext";
 
 function Dashboard() {
   const [hasTeam, setHasTeam] = useState(false);
@@ -17,6 +18,8 @@ function Dashboard() {
   const [teamData, setTeamData] = useState({});
   const [teamToken, setTeamToken] = useState();
   const [isLoading, setIsLoading] = useState(false);
+
+  const myCtx = useContext(myContext);
 
   // const teamNameRef = useRef(null);
   const { data: session } = useSession();
@@ -69,6 +72,7 @@ function Dashboard() {
         }
         if (data.user?.teamRole === 0) {
           setIsLeader(true);
+          myCtx.leaderHandler(true);
         }
         setTeamData(data.user);
         setIsLoading(false);
@@ -80,7 +84,7 @@ function Dashboard() {
           error
         );
       });
-  }, [useEffectTrigger, session.accessTokenBackend]);
+  }, [useEffectTrigger, session]);
 
   //token id
   useEffect(() => {
@@ -110,7 +114,7 @@ function Dashboard() {
       {isLoading ? (
         <Loading />
       ) : hasTeam ? (
-        isLeader ? (
+        myCtx.isLeader ? (
           <LeaderDashboard
             teamData={teamData}
             handleTeamDelete={handleTeamDelete}
