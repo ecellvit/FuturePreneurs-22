@@ -520,6 +520,16 @@
   padding: 0.8rem;
   align-items: center;
 }
+
+.countup {
+  font-size: clamp(16px, 5vw, 32px);
+  color: #ffff;
+}
+.text {
+  font-size: clamp(12px, 3vw, 20px);
+  font-weight: 300;
+}
+
 .countText {
   font-size: 1.2rem;
   font-weight: bold;
