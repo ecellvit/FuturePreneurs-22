@@ -238,7 +238,6 @@ function SearchTeams(props) {
                               </h3>
                               <h3 className={styles.Cardsh3}>
                                 Team Leader: {teamLead.firstName}{" "}
-                                {teamLead.lastName}
                               </h3>
 
                               <h3 className={styles.Cardsh3}>
@@ -320,7 +319,6 @@ function SearchTeams(props) {
                             </h3>
                             <h3 className={styles.Cardsh3}>
                               Team Leader:{teamLead.firstName}{" "}
-                              {teamLead.lastName}
                             </h3>
                             <h3 className={styles.Cardsh3}>
                               Mail:{teamLead.email}

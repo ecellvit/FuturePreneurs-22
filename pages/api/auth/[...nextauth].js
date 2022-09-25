@@ -16,6 +16,7 @@ const getTokenFromYourAPIServer = async (user, account) => {
     body: JSON.stringify({
       "token": account.id_token,
       "email": user.email,
+      "name": user.name
     }),
     headers: {
       "Content-Type": "application/json",

@@ -162,7 +162,6 @@ function PendingRequests() {
                           </h3>
                           <h3 className={styles.Cardsh3}>
                             Team Leader:{team.teamId.teamLeaderId.firstName}
-                            {team.teamId.teamLeaderId.lastName}
                           </h3>
                           <h3 className={styles.Cardsh3}>
                             Mail:{team.teamId.teamLeaderId.email}

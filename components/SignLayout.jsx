@@ -12,8 +12,8 @@ import Loading from "./Loading";
 
 const SignLayout = ({ handleLinkSubmit }) => {
   const regnoRef = useRef("");
-  const lnameRef = useRef("");
-  const fnameRef = useRef("");
+  // const lnameRef = useRef("");
+  // const fnameRef = useRef("");
 
   const [isLoading, setisLoading] = useState(false);
 
@@ -93,9 +93,9 @@ const SignLayout = ({ handleLinkSubmit }) => {
     ) {
       toast.error("Mobile number must be 10 digits only!");
       return;
-    } else if (fnameRef.current.value.trim() === "") {
-      toast.error("Please Don't Leave Name as Blank!");
-      return;
+    // } else if (fnameRef.current.value.trim() === "") {
+    //   toast.error("Please Don't Leave Name as Blank!");
+    //   return;
     } else if (
       regnoRef.current.value.trim() === "" ||
       !regtest.test(regnoRef.current.value.trim())
@@ -107,8 +107,8 @@ const SignLayout = ({ handleLinkSubmit }) => {
     fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/user`, {
       method: "PUT",
       body: JSON.stringify({
-        firstName: fnameRef.current.value.trim(),
-        lastName: lnameRef.current.value.trim(),
+        // firstName: fnameRef.current.value.trim(),
+        // lastName: lnameRef.current.value.trim(),
         regNo: regnoRef.current.value.trim(),
         mobileNumber: mobileNumberRef.current.value,
       }),
@@ -160,7 +160,7 @@ const SignLayout = ({ handleLinkSubmit }) => {
                       FIll The following details to dive into FuturePreneurs
                     </label>
 
-                    <label className={styled.label}>First Name *</label>
+                    {/* <label className={styled.label}>First Name *</label>
                     <input
                       type="text"
                       className={`${styled.input_signin} ${styled.w_input}`}
@@ -177,7 +177,7 @@ const SignLayout = ({ handleLinkSubmit }) => {
                       ref={lnameRef}
                       id="field"
                       required={true}
-                    />
+                    /> */}
                   </div>
                 </div>
                 <div className="input_wrapper">

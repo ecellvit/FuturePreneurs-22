@@ -187,7 +187,6 @@ function PendingUserRequests() {
                         <div>
                           <h3 className={styles.Cardsh3}>
                             User Name:{user.userId.firstName}{" "}
-                            {user.userId.lastName}
                           </h3>
 
                           <h3 className={styles.Cardsh3}>
