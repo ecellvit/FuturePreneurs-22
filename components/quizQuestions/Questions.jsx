@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import myContext from "../../store/myContext";
 import styles from "../../styles/Questions.module.css";
 import MultipleAnswerQuestions from "./MultipleAnswerQuestions";
+import SingleAns from "./SingleAns";
 
 function Questions(props) {
   const [question, setQuestion] = useState("1+1?");
@@ -166,9 +167,12 @@ function Questions(props) {
           </div>{" "}
           <div className={styles.time_line}> </div>{" "}
         </header>{" "}
+
         <section className={styles.section}>
-        <MultipleAnswerQuestions question={question} answers={answers} setUserAnswer={setUserAnswer}/>
+        {/* <MultipleAnswerQuestions question={question} answers={answers} setUserAnswer={setUserAnswer}/> */}
+        <SingleAns question={question} answers={answers} setUserAnswer={setUserAnswer} />
         </section>{" "}
+
         <footer>
           <div className={styles.total_que}>
             <span

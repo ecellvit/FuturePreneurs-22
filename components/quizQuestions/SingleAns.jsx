@@ -52,3 +52,5 @@ const SingleAns = ({ question, answers, setUserAnswer }) => {
     </>
   );
 };
+
+export default SingleAns;
