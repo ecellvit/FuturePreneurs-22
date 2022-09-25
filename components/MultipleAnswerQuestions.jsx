@@ -1,10 +1,10 @@
-git import React from "react";
+import React from "react";
 import styles from "../styles/Questions.module.css";
 import { useEffect, useState } from "react";
 
-const MultipleAnswerQuestions = ({ ansSelect, question, answers }) => {
+const MultipleAnswerQuestions = ({ question, answers }) => {
+  //Tab has focus logic -----------------
   const [tabHasFocus, setTabHasFocus] = useState(true);
-  const [checked, setChecked] = useState(false);
   useEffect(() => {
     const handleFocus = () => {
       console.log("Tab has focus");
@@ -24,30 +24,22 @@ const MultipleAnswerQuestions = ({ ansSelect, question, answers }) => {
       window.removeEventListener("blur", handleBlur);
     };
   }, []);
+  //-------------------------------------
 
   const [multians, setMultians] = useState([]);
-  useEffect(() => {
+  const addOrRemove = (id) => {
     const newmultians = [...multians];
-    const index = newmultians.indexOf(idx);
+    // console.log(newmultians);
+    const index = newmultians.indexOf(id);
+    // console.log(index);
     if (index === -1) {
-      newmultians.push(idx);
+      newmultians.push(id);
     } else {
       newmultians.splice(index, 1);
     }
     setMultians(newmultians);
-    console.log(multians);
-
-    function ansMultipleSelect(ind) {
-      // setMultimcq([...multimcq,ind])
-      multimcq?.map((currenTeam) => {
-        if (Requests.findIndex((x) => x._id === currenTeam._id) === -1) {
-          setRequests((prevTeamData) => {
-            return [...prevTeamData, currenTeam];
-          });
-        }
-      });
-    }
-  });
+  };
+  console.log(multians);
 
   return (
     <>
@@ -63,61 +55,25 @@ const MultipleAnswerQuestions = ({ ansSelect, question, answers }) => {
           <span> {question} </span>{" "}
         </div>{" "}
         <div className={styles.option_list}>
-          <label class="container">
-            One
+          <label className={styles.option}>
+            <span>{answers[0]}</span>{" "}
             <input type="checkbox" onClick={() => addOrRemove(0)} />
-            <span class="checkmark"></span>
           </label>
 
-          <label class="container">
-            Two
+          <label className={styles.option}>
+            <span>{answers[1]}</span>{" "}
             <input type="checkbox" onClick={() => addOrRemove(1)} />
-            <span class="checkmark"></span>
           </label>
 
-          <label class="container">
-            Three
+          <label className={styles.option}>
+            <span>{answers[2]}</span>{" "}
             <input type="checkbox" onClick={() => addOrRemove(2)} />
-            <span class="checkmark"></span>
           </label>
 
-          <label class="container">
-            Four
+          <label className={styles.option}>
+            <span>{answers[3]}</span>{" "}
             <input type="checkbox" onClick={() => addOrRemove(3)} />
-            <span class="checkmark"></span>
           </label>
-          {/* <div
-            onClick={() => {
-              ansMultipleSelect(0);
-            }}
-            className={styles.option}
-          >
-            <span> {answers[0]} </span>{" "}
-          </div>{" "}
-          <div
-            onClick={() => {
-              ansMultipleSelect(1);
-            }}
-            className={styles.option}
-          >
-            <span> {answers[1]} </span>{" "}
-          </div>{" "}
-          <div
-            onClick={() => {
-              ansMultipleSelect(2);
-            }}
-            className={styles.option}
-          >
-            <span> {answers[2]} </span>{" "}
-          </div>{" "}
-          <div
-            onClick={() => {
-              ansMultipleSelect(3);
-            }}
-            className={styles.option}
-          >
-            <span> {answers[3]} </span>{" "}
-          </div>{" "} */}
         </div>{" "}
       </section>{" "}
     </>
