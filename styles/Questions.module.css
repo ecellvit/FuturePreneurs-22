@@ -273,10 +273,10 @@
     background: #007bff;
     border: 1px solid #007bff;
     line-height: 10px;
-    opacity: 0;
-    pointer-events: none;
+    opacity: 1;
+    pointer-events: auto;
     transform: scale(0.95);
-    transition: all 0.3s ease;
+    transition: scale(1);
 }
 
 .next_btn:hover{
