@@ -2,6 +2,7 @@ import { useSession } from "next-auth/react";
 import React, { useContext, useEffect, useState } from "react";
 import myContext from "../../store/myContext";
 import styles from "../../styles/Questions.module.css";
+import MultipleAnswerQuestions from "./MultipleAnswerQuestions";
 
 function Questions(props) {
   const [question, setQuestion] = useState("1+1?");
@@ -49,7 +50,7 @@ function Questions(props) {
   }
 
   function submitAnswer() {
-
+    console.log(userAnswer)
   }
 
   function startQuiz() {
@@ -166,7 +167,8 @@ function Questions(props) {
           <div className={styles.time_line}> </div>{" "}
         </header>{" "}
         <section className={styles.section}>
-          <div className={styles.que_text}>
+        <MultipleAnswerQuestions question={question} answers={answers} setUserAnswer={setUserAnswer}/>
+          {/* <div className={styles.que_text}>
             <span> {question} </span>{" "}
           </div>{" "}
           <div className={styles.option_list}>
@@ -202,7 +204,7 @@ function Questions(props) {
             >
               <span> {answers[3]} </span>{" "}
             </div>{" "}
-          </div>{" "}
+          </div>{" "} */}
         </section>{" "}
         <footer>
           <div className={styles.total_que}>
@@ -234,7 +236,7 @@ function Questions(props) {
               Questions{" "}
             </span>{" "}
           </div>{" "}
-          <button className={styles.next_btn}> Next Question </button>{" "}
+          <button className={styles.next_btn} onClick={()=>{submitAnswer()}}> Next Question </button>{" "}
         </footer>{" "}
       </div>
       <div className={styles.result_box}>
