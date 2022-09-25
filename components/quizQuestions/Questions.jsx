@@ -1,3 +1,4 @@
+import { useSession } from "next-auth/react";
 import React, { useContext, useEffect, useState } from "react";
 import myContext from "../../store/myContext";
 import styles from "../../styles/Questions.module.css";
@@ -15,17 +16,14 @@ function Questions(props) {
   const [curTime, setCurTime] = useState([]);
 
   const myCtx = useContext(myContext);
+  const { data: session } = useSession();
 
   // error 412 means maximum questions reached
 
-  const TOKEN =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzE3NGE4NmU1YTI2NDJlZjc1YzYxMmYiLCJpYXQiOjE2NjI3Mzk1MzUsImV4cCI6MTY2MjgyNTkzNX0.LCN_Y0IYsEW5oFJV9nupO7_u7hPS3quXbK768adNsa8";
-  const TEAM_ID = "631785e70d683d0db6c8204e";
+  const TEAM_ID = myCtx.teamId;
 
   const questionsLength = 5;
   const curQuestionIndex = 1;
-
-  console.log(myCtx);
 
   function ansSelect(ind) {
     fetch(`${process.env.NEXT_PUBLIC_SERVER}api/team/quiz/${TEAM_ID}`, {
@@ -33,7 +31,7 @@ function Questions(props) {
       // cors:'no-cors',
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${TOKEN}`,
+        Authorization: `Bearer ${session.accessTokenBackend}`,
         "Access-Control-Allow-Origin": "*",
       },
       body: JSON.stringify({
@@ -50,11 +48,15 @@ function Questions(props) {
       .catch((err) => {});
   }
 
+  function submitAnswer() {
+
+  }
+
   function startQuiz() {
     fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/team/quiz/${TEAM_ID}`, {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${TOKEN}`,
+        Authorization: `Bearer ${session.accessTokenBackend}`,
         "Access-Control-Allow-Origin": "*",
       },
     })
