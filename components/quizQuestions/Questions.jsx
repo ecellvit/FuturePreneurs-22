@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
-import styles from "../styles/Questions.module.css";
+import React, { useContext, useEffect, useState } from "react";
+import myContext from "../../store/myContext";
+import styles from "../../styles/Questions.module.css";
 
 function Questions(props) {
   const [question, setQuestion] = useState("1+1?");
@@ -13,7 +14,8 @@ function Questions(props) {
   const [endTime, setEndTime] = useState();
   const [curTime, setCurTime] = useState([]);
 
-  // test team id-631785e70d683d0db6c8204e
+  const myCtx = useContext(myContext);
+
   // error 412 means maximum questions reached
 
   const TOKEN =
@@ -22,6 +24,8 @@ function Questions(props) {
 
   const questionsLength = 5;
   const curQuestionIndex = 1;
+
+  console.log(myCtx);
 
   function ansSelect(ind) {
     fetch(`${process.env.NEXT_PUBLIC_SERVER}api/team/quiz/${TEAM_ID}`, {
