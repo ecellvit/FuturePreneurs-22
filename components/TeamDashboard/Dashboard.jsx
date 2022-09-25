@@ -66,6 +66,8 @@ function Dashboard() {
           return;
         }
         if (data.user.teamId) {
+          console.log(data.user.teamId)
+          myCtx.teamIdHandler(data.user.teamId)
           setHasTeam(true);
         } else {
           setHasTeam(false);
