@@ -31,7 +31,7 @@ const Section1 = () => {
   return (
     <div className={styles.sec_1}>
       <div className={styles.first_grad}>
-        <img src="women.svg" className={styles.image} />
+        <img src="mix.svg" className={styles.image} />
         <img src="gg.svg" width="240" className={styles.grad} />
       </div>
       <div className={styles.fp_big}>
