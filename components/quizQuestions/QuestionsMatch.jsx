@@ -11,7 +11,9 @@ function QuestionsMatch(props) {
   const [question, setQuestion] = useState(["xyz", "abc", "def", "hef"]);
   const [answers, setAnswers] = useState(["gufguef", "yegfue", "fuefu", "ueu"]);
   const [userAnswer, setUserAnswer] = useState([]);
+  const [toSendAnswer, setToSendAnswer] = useState([0, 0, 0, 0]);
   const [userQuestion, setUserQuestion] = useState([]);
+  const [position, setPosition] = useState([]);
   const [lengthy, setLengthy] = useState();
   const [testArray, settestArray] = useState([]);
   const [questionId, setQuestionId] = useState();
@@ -61,18 +63,18 @@ function QuestionsMatch(props) {
   }
 
   function HandleDoubleClick(positioner) {
-    console.log(positioner);
-    console.log(userQuestion);
-    console.log(userAnswer);
-    console.log(lengthy);
-    console.log(testArray);
+    // console.log(positioner);
+    // console.log(userQuestion);
+    // console.log(userAnswer);
+    // console.log(lengthy);
+    // console.log(testArray);
     userAnswer.splice(positioner, 1);
     userQuestion.splice(positioner, 1);
     testArray.pop();
-    console.log(userQuestion);
-    console.log(userAnswer);
-    console.log(lengthy);
-    console.log(testArray);
+    // console.log(userQuestion);
+    // console.log(userAnswer);
+    // console.log(lengthy);
+    // console.log(testArray);
   }
 
   function ansSelect(ind) {
@@ -105,6 +107,17 @@ function QuestionsMatch(props) {
       userQuestion.length > 0
     ) {
       setLengthy(userQuestion.length);
+      if (userAnswer.length === 4) {
+        position[0] = userQuestion.indexOf(0);
+        position[1] = userQuestion.indexOf(1);
+        position[2] = userQuestion.indexOf(2);
+        position[3] = userQuestion.indexOf(3);
+        toSendAnswer[position[0]] = userAnswer[position[0]];
+        toSendAnswer[position[1]] = userAnswer[position[1]];
+        toSendAnswer[position[2]] = userAnswer[position[2]];
+        toSendAnswer[position[3]] = userAnswer[position[3]];
+        console.log(toSendAnswer);
+      }
       // console.log(lengthy);
     }
 
