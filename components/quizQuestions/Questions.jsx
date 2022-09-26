@@ -1,6 +1,9 @@
+import { useSession } from "next-auth/react";
 import React, { useContext, useEffect, useState } from "react";
 import myContext from "../../store/myContext";
 import styles from "../../styles/Questions.module.css";
+import MultipleAnswerQuestions from "./MultipleAnswerQuestions";
+import SingleAns from "./SingleAns";
 
 function Questions(props) {
   const [question, setQuestion] = useState("1+1?");
@@ -15,17 +18,14 @@ function Questions(props) {
   const [curTime, setCurTime] = useState([]);
 
   const myCtx = useContext(myContext);
+  const { data: session } = useSession();
 
   // error 412 means maximum questions reached
 
-  const TOKEN =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzE3NGE4NmU1YTI2NDJlZjc1YzYxMmYiLCJpYXQiOjE2NjI3Mzk1MzUsImV4cCI6MTY2MjgyNTkzNX0.LCN_Y0IYsEW5oFJV9nupO7_u7hPS3quXbK768adNsa8";
-  const TEAM_ID = "631785e70d683d0db6c8204e";
+  const TEAM_ID = myCtx.teamId;
 
   const questionsLength = 5;
   const curQuestionIndex = 1;
-
-  console.log(myCtx);
 
   function ansSelect(ind) {
     fetch(`${process.env.NEXT_PUBLIC_SERVER}api/team/quiz/${TEAM_ID}`, {
@@ -33,7 +33,7 @@ function Questions(props) {
       // cors:'no-cors',
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${TOKEN}`,
+        Authorization: `Bearer ${session.accessTokenBackend}`,
         "Access-Control-Allow-Origin": "*",
       },
       body: JSON.stringify({
@@ -50,11 +50,15 @@ function Questions(props) {
       .catch((err) => {});
   }
 
+  function submitAnswer() {
+    console.log(userAnswer)
+  }
+
   function startQuiz() {
     fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/team/quiz/${TEAM_ID}`, {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${TOKEN}`,
+        Authorization: `Bearer ${session.accessTokenBackend}`,
         "Access-Control-Allow-Origin": "*",
       },
     })
@@ -163,45 +167,12 @@ function Questions(props) {
           </div>{" "}
           <div className={styles.time_line}> </div>{" "}
         </header>{" "}
+
         <section className={styles.section}>
-          <div className={styles.que_text}>
-            <span> {question} </span>{" "}
-          </div>{" "}
-          <div className={styles.option_list}>
-            <div
-              onClick={() => {
-                ansSelect(0);
-              }}
-              className={styles.option}
-            >
-              <span> {answers[0]} </span>{" "}
-            </div>{" "}
-            <div
-              onClick={() => {
-                ansSelect(1);
-              }}
-              className={styles.option}
-            >
-              <span> {answers[1]} </span>{" "}
-            </div>{" "}
-            <div
-              onClick={() => {
-                ansSelect(2);
-              }}
-              className={styles.option}
-            >
-              <span> {answers[2]} </span>{" "}
-            </div>{" "}
-            <div
-              onClick={() => {
-                ansSelect(3);
-              }}
-              className={styles.option}
-            >
-              <span> {answers[3]} </span>{" "}
-            </div>{" "}
-          </div>{" "}
+        {/* <MultipleAnswerQuestions question={question} answers={answers} setUserAnswer={setUserAnswer}/> */}
+        <SingleAns question={question} answers={answers} setUserAnswer={setUserAnswer} />
         </section>{" "}
+
         <footer>
           <div className={styles.total_que}>
             <span
@@ -232,7 +203,7 @@ function Questions(props) {
               Questions{" "}
             </span>{" "}
           </div>{" "}
-          <button className={styles.next_btn}> Next Question </button>{" "}
+          <button className={styles.next_btn} onClick={()=>{submitAnswer()}}> Next Question </button>{" "}
         </footer>{" "}
       </div>
       <div className={styles.result_box}>
