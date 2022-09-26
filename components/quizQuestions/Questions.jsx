@@ -9,7 +9,9 @@ function Questions(props) {
   const [question, setQuestion] = useState("1+1?");
   const [answers, setAnswers] = useState(["0", "2", "Me", "Who knows?"]);
   const [userAnswer, setUserAnswer] = useState();
-  const [questionId, setQuestionId] = useState();
+  const [setNum, setSetNum] = useState();
+  const [questionNum, setQuestionNum] = useState();
+  const [questionType, setQuestionType] = useState();
 
   const [infoBoxThere, setInfoBoxThere] = useState();
   const [quizBoxThere, setQuizBoxThere] = useState();
@@ -27,34 +29,7 @@ function Questions(props) {
   const questionsLength = 5;
   const curQuestionIndex = 1;
 
-  function ansSelect(ind) {
-    fetch(`${process.env.NEXT_PUBLIC_SERVER}api/team/quiz/${TEAM_ID}`, {
-      method: "POST",
-      // cors:'no-cors',
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${session.accessTokenBackend}`,
-        "Access-Control-Allow-Origin": "*",
-      },
-      body: JSON.stringify({
-        questionId: "631787ecdd37bfa43c48b7db",
-        submittedIdx: ind,
-      }),
-    })
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        console.log(data)
-      })
-      .catch((err) => {});
-  }
-
-  function submitAnswer() {
-    console.log(userAnswer)
-  }
-
-  function startQuiz() {
+  function getNextQuestion() {
     fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/team/quiz/${TEAM_ID}`, {
       headers: {
         "Content-Type": "application/json",
@@ -68,9 +43,70 @@ function Questions(props) {
       .then((data) => {
         if (data.message == "Maximum Questions capacity reached") {
         } else if (data.message == "get question successfull") {
-          setQuestion(data.question.question);
-          setAnswers(data.question.answers);
-          setQuestionId(data.question._id);
+          setQuestion(data.question);
+          setAnswers(data.answers);
+          setQuestionType(data.questionType);
+          setSetNum(data.setNum);
+          setQuestionNum(data.questoinNum);
+        }
+      })
+      .catch((err) => {});
+  }
+
+  function submitAnswer() {
+    console.log(userAnswer);
+    let respBody = {
+      setNum: setNum,
+      questionNum: questionNum,
+    };
+    if (questionType === 5) {
+      respBody["descriptiveAnswer"] = userAnswer;
+    } else {
+      respBody["AnswerIdxs"] = userAnswer;
+    }
+
+    fetch(`${process.env.NEXT_PUBLIC_SERVER}api/team/quiz/${TEAM_ID}`, {
+      method: "POST",
+      // cors:'no-cors',
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${session.accessTokenBackend}`,
+        "Access-Control-Allow-Origin": "*",
+      },
+      body: JSON.stringify(respBody),
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((err) => {});
+  }
+
+  function startQuiz() {
+    console.log("starting");
+    fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/team/quiz/${TEAM_ID}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${session.accessTokenBackend}`,
+        "Access-Control-Allow-Origin": "*",
+      },
+    })
+      .then(async (response) => {
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        if (data.message == "Maximum Questions capacity reached") {
+          console.log("max capacity reached")
+        } else if (data.message == "get question successfull") {
+          console.log(data);
+          setQuestion(data.question);
+          setAnswers(data.answers);
+          setQuestionType(data.questionType);
+          setSetNum(data.setNum);
+          setQuestionNum(data.questionNum);
           const Timer = setInterval(() => {
             const now = Date.now();
             const end = Date.parse(data.endTime);
@@ -103,37 +139,30 @@ function Questions(props) {
             setInfoBoxThere(styles.activeInfo);
           }}
         >
-          Start Quiz{" "}
-        </button>{" "}
+          Start Quiz
+        </button>
       </div>
       <div className={`${styles.info_box} ${infoBoxThere}`}>
         <div className={styles.info_title}>
-          <span> Some Rules of this Quiz </span>{" "}
-        </div>{" "}
+          <span> Some Rules of this Quiz </span>
+        </div>
         <div className={styles.info_list}>
           <div className={styles.info}>
-            {" "}
-            {
-              "1. You will have only <span>15 seconds</span> per each question."
-            }{" "}
-          </div>{" "}
+            {"1. You will have only 15 seconds per each question."}
+          </div>
           <div className={styles.info}>
-            {" "}
-            {"2. Once you select your answer, it can't be undone."}{" "}
-          </div>{" "}
+            {"2. Once you select your answer, it can't be undone."}
+          </div>
           <div className={styles.info}>
-            {" "}
-            {"3. You can't select any option once time goes off."}{" "}
-          </div>{" "}
+            {"3. You can't select any option once time goes off."}
+          </div>
           <div className={styles.info}>
-            {" "}
-            {"4. You can't exit from the Quiz while you're playing."}{" "}
-          </div>{" "}
+            {"4. You can't exit from the Quiz while you're playing."}
+          </div>
           <div className={styles.info}>
-            {" "}
-            {"5. You'll get points on the basis of your correct answers."}{" "}
-          </div>{" "}
-        </div>{" "}
+            {"5. You'll get points on the basis of your correct answers."}
+          </div>
+        </div>
         <div className={styles.buttons}>
           <button
             onClick={() => {
@@ -141,8 +170,8 @@ function Questions(props) {
             }}
             className={styles.quit}
           >
-            Exit Quiz{" "}
-          </button>{" "}
+            Exit Quiz
+          </button>
           <button
             onClick={() => {
               startQuiz();
@@ -151,27 +180,30 @@ function Questions(props) {
             }}
             className={styles.restart}
           >
-            Continue{" "}
-          </button>{" "}
-        </div>{" "}
+            Continue
+          </button>
+        </div>
       </div>
       <div className={`${styles.quiz_box} ${quizBoxThere}`}>
         <header>
-          <div className={styles.title}> Awesome Quiz Application </div>{" "}
+          <div className={styles.title}> Awesome Quiz Application </div>
           <div className={styles.timer}>
-            <div className={styles.time_left_txt}> Time Left </div>{" "}
+            <div className={styles.time_left_txt}> Time Left </div>
             <div className={styles.timer_sec}>
-              {" "}
-              {curTime[0]}:{curTime[1]}{" "}
-            </div>{" "}
-          </div>{" "}
-          <div className={styles.time_line}> </div>{" "}
-        </header>{" "}
+              {curTime[0]}:{curTime[1]}
+            </div>
+          </div>
+          <div className={styles.time_line}> </div>
+        </header>
 
         <section className={styles.section}>
-        {/* <MultipleAnswerQuestions question={question} answers={answers} setUserAnswer={setUserAnswer}/> */}
-        <SingleAns question={question} answers={answers} setUserAnswer={setUserAnswer} />
-        </section>{" "}
+          {/* <MultipleAnswerQuestions question={question} answers={answers} setUserAnswer={setUserAnswer}/> */}
+          <SingleAns
+            question={question}
+            answers={answers}
+            setUserAnswer={setUserAnswer}
+          />
+        </section>
 
         <footer>
           <div className={styles.total_que}>
@@ -188,39 +220,43 @@ function Questions(props) {
                   padding: "0 5px",
                 }}
               >
-                {" "}
-                {curQuestionIndex}{" "}
-              </p>{" "}
+                {curQuestionIndex}
+              </p>
               of
               <p
                 style={{
                   paddingLeft: "0px",
                 }}
               >
-                {" "}
-                {questionsLength}{" "}
-              </p>{" "}
-              Questions{" "}
-            </span>{" "}
-          </div>{" "}
-          <button className={styles.next_btn} onClick={()=>{submitAnswer()}}> Next Question </button>{" "}
-        </footer>{" "}
+                {questionsLength}
+              </p>
+              Questions
+            </span>
+          </div>
+          <button
+            className={styles.next_btn}
+            onClick={() => {
+              submitAnswer();
+            }}
+          >
+            {" "}
+            Next Question{" "}
+          </button>
+        </footer>
       </div>
       <div className={styles.result_box}>
-        {" "}
         {/* <div className={styles.icon}>
-                      <i className={styles.fas fa_crown}></i>
-                  </div> */}{" "}
+          <i className={styles.fas fa_crown}></i>
+        </div> */}
         <div className={styles.complete_text}>
-          {" "}
-          {"You've completed the Quiz!"}{" "}
-        </div>{" "}
-        <div className={styles.score_text}> </div>{" "}
+          {"You've completed the Quiz!"}
+        </div>
+        <div className={styles.score_text}> </div>
         <div className={styles.buttons}>
-          <button className={styles.restart}> Replay Quiz </button>{" "}
-          <button className={styles.quit}> Quit Quiz </button>{" "}
-        </div>{" "}
-      </div>{" "}
+          <button className={styles.restart}> Replay Quiz </button>
+          <button className={styles.quit}> Quit Quiz </button>
+        </div>
+      </div>
     </div>
   );
 }
