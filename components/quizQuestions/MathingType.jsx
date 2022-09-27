@@ -7,7 +7,7 @@ const LineTo = dynamic(() => import("react-lineto"), {
   ssr: false,
 });
 
-function QuestionsMatch(props) {
+function MatchingType(props) {
   const [question, setQuestion] = useState(["xyz", "abc", "def", "hef"]);
   const [answers, setAnswers] = useState(["gufguef", "yegfue", "fuefu", "ueu"]);
   const [userAnswer, setUserAnswer] = useState([]);
@@ -230,6 +230,7 @@ function QuestionsMatch(props) {
           {testArray.map((i) => {
             return (
               <LineTo
+                key={i}
                 from={styles[`match${userQuestion[i]}`]}
                 to={styles[`option${userAnswer[i]}`]}
                 zIndex={5}
@@ -242,4 +243,4 @@ function QuestionsMatch(props) {
   );
 }
 
-export default QuestionsMatch;
+export default MatchingType;

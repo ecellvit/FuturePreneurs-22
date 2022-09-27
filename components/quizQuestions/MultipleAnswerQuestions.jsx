@@ -6,9 +6,7 @@ const MultipleAnswerQuestions = ({ question, answers, setUserAnswer }) => {
   const [multiAns, setMultiAns] = useState([]);
   const addOrRemove = (id) => {
     const newMultiAns = [...multiAns];
-    // console.log(newMultiAns);
     const index = newMultiAns.indexOf(id);
-    // console.log(index);
     if (index === -1) {
       newMultiAns.push(id);
     } else {
