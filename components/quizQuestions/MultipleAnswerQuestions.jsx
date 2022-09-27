@@ -21,29 +21,18 @@ const MultipleAnswerQuestions = ({ question, answers, setUserAnswer }) => {
   return (
     <>
       <div className={styles.que_text}>
-        <span> {question} </span>{" "}
-      </div>{" "}
+        <span> {question} </span>
+      </div>
       <div className={styles.option_list}>
-        <label className={styles.option}>
-          <span>{answers[0]}</span>{" "}
-          <input type="checkbox" onClick={() => addOrRemove(0)} />
-        </label>
-
-        <label className={styles.option}>
-          <span>{answers[1]}</span>{" "}
-          <input type="checkbox" onClick={() => addOrRemove(1)} />
-        </label>
-
-        <label className={styles.option}>
-          <span>{answers[2]}</span>{" "}
-          <input type="checkbox" onClick={() => addOrRemove(2)} />
-        </label>
-
-        <label className={styles.option}>
-          <span>{answers[3]}</span>{" "}
-          <input type="checkbox" onClick={() => addOrRemove(3)} />
-        </label>
-      </div>{" "}
+        {answers.map((val, ind)=>{
+          return (
+            <label className={styles.option} key={ind}>
+              <span>{val}</span>
+              <input type="checkbox" onClick={() => addOrRemove(ind)} />
+            </label>
+          )
+        })}
+      </div>
     </>
   );
 };

@@ -7,7 +7,7 @@ const SingleAns = ({ question, answers, setUserAnswer }) => {
   
   const ansSelect = (ind) => {
     setAns(ind);
-    setUserAnswer(ind);
+    setUserAnswer([ind]);
   };
 
   return (
@@ -16,38 +16,16 @@ const SingleAns = ({ question, answers, setUserAnswer }) => {
         <span> {question} </span>
       </div>
       <div className={styles.option_list}>
-        <div
-          onClick={() => {
-            ansSelect(0);
-          }}
-          className={styles.option}
-        >
-          <span> {answers?answers[0]:0} </span>
-        </div>
-        <div
-          onClick={() => {
-            ansSelect(1);
-          }}
-          className={styles.option}
-        >
-          <span> {answers?answers[1]:1} </span>
-        </div>
-        <div
-          onClick={() => {
-            ansSelect(2);
-          }}
-          className={styles.option}
-        >
-          <span> {answers?answers[2]:2} </span>
-        </div>
-        <div
-          onClick={() => {
-            ansSelect(3);
-          }}
-          className={styles.option}
-        >
-          <span> {answers?answers[3]:3} </span>
-        </div>
+        {answers.map((val, ind)=>{
+          return(<div onClick={() => {
+              ansSelect(3);
+            }}
+            className={styles.option}
+            key={ind}
+          >
+            <span> {answers?answers[ind]:ind} </span>
+          </div>)
+        })}
       </div>
     </>
   );

@@ -26,8 +26,7 @@ function Questions(props) {
 
   const TEAM_ID = myCtx.teamId;
 
-  const questionsLength = 5;
-  const curQuestionIndex = 1;
+  const MAX_QUESTIONS = 26;
 
   function getNextQuestion() {
     fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/team/quiz/${TEAM_ID}`, {
@@ -41,13 +40,17 @@ function Questions(props) {
         return response.json();
       })
       .then((data) => {
-        if (data.message == "Maximum Questions capacity reached") {
-        } else if (data.message == "get question successfull") {
+        if (data.message == "Time Limit Reached") {
+          console.log("Time Limit Reached")
+        } else if (data.message == "Maximum Questions Reached") {
+          console.log("Maximum Questions Reached")
+        } else {
+          console.log(data);
           setQuestion(data.question);
           setAnswers(data.options);
           setQuestionType(data.questionType);
           setSetNum(data.setNum);
-          setQuestionNum(data.questoinNum);
+          setQuestionNum(data.questionNum);
         }
       })
       .catch((err) => {});
@@ -62,12 +65,11 @@ function Questions(props) {
     if (questionType === 5) {
       respBody["descriptiveAnswer"] = userAnswer;
     } else {
-      respBody["AnswerIdxs"] = userAnswer;
+      respBody["answerIdxs"] = userAnswer;
     }
 
-    fetch(`${process.env.NEXT_PUBLIC_SERVER}api/team/quiz/${TEAM_ID}`, {
+    fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/team/quiz/${TEAM_ID}`, {
       method: "POST",
-      // cors:'no-cors',
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${session.accessTokenBackend}`,
@@ -80,6 +82,12 @@ function Questions(props) {
       })
       .then((data) => {
         console.log(data);
+        if (data.message==="Time Limit Reached") {
+          console.log("time exceeded")
+        } else if (data.message==="Submitted Answer Successfully"){
+          setUserAnswer([]);
+          getNextQuestion();
+        }
       })
       .catch((err) => {});
   }
@@ -195,40 +203,49 @@ function Questions(props) {
         </header>
 
         <section className={styles.section}>
-          {/* <MultipleAnswerQuestions question={question} answers={answers} setUserAnswer={setUserAnswer}/> */}
-          <SingleAns
+          {questionType==0 && <SingleAns
             question={question}
             answers={answers}
             setUserAnswer={setUserAnswer}
-          />
+          />}
+          {questionType==1 && <MultipleAnswerQuestions
+            question={question}
+            answers={answers}
+            setUserAnswer={setUserAnswer}
+          />}
+          {questionType==2 && <SingleAns
+            question={question}
+            answers={answers}
+            setUserAnswer={setUserAnswer}
+          />}
+          {questionType==3 && <SingleAns
+            question={question}
+            answers={answers}
+            setUserAnswer={setUserAnswer}
+          />}
+          {questionType==4 && <SingleAns
+            question={question}
+            answers={answers}
+            setUserAnswer={setUserAnswer}
+          />}
         </section>
 
         <footer>
           <div className={styles.total_que}>
-            <span
-              style={{
+            <span style={{
                 display: "flex",
                 userSelect: "none",
                 alignItems: "center",
-              }}
-            >
-              <p
-                style={{
+              }}>
+              <p style={{
                   fontWeight: "500",
                   padding: "0 5px",
                 }}
-              >
-                {curQuestionIndex}
-              </p>
-              of
-              <p
-                style={{
+              > {questionNum}</p> of
+              <p style={{
                   paddingLeft: "0px",
-                }}
-              >
-                {questionsLength}
-              </p>
-              Questions
+                }}> {MAX_QUESTIONS}
+              </p> Questions
             </span>
           </div>
           <button
