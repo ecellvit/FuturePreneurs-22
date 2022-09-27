@@ -1,0 +1,23 @@
+.container{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+
+.question{
+    font-size:1.5rem;
+    margin-bottom:1rem;
+}
+
+/* .inputBox{
+    height:80rem;
+    width:40rem;
+} */
+
+
+.inputContainer{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
