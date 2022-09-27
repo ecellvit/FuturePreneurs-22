@@ -13,8 +13,8 @@ const SingleAns = ({ question, answers, setUserAnswer }) => {
   return (
     <>
       <div className={styles.que_text}>
-        <span> {question} </span>{" "}
-      </div>{" "}
+        <span> {question} </span>
+      </div>
       <div className={styles.option_list}>
         <div
           onClick={() => {
@@ -22,33 +22,33 @@ const SingleAns = ({ question, answers, setUserAnswer }) => {
           }}
           className={styles.option}
         >
-          <span> {answers[0]} </span>{" "}
-        </div>{" "}
+          <span> {answers?answers[0]:0} </span>
+        </div>
         <div
           onClick={() => {
             ansSelect(1);
           }}
           className={styles.option}
         >
-          <span> {answers[1]} </span>{" "}
-        </div>{" "}
+          <span> {answers?answers[1]:1} </span>
+        </div>
         <div
           onClick={() => {
             ansSelect(2);
           }}
           className={styles.option}
         >
-          <span> {answers[2]} </span>{" "}
-        </div>{" "}
+          <span> {answers?answers[2]:2} </span>
+        </div>
         <div
           onClick={() => {
             ansSelect(3);
           }}
           className={styles.option}
         >
-          <span> {answers[3]} </span>{" "}
-        </div>{" "}
-      </div>{" "}
+          <span> {answers?answers[3]:3} </span>
+        </div>
+      </div>
     </>
   );
 };

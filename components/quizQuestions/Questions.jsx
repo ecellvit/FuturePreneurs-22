@@ -44,7 +44,7 @@ function Questions(props) {
         if (data.message == "Maximum Questions capacity reached") {
         } else if (data.message == "get question successfull") {
           setQuestion(data.question);
-          setAnswers(data.answers);
+          setAnswers(data.options);
           setQuestionType(data.questionType);
           setSetNum(data.setNum);
           setQuestionNum(data.questoinNum);
@@ -85,7 +85,6 @@ function Questions(props) {
   }
 
   function startQuiz() {
-    console.log("starting");
     fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/team/quiz/${TEAM_ID}`, {
       headers: {
         "Content-Type": "application/json",
@@ -97,13 +96,12 @@ function Questions(props) {
         return response.json();
       })
       .then((data) => {
-        console.log(data);
-        if (data.message == "Maximum Questions capacity reached") {
-          console.log("max capacity reached")
-        } else if (data.message == "get question successfull") {
+        if (data.message == "Time Limit Reached") {
+          console.log("Time limit reached")
+        } else {
           console.log(data);
           setQuestion(data.question);
-          setAnswers(data.answers);
+          setAnswers(data.options);
           setQuestionType(data.questionType);
           setSetNum(data.setNum);
           setQuestionNum(data.questionNum);
