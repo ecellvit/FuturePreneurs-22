@@ -2,6 +2,8 @@ import { useSession } from "next-auth/react";
 import React, { useContext, useEffect, useState } from "react";
 import myContext from "../../store/myContext";
 import styles from "../../styles/Questions.module.css";
+import DescriptiveQuestions from "./DescriptiveQuestions";
+import MatchingType from "./MathingType";
 import MultipleAnswerQuestions from "./MultipleAnswerQuestions";
 import SingleAns from "./SingleAns";
 
@@ -13,6 +15,9 @@ function Questions(props) {
   const [questionNum, setQuestionNum] = useState();
   const [questionType, setQuestionType] = useState();
 
+  const [indexNum, setIndexNum] = useState(1);
+  const [quizDone, setQuizDone] = useState(false);
+
   const [infoBoxThere, setInfoBoxThere] = useState();
   const [quizBoxThere, setQuizBoxThere] = useState();
 
@@ -22,13 +27,12 @@ function Questions(props) {
   const myCtx = useContext(myContext);
   const { data: session } = useSession();
 
-  // error 412 means maximum questions reached
-
   const TEAM_ID = myCtx.teamId;
 
   const MAX_QUESTIONS = 26;
 
   function getNextQuestion() {
+    setIndexNum(prev=>prev+1)
     fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/team/quiz/${TEAM_ID}`, {
       headers: {
         "Content-Type": "application/json",
@@ -42,10 +46,12 @@ function Questions(props) {
       .then((data) => {
         if (data.message == "Time Limit Reached") {
           console.log("Time Limit Reached")
-        } else if (data.message == "Maximum Questions Reached") {
-          console.log("Maximum Questions Reached")
+          setQuizDone("Time Limit Reached")
+        } else if (data.message == "Maximum Questions capacity reached") {
+          console.log("Maximum Questions capacity reached")
+          setQuizDone("Maximum Questions capacity reached")
         } else {
-          console.log(data);
+          console.log(data.questionType, data);
           setQuestion(data.question);
           setAnswers(data.options);
           setQuestionType(data.questionType);
@@ -58,6 +64,7 @@ function Questions(props) {
 
   function submitAnswer() {
     console.log(userAnswer);
+    console.log(question);
     let respBody = {
       setNum: setNum,
       questionNum: questionNum,
@@ -105,7 +112,11 @@ function Questions(props) {
       })
       .then((data) => {
         if (data.message == "Time Limit Reached") {
-          console.log("Time limit reached")
+          console.log("Time Limit Reached")
+          setQuizDone("Time Limit Reached")
+        } else if (data.message == "Maximum Questions capacity reached") {
+          console.log("Maximum Questions capacity reached")
+          setQuizDone("Maximum Questions capacity reached")
         } else {
           console.log(data);
           setQuestion(data.question);
@@ -203,31 +214,38 @@ function Questions(props) {
         </header>
 
         <section className={styles.section}>
-          {questionType==0 && <SingleAns
-            question={question}
-            answers={answers}
-            setUserAnswer={setUserAnswer}
-          />}
-          {questionType==1 && <MultipleAnswerQuestions
-            question={question}
-            answers={answers}
-            setUserAnswer={setUserAnswer}
-          />}
-          {questionType==2 && <SingleAns
-            question={question}
-            answers={answers}
-            setUserAnswer={setUserAnswer}
-          />}
-          {questionType==3 && <SingleAns
-            question={question}
-            answers={answers}
-            setUserAnswer={setUserAnswer}
-          />}
-          {questionType==4 && <SingleAns
-            question={question}
-            answers={answers}
-            setUserAnswer={setUserAnswer}
-          />}
+          {quizDone ? quizDone : <>
+            {questionType==0 && <SingleAns
+              question={question}
+              answers={answers}
+              setUserAnswer={setUserAnswer}
+            />}
+            {questionType==1 && <MultipleAnswerQuestions
+              question={question}
+              answers={answers}
+              setUserAnswer={setUserAnswer}
+            />}
+            {questionType==2 && <MatchingType
+              question={question}
+              answers={answers}
+              setUserAnswer={setUserAnswer}
+            />}
+            {questionType==3 && <SingleAns
+              question={question}
+              answers={answers}
+              setUserAnswer={setUserAnswer}
+            />}
+            {questionType==4 && <MultipleAnswerQuestions
+              question={question}
+              answers={answers}
+              setUserAnswer={setUserAnswer}
+            />}
+            {questionType==5 && <DescriptiveQuestions
+              question={question}
+              answers={answers}
+              setUserAnswer={setUserAnswer}
+            />}
+          </>}
         </section>
 
         <footer>
@@ -241,7 +259,7 @@ function Questions(props) {
                   fontWeight: "500",
                   padding: "0 5px",
                 }}
-              > {questionNum}</p> of
+              > {indexNum}</p> of
               <p style={{
                   paddingLeft: "0px",
                 }}> {MAX_QUESTIONS}
