@@ -279,6 +279,25 @@
     transition: scale(1);
 }
 
+.next_btn_submitting{
+  height: 40px;
+  padding: 0 13px;
+  font-size: 18px;
+  font-weight: 400;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  color: #fff;
+  border-radius: 5px;
+  background: #bc304b;
+  border: 1px solid #007bff;
+  line-height: 10px;
+  opacity: 1;
+  pointer-events: auto;
+  transform: scale(0.95);
+  transition: scale(1);
+}
+
 .next_btn:hover{
     background: #0263ca;
 }
