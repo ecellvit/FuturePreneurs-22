@@ -2,6 +2,7 @@ import { useSession } from "next-auth/react";
 import React, { useContext, useEffect, useState } from "react";
 import myContext from "../../store/myContext";
 import styles from "../../styles/Questions.module.css";
+import Loading from "../Loading";
 import DescriptiveQuestions from "./DescriptiveQuestions";
 import MatchingType from "./MathingType";
 import MultipleAnswerQuestions from "./MultipleAnswerQuestions";
@@ -10,7 +11,7 @@ import SingleAns from "./SingleAns";
 function Questions(props) {
   const [question, setQuestion] = useState("1+1?");
   const [answers, setAnswers] = useState(["0", "2", "Me", "Who knows?"]);
-  const [userAnswer, setUserAnswer] = useState();
+  const [userAnswer, setUserAnswer] = useState([]);
   const [setNum, setSetNum] = useState();
   const [questionNum, setQuestionNum] = useState();
   const [questionType, setQuestionType] = useState();
@@ -24,12 +25,16 @@ function Questions(props) {
   const [endTime, setEndTime] = useState();
   const [curTime, setCurTime] = useState([]);
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const myCtx = useContext(myContext);
   const { data: session } = useSession();
 
   const TEAM_ID = myCtx.teamId;
 
   const MAX_QUESTIONS = 26;
+
+  let Timer;
 
   function getNextQuestion() {
     setIndexNum(prev=>prev+1)
@@ -58,6 +63,7 @@ function Questions(props) {
           setSetNum(data.setNum);
           setQuestionNum(data.questionNum);
         }
+        setIsLoading(false);
       })
       .catch((err) => {});
   }
@@ -74,7 +80,6 @@ function Questions(props) {
     } else {
       respBody["answerIdxs"] = userAnswer;
     }
-
     fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/team/quiz/${TEAM_ID}`, {
       method: "POST",
       headers: {
@@ -88,7 +93,7 @@ function Questions(props) {
         return response.json();
       })
       .then((data) => {
-        console.log(data);
+        console.log(data,"dfddfddfdf");
         if (data.message==="Time Limit Reached") {
           console.log("time exceeded")
         } else if (data.message==="Submitted Answer Successfully"){
@@ -124,7 +129,7 @@ function Questions(props) {
           setQuestionType(data.questionType);
           setSetNum(data.setNum);
           setQuestionNum(data.questionNum);
-          const Timer = setInterval(() => {
+          Timer = setInterval(() => {
             const now = Date.now();
             const end = Date.parse(data.endTime);
             let minutes = Math.floor((end - now) / 1000 / 60);
@@ -213,40 +218,43 @@ function Questions(props) {
           <div className={styles.time_line}> </div>
         </header>
 
-        <section className={styles.section}>
-          {quizDone ? quizDone : <>
-            {questionType==0 && <SingleAns
-              question={question}
-              answers={answers}
-              setUserAnswer={setUserAnswer}
-            />}
-            {questionType==1 && <MultipleAnswerQuestions
-              question={question}
-              answers={answers}
-              setUserAnswer={setUserAnswer}
-            />}
-            {questionType==2 && <MatchingType
-              question={question}
-              answers={answers}
-              setUserAnswer={setUserAnswer}
-            />}
-            {questionType==3 && <SingleAns
-              question={question}
-              answers={answers}
-              setUserAnswer={setUserAnswer}
-            />}
-            {questionType==4 && <MultipleAnswerQuestions
-              question={question}
-              answers={answers}
-              setUserAnswer={setUserAnswer}
-            />}
-            {questionType==5 && <DescriptiveQuestions
-              question={question}
-              answers={answers}
-              setUserAnswer={setUserAnswer}
-            />}
-          </>}
-        </section>
+          <section className={styles.section}>
+            {isLoading ? <Loading/> :
+              <>
+            {quizDone ? quizDone : <>
+              {questionType==0 && <SingleAns
+                question={question}
+                answers={answers}
+                setUserAnswer={setUserAnswer}
+              />}
+              {questionType==1 && <MultipleAnswerQuestions
+                question={question}
+                answers={answers}
+                setUserAnswer={setUserAnswer}
+              />}
+              {questionType==2 && <MatchingType
+                question={question}
+                answers={answers}
+                setUserAnswer={setUserAnswer}
+              />}
+              {questionType==3 && <SingleAns
+                question={question}
+                answers={answers}
+                setUserAnswer={setUserAnswer}
+              />}
+              {questionType==4 && <MultipleAnswerQuestions
+                question={question}
+                answers={answers}
+                setUserAnswer={setUserAnswer}
+              />}
+              {questionType==5 && <DescriptiveQuestions
+                question={question}
+                answers={answers}
+                setUserAnswer={setUserAnswer}
+              />}
+            </>}
+              </>}
+          </section>
 
         <footer>
           <div className={styles.total_que}>
@@ -259,7 +267,7 @@ function Questions(props) {
                   fontWeight: "500",
                   padding: "0 5px",
                 }}
-              > {indexNum}</p> of
+              > {questionNum}</p> of
               <p style={{
                   paddingLeft: "0px",
                 }}> {MAX_QUESTIONS}
@@ -267,8 +275,10 @@ function Questions(props) {
             </span>
           </div>
           <button
-            className={styles.next_btn}
+            className={isLoading ? styles.next_btn_submitting : styles.next_btn}
+            disabled={isLoading}
             onClick={() => {
+              setIsLoading(true)
               submitAnswer();
             }}
           >
