@@ -14,7 +14,7 @@ const myContext = React.createContext({
 });
 
 export const MyContextProvidor = (props) => {
-  const [isLeader, setIsLeader] = useState(false);
+  const [isLeader, setIsLeader] = useState(true);
   const [notys, setNotys] = useState(0);
   const [teamId, setTeamId] = useState(
     typeof window !== 'undefined' ?
@@ -23,7 +23,7 @@ export const MyContextProvidor = (props) => {
   );
 
   useEffect(()=>{
-    console.log(teamId)
+    // console.log(teamId)
   }, [teamId])
 
 	// const {data:session} = useSession();
@@ -38,10 +38,11 @@ export const MyContextProvidor = (props) => {
     notyHandler: (num)=>{setNotys(num)},
     teamId: teamId,
     teamIdHandler: (id) => {
-      setTeamId(id)
-      (typeof window !== 'undefined') ?
-      localStorage.setItem('teamId', id) :
-      0
+      console.log(id)
+      if(typeof window !== 'undefined'){
+        setTeamId(id)
+        localStorage.setItem('teamId', id)
+      }
     },
   };
 
