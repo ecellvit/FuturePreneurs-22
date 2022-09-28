@@ -136,8 +136,10 @@ function MatchingType({ question, answers, setUserAnswer }) {
         console.log("Meow Meow");
 
         console.log(toSendAnswer);
+        setUserAnswer(toSendAnswer);
       } else {
         setToSendAnswer([]);
+        setUserAnswer(toSendAnswer);
       }
       // console.log(lengthy);
     }
