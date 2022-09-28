@@ -7,11 +7,27 @@ const LineTo = dynamic(() => import("react-lineto"), {
   ssr: false,
 });
 
-function MatchingType(props) {
-  const [question, setQuestion] = useState(["xyz", "abc", "def", "hef"]);
-  const [answers, setAnswers] = useState(["gufguef", "yegfue", "fuefu", "ueu"]);
-  const [userAnswer, setUserAnswer] = useState([]);
-  const [toSendAnswer, setToSendAnswer] = useState([0, 0, 0, 0]);
+function MatchingType({ question, answers, setUserAnswer }) {
+  // console.log(answers);
+  // const [question, setQuestion] = useState(["xyz", "abc", "def", "hef"]);
+  // const [answers, setAnswers] = useState(["gufguef", "yegfue", "fuefu", "ueu"]);
+  // const [counter, setCounter] = useState(0);
+  const [answerByUser, setAnswerByUser] = useState([]);
+  const [toSendAnswer, setToSendAnswer] = useState([]);
+  const ulStyle = {
+    width: "230px",
+    background: "aliceblue",
+    border: "1px solid #84c5fe",
+    borderRadius: "5px",
+    padding: "8px 15px",
+    fontSize: "17px",
+    marginBottom: "15px",
+    cursor: "pointer",
+    transition: "all 0.3s ease",
+    /* display: inline-flex; */
+    alignItems: "left",
+    justifyContent: "space-between",
+  };
   const [userQuestion, setUserQuestion] = useState([]);
   const [position, setPosition] = useState([]);
   const [lengthy, setLengthy] = useState();
@@ -31,9 +47,9 @@ function MatchingType(props) {
   const questionsLength = 5;
   const curQuestionIndex = 1;
   function handleQuestionClick(number) {
+    console.log("called");
     console.log(userQuestion.indexOf(number));
     if (userQuestion.indexOf(number) != -1) {
-      //console.log(position);
       HandleDoubleClick(userQuestion.indexOf(number));
     }
     setUserQuestion((prevUserQuestion) => {
@@ -42,39 +58,29 @@ function MatchingType(props) {
       }
       return prevUserQuestion;
     });
-    //console.log(userAnswer);
-    //console.log(userQuestion);
+    console.log(answerByUser);
+    console.log(userQuestion);
   }
 
   function handleAnswerClick(number) {
-    //console.log(userAnswer.indexOf(number));
-    if (userAnswer.indexOf(number) != -1) {
-      HandleDoubleClick(userAnswer.indexOf(number));
+    if (answerByUser.indexOf(number) != -1) {
+      HandleDoubleClick(answerByUser.indexOf(number));
     }
 
-    setUserAnswer((prevUserAnswer) => {
+    setAnswerByUser((prevUserAnswer) => {
       {
-        return [...userAnswer, number];
+        return [...answerByUser, number];
       }
       return prevUserAnswer;
     });
-    //console.log(userAnswer);
-    //console.log(userQuestion);
+    console.log(answerByUser);
+    console.log(userQuestion);
   }
 
   function HandleDoubleClick(positioner) {
-    // console.log(positioner);
-    // console.log(userQuestion);
-    // console.log(userAnswer);
-    // console.log(lengthy);
-    // console.log(testArray);
-    userAnswer.splice(positioner, 1);
+    answerByUser.splice(positioner, 1);
     userQuestion.splice(positioner, 1);
     testArray.pop();
-    // console.log(userQuestion);
-    // console.log(userAnswer);
-    // console.log(lengthy);
-    // console.log(testArray);
   }
 
   function ansSelect(ind) {
@@ -102,34 +108,49 @@ function MatchingType(props) {
 
   useEffect(() => {
     if (
-      userAnswer.length === userQuestion.length &&
-      userAnswer.length > 0 &&
+      answerByUser.length === userQuestion.length &&
+      answerByUser.length > 0 &&
       userQuestion.length > 0
     ) {
       setLengthy(userQuestion.length);
-      if (userAnswer.length === 4) {
-        position[0] = userQuestion.indexOf(0);
-        position[1] = userQuestion.indexOf(1);
-        position[2] = userQuestion.indexOf(2);
-        position[3] = userQuestion.indexOf(3);
-        toSendAnswer[position[0]] = userAnswer[position[0]];
-        toSendAnswer[position[1]] = userAnswer[position[1]];
-        toSendAnswer[position[2]] = userAnswer[position[2]];
-        toSendAnswer[position[3]] = userAnswer[position[3]];
+      if (answerByUser.length === question.length) {
+        setToSendAnswer([]);
+
+        for (let i = 0; i < question.length; i++) {
+          position[i] = userQuestion.indexOf(i);
+          setToSendAnswer((prevToSendAnswer) => {
+            {
+              return [...prevToSendAnswer, answerByUser[position[i]]];
+            }
+            // return prevToSendAnswer;
+          });
+        }
+        // position[0] = userQuestion.indexOf(0);
+        // position[1] = userQuestion.indexOf(1);
+        // position[2] = userQuestion.indexOf(2);
+        // position[3] = userQuestion.indexOf(3);
+        // toSendAnswer[position[0]] = answerByUser[position[0]];
+        // toSendAnswer[position[1]] = answerByUser[position[1]];
+        // toSendAnswer[position[2]] = answerByUser[position[2]];
+        // toSendAnswer[position[3]] = answerByUser[position[3]];
+        console.log("Meow Meow");
+
         console.log(toSendAnswer);
+      } else {
+        setToSendAnswer([]);
       }
       // console.log(lengthy);
     }
 
     // //console.log(length);
-    // //console.log(userAnswer);
+    // //console.log(answerByUser);
     // //console.log(userQuestion);
 
     if (lengthy != undefined && testArray.indexOf(lengthy - 1) === -1) {
       settestArray((prevArray) => [...prevArray, lengthy - 1]);
     }
     //console.log(testArray);
-  }, [userAnswer, userQuestion, lengthy]);
+  }, [answerByUser, userQuestion, lengthy]);
 
   function startQuiz() {
     fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/team/quiz/${TEAM_ID}`, {
@@ -172,7 +193,7 @@ function MatchingType(props) {
     <div>
       <section className={styles.section}>
         <div className={styles.match_list}>
-          <div
+          {/* <div
             className={styles.match0}
             onClick={() => {
               handleQuestionClick(0);
@@ -203,10 +224,37 @@ function MatchingType(props) {
             }}
           >
             <span> {question[3]} </span>{" "}
-          </div>{" "}
+          </div>{" "} */}
+          {question.map((ques) => {
+            // console.log(styles[`match${question.indexOf(ques)}`]);
+            return (
+              <div>
+                <div
+                  className={styles[`match${question.indexOf(ques)}`]}
+                  //style={ulStyle}
+                  onClick={() => {
+                    console.log("clicked");
+                    console.log(question.indexOf(ques));
+
+                    handleQuestionClick(question.indexOf(ques));
+                    console.log(userQuestion.indexOf(ques));
+                  }}
+                >
+                  <span>{ques}</span>
+                  <div
+                    className={
+                      styles[
+                        `dot${userQuestion.indexOf(question.indexOf(ques))}`
+                      ]
+                    }
+                  ></div>
+                </div>
+              </div>
+            );
+          })}
         </div>
         <div className={styles.option_list}>
-          <div
+          {/* <div
             onClick={() => {
               handleAnswerClick(0);
             }}
@@ -237,20 +285,28 @@ function MatchingType(props) {
             className={styles.option3}
           >
             <span> {answers[3]} </span>{" "}
-          </div>{" "}
-        </div>{" "}
-        <div className={styles.lineto}>
-          {testArray.map((i) => {
+          </div>{" "} */}
+          {answers.map((ans) => {
+            // console.log(styles[`option${answers.indexOf(ans)}`]);
             return (
-              <LineTo
-                key={i}
-                from={styles[`match${userQuestion[i]}`]}
-                to={styles[`option${userAnswer[i]}`]}
-                zIndex={5}
-              />
+              <div
+                className={styles[`option${answers.indexOf(ans)}`]}
+                //style={ulStyle}
+                onClick={() => {
+                  console.log("clicked");
+                  handleAnswerClick(answers.indexOf(ans));
+                }}
+              >
+                <span>{ans}</span>
+                <div
+                  className={
+                    styles[`dot${answerByUser.indexOf(answers.indexOf(ans))}`]
+                  }
+                ></div>
+              </div>
             );
           })}
-        </div>
+        </div>{" "}
       </section>{" "}
     </div>
   );

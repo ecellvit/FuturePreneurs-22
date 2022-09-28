@@ -16,6 +16,55 @@
     position: relative;
     z-index: 5;
 }
+.dot-1{
+    height: 25px;
+    width: 25px;
+    background-color: grey;
+    border-radius: 50%;
+    display: inline-flex;
+    position: absolute;
+    
+  }
+
+  .dot0 {
+    height: 25px;
+    width: 25px;
+    background-color: blue;
+    border-radius: 50%;
+    display: inline-flex;
+    position: absolute;
+    
+  }
+  .dot1 {
+    height: 25px;
+    width: 25px;
+    background-color: green;
+    border-radius: 50%;
+    display: inline-flex;
+    position: absolute;
+    
+  }
+  .dot2 {
+    height: 25px;
+    width: 25px;
+    background-color: red;
+    border-radius: 50%;
+    display: inline-flex;
+    position: absolute;
+    
+  }
+
+  .dot3 {
+    height: 25px;
+    width: 25px;
+    background-color: orange;
+    border-radius: 50%;
+    display: inline-flex;
+    position: absolute;
+    
+  }
+
+  
 
 .start_btn,
 .info_box,
@@ -196,7 +245,7 @@
     display: block;   
 }
 
-.section .option_list .option0,.option1,.option2,.option3{
+.section .option_list .option0,.option1,.option2,.option3,.option4,.option5,.option6,.option7{
     background: aliceblue;
     width: 230px;
     border: 1px solid #84c5fe;
@@ -211,6 +260,7 @@
     justify-content: space-between;
     
 }
+
 
 .section .match_list .match0,.match1,.match2,.match3{
     width: 230px;
