@@ -12,24 +12,23 @@
     color: #fff;
     background: #007bff;
 } */
-.lineto{
-    position: relative;
-    z-index: 5;
-}
+
 .dot-1{
     height: 25px;
     width: 25px;
-    background-color: grey;
+    background-color: #5E5B71;
     border-radius: 50%;
     display: inline-flex;
     position: absolute;
+    shape-outside: circle();
+    clip-path: circle();
     
   }
 
   .dot0 {
     height: 25px;
     width: 25px;
-    background-color: blue;
+    background-color: #130AE6;
     border-radius: 50%;
     display: inline-flex;
     position: absolute;
@@ -38,7 +37,7 @@
   .dot1 {
     height: 25px;
     width: 25px;
-    background-color: green;
+    background-color: #BF3EC3;
     border-radius: 50%;
     display: inline-flex;
     position: absolute;
@@ -47,7 +46,7 @@
   .dot2 {
     height: 25px;
     width: 25px;
-    background-color: red;
+    background-color: #E69951;
     border-radius: 50%;
     display: inline-flex;
     position: absolute;
@@ -57,13 +56,34 @@
   .dot3 {
     height: 25px;
     width: 25px;
-    background-color: orange;
+    background-color: #BC304B;
     border-radius: 50%;
     display: inline-flex;
     position: absolute;
     
+    
   }
 
+  .quesans{
+    font-size: medium;
+    padding-right: 30px;
+    padding-bottom: 30px;
+    
+    
+  }
+  
+  .quest{
+    margin-right: 5px;
+    text-align: center;
+    word-wrap: break-word;
+    
+  }
+
+  .answ{
+    margin-right: 10px;
+    text-align: center;
+
+  }
   
 
 .start_btn,

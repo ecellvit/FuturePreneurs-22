@@ -63,18 +63,23 @@ function MatchingType({ question, answers, setUserAnswer }) {
   }
 
   function handleAnswerClick(number) {
-    if (answerByUser.indexOf(number) != -1) {
-      HandleDoubleClick(answerByUser.indexOf(number));
-    }
-
-    setAnswerByUser((prevUserAnswer) => {
-      {
-        return [...answerByUser, number];
+    if (answerByUser.length == question.length) {
+      setAnswerByUser([number]);
+      setUserQuestion([]);
+    } else {
+      if (answerByUser.indexOf(number) != -1) {
+        HandleDoubleClick(answerByUser.indexOf(number));
       }
-      return prevUserAnswer;
-    });
-    console.log(answerByUser);
-    console.log(userQuestion);
+
+      setAnswerByUser((prevUserAnswer) => {
+        {
+          return [...answerByUser, number];
+        }
+        return prevUserAnswer;
+      });
+      console.log(answerByUser);
+      console.log(userQuestion);
+    }
   }
 
   function HandleDoubleClick(positioner) {
@@ -125,14 +130,7 @@ function MatchingType({ question, answers, setUserAnswer }) {
             // return prevToSendAnswer;
           });
         }
-        // position[0] = userQuestion.indexOf(0);
-        // position[1] = userQuestion.indexOf(1);
-        // position[2] = userQuestion.indexOf(2);
-        // position[3] = userQuestion.indexOf(3);
-        // toSendAnswer[position[0]] = answerByUser[position[0]];
-        // toSendAnswer[position[1]] = answerByUser[position[1]];
-        // toSendAnswer[position[2]] = answerByUser[position[2]];
-        // toSendAnswer[position[3]] = answerByUser[position[3]];
+
         console.log("Meow Meow");
 
         console.log(toSendAnswer);
@@ -232,7 +230,7 @@ function MatchingType({ question, answers, setUserAnswer }) {
             return (
               <div>
                 <div
-                  className={styles[`match${question.indexOf(ques)}`]}
+                  className={styles.quesans}
                   //style={ulStyle}
                   onClick={() => {
                     console.log("clicked");
@@ -242,7 +240,7 @@ function MatchingType({ question, answers, setUserAnswer }) {
                     console.log(userQuestion.indexOf(ques));
                   }}
                 >
-                  <span>{ques}</span>
+                  <span className={styles.quest}>{ques}</span>
                   <div
                     className={
                       styles[
@@ -292,14 +290,14 @@ function MatchingType({ question, answers, setUserAnswer }) {
             // console.log(styles[`option${answers.indexOf(ans)}`]);
             return (
               <div
-                className={styles[`option${answers.indexOf(ans)}`]}
+                className={styles.quesans}
                 //style={ulStyle}
                 onClick={() => {
                   console.log("clicked");
                   handleAnswerClick(answers.indexOf(ans));
                 }}
               >
-                <span>{ans}</span>
+                <span className={styles.answ}>{ans}</span>
                 <div
                   className={
                     styles[`dot${answerByUser.indexOf(answers.indexOf(ans))}`]
