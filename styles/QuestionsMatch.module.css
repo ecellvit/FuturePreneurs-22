@@ -76,12 +76,15 @@
     margin-right: 5px;
     text-align: center;
     word-wrap: break-word;
+    color: white;
     
   }
 
   .answ{
     margin-right: 10px;
     text-align: center;
+    color: white;
+
 
   }
   
@@ -248,7 +251,7 @@
 
 .section{
     padding: -10px 30px 20px 30px;
-    background: #fff;
+    background: #13111a;
     display: inline-flex;
 
 
