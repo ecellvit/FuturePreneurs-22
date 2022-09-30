@@ -54,7 +54,7 @@
 }
 
 .round_instruction {
-  margin-bottom: 0px;
+  margin-bottom: 100px;
   padding-bottom: 0px;
 }
 
@@ -78,7 +78,7 @@
 
 .boy {
   overflow: hidden;
-  padding-top: 60px;
+  /* padding-top: 60px; */
   background-color: #070f0f;
   background-image: url("/gradi.svg");
   background-position: 0px 0px;
@@ -112,19 +112,16 @@
   position: absolute;
   left: auto;
   top: auto;
-  right: -14%;
+  right: -13%;
   bottom: 0px;
   overflow: hidden;
-  padding-right: 40px;
-  padding-bottom: 40px;
+  cursor: pointer;
 }
 
 .round_page {
   display: flex;
   min-height: 100vh;
   margin-left: 0px;
-  padding-left: 200px;
-
   justify-content: space-around;
 
   align-items: center;
@@ -145,7 +142,7 @@
 
 .instructions_div {
   position: relative;
-
+  border-color: #f5f5f5;
   display: flex;
   width: 55vw;
   min-width: 70vw;
@@ -161,7 +158,6 @@
   align-items: flex-start;
   border-style: solid;
   border-width: 1px;
-  border-color: #fff;
   border-radius: 19px;
   background-color: #13111a;
 }
@@ -192,7 +188,8 @@
   min-height: 60px;
   margin-bottom: 20px;
   padding: 10px 20px;
-  justify-content: space-around;
+  /* justify-content: space-around; */
+  justify-content: flex-start;
   align-items: center;
   border-style: solid;
   border-width: 1px;
@@ -219,10 +216,12 @@
 
 .text_block_3 {
   color: #fff;
+  margin-left: 35px;
 }
 
-.bold_text {
-  padding-left: 20px;
+.text_block_ind {
+  position: inherit;
+  right: 90%;
 }
 
 .bottom {
@@ -393,7 +392,6 @@
     align-items: flex-start;
     border-style: solid;
     border-width: 3px;
-    border-color: #fee;
     border-radius: 19px;
     background-color: #13111a;
   }
