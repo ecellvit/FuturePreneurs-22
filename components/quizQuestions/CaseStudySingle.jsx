@@ -2,18 +2,21 @@ import React from "react";
 import styles from "../../styles/Img.module.css";
 import { useEffect, useState } from "react";
 
-const SingleAns = ({ question, answers, setUserAnswer }) => {
+const CaseStudy = ({ question, answers, setUserAnswer, text }) => {
   const [ans, setAns] = useState([]);
   const [selected, setSelected] = useState();
-
   const ansSelect = (ind) => {
     setAns(ind);
     setUserAnswer([ind]);
     setSelected(ind);
   };
+
   return (
     <>
       <div className={styles.round_instruction}>
+        <div className={styles.para}>
+          <span> {text} </span>
+        </div>
         <div className={styles.para}>{question}</div>
         {/* Answers */}
         <div>
@@ -42,4 +45,4 @@ const SingleAns = ({ question, answers, setUserAnswer }) => {
   );
 };
 
-export default SingleAns;
+export default CaseStudy;

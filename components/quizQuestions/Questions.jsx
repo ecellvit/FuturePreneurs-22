@@ -1,9 +1,12 @@
 import { useSession } from "next-auth/react";
 import React, { useContext, useEffect, useState } from "react";
 import myContext from "../../store/myContext";
-import styles from "../../styles/Questions.module.css";
+import styles from "../../styles/Img.module.css";
 import Loading from "../Loading";
+import CaseStudyMulti from "./CaseStudyMulti";
+import CaseStudy from "./CaseStudySingle";
 import DescriptiveQuestions from "./DescriptiveQuestions";
+import MainQuiz from "./MainQuiz";
 import MatchingType from "./MathingType";
 import MultipleAnswerQuestions from "./MultipleAnswerQuestions";
 import SingleAns from "./SingleAns";
@@ -15,7 +18,7 @@ function Questions(props) {
   const [setNum, setSetNum] = useState();
   const [questionNum, setQuestionNum] = useState();
   const [questionType, setQuestionType] = useState();
-
+  const [quizStart, setQuizStart] = useState(false);
   const [indexNum, setIndexNum] = useState(1);
   const [quizDone, setQuizDone] = useState(false);
 
@@ -26,6 +29,7 @@ function Questions(props) {
   const [curTime, setCurTime] = useState([]);
 
   const [isLoading, setIsLoading] = useState(false);
+  const [descText, setDescText] = useState();
 
   const myCtx = useContext(myContext);
   const { data: session } = useSession();
@@ -37,7 +41,7 @@ function Questions(props) {
   let Timer;
 
   function getNextQuestion() {
-    setIndexNum(prev=>prev+1)
+    setIndexNum((prev) => prev + 1);
     fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/team/quiz/${TEAM_ID}`, {
       headers: {
         "Content-Type": "application/json",
@@ -50,11 +54,11 @@ function Questions(props) {
       })
       .then((data) => {
         if (data.message == "Time Limit Reached") {
-          console.log("Time Limit Reached")
-          setQuizDone("Time Limit Reached")
+          console.log("Time Limit Reached");
+          setQuizDone("Time Limit Reached");
         } else if (data.message == "Maximum Questions capacity reached") {
-          console.log("Maximum Questions capacity reached")
-          setQuizDone("Maximum Questions capacity reached")
+          setQuizDone("Maximum Questions capacity reached");
+          router.push("/dashboard");
         } else {
           console.log(data.questionType, data);
           setQuestion(data.question);
@@ -62,6 +66,11 @@ function Questions(props) {
           setQuestionType(data.questionType);
           setSetNum(data.setNum);
           setQuestionNum(data.questionNum);
+        }
+        if (data.questionNum === 21) {
+          setDescText(data.caseStudy);
+        } else if (data.questionNum === 26) {
+          setDescText(null);
         }
         setIsLoading(false);
       })
@@ -93,10 +102,10 @@ function Questions(props) {
         return response.json();
       })
       .then((data) => {
-        console.log(data,"dfddfddfdf");
-        if (data.message==="Time Limit Reached") {
-          console.log("time exceeded")
-        } else if (data.message==="Submitted Answer Successfully"){
+        console.log(data, "dfddfddfdf");
+        if (data.message === "Time Limit Reached") {
+          console.log("time exceeded");
+        } else if (data.message === "Submitted Answer Successfully") {
           setUserAnswer([]);
           getNextQuestion();
         }
@@ -116,12 +125,13 @@ function Questions(props) {
         return response.json();
       })
       .then((data) => {
+        setQuizStart(true);
         if (data.message == "Time Limit Reached") {
-          console.log("Time Limit Reached")
-          setQuizDone("Time Limit Reached")
+          console.log("Time Limit Reached");
+          setQuizDone("Time Limit Reached");
         } else if (data.message == "Maximum Questions capacity reached") {
-          console.log("Maximum Questions capacity reached")
-          setQuizDone("Maximum Questions capacity reached")
+          console.log("Maximum Questions capacity reached");
+          setQuizDone("Maximum Questions capacity reached");
         } else {
           console.log(data);
           setQuestion(data.question);
@@ -129,6 +139,7 @@ function Questions(props) {
           setQuestionType(data.questionType);
           setSetNum(data.setNum);
           setQuestionNum(data.questionNum);
+
           Timer = setInterval(() => {
             const now = Date.now();
             const end = Date.parse(data.endTime);
@@ -154,143 +165,132 @@ function Questions(props) {
   }, []);
 
   return (
-    <div className={styles.quizContainer}>
-      <div className={styles.start_btn}>
-        <button
-          onClick={() => {
-            setInfoBoxThere(styles.activeInfo);
-          }}
-        >
-          Start Quiz
-        </button>
-      </div>
-      <div className={`${styles.info_box} ${infoBoxThere}`}>
-        <div className={styles.info_title}>
-          <span> Some Rules of this Quiz </span>
-        </div>
-        <div className={styles.info_list}>
-          <div className={styles.info}>
-            {"1. You will have only 15 seconds per each question."}
-          </div>
-          <div className={styles.info}>
-            {"2. Once you select your answer, it can't be undone."}
-          </div>
-          <div className={styles.info}>
-            {"3. You can't select any option once time goes off."}
-          </div>
-          <div className={styles.info}>
-            {"4. You can't exit from the Quiz while you're playing."}
-          </div>
-          <div className={styles.info}>
-            {"5. You'll get points on the basis of your correct answers."}
-          </div>
-        </div>
-        <div className={styles.buttons}>
-          <button
-            onClick={() => {
-              setInfoBoxThere();
-            }}
-            className={styles.quit}
-          >
-            Exit Quiz
-          </button>
-          <button
-            onClick={() => {
-              startQuiz();
-              setInfoBoxThere();
-              setQuizBoxThere(styles.activeQuiz);
-            }}
-            className={styles.restart}
-          >
-            Continue
-          </button>
-        </div>
-      </div>
-      <div className={`${styles.quiz_box} ${quizBoxThere}`}>
-        <header>
-          <div className={styles.title}> Awesome Quiz Application </div>
-          <div className={styles.timer}>
-            <div className={styles.time_left_txt}> Time Left </div>
-            <div className={styles.timer_sec}>
-              {curTime[0]}:{curTime[1]}
-            </div>
-          </div>
-          <div className={styles.time_line}> </div>
-        </header>
-
-          <section className={styles.section}>
-            {isLoading ? <Loading/> :
+    <>
+      {!quizStart ? (
+        <MainQuiz min={curTime[0]} sec={curTime[1]} startQuiz={startQuiz} />
+      ) : (
+        <>
+          <div className={styles.boy}>
+            {isLoading ? (
+              <Loading />
+            ) : (
               <>
-            {quizDone ? quizDone : <>
-              {questionType==0 && <SingleAns
-                question={question}
-                answers={answers}
-                setUserAnswer={setUserAnswer}
-              />}
-              {questionType==1 && <MultipleAnswerQuestions
-                question={question}
-                answers={answers}
-                setUserAnswer={setUserAnswer}
-              />}
-              {questionType==2 && <MatchingType
-                question={question}
-                answers={answers}
-                setUserAnswer={setUserAnswer}
-              />}
-              {questionType==3 && <SingleAns
-                question={question}
-                answers={answers}
-                setUserAnswer={setUserAnswer}
-              />}
-              {questionType==4 && <MultipleAnswerQuestions
-                question={question}
-                answers={answers}
-                setUserAnswer={setUserAnswer}
-              />}
-              {questionType==5 && <DescriptiveQuestions
-                question={question}
-                answers={answers}
-                setUserAnswer={setUserAnswer}
-              />}
-            </>}
-              </>}
-          </section>
+                {quizDone ? (
+                  quizDone
+                ) : (
+                  <>
+                    <div className={styles.round_page}>
+                      <div className={styles.instructions_div}>
+                        <div className={styles.top}>
+                          <div className={styles.round}>
+                            <div className={styles.que_num}>Q{questionNum}</div>
+                          </div>
+                          <div className={styles.timer}>
+                            <div className={styles.text_block}>Time Left</div>
+                            <div className={styles.text_block}>
+                              {" "}
+                              {curTime[0]}:{curTime[1]}
+                            </div>
+                          </div>
+                        </div>
+                        {questionType == 0 && (
+                          <SingleAns
+                            question={question}
+                            answers={answers}
+                            setUserAnswer={setUserAnswer}
+                          />
+                        )}
+                        {questionType == 1 && (
+                          <MultipleAnswerQuestions
+                            question={question}
+                            answers={answers}
+                            setUserAnswer={setUserAnswer}
+                          />
+                        )}
+                        {questionType == 2 && (
+                          <MatchingType
+                            question={question}
+                            answers={answers}
+                            setUserAnswer={setUserAnswer}
+                          />
+                        )}
+                        {questionType == 3 && (
+                          <CaseStudy
+                            text={descText}
+                            question={question}
+                            answers={answers}
+                            setUserAnswer={setUserAnswer}
+                          />
+                        )}
+                        {questionType == 4 && (
+                          <CaseStudyMulti
+                            text={descText}
+                            question={question}
+                            answers={answers}
+                            setUserAnswer={setUserAnswer}
+                          />
+                        )}
+                        {questionType == 5 && (
+                          <DescriptiveQuestions
+                            text={descText}
+                            question={question}
+                            answers={answers}
+                            setUserAnswer={setUserAnswer}
+                          />
+                        )}
 
-        <footer>
-          <div className={styles.total_que}>
-            <span style={{
-                display: "flex",
-                userSelect: "none",
-                alignItems: "center",
-              }}>
-              <p style={{
-                  fontWeight: "500",
-                  padding: "0 5px",
-                }}
-              > {questionNum}</p> of
-              <p style={{
-                  paddingLeft: "0px",
-                }}> {MAX_QUESTIONS}
-              </p> Questions
-            </span>
+                        <div className={styles.type}>
+                          <div className={styles.start_btn}>
+                            <img
+                              disabled={isLoading}
+                              onClick={() => {
+                                setIsLoading(true);
+                                submitAnswer();
+                              }}
+                              src="https://uploads-ssl.webflow.com/63195bcc7d1a5fdd8154a6a2/6332133fc4bc2737d9b97a60_startbtn.png"
+                              width="290px"
+                              sizes="(max-width: 479px) 31vw, (max-width: 1919px) 145px, 290px"
+                              alt=""
+                              className={styles.image}
+                            />
+
+                            <div
+                              href="#"
+                              className={`${styles.btn_txt} ${styles.w_button}`}
+                            >
+                              Next
+                            </div>
+                          </div>
+                          <p className={styles.paragraph}>
+                            Note: {questionType}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                )}
+              </>
+            )}
           </div>
-          <button
-            className={isLoading ? styles.next_btn_submitting : styles.next_btn}
-            disabled={isLoading}
-            onClick={() => {
-              setIsLoading(true)
-              submitAnswer();
-            }}
-          >
-            {" "}
-            Next Question{" "}
-          </button>
-        </footer>
-      </div>
+          <footer>
+            <button
+              className={
+                isLoading ? styles.next_btn_submitting : styles.next_btn
+              }
+              disabled={isLoading}
+              onClick={() => {
+                setIsLoading(true);
+                submitAnswer();
+              }}
+            >
+              {" "}
+              Next Question{" "}
+            </button>
+          </footer>
+        </>
+      )}
+      {/* 
       <div className={styles.result_box}>
-        {/* <div className={styles.icon}>
-          <i className={styles.fas fa_crown}></i>
-        </div> */}
         <div className={styles.complete_text}>
           {"You've completed the Quiz!"}
         </div>
@@ -299,8 +299,8 @@ function Questions(props) {
           <button className={styles.restart}> Replay Quiz </button>
           <button className={styles.quit}> Quit Quiz </button>
         </div>
-      </div>
-    </div>
+      </div> */}
+    </>
   );
 }
 

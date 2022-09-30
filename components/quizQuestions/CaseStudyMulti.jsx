@@ -2,7 +2,7 @@ import React from "react";
 import styles from "../../styles/Img.module.css";
 import { useEffect, useState } from "react";
 
-const MultipleAnswerQuestions = ({ question, answers, setUserAnswer }) => {
+const CaseStudyMulti = ({ question, answers, setUserAnswer, text }) => {
   const [multiAns, setMultiAns] = useState([]);
   const addOrRemove = (id) => {
     const newMultiAns = [...multiAns];
@@ -19,6 +19,7 @@ const MultipleAnswerQuestions = ({ question, answers, setUserAnswer }) => {
   return (
     <>
       <div className={styles.round_instruction}>
+        <div className={styles.para}>{text}</div>
         <div className={styles.para}>{question}</div>
         {answers.map((val, ind) => {
           return (
@@ -39,4 +40,4 @@ const MultipleAnswerQuestions = ({ question, answers, setUserAnswer }) => {
   );
 };
 
-export default MultipleAnswerQuestions;
+export default CaseStudyMulti;
