@@ -101,7 +101,7 @@ const TeamMembers = ({ teamData, handleMemberLeave }) => {
           <button
             className={`${styles.btngroup} ${styles.glow_on_hover}`}
             onClick={() =>
-              openInNewTab('https://chat.whatsapp.com/LNZVaG2PndRFuQFyCJUDGD')
+              openInNewTab('https://chat.whatsapp.com/HRf6GIMOogZ1iOu43naBvg')
             }
           >
             Join WhatsApp Group
