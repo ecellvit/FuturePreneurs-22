@@ -24,13 +24,13 @@ const NavigationBar = () => {
 
   const myCtx = useContext(myContext);
 
-  const END_TIME = new Date(2022, 10, 4, 17, 0, 0);
+  const END_TIME = new Date(2022, 10, 1, 23, 59, 59);
 
   useEffect(() => {
     let timer = setTimeout(() => {
       let a = Date.now();
       let d = END_TIME.getTime() - a;
-      let dys = Math.floor(d / 1000 / 60 / 60 / 24) % 30;
+      let dys = Math.floor(d / 1000 / 60 / 60 / 24) % 30-1;
       let hrs = Math.floor(d / 1000 / 60 / 60) % 24;
       let mins = Math.floor(d / 1000 / 60) % 60;
       let secs = Math.floor(d / 1000) % 60;
