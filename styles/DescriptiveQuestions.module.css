@@ -1,23 +1,24 @@
-.container{
-    display:flex;
-    justify-content:center;
-    align-items:center;
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-
-.question{
-    font-size:1.5rem;
-    margin-bottom:1rem;
+.question {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: white;
 }
 
-/* .inputBox{
-    height:80rem;
-    width:40rem;
-} */
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-
-.inputContainer{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
+.inputBox {
+  background-color: #13111a;
+  color: white;
+  border-image-slice: 1;
+  border-image-source: linear-gradient(to right, #743ad5, #d53a9d);
 }
