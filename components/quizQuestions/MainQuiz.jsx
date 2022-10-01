@@ -1,6 +1,30 @@
+import { useSession } from "next-auth/react";
 import React from "react";
+import { useEffect, useState } from "react";
 import styles from "../../styles/MainQuiz.module.css";
-const MainQuiz = ({ min, sec, startQuiz }) => {
+
+const MainQuiz = ({ min, sec, startQuiz, TEAM_ID }) => {
+  // const { data: session } = useSession();
+  // const [isLoading, setIsLoading] = useState(false);
+  // console.log(session);
+  // useEffect(() => {
+  //   // if (TEAM_ID) {
+  //   setIsLoading(true);
+  //   fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/team/requests/${TEAM_ID}`, {
+  //     method: "GET",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Authorization: `Bearer ${session.accessTokenBackend}`,
+  //       "Access-Control-Allow-Origin": "*",
+  //     },
+  //   })
+  //     .then((data) => data.json())
+  //     .then((data) => {
+  //       console.log(data);
+  //       setIsLoading(false);
+  //     });
+  //   // }
+  // }, []);
   return (
     <div className={styles.boy}>
       <div className={styles.round_page}>

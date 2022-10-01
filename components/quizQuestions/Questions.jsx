@@ -1,4 +1,5 @@
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 import React, { useContext, useEffect, useState } from "react";
 import myContext from "../../store/myContext";
 import styles from "../../styles/Img.module.css";
@@ -12,24 +13,33 @@ import MultipleAnswerQuestions from "./MultipleAnswerQuestions";
 import SingleAns from "./SingleAns";
 
 function Questions(props) {
+  const router = useRouter();
   const [question, setQuestion] = useState("1+1?");
   const [answers, setAnswers] = useState(["0", "2", "Me", "Who knows?"]);
+  const codes = [
+    "SINGLE CORRECT ANSWER",
+    "MULTIPLE ANSWER CORRECT",
+    "MATCH THE FOLLOWING",
+    "SINGLE CORRECT ANSWER",
+    "MULTIPLE ANSWER CORRECT",
+    "TYPE THE ANSWER",
+  ];
   const [userAnswer, setUserAnswer] = useState([]);
   const [setNum, setSetNum] = useState();
   const [questionNum, setQuestionNum] = useState();
   const [questionType, setQuestionType] = useState();
-  const [quizStart, setQuizStart] = useState(false);
+  const [quizStart, setQuizStart] = useState();
   const [indexNum, setIndexNum] = useState(1);
-  const [quizDone, setQuizDone] = useState(false);
-
-  const [infoBoxThere, setInfoBoxThere] = useState();
-  const [quizBoxThere, setQuizBoxThere] = useState();
 
   const [endTime, setEndTime] = useState();
   const [curTime, setCurTime] = useState([]);
 
   const [isLoading, setIsLoading] = useState(false);
-  const [descText, setDescText] = useState();
+  const [descText, setDescText] = useState(
+    typeof window !== "undefined" && localStorage.getItem("casetext")
+      ? localStorage.getItem("casetext")
+      : null
+  );
 
   const myCtx = useContext(myContext);
   const { data: session } = useSession();
@@ -53,14 +63,14 @@ function Questions(props) {
         return response.json();
       })
       .then((data) => {
-        if (data.message == "Time Limit Reached") {
+        if (data.message === "Time Limit Reached") {
           console.log("Time Limit Reached");
-          setQuizDone("Time Limit Reached");
-        } else if (data.message == "Maximum Questions capacity reached") {
-          setQuizDone("Maximum Questions capacity reached");
+
+          router.push("/dashboard");
+        } else if (data.message === "Maximum Questions capacity reached") {
           router.push("/dashboard");
         } else {
-          console.log(data.questionType, data);
+          console.log(data, "!!!!");
           setQuestion(data.question);
           setAnswers(data.options);
           setQuestionType(data.questionType);
@@ -69,8 +79,14 @@ function Questions(props) {
         }
         if (data.questionNum === 21) {
           setDescText(data.caseStudy);
+          if (typeof window !== "undefined") {
+            localStorage.setItem("casetext", data.caseStudy);
+          }
         } else if (data.questionNum === 26) {
           setDescText(null);
+          if (typeof window !== "undefined") {
+            localStorage.setItem("casetext", null);
+          }
         }
         setIsLoading(false);
       })
@@ -128,15 +144,16 @@ function Questions(props) {
         setQuizStart(true);
         if (data.message == "Time Limit Reached") {
           console.log("Time Limit Reached");
-          setQuizDone("Time Limit Reached");
+          router.push("/dashboard");
         } else if (data.message == "Maximum Questions capacity reached") {
           console.log("Maximum Questions capacity reached");
-          setQuizDone("Maximum Questions capacity reached");
+          router.push("/dashboard");
         } else {
           console.log(data);
           setQuestion(data.question);
           setAnswers(data.options);
           setQuestionType(data.questionType);
+
           setSetNum(data.setNum);
           setQuestionNum(data.questionNum);
 
@@ -167,139 +184,104 @@ function Questions(props) {
   return (
     <>
       {!quizStart ? (
-        <MainQuiz min={curTime[0]} sec={curTime[1]} startQuiz={startQuiz} />
+        <MainQuiz
+          min={curTime[0]}
+          sec={curTime[1]}
+          startQuiz={startQuiz}
+          TEAM_ID={TEAM_ID}
+        />
       ) : (
         <>
           <div className={styles.boy}>
             {isLoading ? (
               <Loading />
             ) : (
-              <>
-                {quizDone ? (
-                  quizDone
-                ) : (
-                  <>
-                    <div className={styles.round_page}>
-                      <div className={styles.instructions_div}>
-                        <div className={styles.top}>
-                          <div className={styles.round}>
-                            <div className={styles.que_num}>Q{questionNum}</div>
-                          </div>
-                          <div className={styles.timer}>
-                            <div className={styles.text_block}>Time Left</div>
-                            <div className={styles.text_block}>
-                              {" "}
-                              {curTime[0]}:{curTime[1]}
-                            </div>
-                          </div>
-                        </div>
-                        {questionType == 0 && (
-                          <SingleAns
-                            question={question}
-                            answers={answers}
-                            setUserAnswer={setUserAnswer}
-                          />
-                        )}
-                        {questionType == 1 && (
-                          <MultipleAnswerQuestions
-                            question={question}
-                            answers={answers}
-                            setUserAnswer={setUserAnswer}
-                          />
-                        )}
-                        {questionType == 2 && (
-                          <MatchingType
-                            question={question}
-                            answers={answers}
-                            setUserAnswer={setUserAnswer}
-                          />
-                        )}
-                        {questionType == 3 && (
-                          <CaseStudy
-                            text={descText}
-                            question={question}
-                            answers={answers}
-                            setUserAnswer={setUserAnswer}
-                          />
-                        )}
-                        {questionType == 4 && (
-                          <CaseStudyMulti
-                            text={descText}
-                            question={question}
-                            answers={answers}
-                            setUserAnswer={setUserAnswer}
-                          />
-                        )}
-                        {questionType == 5 && (
-                          <DescriptiveQuestions
-                            text={descText}
-                            question={question}
-                            answers={answers}
-                            setUserAnswer={setUserAnswer}
-                          />
-                        )}
-
-                        <div className={styles.type}>
-                          <div className={styles.start_btn}>
-                            <img
-                              disabled={isLoading}
-                              onClick={() => {
-                                setIsLoading(true);
-                                submitAnswer();
-                              }}
-                              src="https://uploads-ssl.webflow.com/63195bcc7d1a5fdd8154a6a2/6332133fc4bc2737d9b97a60_startbtn.png"
-                              width="290px"
-                              sizes="(max-width: 479px) 31vw, (max-width: 1919px) 145px, 290px"
-                              alt=""
-                              className={styles.image}
-                            />
-
-                            <div
-                              href="#"
-                              className={`${styles.btn_txt} ${styles.w_button}`}
-                            >
-                              Next
-                            </div>
-                          </div>
-                          <p className={styles.paragraph}>
-                            Note: {questionType}
-                          </p>
-                        </div>
+              <div className={styles.round_page}>
+                <div className={styles.instructions_div}>
+                  <div className={styles.top}>
+                    <div className={styles.round}>
+                      <div className={styles.que_num}>{questionNum}</div>
+                    </div>
+                    <div className={styles.timer}>
+                      <div className={styles.text_block}>Time Left</div>
+                      <div className={styles.text_block}>
+                        {" "}
+                        {curTime[0]}:{curTime[1]}
                       </div>
                     </div>
-                  </>
-                )}
-              </>
+                  </div>
+                  {questionType == 0 && (
+                    <SingleAns
+                      question={question}
+                      answers={answers}
+                      setUserAnswer={setUserAnswer}
+                    />
+                  )}
+                  {questionType == 1 && (
+                    <MultipleAnswerQuestions
+                      question={question}
+                      answers={answers}
+                      setUserAnswer={setUserAnswer}
+                    />
+                  )}
+                  {questionType == 2 && (
+                    <MatchingType
+                      question={question}
+                      answers={answers}
+                      setUserAnswer={setUserAnswer}
+                    />
+                  )}
+                  {questionType == 3 && (
+                    <CaseStudy
+                      text={descText}
+                      question={question}
+                      answers={answers}
+                      setUserAnswer={setUserAnswer}
+                    />
+                  )}
+                  {questionType == 4 && (
+                    <CaseStudyMulti
+                      text={descText}
+                      question={question}
+                      answers={answers}
+                      setUserAnswer={setUserAnswer}
+                    />
+                  )}
+                  {questionType == 5 && (
+                    <DescriptiveQuestions
+                      text={descText}
+                      question={question}
+                      answers={answers}
+                      setUserAnswer={setUserAnswer}
+                    />
+                  )}
+
+                  <div className={styles.type}>
+                    <div className={styles.start_btn}>
+                      <img
+                        disabled={isLoading}
+                        src="start.png"
+                        width="290px"
+                        sizes="(max-width: 479px) 31vw, (max-width: 1919px) 145px, 290px"
+                        alt=""
+                        className={styles.image}
+                        style={{ display: isLoading ? "none" : "block" }}
+                        onClick={() => {
+                          setIsLoading(true);
+                          submitAnswer();
+                        }}
+                      />
+                    </div>
+                    <p className={styles.paragraph}>
+                      Note: {codes[questionType]}
+                    </p>
+                  </div>
+                </div>
+              </div>
             )}
           </div>
-          <footer>
-            <button
-              className={
-                isLoading ? styles.next_btn_submitting : styles.next_btn
-              }
-              disabled={isLoading}
-              onClick={() => {
-                setIsLoading(true);
-                submitAnswer();
-              }}
-            >
-              {" "}
-              Next Question{" "}
-            </button>
-          </footer>
         </>
       )}
-      {/* 
-      <div className={styles.result_box}>
-        <div className={styles.complete_text}>
-          {"You've completed the Quiz!"}
-        </div>
-        <div className={styles.score_text}> </div>
-        <div className={styles.buttons}>
-          <button className={styles.restart}> Replay Quiz </button>
-          <button className={styles.quit}> Quit Quiz </button>
-        </div>
-      </div> */}
     </>
   );
 }
