@@ -23,15 +23,22 @@ const CaseStudyMulti = ({ question, answers, setUserAnswer, text }) => {
         <div className={styles.para}>{question}</div>
         {answers.map((val, ind) => {
           return (
-            <label className={styles.div_block} key={ind}>
+            <label
+              className={styles.div_block}
+              key={ind}
+              onClick={() => addOrRemove(ind)}
+              style={{
+                backgroundColor: multiAns.includes(ind) ? "#2cb908" : "",
+              }}
+            >
               <div className={styles.text_block_3}>
                 <strong className={styles.bold_text}>{val}</strong>
               </div>
-              <input
+              {/* <input
                 type="checkbox"
                 className={styles.text_block_2}
                 onClick={() => addOrRemove(ind)}
-              />
+              /> */}
             </label>
           );
         })}
