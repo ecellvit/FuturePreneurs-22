@@ -124,6 +124,16 @@
   overflow: hidden;
   cursor: pointer;
 }
+.start_btn_2 {
+  position: absolute;
+  left: auto;
+  top: auto;
+  right: -13%;
+  padding-right: 200px;
+  bottom: 0px;
+  overflow: hidden;
+  cursor: pointer;
+}
 
 .round_page {
   display: flex;
