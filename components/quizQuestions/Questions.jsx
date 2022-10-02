@@ -295,10 +295,10 @@ function Questions(props) {
                   )}
 
                   <div className={styles.type}>
-                    <div className={styles.start_btn}>
+                    <div className={`${styles.start_btn_2}`}>
                       <img
                         disabled={isLoading}
-                        src="start.png"
+                        src="clear.png"
                         width="290px"
                         sizes="(max-width: 479px) 31vw, (max-width: 1919px) 145px, 290px"
                         alt=""
@@ -309,6 +309,8 @@ function Questions(props) {
                           setUserAnswer([]);
                         }}
                       />
+                    </div>
+                    <div className={styles.start_btn}>
                       <img
                         disabled={isLoading}
                         src="start.png"
