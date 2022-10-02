@@ -13,6 +13,7 @@ import Matc from "./Matc";
 import MatchingType from "./MathingType";
 import MultipleAnswerQuestions from "./MultipleAnswerQuestions";
 import SingleAns from "./SingleAns";
+import ImageBased from "./ImageBased";
 
 function Questions(props) {
   const router = useRouter();
@@ -25,6 +26,7 @@ function Questions(props) {
     "SINGLE CORRECT ANSWER",
     "MULTIPLE ANSWER CORRECT",
     "TYPE THE ANSWER",
+    "SINGLE CORRECT ANSWER",
   ];
   const [userAnswer, setUserAnswer] = useState([]);
   const [setNum, setSetNum] = useState();
@@ -32,6 +34,7 @@ function Questions(props) {
   const [questionType, setQuestionType] = useState();
   const [quizStart, setQuizStart] = useState();
   const [indexNum, setIndexNum] = useState(1);
+  const [imageSrc, setImageSrc] = useState();
 
   const [endTime, setEndTime] = useState();
   const [curTime, setCurTime] = useState([]);
@@ -77,6 +80,7 @@ function Questions(props) {
           setQuestionType(data.questionType);
           setSetNum(data.setNum);
           setQuestionNum(data.questionNum);
+          setImageSrc(data.imageSrc);
         }
         if (data.questionNum === 21) {
           setDescText(data.caseStudy);
@@ -290,6 +294,15 @@ function Questions(props) {
                       question={question}
                       answers={answers}
                       userAnswer={userAnswer}
+                      setUserAnswer={setUserAnswer}
+                    />
+                  )}
+                  {questionType == 6 && (
+                    <ImageBased
+                      question={question}
+                      answers={answers}
+                      userAnswer={userAnswer}
+                      imageSrc={imageSrc}
                       setUserAnswer={setUserAnswer}
                     />
                   )}
