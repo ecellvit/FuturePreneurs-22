@@ -160,7 +160,7 @@ const LeaderDashboard = ({
               />
             )}
           </AnimatePresence>
-          <div className={styles.invite_link_container}>
+          {/* <div className={styles.invite_link_container}>
             <div className="copy-area">
               <button
                 className={`${styles.btngroup} ${styles.glow_on_hover}`}
@@ -169,7 +169,7 @@ const LeaderDashboard = ({
                 Attempt Quiz
               </button>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

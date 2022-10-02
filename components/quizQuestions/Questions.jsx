@@ -31,6 +31,7 @@ function Questions(props) {
   const [userAnswer, setUserAnswer] = useState([]);
   const [setNum, setSetNum] = useState();
   const [questionNum, setQuestionNum] = useState();
+  const [currQuesBackend, setcurrQuesBackend] = useState();
   const [questionType, setQuestionType] = useState();
   const [quizStart, setQuizStart] = useState();
   const [indexNum, setIndexNum] = useState(1);
@@ -65,6 +66,17 @@ function Questions(props) {
       })
       .then((data) => {
         setIsLoading(false);
+        if (data.error?.errorCode) {
+          toast.error(`${data.message}`, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+        }
         if (data.message === "Time Limit Reached") {
           console.log("Time Limit Reached");
           router.push("/dashboard");
@@ -77,6 +89,7 @@ function Questions(props) {
           setQuestionType(data.questionType);
           setSetNum(data.setNum);
           setQuestionNum(data.presentQuestionNum);
+          setcurrQuesBackend(data.questionNum);
           setImageSrc(data.imageSrc);
         }
         if (data.questionType === 3 || data.questionType === 4) {
@@ -91,7 +104,7 @@ function Questions(props) {
   function submitAnswer() {
     let respBody = {
       setNum: setNum,
-      questionNum: questionNum,
+      questionNum: currQuesBackend,
     };
     if (questionType === 5) {
       if (userAnswer.length === 0) {
@@ -116,6 +129,17 @@ function Questions(props) {
         return response.json();
       })
       .then((data) => {
+        if (data.error?.errorCode) {
+          toast.error(`${data.message}`, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+        }
         if (data.message === "Time Limit Reached") {
           console.log("time exceeded");
           router.push("/dashboard");
@@ -144,6 +168,17 @@ function Questions(props) {
       .then((data) => {
         setQuizStart(true);
         setIsLoading(false);
+        if (data.error?.errorCode) {
+          toast.error(`${data.message}`, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+        }
         if (data.message == "Time Limit Reached") {
           toast("Time Limit Reached");
           router.push("/dashboard");
@@ -157,6 +192,7 @@ function Questions(props) {
           setSetNum(data.setNum);
           setQuestionNum(data.presentQuestionNum);
           setIsLoading(false);
+          setcurrQuesBackend(data.questionNum);
 
           Timer = setInterval(() => {
             const now = Date.now();

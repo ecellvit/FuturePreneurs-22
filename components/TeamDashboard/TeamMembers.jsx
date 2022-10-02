@@ -98,7 +98,7 @@ const TeamMembers = ({ teamData, handleMemberLeave }) => {
           )}
         </AnimatePresence>
       </div>
-      <div className={styles.invite_link_container}>
+      {/* <div className={styles.invite_link_container}>
         <div className="copy-area">
           <button
             className={`${styles.btngroup} ${styles.glow_on_hover}`}
@@ -107,7 +107,7 @@ const TeamMembers = ({ teamData, handleMemberLeave }) => {
             Attempt Quiz
           </button>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
