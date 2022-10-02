@@ -9,6 +9,13 @@
   cursor: pointer;
   border-radius: 0;
 }
+.inp {
+  background-color: transparent;
+  min-height: 50vh !important;
+  min-width: 60vw;
+  padding: 30px !important;
+  color: white !important;
+}
 
 .para {
   height: auto;
@@ -123,7 +130,7 @@
   min-height: 100vh;
   margin-left: 0px;
   justify-content: space-around;
-
+  margin-top: 20px;
   align-items: center;
 }
 
@@ -426,4 +433,102 @@
   .para {
     font-size: 13px;
   }
+}
+
+/* Matching type questions */
+.round_instructions {
+  height: 100%;
+  margin-bottom: 100px;
+  padding-bottom: 0px;
+}
+.match_div {
+  position: static;
+
+  display: grid;
+  margin: 40px 10px 20px 0px;
+
+  flex-direction: row;
+
+  flex-wrap: wrap;
+  grid-auto-flow: row;
+  grid-auto-columns: 1fr;
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+}
+#w-node-b517209d-2d90-9098-0b5e-915015bbbd37-a6dbfd11 {
+  align-self: start;
+  justify-self: center;
+}
+
+#w-node-db7acd33-5b84-d6d7-529f-cb949e010bc6-a6dbfd11 {
+  align-self: center;
+
+  justify-self: start;
+
+  grid-column-end: span 1;
+
+  grid-column-start: span 1;
+
+  grid-row-end: span 1;
+
+  grid-row-start: span 1;
+}
+.lhs_cont {
+  position: static;
+  left: 0%;
+  top: 0%;
+  right: auto;
+  bottom: 0%;
+  display: block;
+  max-width: 50%;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+.circle {
+  height: 0px;
+  border-style: solid;
+  border-width: 15px;
+  border-color: #5e5b71;
+  border-radius: 15px;
+}
+.lhs {
+  display: flex;
+  min-width: 25vw;
+  margin-right: 10px;
+
+  justify-content: center;
+
+  align-items: center;
+}
+
+.text_p {
+  margin-right: 10px;
+  margin-left: 10px;
+  padding: 10px;
+  color: #fff;
+  font-size: 13px;
+  line-height: 20px;
+}
+
+.rhs {
+  display: flex;
+  min-width: 25vw;
+  margin-right: 10px;
+
+  flex-direction: row-reverse;
+
+  justify-content: center;
+
+  align-items: center;
+}
+
+.rhs_cont {
+  position: static;
+  left: auto;
+  top: 0%;
+  right: 0%;
+  bottom: 0%;
+  max-width: 50%;
 }
