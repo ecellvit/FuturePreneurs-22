@@ -98,7 +98,7 @@ const CreateTeam = ({ handleTeamCreate }) => {
               <div
                 className={styles.section_title}
               >{`Hi, ${session.user.name}! `}</div>
-              <h2 className={styles.h1_create}>Join a Team</h2>
+              {/* <h2 className={styles.h1_create}>Join a Team</h2>
               <div className={styles.form_block}>
                 <form className={styles.team_form}>
                   <Link href="/searchTeams">
@@ -110,10 +110,10 @@ const CreateTeam = ({ handleTeamCreate }) => {
                       Find Teams to Join
                     </button>
                   </Link>
-                </form>
-              </div>
+                </form> 
+              </div>*/}
 
-              {teamData?.length === 0 ? (
+              {/* {teamData?.length === 0 ? (
                 <div>
                   <div className={styles.form_block}>
                     <div className={styles.team_form}>
@@ -149,7 +149,7 @@ const CreateTeam = ({ handleTeamCreate }) => {
                     Pending requests
                   </button>
                 </Link>
-              )}
+              )} */}
             </div>
           </div>
         </Layout>

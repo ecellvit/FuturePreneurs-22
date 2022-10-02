@@ -106,7 +106,7 @@ const LeaderDashboard = ({
               className={styles.input}
               readOnly
             /> */}
-            <CopyToClipboard
+            {/* <CopyToClipboard
               text={`https://fp.ecellvit.com/join-team-link/${teamToken}`}
               onCopy={onCopyText}
             >
@@ -118,7 +118,7 @@ const LeaderDashboard = ({
                   Copy Invite Link
                 </button>
               </div>
-            </CopyToClipboard>
+            </CopyToClipboard> */}
           </h2>
           <div className={`${styles.team_row} ${styles.align_centre}`}>
             {teamData?.teamId?.members?.map((team) => {
@@ -136,14 +136,14 @@ const LeaderDashboard = ({
               );
             })}
           </div>
-          <motion.button
+          {/* <motion.button
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             className={`${styles1["save-button"]} ${styles1["button"]} ${styles.delete}`}
             onClick={() => (modalOpen ? close() : open())}
           >
             Delete Team
-          </motion.button>
+          </motion.button> */}
           <AnimatePresence
             initial={false}
             exitBeforeEnter={true}

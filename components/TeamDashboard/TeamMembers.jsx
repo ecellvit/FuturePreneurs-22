@@ -73,14 +73,14 @@ const TeamMembers = ({ teamData, handleMemberLeave }) => {
             );
           })}
         </div>
-        <motion.button
+        {/* <motion.button
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           className={`${styles1["save-button"]} ${styles1["button"]}`}
           onClick={() => (modalOpen ? close() : open())}
         >
           Leave Team
-        </motion.button>
+        </motion.button> */}
         <AnimatePresence
           initial={false}
           exitBeforeEnter={true}

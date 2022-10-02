@@ -218,7 +218,7 @@ const NavigationBar = () => {
           <div className={`${styles.flexRight} ${styles.responsive}`}>
             <ul>
               <li>
-                {status === "authenticated" && (
+                {/* {status === "authenticated" && (
                   <button
                     className={`${styles.flexRightBell} `}
                     onClick={() => {
@@ -229,7 +229,7 @@ const NavigationBar = () => {
                   >
                     <Noty width={"40"} color={"#fff"} count={myCtx.notys} />
                   </button>
-                )}
+                )} */}
 
                 {status === "authenticated" && (
                   <Link href="/dashboard">
@@ -274,7 +274,7 @@ const NavigationBar = () => {
           <div className={`${styles.flexRight} ${styles.responsiveOn}`}>
             <ul className={styles.ul}>
               <li>
-                {status === "authenticated" && (
+                {/* {status === "authenticated" && (
                   <button
                     className={`${styles.flexRightBell} `}
                     onClick={() => {
@@ -285,7 +285,7 @@ const NavigationBar = () => {
                   >
                     <Noty width={"40"} color={"#fff"} count={myCtx.notys} />
                   </button>
-                )}
+                )} */}
 
                 {status === "authenticated" && (
                   <Link href="/dashboard">
