@@ -10,6 +10,7 @@ import myContext from "../../store/myContext";
 import { AnimatePresence, motion } from "framer-motion";
 import Modal from "../modal";
 import styles1 from "../../styles/Modal.module.css";
+import { useRouter } from "next/router.js";
 
 const LeaderDashboard = ({
   teamData,
@@ -17,6 +18,7 @@ const LeaderDashboard = ({
   teamToken,
   handleMemberRemove,
 }) => {
+  const router = useRouter();
   const [modalOpen, setModalOpen] = useState(false);
 
   const close = () => setModalOpen(false);
@@ -158,7 +160,7 @@ const LeaderDashboard = ({
               />
             )}
           </AnimatePresence>
-          <div className={styles.invite_link_container}>
+          {/* <div className={styles.invite_link_container}>
             <div className="copy-area">
               <button
                 className={`${styles.btngroup} ${styles.glow_on_hover}`}
@@ -168,10 +170,10 @@ const LeaderDashboard = ({
                   )
                 }
               >
-                Join WhatsApp Group
+                Attempt Quiz
               </button>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

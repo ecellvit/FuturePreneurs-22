@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AnimatePresence, motion } from "framer-motion";
 import Modal from "../modal";
+import { useRouter } from "next/router.js";
 
 const TeamMembers = ({ teamData, handleMemberLeave }) => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -15,22 +16,23 @@ const TeamMembers = ({ teamData, handleMemberLeave }) => {
   const open = () => setModalOpen(true);
 
   const [teamId, setTeamId] = useState(teamData?.teamId?._id);
-  const { data: session } = useSession()
+  const { data: session } = useSession();
+  const router = useRouter();
 
   const openInNewTab = (url) => {
-    window.open(url, '_blank', 'noopener,noreferrer')
-  }
+    window.open(url, "_blank", "noopener,noreferrer");
+  };
 
   const handleLeave = () => {
     fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/user/leave/${teamId}`, {
-      method: 'PATCH',
+      method: "PATCH",
       body: JSON.stringify({
         userId: `${teamData?._id}`,
       }),
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
         Authorization: `Bearer ${session.accessTokenBackend}`,
-        'Access-Control-Allow-Origin': '*',
+        "Access-Control-Allow-Origin": "*",
       },
     })
       .then((data) => data.json())
@@ -38,10 +40,10 @@ const TeamMembers = ({ teamData, handleMemberLeave }) => {
         // console.log(data)
         toast.success(`${data.message}`, {
           position: toast.POSITION.TOP_RIGHT,
-        })
-        handleMemberLeave()
-      })
-  }
+        });
+        handleMemberLeave();
+      });
+  };
 
   return (
     <div className={styles.team_member_section}>
@@ -96,7 +98,7 @@ const TeamMembers = ({ teamData, handleMemberLeave }) => {
           )}
         </AnimatePresence>
       </div>
-      <div className={styles.invite_link_container}>
+      {/* <div className={styles.invite_link_container}>
         <div className="copy-area">
           <button
             className={`${styles.btngroup} ${styles.glow_on_hover}`}
@@ -104,10 +106,10 @@ const TeamMembers = ({ teamData, handleMemberLeave }) => {
               openInNewTab('https://chat.whatsapp.com/HRf6GIMOogZ1iOu43naBvg')
             }
           >
-            Join WhatsApp Group
+            Attempt Quiz
           </button>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
