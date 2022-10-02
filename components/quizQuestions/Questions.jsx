@@ -97,6 +97,8 @@ function Questions(props) {
   function submitAnswer() {
     console.log(userAnswer);
     console.log(question);
+
+    console.log(userAnswer);
     let respBody = {
       setNum: setNum,
       questionNum: questionNum,
@@ -255,6 +257,7 @@ function Questions(props) {
                       text={descText}
                       question={question}
                       answers={answers}
+                      userAnswer={userAnswer}
                       setUserAnswer={setUserAnswer}
                     />
                   )}
