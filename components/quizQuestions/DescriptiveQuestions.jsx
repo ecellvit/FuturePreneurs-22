@@ -1,12 +1,8 @@
-import React, { useState, useRef } from "react";
+import React from "react";
 
 import styles from "../../styles/Img.module.css";
 
-function DescriptiveQuestions({ question, userAnswer, setUserAnswer }) {
-  if (userAnswer.length == 0) {
-    setUserAnswer("User Has Not Yet Answered The Question");
-  }
-  
+function DescriptiveQuestions({ question, setUserAnswer }) {
   return (
     <>
       <div className={styles.round_instruction}>
