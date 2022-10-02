@@ -165,7 +165,6 @@ function Questions(props) {
             let seconds = Math.floor((end - now) / 1000) % 60;
             if (seconds === 0 && minutes === 0) {
               toast("Time Limit Reached");
-              submitAnswer();
               router.push("/dashboard");
               return;
             }
