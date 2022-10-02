@@ -4,6 +4,7 @@ import Questions from "../components/quizQuestions/Questions";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import { toast } from "react-toastify";
 export default function Quiz() {
   const { status } = useSession();
   const { data: session } = useSession();

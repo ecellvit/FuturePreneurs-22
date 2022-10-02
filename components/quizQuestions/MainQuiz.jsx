@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import styles from "../../styles/MainQuiz.module.css";
 
 import Loading from "../Loading";
-const MainQuiz = ({ min, sec, startQuiz, TEAM_ID }) => {
+const MainQuiz = ({ hrs, min, sec, startQuiz, TEAM_ID }) => {
   const { data: session } = useSession();
   const [useEffectTrigger, setUseEffectTrigger] = useState(false);
 
@@ -62,7 +62,7 @@ const MainQuiz = ({ min, sec, startQuiz, TEAM_ID }) => {
             </div>
             <div className={styles.btn}>
               <a href="#" className={`${styles.button_2} ${styles.w_button}`}>
-                {min}:{sec}
+                {hrs}:{min}:{sec}
               </a>
             </div>
           </div>

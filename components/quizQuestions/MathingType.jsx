@@ -81,7 +81,7 @@ function MatchingType({ question, answers, setUserAnswer }) {
         <div className={styles.match_list}>
           {question.map((ques) => {
             return (
-              <div>
+              <div key={ques}>
                 <div
                   className={styles.quesans}
                   onClick={() => {
@@ -108,7 +108,7 @@ function MatchingType({ question, answers, setUserAnswer }) {
         <div className={styles.option_list}>
           {answers.map((ans) => {
             return (
-              <div
+              <div key={ans}
                 className={styles.quesans}
                 onClick={() => {
                   console.log("clicked");

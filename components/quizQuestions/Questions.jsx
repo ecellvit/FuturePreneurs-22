@@ -180,18 +180,43 @@ function Questions(props) {
     setIsLoading(false);
   }
 
+  const [hours, setHours] = useState();
+  const [minutes, setMinutes] = useState();
+  const [seconds, setSeconds] = useState();
+
+  const END_TIME = new Date(2022, 10, 4, 17, 0, 0);
+
+  useEffect(() => {
+    let timer = setTimeout(() => {
+      let a = Date.now();
+      let d = END_TIME.getTime() - a;
+      let dys = Math.floor(d / 1000 / 60 / 60 / 24) % 30;
+      let hrs = Math.floor(d / 1000 / 60 / 60) % 24;
+      let mins = Math.floor(d / 1000 / 60) % 60;
+      let secs = Math.floor(d / 1000) % 60;
+
+      setHours(hrs);
+      setMinutes(mins);
+      setSeconds(secs);
+    }, 1000);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [END_TIME]);
+
   useEffect(() => {
     return () => {
       clearInterval(Timer);
     };
-  }, []);
+  }, [Timer]);
 
   return (
     <>
       {!quizStart ? (
         <MainQuiz
-          min={curTime[0]}
-          sec={curTime[1]}
+          hrs={hours}
+          min={minutes}
+          sec={seconds}
           startQuiz={startQuiz}
           TEAM_ID={TEAM_ID}
         />
@@ -230,7 +255,7 @@ function Questions(props) {
                     />
                   )}
                   {questionType == 2 && (
-                    <Matc
+                    <MatchingType
                       question={question}
                       answers={answers}
                       setUserAnswer={setUserAnswer}
