@@ -40,7 +40,7 @@ const CaseStudyMulti = ({
               key={ind}
               onClick={() => addOrRemove(ind)}
               style={{
-                backgroundColor: multiAns.includes(ind) ? "#2cb908" : "",
+                backgroundColor: multiAns.includes(ind) ? "#8a2be2" : "",
               }}
             >
               <div className={styles.text_block_3}>

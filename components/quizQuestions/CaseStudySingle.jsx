@@ -35,7 +35,7 @@ const CaseStudy = ({ question, answers, userAnswer, setUserAnswer, text }) => {
                   ansSelect(ind);
                 }}
                 key={ind}
-                style={{ backgroundColor: ind === selected ? "#2cb908" : "" }}
+                style={{ backgroundColor: ind === selected ? "#8a2be2" : "" }}
               >
                 <div className={styles.text_block_2}>{ind + 1}.</div>
                 <div className={styles.text_block_3}>
