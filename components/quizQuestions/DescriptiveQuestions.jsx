@@ -1,26 +1,27 @@
 import React, { useState, useRef } from "react";
-import styles from "../../styles/DescriptiveQuestions.module.css";
+
+import styles from "../../styles/Img.module.css";
 
 function DescriptiveQuestions({ question, userAnswer, setUserAnswer }) {
   if (userAnswer.length == 0) {
     setUserAnswer("User Has Not Yet Answered The Question");
   }
-
+  
   return (
-    <div className={styles.container}>
-      <div className={styles.box}>
-        <div className={styles.question}>{question}</div>
-        <div className={styles.inputContainer}>
-          {/* <input className={styles.inputBox} ref={inputRef} type="text" id="message" name="message" /> */}
+    <>
+      <div className={styles.round_instruction}>
+        <div className={styles.para}>{question}</div>
+        {/* Answers */}
+        <div>
           <textarea
-            rows="20"
-            cols="65"
-            className={styles.inputBox}
+            className={`${styles.inp} ${styles.div_block}`}
+            placeholder="Answer"
             onChange={(e) => setUserAnswer(e.target.value)}
           />
+          {/* <div className={styles.text_block_2}>Ans.</div> */}
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

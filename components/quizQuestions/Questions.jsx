@@ -1,6 +1,7 @@
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import React, { useContext, useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import myContext from "../../store/myContext";
 import styles from "../../styles/Img.module.css";
 import Loading from "../Loading";
@@ -8,6 +9,7 @@ import CaseStudyMulti from "./CaseStudyMulti";
 import CaseStudy from "./CaseStudySingle";
 import DescriptiveQuestions from "./DescriptiveQuestions";
 import MainQuiz from "./MainQuiz";
+import Matc from "./Matc";
 import MatchingType from "./MathingType";
 import MultipleAnswerQuestions from "./MultipleAnswerQuestions";
 import SingleAns from "./SingleAns";
@@ -65,7 +67,6 @@ function Questions(props) {
       .then((data) => {
         if (data.message === "Time Limit Reached") {
           console.log("Time Limit Reached");
-
           router.push("/dashboard");
         } else if (data.message === "Maximum Questions capacity reached") {
           router.push("/dashboard");
@@ -132,6 +133,7 @@ function Questions(props) {
   }
 
   function startQuiz() {
+    setIsLoading(true);
     fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/team/quiz/${TEAM_ID}`, {
       headers: {
         "Content-Type": "application/json",
@@ -145,7 +147,7 @@ function Questions(props) {
       .then((data) => {
         setQuizStart(true);
         if (data.message == "Time Limit Reached") {
-          console.log("Time Limit Reached");
+          toast("Time Limit Reached");
           router.push("/dashboard");
         } else if (data.message == "Maximum Questions capacity reached") {
           console.log("Maximum Questions capacity reached");
@@ -175,6 +177,7 @@ function Questions(props) {
         }
       })
       .catch((err) => {});
+    setIsLoading(false);
   }
 
   useEffect(() => {
@@ -227,7 +230,7 @@ function Questions(props) {
                     />
                   )}
                   {questionType == 2 && (
-                    <MatchingType
+                    <Matc
                       question={question}
                       answers={answers}
                       setUserAnswer={setUserAnswer}
