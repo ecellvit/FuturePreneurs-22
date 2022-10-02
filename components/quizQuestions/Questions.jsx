@@ -210,6 +210,8 @@ function Questions(props) {
     };
   }, [Timer]);
 
+  // console.log(userAnswer);
+
   return (
     <>
       {!quizStart ? (
@@ -244,6 +246,7 @@ function Questions(props) {
                     <SingleAns
                       question={question}
                       answers={answers}
+                      userAnswer={userAnswer}
                       setUserAnswer={setUserAnswer}
                     />
                   )}
@@ -251,6 +254,7 @@ function Questions(props) {
                     <MultipleAnswerQuestions
                       question={question}
                       answers={answers}
+                      userAnswer={userAnswer}
                       setUserAnswer={setUserAnswer}
                     />
                   )}
@@ -258,6 +262,7 @@ function Questions(props) {
                     <MatchingType
                       question={question}
                       answers={answers}
+                      userAnswer={userAnswer}
                       setUserAnswer={setUserAnswer}
                     />
                   )}
@@ -266,6 +271,7 @@ function Questions(props) {
                       text={descText}
                       question={question}
                       answers={answers}
+                      userAnswer={userAnswer}
                       setUserAnswer={setUserAnswer}
                     />
                   )}
@@ -274,6 +280,7 @@ function Questions(props) {
                       text={descText}
                       question={question}
                       answers={answers}
+                      userAnswer={userAnswer}
                       setUserAnswer={setUserAnswer}
                     />
                   )}
@@ -289,6 +296,19 @@ function Questions(props) {
 
                   <div className={styles.type}>
                     <div className={styles.start_btn}>
+                      <img
+                        disabled={isLoading}
+                        src="start.png"
+                        width="290px"
+                        sizes="(max-width: 479px) 31vw, (max-width: 1919px) 145px, 290px"
+                        alt=""
+                        className={styles.image}
+                        style={{ display: isLoading ? "none" : "block" }}
+                        onClick={() => {
+                          console.log("Meow Meow");
+                          setUserAnswer([]);
+                        }}
+                      />
                       <img
                         disabled={isLoading}
                         src="start.png"

@@ -2,7 +2,13 @@ import React from "react";
 import styles from "../../styles/Img.module.css";
 import { useEffect, useState } from "react";
 
-const CaseStudyMulti = ({ question, answers, setUserAnswer, text }) => {
+const CaseStudyMulti = ({
+  question,
+  answers,
+  userAnswer,
+  setUserAnswer,
+  text,
+}) => {
   const [multiAns, setMultiAns] = useState([]);
   const addOrRemove = (id) => {
     const newMultiAns = [...multiAns];
@@ -15,6 +21,12 @@ const CaseStudyMulti = ({ question, answers, setUserAnswer, text }) => {
     setMultiAns(newMultiAns);
     setUserAnswer(newMultiAns);
   };
+
+  useEffect(() => {
+    if (userAnswer.length === 0) {
+      setMultiAns(userAnswer);
+    }
+  }, [userAnswer]);
 
   return (
     <>

@@ -2,7 +2,12 @@ import React from "react";
 import styles from "../../styles/Img.module.css";
 import { useEffect, useState } from "react";
 
-const MultipleAnswerQuestions = ({ question, answers, setUserAnswer }) => {
+const MultipleAnswerQuestions = ({
+  question,
+  answers,
+  userAnswer,
+  setUserAnswer,
+}) => {
   const [multiAns, setMultiAns] = useState([]);
   const addOrRemove = (id) => {
     const newMultiAns = [...multiAns];
@@ -16,6 +21,12 @@ const MultipleAnswerQuestions = ({ question, answers, setUserAnswer }) => {
     setUserAnswer(newMultiAns);
   };
 
+  useEffect(() => {
+    if (userAnswer.length === 0) {
+      setMultiAns(userAnswer);
+    }
+  }, [userAnswer]);
+
   return (
     <>
       <div className={styles.round_instruction}>
@@ -27,7 +38,7 @@ const MultipleAnswerQuestions = ({ question, answers, setUserAnswer }) => {
               key={ind}
               onClick={() => addOrRemove(ind)}
               style={{
-                backgroundColor: multiAns.includes(ind) ? "#2cb908" : "",
+                backgroundColor: userAnswer.includes(ind) ? "#8a2be2" : "",
               }}
             >
               <div className={styles.text_block_2}>{ind + 1}.</div>

@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import styles from "../../styles/QuestionsMatch.module.css";
 import { memo } from "react";
 
-function MatchingType({ question, answers, setUserAnswer }) {
+function MatchingType({ question, answers, userAnswer, setUserAnswer }) {
   const [answerByUser, setAnswerByUser] = useState([]);
-  const [toSendAnswer, setToSendAnswer] = useState([]);
+  // const [toSendAnswer, setToSendAnswer] = useState([]);
   const [userQuestion, setUserQuestion] = useState([]);
-  const [position, setPosition] = useState([]);
+  // const [position, setPosition] = useState();
+  const toSendAnswer = [];
   const [test, settest] = useState(true);
 
   function handleQuestionClick(number) {
@@ -47,7 +48,7 @@ function MatchingType({ question, answers, setUserAnswer }) {
     answerByUser.splice(positioner, 1);
     userQuestion.splice(positioner, 1);
   }
-
+  console.log(toSendAnswer);
   useEffect(() => {
     console.log("UseEffect Called");
     if (
@@ -56,24 +57,25 @@ function MatchingType({ question, answers, setUserAnswer }) {
       userQuestion.length > 0
     ) {
       if (answerByUser.length === question.length) {
-        setToSendAnswer([]);
-
         for (let i = 0; i < question.length; i++) {
-          position[i] = userQuestion.indexOf(i);
-          setToSendAnswer((prevToSendAnswer) => [
-            ...prevToSendAnswer,
-            answerByUser[position[i]],
-          ]);
+          toSendAnswer.push(answerByUser[userQuestion.indexOf(i)]);
         }
-
+        console.log(toSendAnswer);
         setUserAnswer(toSendAnswer);
       } else {
-        setToSendAnswer([]);
-        setUserAnswer(toSendAnswer);
+        setUserAnswer(answerByUser);
         console.log(toSendAnswer);
       }
     }
   }, [answerByUser, userQuestion, test]);
+
+  useEffect(() => {
+    if (userAnswer.length === 0) {
+      console.log("Hua Call");
+      setUserQuestion([]);
+      setAnswerByUser([]);
+    }
+  }, [userAnswer]);
 
   return (
     <div>
@@ -108,7 +110,8 @@ function MatchingType({ question, answers, setUserAnswer }) {
         <div className={styles.option_list}>
           {answers.map((ans) => {
             return (
-              <div key={ans}
+              <div
+                key={ans}
                 className={styles.quesans}
                 onClick={() => {
                   console.log("clicked");

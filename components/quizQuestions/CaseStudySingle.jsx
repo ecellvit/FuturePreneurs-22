@@ -2,7 +2,7 @@ import React from "react";
 import styles from "../../styles/Img.module.css";
 import { useEffect, useState } from "react";
 
-const CaseStudy = ({ question, answers, setUserAnswer, text }) => {
+const CaseStudy = ({ question, answers, userAnswer, setUserAnswer, text }) => {
   const [ans, setAns] = useState([]);
   const [selected, setSelected] = useState();
   const ansSelect = (ind) => {
@@ -10,6 +10,13 @@ const CaseStudy = ({ question, answers, setUserAnswer, text }) => {
     setUserAnswer([ind]);
     setSelected(ind);
   };
+
+  useEffect(() => {
+    if (userAnswer.length === 0) {
+      setAns([]);
+      setSelected();
+    }
+  }, [userAnswer]);
 
   return (
     <>
