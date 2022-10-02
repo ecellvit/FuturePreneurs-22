@@ -192,9 +192,9 @@ const NavigationBar = () => {
           </div>
           <div className={`${styles.flexMid} ${styles.responsive}`}>
             <div className={styles.headerMid}>
-              REGISTRATION ENDS IN&nbsp;&nbsp;
+              REGISTRATIONS ENDED&nbsp;&nbsp;
             </div>
-            <div className={styles.counterWrapper}>
+            {/* <div className={styles.counterWrapper}>
               <div className={`${styles.counterCard} ${styles.counterCard1}`}>
                 <div className={styles.counterCardHead}>
                   &nbsp;&nbsp;&nbsp;DAYS&nbsp;&nbsp;&nbsp;
@@ -213,7 +213,7 @@ const NavigationBar = () => {
                 <div className={styles.counterCardHead}>SECONDS</div>
                 <div className={styles.counterCardBody}>{seconds}</div>
               </div>
-            </div>
+            </div> */}
           </div>
           <div className={`${styles.flexRight} ${styles.responsive}`}>
             <ul>
