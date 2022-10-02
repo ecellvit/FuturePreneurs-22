@@ -80,6 +80,9 @@ const Sign = () => {
           }
           if (data.hasFilledDetails === true) {
             router.push("/dashboard");
+          } else {
+            toast.error("registrations closed");
+            signOut({ callbackUrl: "/" });
           }
         })
         .catch((err) => console.log(err));
