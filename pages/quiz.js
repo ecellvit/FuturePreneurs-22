@@ -1,10 +1,10 @@
-import Head from "next/head";
-import styles from "../styles/Home.module.css";
 import Questions from "../components/quizQuestions/Questions";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 export default function Quiz() {
   const { status } = useSession();
   const { data: session } = useSession();
@@ -19,5 +19,9 @@ export default function Quiz() {
       }
     }
   }, [session, status, router]);
-  return status === "authenticated" && <Questions />;
+  return (status === "authenticated" &&
+    <>
+      <ToastContainer />
+      <Questions />
+    </>);
 }

@@ -1,7 +1,7 @@
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import React, { useContext, useEffect, useState } from "react";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import myContext from "../../store/myContext";
 import styles from "../../styles/Img.module.css";
 import Loading from "../Loading";
@@ -40,11 +40,7 @@ function Questions(props) {
   const [curTime, setCurTime] = useState([]);
 
   const [isLoading, setIsLoading] = useState(false);
-  const [descText, setDescText] = useState(
-    typeof window !== "undefined" && localStorage.getItem("casetext")
-      ? localStorage.getItem("casetext")
-      : null
-  );
+  const [descText, setDescText] = useState();
 
   const myCtx = useContext(myContext);
   const { data: session } = useSession();
@@ -68,6 +64,7 @@ function Questions(props) {
         return response.json();
       })
       .then((data) => {
+        setIsLoading(false);
         if (data.message === "Time Limit Reached") {
           console.log("Time Limit Reached");
           router.push("/dashboard");
@@ -79,35 +76,29 @@ function Questions(props) {
           setAnswers(data.options);
           setQuestionType(data.questionType);
           setSetNum(data.setNum);
-          setQuestionNum(data.questionNum);
+          setQuestionNum(data.presentQuestionNum);
           setImageSrc(data.imageSrc);
         }
-        if (data.questionNum === 21) {
+        if (data.questionType === 3 || data.questionType === 4) {
           setDescText(data.caseStudy);
-          if (typeof window !== "undefined") {
-            localStorage.setItem("casetext", data.caseStudy);
-          }
-        } else if (data.questionNum === 26) {
-          setDescText(null);
-          if (typeof window !== "undefined") {
-            localStorage.setItem("casetext", null);
-          }
         }
-        setIsLoading(false);
       })
-      .catch((err) => {});
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   function submitAnswer() {
-    console.log(userAnswer);
-    console.log(question);
-
-    console.log(userAnswer);
     let respBody = {
       setNum: setNum,
       questionNum: questionNum,
     };
     if (questionType === 5) {
+      if (userAnswer.length === 0) {
+        setIsLoading(false);
+        toast(`Please don't leave the answer field empty`);
+        return;
+      }
       respBody["descriptiveAnswer"] = userAnswer;
     } else {
       respBody["answerIdxs"] = userAnswer;
@@ -125,15 +116,17 @@ function Questions(props) {
         return response.json();
       })
       .then((data) => {
-        console.log(data, "dfddfddfdf");
         if (data.message === "Time Limit Reached") {
           console.log("time exceeded");
+          router.push("/dashboard");
         } else if (data.message === "Submitted Answer Successfully") {
           setUserAnswer([]);
           getNextQuestion();
         }
       })
-      .catch((err) => {});
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   function startQuiz() {
@@ -150,6 +143,7 @@ function Questions(props) {
       })
       .then((data) => {
         setQuizStart(true);
+        setIsLoading(false);
         if (data.message == "Time Limit Reached") {
           toast("Time Limit Reached");
           router.push("/dashboard");
@@ -157,19 +151,23 @@ function Questions(props) {
           console.log("Maximum Questions capacity reached");
           router.push("/dashboard");
         } else {
-          console.log(data);
           setQuestion(data.question);
           setAnswers(data.options);
           setQuestionType(data.questionType);
-
           setSetNum(data.setNum);
-          setQuestionNum(data.questionNum);
+          setQuestionNum(data.presentQuestionNum);
+          setIsLoading(false);
 
           Timer = setInterval(() => {
             const now = Date.now();
             const end = Date.parse(data.endTime);
             let minutes = Math.floor((end - now) / 1000 / 60);
             let seconds = Math.floor((end - now) / 1000) % 60;
+            if (seconds === 0 && minutes === 0) {
+              toast("Time Limit Reached");
+              router.push("/dashboard");
+              return;
+            }
             if (minutes.toString().length < 2) {
               minutes = "0" + minutes.toString();
             }
@@ -181,7 +179,6 @@ function Questions(props) {
         }
       })
       .catch((err) => {});
-    setIsLoading(false);
   }
 
   const [hours, setHours] = useState();
@@ -214,8 +211,6 @@ function Questions(props) {
     };
   }, [Timer]);
 
-  // console.log(userAnswer);
-
   return (
     <>
       {!quizStart ? (
@@ -236,7 +231,7 @@ function Questions(props) {
                 <div className={styles.instructions_div}>
                   <div className={styles.top}>
                     <div className={styles.round}>
-                      <div className={styles.que_num}>{questionNum}</div>
+                      <div className={styles.que_num}>{questionNum} of 41</div>
                     </div>
                     <div className={styles.timer}>
                       <div className={styles.text_block}>Time Left</div>
