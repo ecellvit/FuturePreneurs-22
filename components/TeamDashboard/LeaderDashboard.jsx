@@ -164,7 +164,11 @@ const LeaderDashboard = ({
             <div className="copy-area">
               <button
                 className={`${styles.btngroup} ${styles.glow_on_hover}`}
-                onClick={() => router.push("/quiz")}
+                onClick={() =>
+                  openInNewTab(
+                    "https://chat.whatsapp.com/HRf6GIMOogZ1iOu43naBvg"
+                  )
+                }
               >
                 Attempt Quiz
               </button>
