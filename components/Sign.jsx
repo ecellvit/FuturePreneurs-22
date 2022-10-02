@@ -80,9 +80,6 @@ const Sign = () => {
           }
           if (data.hasFilledDetails === true) {
             router.push("/dashboard");
-          } else {
-            toast.error("Registrations Have Ended")
-            signOut({ callbackUrl: "/" });
           }
         })
         .catch((err) => console.log(err));

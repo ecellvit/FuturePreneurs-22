@@ -41,7 +41,7 @@ const Section1 = () => {
           width="515px"
           className={styles.p_logo}
         />
-        {/* <img
+        <img
           onClick={() => {
             if (status === "authenticated") {
               // console.log("already siged in");
@@ -55,7 +55,7 @@ const Section1 = () => {
           sizes="(max-width: 479px) 92.5px, (max-width: 767px) 148px, 197px"
           width="200px"
           className={styles.get_in_gradient}
-        /> */}
+        />
       </div>
       <div className={styles.main_text}>
         <div className={styles.countContainer}>
