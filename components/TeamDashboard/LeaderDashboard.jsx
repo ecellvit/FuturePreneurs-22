@@ -10,6 +10,7 @@ import myContext from "../../store/myContext";
 import { AnimatePresence, motion } from "framer-motion";
 import Modal from "../modal";
 import styles1 from "../../styles/Modal.module.css";
+import { useRouter } from "next/router.js";
 
 const LeaderDashboard = ({
   teamData,
@@ -17,6 +18,7 @@ const LeaderDashboard = ({
   teamToken,
   handleMemberRemove,
 }) => {
+  const router = useRouter();
   const [modalOpen, setModalOpen] = useState(false);
 
   const close = () => setModalOpen(false);
@@ -162,13 +164,9 @@ const LeaderDashboard = ({
             <div className="copy-area">
               <button
                 className={`${styles.btngroup} ${styles.glow_on_hover}`}
-                onClick={() =>
-                  openInNewTab(
-                    "https://chat.whatsapp.com/IPrALdIYME77EV3vWdL5zG"
-                  )
-                }
+                onClick={() => router.push("/quiz")}
               >
-                Join WhatsApp Group
+                Attempt Quiz
               </button>
             </div>
           </div>
