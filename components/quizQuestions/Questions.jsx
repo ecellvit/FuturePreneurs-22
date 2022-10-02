@@ -35,8 +35,12 @@ function Questions(props) {
   const [questionType, setQuestionType] = useState();
   const [quizStart, setQuizStart] = useState();
   const [indexNum, setIndexNum] = useState(1);
+<<<<<<< Updated upstream
   const [imageSrc, setImageSrc] = useState();
 
+=======
+  const [qNum, setqNum] = useState();
+>>>>>>> Stashed changes
   const [endTime, setEndTime] = useState();
   const [curTime, setCurTime] = useState([]);
 
@@ -51,9 +55,41 @@ function Questions(props) {
   const MAX_QUESTIONS = 26;
 
   let Timer;
+  useEffect(() => {
+    setIsLoading(true);
+    fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/user/quiz `, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${session.accessTokenBackend}`,
+        "Access-Control-Allow-Origin": "*",
+      },
+    })
+      .then((data) => data.json())
+      .then((data) => {
+        console.log(data.status, "!!!!!!!");
+        if (data.status === 1) {
+          setIsLoading(true);
 
+          // setQuizStart(true);
+          startQuiz();
+        } else {
+          setQuizStart(false);
+        }
+
+        setIsLoading(false);
+      })
+
+      .catch((error) => {
+        console.error(
+          "There has been a problem with your fetch operation:",
+          error
+        );
+      });
+  }, []);
   function getNextQuestion() {
     setIndexNum((prev) => prev + 1);
+
     fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/team/quiz/${TEAM_ID}`, {
       headers: {
         "Content-Type": "application/json",
@@ -84,6 +120,7 @@ function Questions(props) {
           router.push("/dashboard");
         } else {
           console.log(data, "!!!!");
+          setqNum(data.presentQuestionNum);
           setQuestion(data.question);
           setAnswers(data.options);
           setQuestionType(data.questionType);
@@ -186,6 +223,10 @@ function Questions(props) {
           console.log("Maximum Questions capacity reached");
           router.push("/dashboard");
         } else {
+<<<<<<< Updated upstream
+=======
+          setqNum(data.presentQuestionNum);
+>>>>>>> Stashed changes
           setQuestion(data.question);
           setAnswers(data.options);
           setQuestionType(data.questionType);
@@ -249,16 +290,11 @@ function Questions(props) {
 
   return (
     <>
-      {!quizStart ? (
-        <MainQuiz
-          hrs={hours}
-          min={minutes}
-          sec={seconds}
-          startQuiz={startQuiz}
-          TEAM_ID={TEAM_ID}
-        />
+      {isLoading ? (
+        <Loading />
       ) : (
         <>
+<<<<<<< Updated upstream
           <div className={styles.boy}>
             {isLoading ? (
               <Loading />
@@ -337,46 +373,129 @@ function Questions(props) {
                       setUserAnswer={setUserAnswer}
                     />
                   )}
+=======
+          {!quizStart ? (
+            <MainQuiz
+              hrs={hours}
+              min={minutes}
+              sec={seconds}
+              startQuiz={startQuiz}
+              TEAM_ID={TEAM_ID}
+            />
+          ) : (
+            <>
+              <div className={styles.boy}>
+                {isLoading ? (
+                  <Loading />
+                ) : (
+                  <div className={styles.round_page}>
+                    <div className={styles.instructions_div}>
+                      <div className={styles.top}>
+                        <div className={styles.round}>
+                          <div className={styles.que_num}>{qNum}</div>
+                        </div>
+                        <div className={styles.timer}>
+                          <div className={styles.text_block}>Time Left</div>
+                          <div className={styles.text_block}>
+                            {" "}
+                            {curTime[0]}:{curTime[1]}
+                          </div>
+                        </div>
+                      </div>
+                      {questionType == 0 && (
+                        <SingleAns
+                          question={question}
+                          answers={answers}
+                          userAnswer={userAnswer}
+                          setUserAnswer={setUserAnswer}
+                        />
+                      )}
+                      {questionType == 1 && (
+                        <MultipleAnswerQuestions
+                          question={question}
+                          answers={answers}
+                          userAnswer={userAnswer}
+                          setUserAnswer={setUserAnswer}
+                        />
+                      )}
+                      {questionType == 2 && (
+                        <MatchingType
+                          question={question}
+                          answers={answers}
+                          userAnswer={userAnswer}
+                          setUserAnswer={setUserAnswer}
+                        />
+                      )}
+                      {questionType == 3 && (
+                        <CaseStudy
+                          text={descText}
+                          question={question}
+                          answers={answers}
+                          userAnswer={userAnswer}
+                          setUserAnswer={setUserAnswer}
+                        />
+                      )}
+                      {questionType == 4 && (
+                        <CaseStudyMulti
+                          text={descText}
+                          question={question}
+                          answers={answers}
+                          userAnswer={userAnswer}
+                          setUserAnswer={setUserAnswer}
+                        />
+                      )}
+                      {questionType == 5 && (
+                        <DescriptiveQuestions
+                          text={descText}
+                          question={question}
+                          answers={answers}
+                          userAnswer={userAnswer}
+                          setUserAnswer={setUserAnswer}
+                        />
+                      )}
+>>>>>>> Stashed changes
 
-                  <div className={styles.type}>
-                    <div className={`${styles.start_btn_2}`}>
-                      <img
-                        disabled={isLoading}
-                        src="clear.png"
-                        width="290px"
-                        sizes="(max-width: 479px) 31vw, (max-width: 1919px) 145px, 290px"
-                        alt=""
-                        className={styles.image}
-                        style={{ display: isLoading ? "none" : "block" }}
-                        onClick={() => {
-                          console.log("Meow Meow");
-                          setUserAnswer([]);
-                        }}
-                      />
+                      <div className={styles.type}>
+                        <div className={`${styles.start_btn_2}`}>
+                          <img
+                            disabled={isLoading}
+                            src="clear.png"
+                            width="290px"
+                            sizes="(max-width: 479px) 31vw, (max-width: 1919px) 145px, 290px"
+                            alt=""
+                            className={styles.image}
+                            style={{ display: isLoading ? "none" : "block" }}
+                            onClick={() => {
+                              console.log("Meow Meow");
+                              setUserAnswer([]);
+                            }}
+                          />
+                        </div>
+                        <div className={styles.start_btn}>
+                          <img
+                            disabled={isLoading}
+                            src="start.png"
+                            width="290px"
+                            sizes="(max-width: 479px) 31vw, (max-width: 1919px) 145px, 290px"
+                            alt=""
+                            className={styles.image}
+                            style={{ display: isLoading ? "none" : "block" }}
+                            onClick={() => {
+                              setIsLoading(true);
+                              submitAnswer();
+                            }}
+                          />
+                        </div>
+                        <p className={styles.paragraph}>
+                          Note: {codes[questionType]}
+                        </p>
+                      </div>
                     </div>
-                    <div className={styles.start_btn}>
-                      <img
-                        disabled={isLoading}
-                        src="start.png"
-                        width="290px"
-                        sizes="(max-width: 479px) 31vw, (max-width: 1919px) 145px, 290px"
-                        alt=""
-                        className={styles.image}
-                        style={{ display: isLoading ? "none" : "block" }}
-                        onClick={() => {
-                          setIsLoading(true);
-                          submitAnswer();
-                        }}
-                      />
-                    </div>
-                    <p className={styles.paragraph}>
-                      Note: {codes[questionType]}
-                    </p>
                   </div>
-                </div>
+                )}
               </div>
-            )}
-          </div>
+            </>
+          )}
         </>
       )}
     </>
