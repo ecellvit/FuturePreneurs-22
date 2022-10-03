@@ -73,7 +73,7 @@ const MainQuiz = ({ hrs, min, sec, startQuiz, TEAM_ID }) => {
               return (
                 <div className={styles.profile_card} key={team._id}>
                   <div className={styles.img}>
-                    <img src="pic.svg" className={styles.image_2} />
+                    <img src={session.user.image} className={styles.image_2} />
                   </div>
                   <div className={styles.nam}>
                     <div className={styles.name}>
