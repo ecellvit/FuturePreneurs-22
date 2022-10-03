@@ -30,7 +30,9 @@ const MultipleAnswerQuestions = ({
   return (
     <>
       <div className={styles.round_instruction}>
-        <div className={styles.para}>{question}</div>
+        <div className={styles.para} style={{ whiteSpace: "pre-line" }}>
+          {question}
+        </div>
         {answers.map((val, ind) => {
           return (
             <label

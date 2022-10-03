@@ -11,13 +11,16 @@ const Thankyou = () => {
           <div className={styles.spon}>Thank you!</div>
           <div className={styles.paralink}>
             <div className={styles.para}>
-              Your quiz has been successfully submitted.
+              Your quiz has been successfully submitted
             </div>
           </div>
           <div className={styles.paralink}>
             <div className={styles.para}>
-              <a href="#" className={styles.link}>
-                fp.ecellvit.com
+              <a
+                href="https://www.instagram.com/ecell_vit/"
+                className={styles.link}
+              >
+                Follow us on Instagram for further updates
                 <br />‍
               </a>
             </div>
