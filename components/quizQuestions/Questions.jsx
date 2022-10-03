@@ -16,6 +16,7 @@ import SingleAns from "./SingleAns";
 import ImageBased from "./ImageBased";
 
 function Questions(props) {
+  console.log(screen.width);
   const router = useRouter();
   const [question, setQuestion] = useState("1+1?");
   const [answers, setAnswers] = useState(["0", "2", "Me", "Who knows?"]);
@@ -35,12 +36,9 @@ function Questions(props) {
   const [questionType, setQuestionType] = useState();
   const [quizStart, setQuizStart] = useState();
   const [indexNum, setIndexNum] = useState(1);
-<<<<<<< Updated upstream
   const [imageSrc, setImageSrc] = useState();
+  const [isLeader, setIsLeader] = useState(true);
 
-=======
-  const [qNum, setqNum] = useState();
->>>>>>> Stashed changes
   const [endTime, setEndTime] = useState();
   const [curTime, setCurTime] = useState([]);
 
@@ -55,41 +53,9 @@ function Questions(props) {
   const MAX_QUESTIONS = 26;
 
   let Timer;
-  useEffect(() => {
-    setIsLoading(true);
-    fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/user/quiz `, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${session.accessTokenBackend}`,
-        "Access-Control-Allow-Origin": "*",
-      },
-    })
-      .then((data) => data.json())
-      .then((data) => {
-        console.log(data.status, "!!!!!!!");
-        if (data.status === 1) {
-          setIsLoading(true);
 
-          // setQuizStart(true);
-          startQuiz();
-        } else {
-          setQuizStart(false);
-        }
-
-        setIsLoading(false);
-      })
-
-      .catch((error) => {
-        console.error(
-          "There has been a problem with your fetch operation:",
-          error
-        );
-      });
-  }, []);
   function getNextQuestion() {
     setIndexNum((prev) => prev + 1);
-
     fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/team/quiz/${TEAM_ID}`, {
       headers: {
         "Content-Type": "application/json",
@@ -120,7 +86,6 @@ function Questions(props) {
           router.push("/dashboard");
         } else {
           console.log(data, "!!!!");
-          setqNum(data.presentQuestionNum);
           setQuestion(data.question);
           setAnswers(data.options);
           setQuestionType(data.questionType);
@@ -190,6 +155,26 @@ function Questions(props) {
       });
   }
 
+  useEffect(() => {
+    console.log("Meow Meow Nigga");
+    fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/user/team`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${session.accessTokenBackend}`,
+        "Access-Control-Allow-Origin": "*",
+      },
+    })
+      .then((data) => data.json())
+      .then((data) => {
+        if (data.user?.teamRole === 0) {
+          setIsLeader(true);
+        } else {
+          setIsLeader(false);
+        }
+      });
+  }, [isLeader, session]);
+
   function startQuiz() {
     setIsLoading(true);
     fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/team/quiz/${TEAM_ID}`, {
@@ -223,10 +208,6 @@ function Questions(props) {
           console.log("Maximum Questions capacity reached");
           router.push("/dashboard");
         } else {
-<<<<<<< Updated upstream
-=======
-          setqNum(data.presentQuestionNum);
->>>>>>> Stashed changes
           setQuestion(data.question);
           setAnswers(data.options);
           setQuestionType(data.questionType);
@@ -287,93 +268,12 @@ function Questions(props) {
       clearInterval(Timer);
     };
   }, [Timer]);
+  console.log(isLeader);
 
-  return (
-    <>
-      {isLoading ? (
-        <Loading />
-      ) : (
+  if (isLeader) {
+    if (screen.width > 768) {
+      return (
         <>
-<<<<<<< Updated upstream
-          <div className={styles.boy}>
-            {isLoading ? (
-              <Loading />
-            ) : (
-              <div className={styles.round_page}>
-                <div className={styles.instructions_div}>
-                  <div className={styles.top}>
-                    <div className={styles.round}>
-                      <div className={styles.que_num}>{questionNum} of 41</div>
-                    </div>
-                    <div className={styles.timer}>
-                      <div className={styles.text_block}>Time Left</div>
-                      <div className={styles.text_block}>
-                        {" "}
-                        {curTime[0]}:{curTime[1]}
-                      </div>
-                    </div>
-                  </div>
-                  {questionType == 0 && (
-                    <SingleAns
-                      question={question}
-                      answers={answers}
-                      userAnswer={userAnswer}
-                      setUserAnswer={setUserAnswer}
-                    />
-                  )}
-                  {questionType == 1 && (
-                    <MultipleAnswerQuestions
-                      question={question}
-                      answers={answers}
-                      userAnswer={userAnswer}
-                      setUserAnswer={setUserAnswer}
-                    />
-                  )}
-                  {questionType == 2 && (
-                    <MatchingType
-                      question={question}
-                      answers={answers}
-                      userAnswer={userAnswer}
-                      setUserAnswer={setUserAnswer}
-                    />
-                  )}
-                  {questionType == 3 && (
-                    <CaseStudy
-                      text={descText}
-                      question={question}
-                      answers={answers}
-                      userAnswer={userAnswer}
-                      setUserAnswer={setUserAnswer}
-                    />
-                  )}
-                  {questionType == 4 && (
-                    <CaseStudyMulti
-                      text={descText}
-                      question={question}
-                      answers={answers}
-                      userAnswer={userAnswer}
-                      setUserAnswer={setUserAnswer}
-                    />
-                  )}
-                  {questionType == 5 && (
-                    <DescriptiveQuestions
-                      text={descText}
-                      question={question}
-                      answers={answers}
-                      userAnswer={userAnswer}
-                      setUserAnswer={setUserAnswer}
-                    />
-                  )}
-                  {questionType == 6 && (
-                    <ImageBased
-                      question={question}
-                      answers={answers}
-                      userAnswer={userAnswer}
-                      imageSrc={imageSrc}
-                      setUserAnswer={setUserAnswer}
-                    />
-                  )}
-=======
           {!quizStart ? (
             <MainQuiz
               hrs={hours}
@@ -392,7 +292,9 @@ function Questions(props) {
                     <div className={styles.instructions_div}>
                       <div className={styles.top}>
                         <div className={styles.round}>
-                          <div className={styles.que_num}>{qNum}</div>
+                          <div className={styles.que_num}>
+                            {questionNum} of 41
+                          </div>
                         </div>
                         <div className={styles.timer}>
                           <div className={styles.text_block}>Time Left</div>
@@ -453,7 +355,15 @@ function Questions(props) {
                           setUserAnswer={setUserAnswer}
                         />
                       )}
->>>>>>> Stashed changes
+                      {questionType == 6 && (
+                        <ImageBased
+                          question={question}
+                          answers={answers}
+                          userAnswer={userAnswer}
+                          imageSrc={imageSrc}
+                          setUserAnswer={setUserAnswer}
+                        />
+                      )}
 
                       <div className={styles.type}>
                         <div className={`${styles.start_btn_2}`}>
@@ -497,9 +407,13 @@ function Questions(props) {
             </>
           )}
         </>
-      )}
-    </>
-  );
+      );
+    } else {
+      router.push("/smallscreen");
+    }
+  } else {
+    router.push("/notLeader");
+  }
 }
 
 export default Questions;
