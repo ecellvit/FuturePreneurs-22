@@ -3,10 +3,21 @@ import { memo } from "react";
 
 import styles from "../../styles/Img.module.css";
 
-function DescriptiveQuestions({ question, setUserAnswer }) {
+function DescriptiveQuestions({ question, setUserAnswer, imageSrc }) {
+  console.log(imageSrc);
   return (
     <>
       <div className={styles.round_instruction}>
+        {imageSrc !== undefined && (
+          <div className={styles.img_cont}>
+            <img
+              src={imageSrc}
+              sizes="(max-width: 479px) 100vw, 600px"
+              className={styles.qimg}
+            />
+          </div>
+        )}
+
         <div className={styles.para} style={{ whiteSpace: "pre-line" }}>
           {question}
         </div>

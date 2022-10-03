@@ -404,6 +404,7 @@ function Questions(props) {
                       {questionType == 5 && (
                         <DescriptiveQuestions
                           text={descText}
+                          imageSrc={imageSrc}
                           question={question}
                           answers={answers}
                           userAnswer={userAnswer}
