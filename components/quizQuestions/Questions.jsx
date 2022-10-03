@@ -42,6 +42,7 @@ function Questions(props) {
   const [curTime, setCurTime] = useState([]);
 
   const [isLoading, setIsLoading] = useState(false);
+  const [StartEnabler, setStartEnabler] = useState(false);
   const [descText, setDescText] = useState();
 
   const myCtx = useContext(myContext);
@@ -275,7 +276,7 @@ function Questions(props) {
   const [minutes, setMinutes] = useState();
   const [seconds, setSeconds] = useState();
 
-  const END_TIME = new Date(2022, 10, 4, 12, 0, 0);
+  const END_TIME = new Date(2022, 10, 4, 0, 17, 0);
 
   useEffect(() => {
     let timer = setTimeout(() => {
@@ -285,6 +286,9 @@ function Questions(props) {
       let hrs = Math.floor(d / 1000 / 60 / 60) % 24;
       let mins = Math.floor(d / 1000 / 60) % 60;
       let secs = Math.floor(d / 1000) % 60;
+      if (hrs === 0 && mins === 0 && secs === 0) {
+        setStartEnabler(true);
+      }
       if (hrs.toString().length < 2) {
         hrs = "0" + hrs.toString();
       }
@@ -325,6 +329,7 @@ function Questions(props) {
                     min={minutes}
                     sec={seconds}
                     startQuiz={startQuiz}
+                    StartEnabler={StartEnabler}
                     TEAM_ID={TEAM_ID}
                   />
                 </>
