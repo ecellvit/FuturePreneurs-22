@@ -6,7 +6,7 @@ import styles from "../../styles/MainQuiz.module.css";
 import { memo } from "react";
 
 import Loading from "../Loading";
-const MainQuiz = ({ hrs, min, sec, startQuiz, TEAM_ID }) => {
+const MainQuiz = ({ hrs, min, sec, startQuiz, StartEnabler, TEAM_ID }) => {
   const { data: session } = useSession();
   const [useEffectTrigger, setUseEffectTrigger] = useState(false);
 
@@ -14,6 +14,10 @@ const MainQuiz = ({ hrs, min, sec, startQuiz, TEAM_ID }) => {
 
   const [isLoading, setIsLoading] = useState(false);
   const { status } = useSession();
+  function RenderStartButton() {
+    console.log(hrs, min, sec);
+    console.log(StartEnabler);
+  }
 
   useEffect(() => {
     setIsLoading(true);
@@ -57,16 +61,26 @@ const MainQuiz = ({ hrs, min, sec, startQuiz, TEAM_ID }) => {
     <div className={styles.boy}>
       <div className={styles.round_page}>
         <div className={styles.profile_div}>
-          <div className={styles.starting}>
-            <div className={styles.h1}>
-              <h1 className={styles.heading}>Starting In</h1>
+          {!StartEnabler ? (
+            <div className={styles.starting}>
+              <div className={styles.h1}>
+                <h1 className={styles.heading}>Starting In</h1>
+              </div>
+              <div className={styles.btn}>
+                <a href="#" className={`${styles.button_2} ${styles.w_button}`}>
+                  {hrs}:{min}:{sec}
+                </a>
+              </div>
             </div>
-            <div className={styles.btn}>
-              <a href="#" className={`${styles.button_2} ${styles.w_button}`}>
-                {hrs}:{min}:{sec}
-              </a>
+          ) : (
+            <div className={styles.starting}>
+              <div className={styles.h1}>
+                <h4 className={styles.heading}>
+                  Quiz Has Started Please Start The Quiz Before 12:25 PM
+                </h4>
+              </div>
             </div>
-          </div>
+          )}
           <div className={styles.line}></div>
           <div className={styles.profile_container}>
             {teamData?.teamId?.members?.map((team) => {
@@ -145,28 +159,30 @@ const MainQuiz = ({ hrs, min, sec, startQuiz, TEAM_ID }) => {
               <br />
             </div>
           </div>
-          <div className={styles.start_btn}>
-            <img
-              src="startbtn.png"
-              width="290px"
-              sizes="(max-width: 1919px) 145px, 290px"
-              alt=""
-              className={styles.image}
-            />
-            <a
-              disabled={isLoading}
-              className={`${styles.btn_txt} ${styles.w_button}`}
-              style={{
-                display: isLoading ? "none" : "block",
-              }}
-              onClick={() => {
-                setIsLoading(true);
-                startQuiz();
-              }}
-            >
-              Start Quiz
-            </a>
-          </div>
+          {StartEnabler && (
+            <div className={styles.start_btn}>
+              <img
+                src="startbtn.png"
+                width="290px"
+                sizes="(max-width: 1919px) 145px, 290px"
+                alt=""
+                className={styles.image}
+              />
+              <a
+                disabled={isLoading}
+                className={`${styles.btn_txt} ${styles.w_button}`}
+                style={{
+                  display: isLoading ? "none" : "block",
+                }}
+                onClick={() => {
+                  setIsLoading(true);
+                  startQuiz();
+                }}
+              >
+                Start Quiz
+              </a>
+            </div>
+          )}
         </div>
       </div>
     </div>
