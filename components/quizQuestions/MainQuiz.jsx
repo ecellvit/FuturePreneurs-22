@@ -86,24 +86,63 @@ const MainQuiz = ({ hrs, min, sec, startQuiz, TEAM_ID }) => {
         </div>
         <div className={styles.instructions_div}>
           <div className={styles.round}>
-            <div className={styles.text_block}>Round 0</div>
+            <div className={styles.text_block}>Round Zero Instructions</div>
           </div>
           <div className={styles.round}>
-            <div className={styles.text_block}>Instructions</div>
+            <div className={styles.text_block}>
+              {" "}
+              Read through all the instructions carefully as this will be vital
+              for your performance in the quiz.
+            </div>
           </div>
           <div className={styles.round_instruction}>
             <div className={styles.para}>
-              “Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididuntut labore et dolore magna aliqua.” The
-              purpose oflorem ipsum is to create a natural looking block of text
-              (sentence, paragraph, page, etc.) <br />
-              thatdoesn&#x27;t distract from the layout.
               <br />
-              “Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididuntut labore et dolore magna aliqua.” The
-              purpose oflorem ipsum is to create a natural looking block of text
-              (sentence, paragraph, page, etc.) thatdoesn&#x27;t distract from
-              the layout.
+              There will be no free navigation in the quiz, once you move to the
+              next question, you cannot move back.
+              <br />
+              <br />
+              If you are unable to solve all the questions in the given time
+              period, answered questions will be auto saved and submitted.
+              <br />
+              <br />
+              Marking scheme for multiple options correct: <br />
+              <br />• If and only if all the correct options are selected,
+              you'll be awarded 4 points.
+              <br /> • If even one incorrect option is selected, the team will
+              lose 1 point.
+              <br />• No points will be awarded if the question is left
+              unanswered.
+              <br />
+              <br />
+              Marking scheme for Single options correct:
+              <br /> • 4 points will be awarded if the correct option is
+              selected.
+              <br /> • Team will lose 1 point if any incorrect option is
+              selected.
+              <br /> • No points will be awarded if the question is left
+              unanswered.
+              <br />
+              For descriptive type questions: you can type your answers. There
+              is no word limit. You cannot leave the answer field empty.
+              <br />
+              For Match the following type questions: first select the question
+              and then its corresponding answer. Both the entities will be
+              highlighted with the same colour after this is done. Repeat the
+              process for all the options in the question.
+              <br />
+              If you want to deselect your choice in Match the following type,
+              click on that particular question.
+              <br />
+              To answer any question regarding a case study, read through the
+              case study thoroughly.
+              <br />
+              You can use the "clear all" button, to deselect all the options
+              incase you face any ambiguity.
+              <br />
+              Incase of any discrepancy, the team leader can text on the
+              designated WhatsApp group.
+              <br />
             </div>
           </div>
           <div className={styles.start_btn}>

@@ -80,9 +80,9 @@ function Questions(props) {
         }
         if (data.message === "Time Limit Reached") {
           console.log("Time Limit Reached");
-          router.push("/dashboard");
+          router.push("/thankyou");
         } else if (data.message === "Maximum Questions capacity reached") {
-          router.push("/dashboard");
+          router.push("/thankyou");
         } else {
           console.log(data, "!!!!");
           setQuestion(data.question);
@@ -144,7 +144,7 @@ function Questions(props) {
         }
         if (data.message === "Time Limit Reached") {
           console.log("time exceeded");
-          router.push("/dashboard");
+          router.push("/thankyou");
         } else if (data.message === "Submitted Answer Successfully") {
           setUserAnswer([]);
           getNextQuestion();
@@ -202,10 +202,10 @@ function Questions(props) {
         }
         if (data.message == "Time Limit Reached") {
           toast("Time Limit Reached");
-          router.push("/dashboard");
+          router.push("/thankyou");
         } else if (data.message == "Maximum Questions capacity reached") {
           console.log("Maximum Questions capacity reached");
-          router.push("/dashboard");
+          router.push("/thankyou");
         } else {
           setQuestion(data.question);
           setAnswers(data.options);
@@ -223,7 +223,7 @@ function Questions(props) {
             let seconds = Math.floor((end - now) / 1000) % 60;
             if (seconds === 0 && minutes === 0) {
               toast("Time Limit Reached");
-              router.push("/dashboard");
+              router.push("/thankyou");
               return;
             }
             if (minutes.toString().length < 2) {
@@ -253,6 +253,15 @@ function Questions(props) {
       let hrs = Math.floor(d / 1000 / 60 / 60) % 24;
       let mins = Math.floor(d / 1000 / 60) % 60;
       let secs = Math.floor(d / 1000) % 60;
+      if (hrs.toString().length < 2) {
+        hrs = "0" + hrs.toString();
+      }
+      if (mins.toString().length < 2) {
+        mins = "0" + mins.toString();
+      }
+      if (secs.toString().length < 2) {
+        secs = "0" + secs.toString();
+      }
 
       setHours(hrs);
       setMinutes(mins);
@@ -294,6 +303,11 @@ function Questions(props) {
                           <div className={styles.que_num}>
                             {questionNum} of 41
                           </div>
+                        </div>
+                        <div className={styles.note_div}>
+                          <p className={styles.paragraph}>
+                            Note: {codes[questionType]}
+                          </p>
                         </div>
                         <div className={styles.timer}>
                           <div className={styles.text_block}>Time Left</div>
@@ -395,9 +409,9 @@ function Questions(props) {
                             }}
                           />
                         </div>
-                        <p className={styles.paragraph}>
+                        {/* <p className={styles.paragraph}>
                           Note: {codes[questionType]}
-                        </p>
+                        </p> */}
                       </div>
                     </div>
                   </div>
