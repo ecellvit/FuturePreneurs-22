@@ -16,7 +16,6 @@ import SingleAns from "./SingleAns";
 import ImageBased from "./ImageBased";
 
 function Questions(props) {
-  console.log(screen.width);
   const router = useRouter();
   const [question, setQuestion] = useState("1+1?");
   const [answers, setAnswers] = useState(["0", "2", "Me", "Who knows?"]);
@@ -131,6 +130,7 @@ function Questions(props) {
         return response.json();
       })
       .then((data) => {
+        setIsLoading(false);
         if (data.error?.errorCode) {
           toast.error(`${data.message}`, {
             position: "top-right",
@@ -156,7 +156,6 @@ function Questions(props) {
   }
 
   useEffect(() => {
-    console.log("Meow Meow Nigga");
     fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/user/team`, {
       method: "GET",
       headers: {
@@ -213,6 +212,7 @@ function Questions(props) {
           setQuestionType(data.questionType);
           setSetNum(data.setNum);
           setQuestionNum(data.presentQuestionNum);
+          setImageSrc(data.imageSrc);
           setIsLoading(false);
           setcurrQuesBackend(data.questionNum);
 
@@ -268,7 +268,6 @@ function Questions(props) {
       clearInterval(Timer);
     };
   }, [Timer]);
-  console.log(isLeader);
 
   if (isLeader) {
     if (screen.width > 768) {
