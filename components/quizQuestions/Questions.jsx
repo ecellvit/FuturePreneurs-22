@@ -253,6 +253,15 @@ function Questions(props) {
       let hrs = Math.floor(d / 1000 / 60 / 60) % 24;
       let mins = Math.floor(d / 1000 / 60) % 60;
       let secs = Math.floor(d / 1000) % 60;
+      if (hrs.toString().length < 2) {
+        hrs = "0" + hrs.toString();
+      }
+      if (mins.toString().length < 2) {
+        mins = "0" + mins.toString();
+      }
+      if (secs.toString().length < 2) {
+        secs = "0" + secs.toString();
+      }
 
       setHours(hrs);
       setMinutes(mins);
@@ -295,6 +304,11 @@ function Questions(props) {
                           <div className={styles.que_num}>
                             {questionNum} of 41
                           </div>
+                        </div>
+                        <div className={styles.note_div}>
+                          <p className={styles.paragraph}>
+                            Note: {codes[questionType]}
+                          </p>
                         </div>
                         <div className={styles.timer}>
                           <div className={styles.text_block}>Time Left</div>
@@ -396,9 +410,9 @@ function Questions(props) {
                             }}
                           />
                         </div>
-                        <p className={styles.paragraph}>
+                        {/* <p className={styles.paragraph}>
                           Note: {codes[questionType]}
-                        </p>
+                        </p> */}
                       </div>
                     </div>
                   </div>

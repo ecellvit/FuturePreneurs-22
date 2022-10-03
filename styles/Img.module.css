@@ -8,7 +8,6 @@
   margin-top: 30%;
   border-style: none;
 }
-
 .w_button {
   display: inline-block;
   padding: 9px 15px;
@@ -19,6 +18,9 @@
   text-decoration: none;
   cursor: pointer;
   border-radius: 0;
+}
+.note_div {
+  max-width: 60vh;
 }
 .inp {
   background-color: transparent;
@@ -86,6 +88,7 @@
   border-radius: 20px;
   color: #fff;
   font-size: 1.5em;
+
   line-height: 10px;
 }
 
@@ -98,7 +101,7 @@
   overflow: hidden;
   /* padding-top: 60px; */
   background-color: #070f0f;
-  background-image: url("/gradi.svg");
+  background-image: url("/graquiz.svg");
   background-position: 0px 0px;
   background-size: contain;
   background-repeat: no-repeat;
@@ -264,6 +267,8 @@
 
 .paragraph {
   color: #fff;
+  color: #bf3ec3;
+  font-size: 1.3em;
 }
 
 .img_cont {
