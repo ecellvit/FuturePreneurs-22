@@ -1,0 +1,58 @@
+.thank_div {
+  min-height: 105vh;
+  margin-right: 0px;
+  padding-top: 20vh;
+  background-color: #070f0f;
+  background-image: url("/thank.png");
+  background-position: 0% 0%;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.main_cont {
+  display: flex;
+  margin-left: 5vw;
+  padding-right: 5vw;
+  justify-content: space-around;
+}
+
+.main_text {
+  max-width: 50vw;
+}
+
+.spon {
+  padding-top: 100px;
+  color: #e4e4e4;
+  font-size: 10vw;
+  line-height: 0.8em;
+  text-align: center;
+}
+
+.paralink {
+  margin-top: 40px;
+}
+
+.para {
+  color: #e4e4e4;
+  font-size: 2.5vw;
+  line-height: 1.1em;
+  text-align: center;
+}
+
+.link {
+  text-decoration: none;
+  color: palevioletred;
+}
+.link:hover {
+  text-decoration: none;
+  color: red;
+}
+
+@media screen and (max-width: 991px) {
+  .main_cont {
+    margin-left: 0vw;
+    padding-left: 5vw;
+    justify-content: space-between;
+    align-items: center;
+  }
+}

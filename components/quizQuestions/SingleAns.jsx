@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "../../styles/Img.module.css";
 import { useEffect, useState } from "react";
+import { memo } from "react";
 
 const SingleAns = ({ question, answers, userAnswer, setUserAnswer }) => {
   const [ans, setAns] = useState([]);
@@ -22,7 +23,7 @@ const SingleAns = ({ question, answers, userAnswer, setUserAnswer }) => {
   return (
     <>
       <div className={styles.round_instruction}>
-        <div className={styles.para}>{question}</div>
+        <div style={{whiteSpace:"pre-line"}} className={styles.para}>{question}</div>
         {/* Answers */}
         <div>
           {answers.map((val, ind) => {
@@ -50,4 +51,4 @@ const SingleAns = ({ question, answers, userAnswer, setUserAnswer }) => {
   );
 };
 
-export default SingleAns;
+export default memo(SingleAns);

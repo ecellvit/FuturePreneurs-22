@@ -23,7 +23,7 @@ const Section1 = () => {
     fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/admin/team`)
       .then((data) => data.json())
       .then((data) => {
-        console.log(data.teamsCount);
+        // console.log(data.teamsCount);
         setTeamCount(data.teamsCount);
       });
   }, []);

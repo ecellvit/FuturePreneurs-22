@@ -36,11 +36,13 @@ function Questions(props) {
   const [quizStart, setQuizStart] = useState();
   const [indexNum, setIndexNum] = useState(1);
   const [imageSrc, setImageSrc] = useState();
+  const [isLeader, setIsLeader] = useState(true);
 
   const [endTime, setEndTime] = useState();
   const [curTime, setCurTime] = useState([]);
 
   const [isLoading, setIsLoading] = useState(false);
+  const [StartEnabler, setStartEnabler] = useState(false);
   const [descText, setDescText] = useState();
 
   const myCtx = useContext(myContext);
@@ -51,6 +53,35 @@ function Questions(props) {
   const MAX_QUESTIONS = 26;
 
   let Timer;
+  useEffect(() => {
+    setIsLoading(true);
+    fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/user/quiz `, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${session.accessTokenBackend}`,
+        "Access-Control-Allow-Origin": "*",
+      },
+    })
+      .then((data) => data.json())
+      .then((data) => {
+        if (data.status === 1) {
+          setIsLoading(true);
+          startQuiz();
+        } else {
+          setQuizStart(false);
+        }
+
+        setIsLoading(false);
+      })
+
+      .catch((error) => {
+        console.error(
+          "There has been a problem with your fetch operation:",
+          error
+        );
+      });
+  }, []);
 
   function getNextQuestion() {
     setIndexNum((prev) => prev + 1);
@@ -78,12 +109,12 @@ function Questions(props) {
           });
         }
         if (data.message === "Time Limit Reached") {
-          console.log("Time Limit Reached");
-          router.push("/dashboard");
+          // console.log("Time Limit Reached");
+          router.push("/thankyou");
         } else if (data.message === "Maximum Questions capacity reached") {
-          router.push("/dashboard");
+          router.push("/thankyou");
         } else {
-          console.log(data, "!!!!");
+          // console.log(data, "!!!!");
           setQuestion(data.question);
           setAnswers(data.options);
           setQuestionType(data.questionType);
@@ -129,6 +160,7 @@ function Questions(props) {
         return response.json();
       })
       .then((data) => {
+        setIsLoading(false);
         if (data.error?.errorCode) {
           toast.error(`${data.message}`, {
             position: "top-right",
@@ -141,8 +173,8 @@ function Questions(props) {
           });
         }
         if (data.message === "Time Limit Reached") {
-          console.log("time exceeded");
-          router.push("/dashboard");
+          // console.log("time exceeded");
+          router.push("/thankyou");
         } else if (data.message === "Submitted Answer Successfully") {
           setUserAnswer([]);
           getNextQuestion();
@@ -152,6 +184,25 @@ function Questions(props) {
         console.log(err);
       });
   }
+
+  useEffect(() => {
+    fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/user/team`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${session.accessTokenBackend}`,
+        "Access-Control-Allow-Origin": "*",
+      },
+    })
+      .then((data) => data.json())
+      .then((data) => {
+        if (data.user?.teamRole === 0) {
+          setIsLeader(true);
+        } else {
+          setIsLeader(false);
+        }
+      });
+  }, [isLeader, session]);
 
   function startQuiz() {
     setIsLoading(true);
@@ -181,19 +232,23 @@ function Questions(props) {
         }
         if (data.message == "Time Limit Reached") {
           toast("Time Limit Reached");
-          router.push("/dashboard");
+          router.push("/thankyou");
         } else if (data.message == "Maximum Questions capacity reached") {
-          console.log("Maximum Questions capacity reached");
-          router.push("/dashboard");
+          // console.log("Maximum Questions capacity reached");
+          router.push("/thankyou");
         } else {
           setQuestion(data.question);
           setAnswers(data.options);
           setQuestionType(data.questionType);
           setSetNum(data.setNum);
           setQuestionNum(data.presentQuestionNum);
+          setImageSrc(data.imageSrc);
           setIsLoading(false);
           setcurrQuesBackend(data.questionNum);
 
+          if (data.questionType === 3 || data.questionType === 4) {
+            setDescText(data.caseStudy);
+          }
           Timer = setInterval(() => {
             const now = Date.now();
             const end = Date.parse(data.endTime);
@@ -201,7 +256,7 @@ function Questions(props) {
             let seconds = Math.floor((end - now) / 1000) % 60;
             if (seconds === 0 && minutes === 0) {
               toast("Time Limit Reached");
-              router.push("/dashboard");
+              router.push("/thankyou");
               return;
             }
             if (minutes.toString().length < 2) {
@@ -221,7 +276,7 @@ function Questions(props) {
   const [minutes, setMinutes] = useState();
   const [seconds, setSeconds] = useState();
 
-  const END_TIME = new Date(2022, 10, 4, 17, 0, 0);
+  const END_TIME = new Date(2022, 10, 4, 0, 35, 0);
 
   useEffect(() => {
     let timer = setTimeout(() => {
@@ -231,6 +286,18 @@ function Questions(props) {
       let hrs = Math.floor(d / 1000 / 60 / 60) % 24;
       let mins = Math.floor(d / 1000 / 60) % 60;
       let secs = Math.floor(d / 1000) % 60;
+      if (hrs === 0 && mins === 0 && secs === 0) {
+        setStartEnabler(true);
+      }
+      if (hrs.toString().length < 2) {
+        hrs = "0" + hrs.toString();
+      }
+      if (mins.toString().length < 2) {
+        mins = "0" + mins.toString();
+      }
+      if (secs.toString().length < 2) {
+        secs = "0" + secs.toString();
+      }
 
       setHours(hrs);
       setMinutes(mins);
@@ -247,140 +314,166 @@ function Questions(props) {
     };
   }, [Timer]);
 
-  return (
-    <>
-      {!quizStart ? (
-        <MainQuiz
-          hrs={hours}
-          min={minutes}
-          sec={seconds}
-          startQuiz={startQuiz}
-          TEAM_ID={TEAM_ID}
-        />
-      ) : (
+  if (isLeader) {
+    if (screen.width > 768) {
+      return (
         <>
-          <div className={styles.boy}>
-            {isLoading ? (
-              <Loading />
-            ) : (
-              <div className={styles.round_page}>
-                <div className={styles.instructions_div}>
-                  <div className={styles.top}>
-                    <div className={styles.round}>
-                      <div className={styles.que_num}>{questionNum} of 41</div>
-                    </div>
-                    <div className={styles.timer}>
-                      <div className={styles.text_block}>Time Left</div>
-                      <div className={styles.text_block}>
-                        {" "}
-                        {curTime[0]}:{curTime[1]}
+          {!quizStart ? (
+            <>
+              {isLoading ? (
+                <Loading />
+              ) : (
+                <>
+                  <MainQuiz
+                    hrs={hours}
+                    min={minutes}
+                    sec={seconds}
+                    startQuiz={startQuiz}
+                    StartEnabler={StartEnabler}
+                    TEAM_ID={TEAM_ID}
+                  />
+                </>
+              )}
+            </>
+          ) : (
+            <>
+              <div className={styles.boy}>
+                {isLoading ? (
+                  <Loading />
+                ) : (
+                  <div className={styles.round_page}>
+                    <div className={styles.instructions_div}>
+                      <div className={styles.top}>
+                        <div className={styles.round}>
+                          <div className={styles.que_num}>
+                            {questionNum} of 41
+                          </div>
+                        </div>
+                        <div className={styles.note_div}>
+                          <p className={styles.paragraph}>
+                            Note: {codes[questionType]}
+                          </p>
+                        </div>
+                        <div className={styles.timer}>
+                          <div className={styles.text_block}>Time Left</div>
+                          <div className={styles.text_block}>
+                            {" "}
+                            {curTime[0]}:{curTime[1]}
+                          </div>
+                        </div>
+                      </div>
+                      {questionType == 0 && (
+                        <SingleAns
+                          question={question}
+                          answers={answers}
+                          userAnswer={userAnswer}
+                          setUserAnswer={setUserAnswer}
+                        />
+                      )}
+                      {questionType == 1 && (
+                        <MultipleAnswerQuestions
+                          question={question}
+                          answers={answers}
+                          userAnswer={userAnswer}
+                          setUserAnswer={setUserAnswer}
+                        />
+                      )}
+                      {questionType == 2 && (
+                        <MatchingType
+                          question={question}
+                          answers={answers}
+                          userAnswer={userAnswer}
+                          setUserAnswer={setUserAnswer}
+                        />
+                      )}
+                      {questionType == 3 && (
+                        <CaseStudy
+                          text={descText}
+                          question={question}
+                          answers={answers}
+                          userAnswer={userAnswer}
+                          setUserAnswer={setUserAnswer}
+                        />
+                      )}
+                      {questionType == 4 && (
+                        <CaseStudyMulti
+                          text={descText}
+                          question={question}
+                          answers={answers}
+                          userAnswer={userAnswer}
+                          setUserAnswer={setUserAnswer}
+                        />
+                      )}
+                      {questionType == 5 && (
+                        <DescriptiveQuestions
+                          text={descText}
+                          imageSrc={imageSrc}
+                          question={question}
+                          answers={answers}
+                          userAnswer={userAnswer}
+                          setUserAnswer={setUserAnswer}
+                        />
+                      )}
+                      {questionType == 6 && (
+                        <ImageBased
+                          question={question}
+                          answers={answers}
+                          userAnswer={userAnswer}
+                          imageSrc={imageSrc}
+                          setUserAnswer={setUserAnswer}
+                        />
+                      )}
+
+                      <div className={styles.type}>
+                        <div className={`${styles.start_btn_2}`}>
+                          <img
+                            disabled={isLoading}
+                            src="clear.png"
+                            width="290px"
+                            sizes="(max-width: 479px) 31vw, (max-width: 1919px) 145px, 290px"
+                            alt=""
+                            className={styles.image}
+                            style={{ display: isLoading ? "none" : "block" }}
+                            onClick={() => {
+                              setUserAnswer([]);
+                            }}
+                          />
+                        </div>
+                        <div className={styles.start_btn}>
+                          <img
+                            disabled={isLoading}
+                            src={
+                              questionNum === 41 ? "finish.png" : "start.png"
+                            }
+                            width="290px"
+                            sizes="(max-width: 479px) 31vw, (max-width: 1919px) 145px, 290px"
+                            alt=""
+                            className={styles.image}
+                            style={{ display: isLoading ? "none" : "block" }}
+                            onClick={() => {
+                              setIsLoading(true);
+                              submitAnswer();
+                            }}
+                          />
+                        </div>
+                        {/* <p className={styles.paragraph}>
+                          Note: {codes[questionType]}
+                        </p> */}
                       </div>
                     </div>
                   </div>
-                  {questionType == 0 && (
-                    <SingleAns
-                      question={question}
-                      answers={answers}
-                      userAnswer={userAnswer}
-                      setUserAnswer={setUserAnswer}
-                    />
-                  )}
-                  {questionType == 1 && (
-                    <MultipleAnswerQuestions
-                      question={question}
-                      answers={answers}
-                      userAnswer={userAnswer}
-                      setUserAnswer={setUserAnswer}
-                    />
-                  )}
-                  {questionType == 2 && (
-                    <MatchingType
-                      question={question}
-                      answers={answers}
-                      userAnswer={userAnswer}
-                      setUserAnswer={setUserAnswer}
-                    />
-                  )}
-                  {questionType == 3 && (
-                    <CaseStudy
-                      text={descText}
-                      question={question}
-                      answers={answers}
-                      userAnswer={userAnswer}
-                      setUserAnswer={setUserAnswer}
-                    />
-                  )}
-                  {questionType == 4 && (
-                    <CaseStudyMulti
-                      text={descText}
-                      question={question}
-                      answers={answers}
-                      userAnswer={userAnswer}
-                      setUserAnswer={setUserAnswer}
-                    />
-                  )}
-                  {questionType == 5 && (
-                    <DescriptiveQuestions
-                      text={descText}
-                      question={question}
-                      answers={answers}
-                      userAnswer={userAnswer}
-                      setUserAnswer={setUserAnswer}
-                    />
-                  )}
-                  {questionType == 6 && (
-                    <ImageBased
-                      question={question}
-                      answers={answers}
-                      userAnswer={userAnswer}
-                      imageSrc={imageSrc}
-                      setUserAnswer={setUserAnswer}
-                    />
-                  )}
-
-                  <div className={styles.type}>
-                    <div className={`${styles.start_btn_2}`}>
-                      <img
-                        disabled={isLoading}
-                        src="clear.png"
-                        width="290px"
-                        sizes="(max-width: 479px) 31vw, (max-width: 1919px) 145px, 290px"
-                        alt=""
-                        className={styles.image}
-                        style={{ display: isLoading ? "none" : "block" }}
-                        onClick={() => {
-                          console.log("Meow Meow");
-                          setUserAnswer([]);
-                        }}
-                      />
-                    </div>
-                    <div className={styles.start_btn}>
-                      <img
-                        disabled={isLoading}
-                        src="start.png"
-                        width="290px"
-                        sizes="(max-width: 479px) 31vw, (max-width: 1919px) 145px, 290px"
-                        alt=""
-                        className={styles.image}
-                        style={{ display: isLoading ? "none" : "block" }}
-                        onClick={() => {
-                          setIsLoading(true);
-                          submitAnswer();
-                        }}
-                      />
-                    </div>
-                    <p className={styles.paragraph}>
-                      Note: {codes[questionType]}
-                    </p>
-                  </div>
-                </div>
+                )}
               </div>
-            )}
-          </div>
+            </>
+          )}
         </>
-      )}
-    </>
-  );
+      );
+    } else {
+      router.push("/smallscreen");
+    }
+  } else {
+    router.push("/notLeader");
+  }
 }
 
 export default Questions;

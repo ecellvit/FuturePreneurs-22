@@ -38,7 +38,7 @@ export const MyContextProvidor = (props) => {
     notyHandler: (num)=>{setNotys(num)},
     teamId: teamId,
     teamIdHandler: (id) => {
-      console.log(id)
+      // console.log(id)
       if(typeof window !== 'undefined'){
         setTeamId(id)
         localStorage.setItem('teamId', id)

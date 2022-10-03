@@ -13,8 +13,8 @@
 .h1 {
   margin-top: 10px;
   margin-bottom: 10px;
-  font-size: 38px;
-  line-height: 44px;
+  font-size: 0.75em;
+  line-height: 1.8em;
   font-weight: 700;
 }
 /*
@@ -40,6 +40,7 @@ p {
   display: flex;
   min-height: 100vh;
   margin-left: 0px;
+  margin-top: 8vh;
   padding-left: 100px;
   justify-content: space-around;
   align-items: center;
@@ -63,9 +64,9 @@ p {
   position: relative;
   display: flex;
   width: 55vw;
-  height: 80vh;
+  min-height: 80vh;
   min-width: 55vh;
-  margin-right: 60px;
+  margin-right: 40px;
   margin-left: 40px;
   padding: 20px 20px 20px 100px;
   flex-direction: column;
@@ -131,14 +132,15 @@ p {
   padding-top: 20px;
   padding-bottom: 10px;
   color: #fff;
-  font-size: 2.3em;
+  font-size: 1.5em;
+  line-height: 1em;
 }
 
 .para {
   height: auto;
   max-width: 40vw;
   color: #fff;
-  font-size: 21px;
+  font-size: 1em;
   line-height: 25px;
 }
 
@@ -179,6 +181,7 @@ p {
 
 .image_2 {
   max-width: 60%;
+  border-radius: 200px;
 }
 
 .image-3 {
@@ -204,7 +207,7 @@ p {
 .boy {
   overflow: hidden;
   background-color: #070f0f;
-  background-image: url("/gradfin.svg");
+  background-image: url("/maingrad.svg");
   background-position: 0% 50%;
   background-size: contain;
   background-repeat: no-repeat;
@@ -351,6 +354,7 @@ p {
 
 @media screen and (max-width: 991px) {
   .para {
-    font-size: 13px;
+    font-weight: lighter;
+    font-size: 0.85em;
   }
 }

@@ -1,3 +1,13 @@
+.liner {
+  color: white;
+  justify-content: center;
+  line-height: 40px;
+  text-align: center;
+  font-size: 35px;
+  min-height: 140px;
+  margin-top: 30%;
+  border-style: none;
+}
 .w_button {
   display: inline-block;
   padding: 9px 15px;
@@ -8,6 +18,9 @@
   text-decoration: none;
   cursor: pointer;
   border-radius: 0;
+}
+.note_div {
+  max-width: 60vh;
 }
 .inp {
   background-color: transparent;
@@ -21,7 +34,7 @@
   height: auto;
   max-width: 50vw;
   margin-bottom: 60px;
-  padding: 5px;
+  /* padding: 5px; */
   color: #fff;
   font-size: 17px;
   line-height: 20px;
@@ -75,6 +88,7 @@
   border-radius: 20px;
   color: #fff;
   font-size: 1.5em;
+
   line-height: 10px;
 }
 
@@ -87,7 +101,7 @@
   overflow: hidden;
   /* padding-top: 60px; */
   background-color: #070f0f;
-  background-image: url("/gradi.svg");
+  background-image: url("/graquiz.svg");
   background-position: 0px 0px;
   background-size: contain;
   background-repeat: no-repeat;
@@ -161,7 +175,7 @@
   position: relative;
   border-color: #f5f5f5;
   display: flex;
-  width: 55vw;
+  width: 55vw;      
   min-width: 70vw;
   min-height: 40vh;
   margin-right: 60px;
@@ -198,6 +212,7 @@
   padding: 20px;
   border-radius: 20px;
   background-color: #5e5b71;
+  margin-bottom: 20px;
 }
 
 .div_block {
@@ -253,6 +268,8 @@
 
 .paragraph {
   color: #fff;
+  color: #bf3ec3;
+  font-size: 1.3em;
 }
 
 .img_cont {
@@ -270,7 +287,7 @@
 
 .qimg {
   display: block;
-  max-width: 30vh;
+  max-width: 70vw;
   margin-right: auto;
   margin-left: auto;
   padding-bottom: 30px;
