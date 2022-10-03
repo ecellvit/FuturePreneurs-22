@@ -3,6 +3,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import styles from "../../styles/MainQuiz.module.css";
+import { memo } from "react";
 
 import Loading from "../Loading";
 const MainQuiz = ({ hrs, min, sec, startQuiz, TEAM_ID }) => {
@@ -173,4 +174,4 @@ const MainQuiz = ({ hrs, min, sec, startQuiz, TEAM_ID }) => {
   );
 };
 
-export default MainQuiz;
+export default memo(MainQuiz);

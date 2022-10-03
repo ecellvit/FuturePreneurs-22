@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "../../styles/Img.module.css";
 import { useEffect, useState } from "react";
+import { memo } from "react";
 
 const CaseStudyMulti = ({
   question,
@@ -59,4 +60,4 @@ const CaseStudyMulti = ({
   );
 };
 
-export default CaseStudyMulti;
+export default memo(CaseStudyMulti);

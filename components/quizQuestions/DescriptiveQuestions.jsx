@@ -1,4 +1,5 @@
 import React from "react";
+import { memo } from "react";
 
 import styles from "../../styles/Img.module.css";
 
@@ -21,4 +22,4 @@ function DescriptiveQuestions({ question, setUserAnswer }) {
   );
 }
 
-export default DescriptiveQuestions;
+export default memo(DescriptiveQuestions);

@@ -1,4 +1,6 @@
 import React from "react";
+import { memo } from "react";
+
 import styles from "../../styles/Thankyou.module.css";
 const Thankyou = () => {
   return (
@@ -31,4 +33,4 @@ const Thankyou = () => {
   );
 };
 
-export default Thankyou;
+export default memo(Thankyou);

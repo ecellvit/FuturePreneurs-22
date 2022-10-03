@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import styles from "../../styles/Img.module.css";
+import { memo } from "react";
 
 function SmallScreen() {
   toast.error(
@@ -17,4 +18,4 @@ function SmallScreen() {
     </div>
   );
 }
-export default SmallScreen;
+export default memo(SmallScreen);

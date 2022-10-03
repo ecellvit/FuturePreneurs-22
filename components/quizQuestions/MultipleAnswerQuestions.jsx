@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "../../styles/Img.module.css";
 import { useEffect, useState } from "react";
+import { memo } from "react";
 
 const MultipleAnswerQuestions = ({
   question,
@@ -58,4 +59,4 @@ const MultipleAnswerQuestions = ({
   );
 };
 
-export default MultipleAnswerQuestions;
+export default memo(MultipleAnswerQuestions);

@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import styles from "../../styles/Img.module.css";
+import { memo } from "react";
 
 function NotLeader() {
   toast.error(
@@ -17,4 +18,4 @@ function NotLeader() {
     </div>
   );
 }
-export default NotLeader;
+export default memo(NotLeader);
