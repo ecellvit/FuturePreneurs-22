@@ -81,9 +81,9 @@ function Questions(props) {
         }
         if (data.message === "Time Limit Reached") {
           console.log("Time Limit Reached");
-          router.push("/dashboard");
+          router.push("/thankyou");
         } else if (data.message === "Maximum Questions capacity reached") {
-          router.push("/dashboard");
+          router.push("/thankyou");
         } else {
           console.log(data, "!!!!");
           setQuestion(data.question);
@@ -144,7 +144,7 @@ function Questions(props) {
         }
         if (data.message === "Time Limit Reached") {
           console.log("time exceeded");
-          router.push("/dashboard");
+          router.push("/thankyou");
         } else if (data.message === "Submitted Answer Successfully") {
           setUserAnswer([]);
           getNextQuestion();
@@ -203,10 +203,10 @@ function Questions(props) {
         }
         if (data.message == "Time Limit Reached") {
           toast("Time Limit Reached");
-          router.push("/dashboard");
+          router.push("/thankyou");
         } else if (data.message == "Maximum Questions capacity reached") {
           console.log("Maximum Questions capacity reached");
-          router.push("/dashboard");
+          router.push("/thankyou");
         } else {
           setQuestion(data.question);
           setAnswers(data.options);
@@ -223,7 +223,7 @@ function Questions(props) {
             let seconds = Math.floor((end - now) / 1000) % 60;
             if (seconds === 0 && minutes === 0) {
               toast("Time Limit Reached");
-              router.push("/dashboard");
+              router.push("/thankyou");
               return;
             }
             if (minutes.toString().length < 2) {
