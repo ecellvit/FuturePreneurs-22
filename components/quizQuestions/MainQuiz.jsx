@@ -122,7 +122,7 @@ const MainQuiz = ({ hrs, min, sec, startQuiz, StartEnabler, TEAM_ID }) => {
               <br />
               Marking scheme for multiple options correct: <br />
               <br />• If and only if all the correct options are selected,
-              you'll be awarded 4 points.
+              you&apos;ll be awarded 4 points.
               <br /> • If even one incorrect option is selected, the team will
               lose 1 point.
               <br />• No points will be awarded if the question is left
@@ -151,8 +151,8 @@ const MainQuiz = ({ hrs, min, sec, startQuiz, StartEnabler, TEAM_ID }) => {
               To answer any question regarding a case study, read through the
               case study thoroughly.
               <br />
-              You can use the "clear all" button, to deselect all the options
-              incase you face any ambiguity.
+              {`You can use the "clear all" button, to deselect all the options
+              incase you face any ambiguity.`}
               <br />
               Incase of any discrepancy, the team leader can text on the
               designated WhatsApp group.
