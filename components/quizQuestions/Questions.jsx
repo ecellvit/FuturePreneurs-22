@@ -276,7 +276,7 @@ function Questions(props) {
   const [minutes, setMinutes] = useState();
   const [seconds, setSeconds] = useState();
 
-  const END_TIME = new Date(2022, 10, 4, 0, 48, 0);
+  const END_TIME = new Date(2022, 10, 4, 0, 54, 0);
 
   useEffect(() => {
     let timer = setTimeout(() => {
