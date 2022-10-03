@@ -1,6 +1,8 @@
 import React from "react";
 import styles from "../../styles/Img.module.css";
 import { useEffect, useState } from "react";
+import { memo } from "react";
+
 import Image from "next/image";
 
 const ImageBased = ({
@@ -63,4 +65,4 @@ const ImageBased = ({
   );
 };
 
-export default ImageBased;
+export default memo(ImageBased);

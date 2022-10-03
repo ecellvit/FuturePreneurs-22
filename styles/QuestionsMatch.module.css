@@ -63,19 +63,22 @@
   padding-right: 30px;
   padding-bottom: 30px;
   min-height: 100px;
+  text-align: justify-all;
 }
 
 .quest {
   margin-right: 5px;
-  text-align: center;
   word-wrap: break-word;
   color: white;
+  line-height: 2;
+  margin-left: 60px;
 }
 
 .answ {
   margin-right: 10px;
-  text-align: center;
+  line-height: 2;
   color: white;
+  margin-left: 60px;
 }
 
 .start_btn,

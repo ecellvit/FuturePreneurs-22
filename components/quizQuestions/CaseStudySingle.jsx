@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "../../styles/Img.module.css";
 import { useEffect, useState } from "react";
+import { memo } from "react";
 
 const CaseStudy = ({ question, answers, userAnswer, setUserAnswer, text }) => {
   const [ans, setAns] = useState([]);
@@ -52,4 +53,4 @@ const CaseStudy = ({ question, answers, userAnswer, setUserAnswer, text }) => {
   );
 };
 
-export default CaseStudy;
+export default memo(CaseStudy);

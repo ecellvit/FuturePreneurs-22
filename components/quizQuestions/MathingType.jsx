@@ -94,7 +94,6 @@ function MatchingType({ question, answers, userAnswer, setUserAnswer }) {
                     console.log(userQuestion.indexOf(ques));
                   }}
                 >
-                  <span className={styles.quest}>{ques}</span>
                   <div
                     className={
                       styles[
@@ -102,6 +101,7 @@ function MatchingType({ question, answers, userAnswer, setUserAnswer }) {
                       ]
                     }
                   ></div>
+                  ;<span className={styles.quest}>{ques}</span>
                 </div>
               </div>
             );
@@ -118,12 +118,12 @@ function MatchingType({ question, answers, userAnswer, setUserAnswer }) {
                   handleAnswerClick(answers.indexOf(ans));
                 }}
               >
-                <span className={styles.answ}>{ans}</span>
                 <div
                   className={
                     styles[`dot${answerByUser.indexOf(answers.indexOf(ans))}`]
                   }
                 ></div>
+                <span className={styles.answ}>{ans}</span>
               </div>
             );
           })}

@@ -431,7 +431,7 @@ function Questions(props) {
                             className={styles.image}
                             style={{ display: isLoading ? "none" : "block" }}
                             onClick={() => {
-                              console.log("Meow Meow");
+                              // console.log("Meow Meow");
                               setUserAnswer([]);
                             }}
                           />
