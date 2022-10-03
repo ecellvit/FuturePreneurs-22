@@ -3,7 +3,7 @@ import { memo } from "react";
 
 import styles from "../../styles/Img.module.css";
 
-function DescriptiveQuestions({ question, setUserAnswer, imageSrc }) {
+function DescriptiveQuestions({ question, setUserAnswer, imageSrc ,userAnswer}) {
   console.log(imageSrc);
   return (
     <>
@@ -27,6 +27,7 @@ function DescriptiveQuestions({ question, setUserAnswer, imageSrc }) {
             className={`${styles.inp} ${styles.div_block}`}
             placeholder="Answer"
             onChange={(e) => setUserAnswer(e.target.value)}
+            value={userAnswer}
           />
           {/* <div className={styles.text_block_2}>Ans.</div> */}
         </div>
