@@ -53,6 +53,38 @@ function Questions(props) {
   const MAX_QUESTIONS = 26;
 
   let Timer;
+  useEffect(() => {
+    setIsLoading(true);
+    fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/user/quiz `, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${session.accessTokenBackend}`,
+        "Access-Control-Allow-Origin": "*",
+      },
+    })
+      .then((data) => data.json())
+      .then((data) => {
+        console.log(data.status, "!!!!!!!");
+        if (data.status === 1) {
+          setIsLoading(true);
+
+          // setQuizStart(true);
+          startQuiz();
+        } else {
+          setQuizStart(false);
+        }
+
+        setIsLoading(false);
+      })
+
+      .catch((error) => {
+        console.error(
+          "There has been a problem with your fetch operation:",
+          error
+        );
+      });
+  }, []);
 
   function getNextQuestion() {
     setIndexNum((prev) => prev + 1);
@@ -271,7 +303,9 @@ function Questions(props) {
       clearTimeout(timer);
     };
   }, [END_TIME]);
-
+  {
+    isLoading ? <Loading /> : <></>;
+  }
   useEffect(() => {
     return () => {
       clearInterval(Timer);
@@ -284,13 +318,21 @@ function Questions(props) {
       return (
         <>
           {!quizStart ? (
-            <MainQuiz
-              hrs={hours}
-              min={minutes}
-              sec={seconds}
-              startQuiz={startQuiz}
-              TEAM_ID={TEAM_ID}
-            />
+            <>
+              {isLoading ? (
+                <Loading />
+              ) : (
+                <>
+                  <MainQuiz
+                    hrs={hours}
+                    min={minutes}
+                    sec={seconds}
+                    startQuiz={startQuiz}
+                    TEAM_ID={TEAM_ID}
+                  />
+                </>
+              )}
+            </>
           ) : (
             <>
               <div className={styles.boy}>
@@ -398,7 +440,9 @@ function Questions(props) {
                         <div className={styles.start_btn}>
                           <img
                             disabled={isLoading}
-                            src="start.png"
+                            src={
+                              questionNum === 41 ? "finish.png" : "start.png"
+                            }
                             width="290px"
                             sizes="(max-width: 479px) 31vw, (max-width: 1919px) 145px, 290px"
                             alt=""

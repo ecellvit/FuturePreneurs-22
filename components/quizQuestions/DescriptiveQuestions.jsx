@@ -6,7 +6,9 @@ function DescriptiveQuestions({ question, setUserAnswer }) {
   return (
     <>
       <div className={styles.round_instruction}>
-        <div className={styles.para}>{question}</div>
+        <div className={styles.para} style={{ whiteSpace: "pre-line" }}>
+          {question}
+        </div>
         {/* Answers */}
         <div>
           <textarea

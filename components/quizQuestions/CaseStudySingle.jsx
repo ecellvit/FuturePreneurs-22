@@ -21,8 +21,8 @@ const CaseStudy = ({ question, answers, userAnswer, setUserAnswer, text }) => {
   return (
     <>
       <div className={styles.round_instruction}>
-        <div className={styles.para}>
-          <span> {text} </span>
+        <div className={styles.para} style={{ whiteSpace: "pre-line" }}>
+          <span style={{ whiteSpace: "pre-line" }}> {text} </span>
         </div>
         <div className={styles.para}>{question}</div>
         {/* Answers */}
