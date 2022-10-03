@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import Thankyou from "../components/quizQuestions/Thankyou";
 import NavigationBar from "../components/NavigationBar";
 
-export default function thankyou() {
+export default function ThankyouPage() {
   const { status } = useSession();
   const { data: session } = useSession();
   const router = useRouter();
