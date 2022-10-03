@@ -50,7 +50,7 @@ const MainQuiz = ({ hrs, min, sec, startQuiz, TEAM_ID }) => {
         );
       });
   }, [useEffectTrigger, session]);
-  console.log(teamData);
+
   return isLoading ? (
     <Loading></Loading>
   ) : (
@@ -91,7 +91,6 @@ const MainQuiz = ({ hrs, min, sec, startQuiz, TEAM_ID }) => {
           </div>
           <div className={styles.round}>
             <div className={styles.text_block}>
-              {" "}
               Read through all the instructions carefully as this will be vital
               for your performance in the quiz.
             </div>

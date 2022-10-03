@@ -64,11 +64,8 @@ function Questions(props) {
     })
       .then((data) => data.json())
       .then((data) => {
-        console.log(data.status, "!!!!!!!");
         if (data.status === 1) {
           setIsLoading(true);
-
-          // setQuizStart(true);
           startQuiz();
         } else {
           setQuizStart(false);
@@ -111,12 +108,12 @@ function Questions(props) {
           });
         }
         if (data.message === "Time Limit Reached") {
-          console.log("Time Limit Reached");
+          // console.log("Time Limit Reached");
           router.push("/thankyou");
         } else if (data.message === "Maximum Questions capacity reached") {
           router.push("/thankyou");
         } else {
-          console.log(data, "!!!!");
+          // console.log(data, "!!!!");
           setQuestion(data.question);
           setAnswers(data.options);
           setQuestionType(data.questionType);
@@ -175,7 +172,7 @@ function Questions(props) {
           });
         }
         if (data.message === "Time Limit Reached") {
-          console.log("time exceeded");
+          // console.log("time exceeded");
           router.push("/thankyou");
         } else if (data.message === "Submitted Answer Successfully") {
           setUserAnswer([]);
@@ -236,7 +233,7 @@ function Questions(props) {
           toast("Time Limit Reached");
           router.push("/thankyou");
         } else if (data.message == "Maximum Questions capacity reached") {
-          console.log("Maximum Questions capacity reached");
+          // console.log("Maximum Questions capacity reached");
           router.push("/thankyou");
         } else {
           setQuestion(data.question);
@@ -248,6 +245,9 @@ function Questions(props) {
           setIsLoading(false);
           setcurrQuesBackend(data.questionNum);
 
+          if (data.questionType === 3 || data.questionType === 4) {
+            setDescText(data.caseStudy);
+          }
           Timer = setInterval(() => {
             const now = Date.now();
             const end = Date.parse(data.endTime);
@@ -275,7 +275,7 @@ function Questions(props) {
   const [minutes, setMinutes] = useState();
   const [seconds, setSeconds] = useState();
 
-  const END_TIME = new Date(2022, 10, 4, 17, 0, 0);
+  const END_TIME = new Date(2022, 10, 4, 12, 0, 0);
 
   useEffect(() => {
     let timer = setTimeout(() => {
@@ -303,9 +303,7 @@ function Questions(props) {
       clearTimeout(timer);
     };
   }, [END_TIME]);
-  {
-    isLoading ? <Loading /> : <></>;
-  }
+
   useEffect(() => {
     return () => {
       clearInterval(Timer);
@@ -431,7 +429,6 @@ function Questions(props) {
                             className={styles.image}
                             style={{ display: isLoading ? "none" : "block" }}
                             onClick={() => {
-                              // console.log("Meow Meow");
                               setUserAnswer([]);
                             }}
                           />

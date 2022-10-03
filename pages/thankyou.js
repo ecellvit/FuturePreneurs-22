@@ -2,6 +2,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import Thankyou from "../components/quizQuestions/Thankyou";
+import NavigationBar from "../components/NavigationBar";
 
 export default function thankyou() {
   const { status } = useSession();
@@ -20,6 +21,7 @@ export default function thankyou() {
   return (
     status === "authenticated" && (
       <>
+        <NavigationBar />
         <Thankyou />
       </>
     )

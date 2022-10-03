@@ -20,7 +20,7 @@ const ImageBased = ({
     setUserAnswer([ind]);
     setSelected(ind);
   };
-  console.log(imageSrc);
+  // console.log(imageSrc);
   useEffect(() => {
     if (userAnswer.length === 0) {
       setAns([]);

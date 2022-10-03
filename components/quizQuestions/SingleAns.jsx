@@ -23,9 +23,7 @@ const SingleAns = ({ question, answers, userAnswer, setUserAnswer }) => {
   return (
     <>
       <div className={styles.round_instruction}>
-        <div className={styles.para} style={{ whiteSpace: "pre-line" }}>
-          {question}
-        </div>
+        <div style={{whiteSpace:"pre-line"}} className={styles.para}>{question}</div>
         {/* Answers */}
         <div>
           {answers.map((val, ind) => {

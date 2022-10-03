@@ -27,7 +27,7 @@ function MatchingType({ question, answers, userAnswer, setUserAnswer }) {
       settest(!test);
 
       if (answerByUser.indexOf(number) === -1) {
-        console.log("Checking");
+        // console.log("Checking");
         setAnswerByUser((prevAnswerByUser) => {
           prevAnswerByUser.splice(-1, 1, number);
           return prevAnswerByUser;
@@ -48,9 +48,9 @@ function MatchingType({ question, answers, userAnswer, setUserAnswer }) {
     answerByUser.splice(positioner, 1);
     userQuestion.splice(positioner, 1);
   }
-  console.log(toSendAnswer);
+  // console.log(toSendAnswer);
   useEffect(() => {
-    console.log("UseEffect Called");
+    // console.log("UseEffect Called");
     if (
       answerByUser.length === userQuestion.length &&
       answerByUser.length > 0 &&
@@ -60,18 +60,18 @@ function MatchingType({ question, answers, userAnswer, setUserAnswer }) {
         for (let i = 0; i < question.length; i++) {
           toSendAnswer.push(answerByUser[userQuestion.indexOf(i)]);
         }
-        console.log(toSendAnswer);
+        // console.log(toSendAnswer);
         setUserAnswer(toSendAnswer);
       } else {
         setUserAnswer(answerByUser);
-        console.log(toSendAnswer);
+        // console.log(toSendAnswer);
       }
     }
   }, [answerByUser, userQuestion, test]);
 
   useEffect(() => {
     if (userAnswer.length === 0) {
-      console.log("Hua Call");
+      // console.log("Hua Call");
       setUserQuestion([]);
       setAnswerByUser([]);
     }
@@ -87,11 +87,11 @@ function MatchingType({ question, answers, userAnswer, setUserAnswer }) {
                 <div
                   className={styles.quesans}
                   onClick={() => {
-                    console.log("clicked");
-                    console.log(question.indexOf(ques));
+                    // console.log("clicked");
+                    // console.log(question.indexOf(ques));
 
                     handleQuestionClick(question.indexOf(ques));
-                    console.log(userQuestion.indexOf(ques));
+                    // console.log(userQuestion.indexOf(ques));
                   }}
                 >
                   <div
@@ -114,7 +114,7 @@ function MatchingType({ question, answers, userAnswer, setUserAnswer }) {
                 key={ans}
                 className={styles.quesans}
                 onClick={() => {
-                  console.log("clicked");
+                  // console.log("clicked");
                   handleAnswerClick(answers.indexOf(ans));
                 }}
               >
