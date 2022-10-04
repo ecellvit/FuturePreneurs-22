@@ -110,7 +110,7 @@ const MainQuiz = ({ hrs, min, sec, startQuiz, StartEnabler, TEAM_ID }) => {
             </div>
           </div>
           <div className={styles.round}>
-            <div className={styles.text_block}  style={{color: "#BC304B"}}>
+            <div className={styles.text_block} style={{ color: "#BC304B" }}>
               Read through all the instructions carefully as this will be vital
               for your performance in the quiz.
             </div>
@@ -118,15 +118,19 @@ const MainQuiz = ({ hrs, min, sec, startQuiz, StartEnabler, TEAM_ID }) => {
           <div className={styles.round_instruction}>
             <div className={styles.para}>
               <br />
-              There will be <span style={{color: "#BC304B"}}>NO free navigation</span> in the quiz, once you move to the
-              next question, you cannot move back.
+              There will be{" "}
+              <span style={{ color: "#BC304B" }}>NO free navigation</span> in
+              the quiz, once you move to the next question, you cannot move
+              back.
               <br />
               <br />
               If you are unable to solve all the questions in the given time
               period, answered questions will be auto saved and submitted.
               <br />
               <br />
-              To <span style={{color: "#BC304B"}}>skip a question</span>, simply click on the next button without selecting any of the options
+              To <span style={{ color: "#BC304B" }}>skip a question</span>,
+              simply click on the next button without selecting any of the
+              options
               <br />
               <br />
               Marking scheme for{" "}
@@ -155,7 +159,7 @@ const MainQuiz = ({ hrs, min, sec, startQuiz, StartEnabler, TEAM_ID }) => {
               unanswered.
               <br />
               <br />
-              For {" "}
+              For{" "}
               <strong style={{ color: "#BF3EC3" }}>
                 Descriptive Type Questions:
                 <br />
@@ -171,16 +175,19 @@ const MainQuiz = ({ hrs, min, sec, startQuiz, StartEnabler, TEAM_ID }) => {
                 <br />
               </strong>
               <br /> • Number of Questions - 2
-                <br /> First select the question and then its corresponding
-                answer. Both the entities will be highlighted with the same
-                colour after this is done. Repeat the process for all the
-                options in the question.
+              <br /> • First select the question and then its corresponding
+              answer. Both the entities will be highlighted with the same colour
+              after this is done. Repeat the process for all the options in the
+              question.
               <br />
-              If you want to deselect your choice in Match the following type,
+              • If you want to deselect your choice in Match the following type,
               click on that particular question.
               <br />
-              To answer any question regarding a case study, read through the {" "}
-              <strong style={{ color: "#BF3EC3" }}>Case study</strong> thoroughly.
+              <br />
+              To answer any question regarding a case study, read through the{" "}
+              <strong style={{ color: "#BF3EC3" }}>Case study</strong>{" "}
+              thoroughly.
+              <br />
               <br />
               {`You can use the "clear all" button, to deselect all the options
               incase you face any ambiguity.`}
