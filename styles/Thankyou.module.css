@@ -1,5 +1,5 @@
 .thank_div {
-  min-height: 105vh;
+  min-height: 100vh;
   margin-right: 0px;
   padding-top: 20vh;
   background-color: #070f0f;
@@ -38,12 +38,15 @@
   line-height: 1.1em;
   text-align: center;
 }
-
-.link {
-  text-decoration: none;
+.ins {
   color: palevioletred;
 }
-.link:hover {
+.link {
+  text-decoration: none;
+  color: #fff;
+  line-height: normal;
+}
+.ins:hover {
   text-decoration: none;
   color: red;
 }
