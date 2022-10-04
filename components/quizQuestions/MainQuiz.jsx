@@ -77,7 +77,7 @@ const MainQuiz = ({ hrs, min, sec, startQuiz, StartEnabler, TEAM_ID }) => {
             <div className={styles.starting}>
               <div className={styles.h1}>
                 <h4 className={styles.heading}>
-                  Quiz Has Started, Click on the Start Quiz button!
+                  Quiz Has Ended!
                 </h4>
               </div>
             </div>
