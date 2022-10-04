@@ -102,10 +102,15 @@ const MainQuiz = ({ hrs, min, sec, startQuiz, StartEnabler, TEAM_ID }) => {
         </div>
         <div className={styles.instructions_div}>
           <div className={styles.round}>
-            <div className={styles.text_block}>Round Zero Instructions</div>
+            <div
+              className={styles.text_block}
+              style={{ textDecoration: "underline" }}
+            >
+              Round Zero Instructions
+            </div>
           </div>
           <div className={styles.round}>
-            <div className={styles.text_block}>
+            <div className={styles.text_block}  style={{color: "#BC304B"}}>
               Read through all the instructions carefully as this will be vital
               for your performance in the quiz.
             </div>
@@ -113,7 +118,7 @@ const MainQuiz = ({ hrs, min, sec, startQuiz, StartEnabler, TEAM_ID }) => {
           <div className={styles.round_instruction}>
             <div className={styles.para}>
               <br />
-              There will be no free navigation in the quiz, once you move to the
+              There will be <span style={{color: "#BC304B"}}>NO free navigation</span> in the quiz, once you move to the
               next question, you cannot move back.
               <br />
               <br />
@@ -121,7 +126,13 @@ const MainQuiz = ({ hrs, min, sec, startQuiz, StartEnabler, TEAM_ID }) => {
               period, answered questions will be auto saved and submitted.
               <br />
               <br />
-              Marking scheme for <strong>multiple options correct:</strong>
+              To <span style={{color: "#BC304B"}}>skip a question</span>, simply click on the next button without selecting any of the options
+              <br />
+              <br />
+              Marking scheme for{" "}
+              <strong style={{ color: "#BF3EC3" }}>
+                Multiple Options Correct:
+              </strong>
               <br />• If and only if all the correct options are selected,
               you&apos;ll be awarded 4 points.
               <br /> • If even one incorrect option is selected, the team will
@@ -130,7 +141,10 @@ const MainQuiz = ({ hrs, min, sec, startQuiz, StartEnabler, TEAM_ID }) => {
               unanswered.
               <br />
               <br />
-              Marking scheme for <strong>Single options correct:</strong>
+              Marking scheme for{" "}
+              <strong style={{ color: "#BF3EC3" }}>
+                Single Option Correct:
+              </strong>
               <br /> • 4 points will be awarded if the correct option is
               selected.
               <br /> • Team will lose 1 point if any incorrect option is
@@ -139,25 +153,30 @@ const MainQuiz = ({ hrs, min, sec, startQuiz, StartEnabler, TEAM_ID }) => {
               unanswered.
               <br />
               <br />
-              For <strong>descriptive type questions:</strong> you can type your
-              answers. There is no word limit. You cannot leave the answer field
-              empty.
-              <br />
-              <br />
-              <strong>
-                For Match the following type questions:
-                <br /> First select the question and then its corresponding
-                answer. Both the entities will be highlighted with the same
-                colour after this is done. Repeat the process for all the
-                options in the question.
+              For {" "}
+              <strong style={{ color: "#BF3EC3" }}>
+                Descriptive Type Questions:
+                <br />
               </strong>
+              You can type your answers. There is no word limit. You cannot
+              leave the answer field empty.
+              <br />
+              <br />
+              For{" "}
+              <strong style={{ color: "#BF3EC3" }}>
+                Match the following type questions:
+                <br />
+              </strong>
+              First select the question and then its corresponding answer. Both
+              the entities will be highlighted with the same colour after this
+              is done. Repeat the process for all the options in the question.
               <br />
               <br />
               If you want to deselect your choice in Match the following type,
               click on that particular question.
               <br />
-              To answer any question regarding a case study, read through the
-              case study thoroughly.
+              To answer any question regarding a case study, read through the {" "}
+              <strong style={{ color: "#BF3EC3" }}>Case study</strong> thoroughly.
               <br />
               {`You can use the "clear all" button, to deselect all the options
               incase you face any ambiguity.`}

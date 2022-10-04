@@ -106,7 +106,7 @@ const LeaderDashboard = ({
               className={styles.input}
               readOnly
             /> */}
-            {/* <CopyToClipboard
+            <CopyToClipboard
               text={`https://fp.ecellvit.com/join-team-link/${teamToken}`}
               onCopy={onCopyText}
             >
@@ -118,7 +118,7 @@ const LeaderDashboard = ({
                   Copy Invite Link
                 </button>
               </div>
-            </CopyToClipboard> */}
+            </CopyToClipboard>
           </h2>
           <div className={`${styles.team_row} ${styles.align_centre}`}>
             {teamData?.teamId?.members?.map((team) => {
@@ -160,20 +160,18 @@ const LeaderDashboard = ({
               />
             )}
           </AnimatePresence>
-          {/* <div className={styles.invite_link_container}>
+          <div className={styles.invite_link_container}>
             <div className="copy-area">
               <button
                 className={`${styles.btngroup} ${styles.glow_on_hover}`}
                 onClick={() =>
-                  openInNewTab(
-                    "https://chat.whatsapp.com/HRf6GIMOogZ1iOu43naBvg"
-                  )
+                  router.push('/fpquiz-round-zero')
                 }
               >
                 Attempt Quiz
               </button>
             </div>
-          </div> */}
+          </div>
         </div>
       </div>
     </div>
