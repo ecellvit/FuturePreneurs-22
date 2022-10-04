@@ -4,6 +4,10 @@ import { memo } from "react";
 import styles from "../../styles/Thankyou.module.css";
 import Footer from "../landing_main/Footer";
 const Thankyou = () => {
+  const openInNewTab = (url) => {
+    window.open(url, "_blank", "noopener,noreferrer");
+  };
+
   return (
     <>
       <div className={styles.thank_div}>
@@ -36,6 +40,18 @@ const Thankyou = () => {
             <img src="/men.png" loading="lazy" width="236" alt="" />
           </div>
         </div>
+        <div className={styles.invite_link_container}>
+            <div className="copy-area">
+              <button
+                className={`${styles.btngroup} ${styles.glow_on_hover}`}
+                onClick={() =>
+                  openInNewTab('https://chat.whatsapp.com/EUYdNSDxqOe6R33IvMHtw9')
+                }
+              >
+                Click here to get redirected to the WhatsApp group and join the meet
+              </button>
+            </div>
+          </div>
       </div>
       <Footer />
     </>
