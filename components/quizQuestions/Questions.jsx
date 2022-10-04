@@ -14,6 +14,7 @@ import MatchingType from "./MathingType";
 import MultipleAnswerQuestions from "./MultipleAnswerQuestions";
 import SingleAns from "./SingleAns";
 import ImageBased from "./ImageBased";
+import useTimer from "../../hooks/useTimer";
 
 function Questions(props) {
   const router = useRouter();
@@ -272,41 +273,54 @@ function Questions(props) {
       .catch((err) => {});
   }
 
-  const [hours, setHours] = useState();
-  const [minutes, setMinutes] = useState();
-  const [seconds, setSeconds] = useState();
+  // const [hours, setHours] = useState();
+  // const [minutes, setMinutes] = useState();
+  // const [seconds, setSeconds] = useState();
 
-  const END_TIME = new Date(2022, 10, 4, 0, 54, 0);
+  // const END_TIME = new Date(2022, 10, 4, 10, 0, 0);
+
+  // useEffect(() => {
+  //   let timer = setTimeout(() => {
+  //     let a = Date.now();
+  //     let d = END_TIME.getTime() - a;
+  //     console.log(END_TIME.getTime(), a);
+  //     if (END_TIME.getTime > a) {
+  //       let hrs = Math.floor(d / 1000 / 60 / 60) % 24;
+  //       let mins = Math.floor(d / 1000 / 60) % 60;
+  //       let secs = Math.floor(d / 1000) % 60;
+  //       console.log(END_TIME.getTime(), a, hrs, mins, secs);
+  //       if (hrs === 0 && mins === 0 && secs === 0) {
+  //         setStartEnabler(true);
+  //       }
+  //       if (hrs.toString().length < 2) {
+  //         hrs = "0" + hrs.toString();
+  //       }
+  //       if (mins.toString().length < 2) {
+  //         mins = "0" + mins.toString();
+  //       }
+  //       if (secs.toString().length < 2) {
+  //         secs = "0" + secs.toString();
+  //       }
+
+  //       setHours(hrs);
+  //       setMinutes(mins);
+  //       setSeconds(secs);
+  //     } else {
+  //       setStartEnabler(true);
+  //     }
+  //   }, 1000);
+  //   return () => {
+  //     clearTimeout(timer);
+  //   };
+  // }, [END_TIME]);
+
+  const { hours, minutes, seconds } = useTimer("2022-10-04T10:11:00");
 
   useEffect(() => {
-    let timer = setTimeout(() => {
-      let a = Date.now();
-      let d = END_TIME.getTime() - a;
-      let dys = Math.floor(d / 1000 / 60 / 60 / 24) % 30;
-      let hrs = Math.floor(d / 1000 / 60 / 60) % 24;
-      let mins = Math.floor(d / 1000 / 60) % 60;
-      let secs = Math.floor(d / 1000) % 60;
-      if (hrs === 0 && mins === 0 && secs === 0) {
-        setStartEnabler(true);
-      }
-      if (hrs.toString().length < 2) {
-        hrs = "0" + hrs.toString();
-      }
-      if (mins.toString().length < 2) {
-        mins = "0" + mins.toString();
-      }
-      if (secs.toString().length < 2) {
-        secs = "0" + secs.toString();
-      }
-
-      setHours(hrs);
-      setMinutes(mins);
-      setSeconds(secs);
-    }, 1000);
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [END_TIME]);
+    if (hours <= 0 && minutes <= 0 && seconds <= 0) {
+      setStartEnabler(true);
+    }
+  }, [hours, minutes, seconds]);
 
   useEffect(() => {
     return () => {
@@ -325,9 +339,9 @@ function Questions(props) {
               ) : (
                 <>
                   <MainQuiz
-                    hrs={hours}
-                    min={minutes}
-                    sec={seconds}
+                    hrs={hours.toString().length < 2 ? "0" + hours : hours}
+                    min={minutes.toString().length < 2 ? "0" + minutes : minutes}
+                    sec={seconds.toString().length < 2 ? "0" + seconds : seconds}
                     startQuiz={startQuiz}
                     StartEnabler={StartEnabler}
                     TEAM_ID={TEAM_ID}
