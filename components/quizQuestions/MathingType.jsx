@@ -79,6 +79,11 @@ function MatchingType({ question, answers, userAnswer, setUserAnswer }) {
 
   return (
     <div>
+      <div style={{ color: "#ffff" }} className={styles.para}>
+        Instructions: First select the question and then its corresponding
+        answer. Both the entities will be highlighted with the same colour after
+        this is done. Repeat the process for all the options in the question.
+      </div>
       <section className={styles.section}>
         <div className={styles.match_list}>
           {question.map((ques) => {

@@ -102,7 +102,9 @@ const MainQuiz = ({ hrs, min, sec, startQuiz, StartEnabler, TEAM_ID }) => {
         </div>
         <div className={styles.instructions_div}>
           <div className={styles.round}>
-            <div className={styles.text_block}>Round Zero Instructions</div>
+            <div className={`${styles.text_block}`}>
+              <strong>Qualifying Quiz Round Instructions</strong>
+            </div>
           </div>
           <div className={styles.round}>
             <div className={styles.text_block}>
@@ -122,6 +124,7 @@ const MainQuiz = ({ hrs, min, sec, startQuiz, StartEnabler, TEAM_ID }) => {
               <br />
               <br />
               Marking scheme for <strong>multiple options correct:</strong>
+              <br /> • Number of Questions - 5
               <br />• If and only if all the correct options are selected,
               you&apos;ll be awarded 4 points.
               <br /> • If even one incorrect option is selected, the team will
@@ -130,7 +133,8 @@ const MainQuiz = ({ hrs, min, sec, startQuiz, StartEnabler, TEAM_ID }) => {
               unanswered.
               <br />
               <br />
-              Marking scheme for <strong>Single options correct:</strong>
+              Marking scheme for <strong>Single option correct:</strong>
+              <br /> • Number of Questions - 32
               <br /> • 4 points will be awarded if the correct option is
               selected.
               <br /> • Team will lose 1 point if any incorrect option is
@@ -139,13 +143,15 @@ const MainQuiz = ({ hrs, min, sec, startQuiz, StartEnabler, TEAM_ID }) => {
               unanswered.
               <br />
               <br />
-              For <strong>descriptive type questions:</strong> you can type your
-              answers. There is no word limit. You cannot leave the answer field
-              empty.
+              For <strong>descriptive type questions:</strong>
+              <br /> • Number of Questions - 2 <br />
+              You can type your answers. There is no word limit. You cannot
+              leave the answer field empty.
               <br />
               <br />
               <strong>
                 For Match the following type questions:
+                <br /> • Number of Questions - 2
                 <br /> First select the question and then its corresponding
                 answer. Both the entities will be highlighted with the same
                 colour after this is done. Repeat the process for all the
