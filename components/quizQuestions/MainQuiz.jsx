@@ -197,7 +197,7 @@ const MainQuiz = ({ hrs, min, sec, startQuiz, StartEnabler, TEAM_ID }) => {
               <br />
             </div>
           </div>
-          {StartEnabler && (
+          {/* {StartEnabler && (
             <div className={styles.start_btn}>
               <img
                 src="startbtn.png"
@@ -220,7 +220,7 @@ const MainQuiz = ({ hrs, min, sec, startQuiz, StartEnabler, TEAM_ID }) => {
                 Start Quiz
               </a>
             </div>
-          )}
+          )} */}
         </div>
       </div>
     </div>
