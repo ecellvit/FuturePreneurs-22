@@ -106,7 +106,7 @@ const LeaderDashboard = ({
               className={styles.input}
               readOnly
             /> */}
-            <CopyToClipboard
+            {/* <CopyToClipboard
               text={`https://fp.ecellvit.com/join-team-link/${teamToken}`}
               onCopy={onCopyText}
             >
@@ -118,7 +118,7 @@ const LeaderDashboard = ({
                   Copy Invite Link
                 </button>
               </div>
-            </CopyToClipboard>
+            </CopyToClipboard> */}
           </h2>
           <div className={`${styles.team_row} ${styles.align_centre}`}>
             {teamData?.teamId?.members?.map((team) => {
