@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import styles from "../../styles/MainQuiz.module.css";
 import { memo } from "react";
+import Avatar from "react-avatar";
 
 import Loading from "../Loading";
 const MainQuiz = ({ hrs, min, sec, startQuiz, StartEnabler, TEAM_ID }) => {
@@ -87,7 +88,7 @@ const MainQuiz = ({ hrs, min, sec, startQuiz, StartEnabler, TEAM_ID }) => {
               return (
                 <div className={styles.profile_card} key={team._id}>
                   <div className={styles.img}>
-                    <img src={session.user.image} className={styles.image_2} />
+                    <Avatar name={team.firstName} size="60" round={true} />
                   </div>
                   <div className={styles.nam}>
                     <div className={styles.name}>
