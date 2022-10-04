@@ -72,7 +72,7 @@ const TeamMemberLeader = ({
               <p className={styles.phone_number}>{mobileNumber}</p>
               <p className={styles.paragraph}>{email}</p>
 
-              {teamRole == 0 ? (
+              {/* {teamRole == 0 ? (
                 <></>
               ) : (
                 <button
@@ -81,7 +81,7 @@ const TeamMemberLeader = ({
                 >
                   Remove
                 </button>
-              )}
+              )} */}
             </div>
           </div>
         </div>)}
