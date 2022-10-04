@@ -106,7 +106,7 @@ const MainQuiz = ({ hrs, min, sec, startQuiz, StartEnabler, TEAM_ID }) => {
               className={styles.text_block}
               style={{ textDecoration: "underline" }}
             >
-              Round Zero Instructions
+              Qualifying Quiz Round Instructions
             </div>
           </div>
           <div className={styles.round}>
@@ -133,7 +133,8 @@ const MainQuiz = ({ hrs, min, sec, startQuiz, StartEnabler, TEAM_ID }) => {
               <strong style={{ color: "#BF3EC3" }}>
                 Multiple Options Correct:
               </strong>
-              <br />• If and only if all the correct options are selected,
+              <br /> • Number of Questions - 5
+              <br /> • If and only if all the correct options are selected,
               you&apos;ll be awarded 4 points.
               <br /> • If even one incorrect option is selected, the team will
               lose 1 point.
@@ -145,6 +146,7 @@ const MainQuiz = ({ hrs, min, sec, startQuiz, StartEnabler, TEAM_ID }) => {
               <strong style={{ color: "#BF3EC3" }}>
                 Single Option Correct:
               </strong>
+              <br /> • Number of Questions - 32
               <br /> • 4 points will be awarded if the correct option is
               selected.
               <br /> • Team will lose 1 point if any incorrect option is
@@ -158,6 +160,7 @@ const MainQuiz = ({ hrs, min, sec, startQuiz, StartEnabler, TEAM_ID }) => {
                 Descriptive Type Questions:
                 <br />
               </strong>
+              <br /> • Number of Questions - 2 <br />
               You can type your answers. There is no word limit. You cannot
               leave the answer field empty.
               <br />
@@ -167,10 +170,11 @@ const MainQuiz = ({ hrs, min, sec, startQuiz, StartEnabler, TEAM_ID }) => {
                 Match the following type questions:
                 <br />
               </strong>
-              First select the question and then its corresponding answer. Both
-              the entities will be highlighted with the same colour after this
-              is done. Repeat the process for all the options in the question.
-              <br />
+              <br /> • Number of Questions - 2
+                <br /> First select the question and then its corresponding
+                answer. Both the entities will be highlighted with the same
+                colour after this is done. Repeat the process for all the
+                options in the question.
               <br />
               If you want to deselect your choice in Match the following type,
               click on that particular question.

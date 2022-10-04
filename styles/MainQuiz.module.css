@@ -150,6 +150,9 @@ p {
   margin-bottom: 0px;
   padding-bottom: 100px;
 }
+.ins_col {
+  color: #130ae6;
+}
 
 .start_btn {
   position: absolute;
