@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import styles from "../../styles/MainQuiz.module.css";
 import { memo } from "react";
+import Avatar from "react-avatar";
 
 import Loading from "../Loading";
 const MainQuiz = ({ hrs, min, sec, startQuiz, StartEnabler, TEAM_ID }) => {
@@ -87,7 +88,7 @@ const MainQuiz = ({ hrs, min, sec, startQuiz, StartEnabler, TEAM_ID }) => {
               return (
                 <div className={styles.profile_card} key={team._id}>
                   <div className={styles.img}>
-                    <img src={session.user.image} className={styles.image_2} />
+                    <Avatar name={team.firstName} size="60" round={true} />
                   </div>
                   <div className={styles.nam}>
                     <div className={styles.name}>
@@ -120,7 +121,7 @@ const MainQuiz = ({ hrs, min, sec, startQuiz, StartEnabler, TEAM_ID }) => {
               period, answered questions will be auto saved and submitted.
               <br />
               <br />
-              Marking scheme for multiple options correct: <br />
+              Marking scheme for <strong>multiple options correct:</strong>
               <br />• If and only if all the correct options are selected,
               you&apos;ll be awarded 4 points.
               <br /> • If even one incorrect option is selected, the team will
@@ -129,7 +130,7 @@ const MainQuiz = ({ hrs, min, sec, startQuiz, StartEnabler, TEAM_ID }) => {
               unanswered.
               <br />
               <br />
-              Marking scheme for Single options correct:
+              Marking scheme for <strong>Single options correct:</strong>
               <br /> • 4 points will be awarded if the correct option is
               selected.
               <br /> • Team will lose 1 point if any incorrect option is
@@ -137,13 +138,20 @@ const MainQuiz = ({ hrs, min, sec, startQuiz, StartEnabler, TEAM_ID }) => {
               <br /> • No points will be awarded if the question is left
               unanswered.
               <br />
-              For descriptive type questions: you can type your answers. There
-              is no word limit. You cannot leave the answer field empty.
               <br />
-              For Match the following type questions: first select the question
-              and then its corresponding answer. Both the entities will be
-              highlighted with the same colour after this is done. Repeat the
-              process for all the options in the question.
+              For <strong>descriptive type questions:</strong> you can type your
+              answers. There is no word limit. You cannot leave the answer field
+              empty.
+              <br />
+              <br />
+              <strong>
+                For Match the following type questions:
+                <br /> First select the question and then its corresponding
+                answer. Both the entities will be highlighted with the same
+                colour after this is done. Repeat the process for all the
+                options in the question.
+              </strong>
+              <br />
               <br />
               If you want to deselect your choice in Match the following type,
               click on that particular question.

@@ -122,6 +122,7 @@ p {
   color: #fff;
   font-size: 24px;
   line-height: 28px;
+  padding-left: 20px;
 }
 
 .nam {
@@ -140,8 +141,9 @@ p {
   height: auto;
   max-width: 40vw;
   color: #fff;
-  font-size: 1em;
-  line-height: 25px;
+  font-size: 1.3em;
+  line-height: 30px;
+  font-weight: lighter;
 }
 
 .round_instruction {
