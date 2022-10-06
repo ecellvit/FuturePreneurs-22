@@ -58,7 +58,7 @@ const TeamMembers = ({ teamData, handleMemberLeave }) => {
           Leave Team
         </button> */}
 
-        {!teamData.isQualified ? (
+        {teamData.isQualified ? (
           <div className={styles.isQualified}>
             <button className={`${styles.btnCopy} ${styles.glow_on_hover}`}>
               Congratulations on qualifying for the final game day of
