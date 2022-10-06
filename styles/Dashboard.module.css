@@ -105,7 +105,7 @@
   background: transparent;
 }
 
-.glow_on_hover:hover:before {
+.glow_on_hover:before {
   opacity: 1;
 }
 
@@ -131,6 +131,15 @@
   100% {
     background-position: 0 0;
   }
+}
+
+.isQualified{
+  display: block;
+ /* / margin: 0px auto 70px; */
+  margin-bottom:2rem;
+  justify-content: center;
+  text-align: center;
+  font-size: 1em;
 }
 
 .member_name {
@@ -587,6 +596,7 @@
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.125);
   padding: 5px 30px 8px 30px;
+  height:8rem;
 }
 
 .invite_link_a {
@@ -622,7 +632,7 @@
 
   .team_name {
     font-size: 2rem;
-    margin-bottom:4rem;
+    margin-bottom:2rem;
     line-height: 40px;
   }
 
