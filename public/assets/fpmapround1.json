@@ -776,7 +776,7 @@
  "tilesets":[
         {
          "firstgid":1,
-         "source":"..\/..\/fpmap1\/island.tsx"
+         "image":"./hospital.png"
         }, 
         {
          "columns":12,

@@ -136,6 +136,36 @@
       "width": 20,
       "x": 0,
       "y": 0
+    },
+    {
+      "draworder": "topdown",
+      "id": 4,
+      "name": "actions",
+      "objects": [
+        {
+          "class": "",
+          "height": 0,
+          "id": 1,
+          "name": "",
+          "properties": [
+            {
+              "name": "itemData",
+              "type": "string",
+              "value": "sword"
+            }
+          ],
+          "rotation": 0,
+          "visible": false,
+          "width": 0,
+          "x": 80,
+          "y": 80
+        }
+      ],
+      "opacity": 1,
+      "type": "objectgroup",
+      "visible": true,
+      "x": 0,
+      "y": 0
     }
   ],
   "nextlayerid": 5,
