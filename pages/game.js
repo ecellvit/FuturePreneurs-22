@@ -1,18 +1,19 @@
 import { useEffect, useState } from "react";
-import dynamic from 'next/dynamic'
+import Modal from "../components/modal";
+import dynamic from "next/dynamic";
+import { AnimatePresence } from "framer-motion";
 
 export default function PhaserGame() {
-  const [game, setGame] = useState();
+  const [prompt, setPrompt] = useState();
+
   useEffect(() => {
     async function initPhaser() {
-      const Phaser = await import('phaser');
+      const Phaser = await import("phaser");
 
-      console.log(Phaser)
-      const { default: GridEngine } = await import('grid-engine');
-
-      const { default: Preloader } = await import('../scenes/Preloader');
-
-      const { default: TestScene } = await import('../scenes/TestScene');
+      console.log(Phaser);
+      const { default: GridEngine } = await import("grid-engine");
+      const { default: Preloader } = await import("../scenes/Preloader");
+      const { default: TestScene } = await import("../scenes/TestScene");
 
       const phaserGame = new Phaser.Game({
         // render: {
@@ -29,36 +30,57 @@ export default function PhaserGame() {
           zoom: 2,
           // autoCenter: Phaser.Scale.CENTER_BOTH,
         },
-        scene: [
-          Preloader,
-          TestScene
-        ],
+        scene: [Preloader, TestScene],
         physics: {
-          default: 'arcade',
+          default: "arcade",
           arcade: {
             debug: true,
-          }
+          },
         },
         plugins: {
           scene: [
             {
-              key: 'gridEngine',
+              key: "gridEngine",
               plugin: GridEngine,
-              mapping: 'gridEngine'
-            }
-          ]
+              mapping: "gridEngine",
+            },
+          ],
         },
         backgroundColor: "#48C4F8",
-      })
-      setGame(phaserGame)
+      });
     }
-    initPhaser()
-  }, [])
+    initPhaser();
+  }, []);
+
+  useEffect(() => {
+    const dialogBoxEventListener = ({ detail }) => {
+      console.log(detail);
+      setPrompt(true);
+    };
+    window.addEventListener("prompt", dialogBoxEventListener);
+  }, []);
 
   return (
     <>
       {/* <Game/> */}
       <div id="game-content" key="game-content"></div>
+      {prompt && (
+        <AnimatePresence
+          initial={false}
+          exitBeforeEnter={true}
+          onExitComplete={() => null}
+        >
+          <Modal
+            modalOpen={prompt}
+            handleClose={() => {
+              console.log("asdf");
+            }}
+            text={"Are you sure you want to delete your team?"}
+            text1={"This action can't be reversed!!"}
+            text2={"Yes I'm sure"}
+          />
+        </AnimatePresence>
+      )}
     </>
-  )
-}       
+  );
+}
