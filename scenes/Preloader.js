@@ -6,12 +6,20 @@ export default class Preloader extends Scene {
     }
 
     preload() {
-        this.load.image('tiles', "assets/cloud_tileset.png");
-        this.load.tilemapTiledJSON('testmap', 'assets/cloud-city.json')
-        this.load.spritesheet('hero', 'assets/characters.png', {
-            frameWidth: 16,
-            frameHeight: 32
-        })
+      this.load.image('hospital', "assets/hospital.png");
+      this.load.image('bridge', "assets/villagetileset.png");
+      this.load.image('city', "assets/modern_buildings.png");
+      this.load.image('beach', "assets/beach_tileset.png");
+      this.load.image('school', "assets/school.png");
+      this.load.image('temple', "assets/monument.png");
+      this.load.tilemapTiledJSON('fp1', 'assets/fpmapround1.json')
+
+      this.load.image('tiles', "assets/cloud_tileset.png");
+      this.load.tilemapTiledJSON('testmap', 'assets/cloud-city.json')
+      this.load.spritesheet('hero', 'assets/characters.png', {
+          frameWidth: 16,
+          frameHeight: 32
+      })
     }
 
     create() {
