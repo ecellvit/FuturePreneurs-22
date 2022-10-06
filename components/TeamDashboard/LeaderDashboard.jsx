@@ -131,8 +131,9 @@ const LeaderDashboard = ({
           ) : (
             <div className={styles.isQualified}>
               <button className={`${styles.btnCopy}`}>
-                Thank you for your participation in Futurepreneurs 8.0! Hoping
-                to see you in our future events!
+                We're sorry you didn't make the cut; it was a tough competition!
+                We thank you for attending Futurepreneurs 8.0 and hope to see
+                you again at our future events.
               </button>
             </div>
           )}
