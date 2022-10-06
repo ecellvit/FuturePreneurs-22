@@ -3,20 +3,17 @@ import {
 } from 'phaser'
 
 export default class TestScene extends Scene {
-  constructor() {
-    super('testscene')
-  }
+    constructor() {
+        super('testscene')
+    }
+    create() {
+        const map = this.make.tilemap({ key: 'testmap' });
+        map.addTilesetImage('CloudCity', 'tiles')
 
-  create() {
-    const map = this.make.tilemap({
-      key: 'testmap'
-    });
-    map.addTilesetImage('CloudCity', 'tiles')
-
-    map.layers.forEach((layer, index) => {
-      console.log(layer)
-      map.createLayer(index, 'CloudCity', 0, 0)
-    })
+        map.layers.forEach((layer, index) => {
+            console.log(layer)
+            map.createLayer(index, 'CloudCity', 0, 0)
+        })
 
     const heroSprite = this.physics.add.sprite(0, 0, 'hero');
 
