@@ -120,7 +120,7 @@ const LeaderDashboard = ({
               </div>
             </CopyToClipboard>
           </h2> */}
-          {teamData.isQualified ? (
+          {teamData?.teamId?.isTeamQualified ? (
             <>
               <div className={styles.congoContainer}>
                 <span className={`${styles.congo} `}>Congratulations!!</span>
