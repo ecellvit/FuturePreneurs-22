@@ -1,0 +1,21 @@
+.Board {
+  width: 30%;
+
+  margin-bottom: 20px;
+  min-width: 300px;
+  min-height: 300px;
+  height: 30%;
+  border: 20px solid white;
+}
+
+.Boarder {
+  width: 300px;
+  margin-bottom: 20px;
+  font-size: xx-large;
+
+  /* margin: 30%; */
+  height: 300px;
+  border: 10px solid white;
+  color: white;
+  text-align: center;
+}
