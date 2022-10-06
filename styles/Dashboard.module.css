@@ -142,6 +142,34 @@
   font-size: 1em;
 }
 
+.congo{
+  display: block;
+  
+  margin-top:-1rem;
+  padding:.5rem;
+  padding-bottom:2rem;
+  justify-content: center;
+  text-align: center;
+  font-size: 2em;
+  font-weight:bold;
+  background: linear-gradient(to right, #f32170,
+  #ff6b08, #cf23cf, #eedd44);
+-webkit-text-fill-color: transparent;
+-webkit-background-clip: text;
+  height:2rem;
+}
+
+.congoContainer{
+  display:flex;
+  justify-content:center;
+  align-items:centre;
+}
+
+.emoji{
+  font-size:2rem;
+  padding-bottom:2rem;
+  margin-top:-.8rem;
+}
 .member_name {
   margin-top: 0px;
   margin-bottom: 10px;
