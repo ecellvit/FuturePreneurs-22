@@ -59,13 +59,19 @@ const TeamMembers = ({ teamData, handleMemberLeave }) => {
         </button> */}
 
         {teamData.isQualified ? (
-          <div className={styles.isQualified}>
-            <button className={`${styles.btnCopy} ${styles.glow_on_hover}`}>
-              Congratulations on qualifying for the final game day of
-              Futurepreneurs 8.0! The team leaders will soon be contacted by our
-              team!
-            </button>
-          </div>
+          <>
+            <div className={styles.congoContainer}>
+              <span className={`${styles.congo} `}>Congratulations!!</span>
+              <span className={styles.emoji}>🎉</span>
+            </div>
+            <div className={styles.isQualified}>
+              <button className={`${styles.btnCopy} ${styles.glow_on_hover}`}>
+                Congratulations on qualifying for the final game day of
+                Futurepreneurs 8.0! The team leaders will soon be contacted by
+                our team!
+              </button>
+            </div>
+          </>
         ) : (
           <div className={styles.isQualified}>
             <button className={`${styles.btnCopy}`}>
