@@ -1,38 +1,38 @@
-import styles from "../../styles/Dashboard.module.css";
-import styles1 from "../../styles/Modal.module.css";
-import TeamMember from "./TeamMember";
-import React, { useState } from "react";
-import { useSession } from "next-auth/react";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { AnimatePresence, motion } from "framer-motion";
-import Modal from "../modal";
-import { useRouter } from "next/router.js";
+import styles from '../../styles/Dashboard.module.css'
+import styles1 from '../../styles/Modal.module.css'
+import TeamMember from './TeamMember'
+import React, { useState } from 'react'
+import { useSession } from 'next-auth/react'
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import { AnimatePresence, motion } from 'framer-motion'
+import Modal from '../modal'
+import { useRouter } from 'next/router.js'
 
 const TeamMembers = ({ teamData, handleMemberLeave }) => {
-  const [modalOpen, setModalOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false)
 
-  const close = () => setModalOpen(false);
-  const open = () => setModalOpen(true);
+  const close = () => setModalOpen(false)
+  const open = () => setModalOpen(true)
 
-  const [teamId, setTeamId] = useState(teamData?.teamId?._id);
-  const { data: session } = useSession();
-  const router = useRouter();
+  const [teamId, setTeamId] = useState(teamData?.teamId?._id)
+  const { data: session } = useSession()
+  const router = useRouter()
 
   const openInNewTab = (url) => {
-    window.open(url, "_blank", "noopener,noreferrer");
-  };
+    window.open(url, '_blank', 'noopener,noreferrer')
+  }
 
   const handleLeave = () => {
     fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/user/leave/${teamId}`, {
-      method: "PATCH",
+      method: 'PATCH',
       body: JSON.stringify({
         userId: `${teamData?._id}`,
       }),
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${session.accessTokenBackend}`,
-        "Access-Control-Allow-Origin": "*",
+        'Access-Control-Allow-Origin': '*',
       },
     })
       .then((data) => data.json())
@@ -40,10 +40,10 @@ const TeamMembers = ({ teamData, handleMemberLeave }) => {
         // console.log(data)
         toast.success(`${data.message}`, {
           position: toast.POSITION.TOP_RIGHT,
-        });
-        handleMemberLeave();
-      });
-  };
+        })
+        handleMemberLeave()
+      })
+  }
 
   return (
     <div className={styles.team_member_section}>
@@ -58,6 +58,23 @@ const TeamMembers = ({ teamData, handleMemberLeave }) => {
           Leave Team
         </button> */}
 
+        {teamData.isQualified ? (
+          <div className={styles.isQualified}>
+            <button className={`${styles.btnCopy} ${styles.glow_on_hover}`}>
+              Congratulations on qualifying for the final game day of
+              Futurepreneurs 8.0! The team leaders will soon be contacted by our
+              team!
+            </button>
+          </div>
+        ) : (
+          <div className={styles.isQualified}>
+            <button className={`${styles.btnCopy}`}>
+              Thank you for your participation in Futurepreneurs 8.0! Hoping to
+              see you in our future events!
+            </button>
+          </div>
+        )}
+
         <div className={`${styles.team_row} ${styles.align_centre}`}>
           {teamData?.teamId?.members?.map((team) => {
             return (
@@ -70,7 +87,7 @@ const TeamMembers = ({ teamData, handleMemberLeave }) => {
                 userId={team._id}
                 teamRole={team.teamRole}
               ></TeamMember>
-            );
+            )
           })}
         </div>
         {/* <motion.button
@@ -90,7 +107,7 @@ const TeamMembers = ({ teamData, handleMemberLeave }) => {
             <Modal
               modalOpen={modalOpen}
               handleClose={close}
-              text={"Are you sure you want to leave your team?"}
+              text={'Are you sure you want to leave your team?'}
               text1={"This action can't be reversed!!"}
               text2={"Yes I'm sure"}
               deleteTeam={handleLeave}
@@ -111,7 +128,7 @@ const TeamMembers = ({ teamData, handleMemberLeave }) => {
         </div>
       </div> */}
     </div>
-  );
-};
+  )
+}
 
-export default TeamMembers;
+export default TeamMembers
