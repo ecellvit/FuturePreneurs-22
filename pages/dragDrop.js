@@ -6,6 +6,8 @@ import { toast, ToastContainer } from "react-toastify";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import "react-toastify/dist/ReactToastify.css";
+import DragBody from "../components/roundOnePointThree/DragBody";
+
 
 export default function DragDroppp() {
   const { status } = useSession();
@@ -24,9 +26,10 @@ export default function DragDroppp() {
   return (status === "authenticated" &&
     <>
       {/* <ToastContainer /> */}
+      <ToastContainer/>
       <DndProvider backend={HTML5Backend}>
 
-      <DragDrop />
+      <DragBody />
       </DndProvider>
 
     </>);
