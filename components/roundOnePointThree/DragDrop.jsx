@@ -9,7 +9,7 @@ import ToDrag from "./ToDrag";
 function DragDrop() {
   const [divs, setdivs] = useState([0, 1, 2]);
   const [allDivs, setallDivs] = useState([]);
-
+  const [balance, setBalance] = useState([]);
   const [{ isOver }, drop] = useDrop(() => ({
     accept: "div",
     drop: (item) => {
