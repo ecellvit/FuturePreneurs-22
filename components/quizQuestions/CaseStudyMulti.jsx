@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "../../styles/Img.module.css";
 import { useEffect, useState } from "react";
+import { memo } from "react";
 
 const CaseStudyMulti = ({
   question,
@@ -32,7 +33,9 @@ const CaseStudyMulti = ({
     <>
       <div className={styles.round_instruction}>
         <div className={styles.para}>{text}</div>
-        <div className={styles.para}>{question}</div>
+        <div className={styles.para} style={{ whiteSpace: "pre-line" }}>
+          {question}
+        </div>
         {answers.map((val, ind) => {
           return (
             <label
@@ -40,7 +43,7 @@ const CaseStudyMulti = ({
               key={ind}
               onClick={() => addOrRemove(ind)}
               style={{
-                backgroundColor: multiAns.includes(ind) ? "#2cb908" : "",
+                backgroundColor: multiAns.includes(ind) ? "#8a2be2" : "",
               }}
             >
               <div className={styles.text_block_3}>
@@ -59,4 +62,4 @@ const CaseStudyMulti = ({
   );
 };
 
-export default CaseStudyMulti;
+export default memo(CaseStudyMulti);

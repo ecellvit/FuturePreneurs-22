@@ -24,13 +24,13 @@ const NavigationBar = () => {
 
   const myCtx = useContext(myContext);
 
-  const END_TIME = new Date(2022, 10, 4, 17, 0, 0);
+  const END_TIME = new Date(2022, 10, 1, 23, 59, 59);
 
   useEffect(() => {
     let timer = setTimeout(() => {
       let a = Date.now();
       let d = END_TIME.getTime() - a;
-      let dys = Math.floor(d / 1000 / 60 / 60 / 24) % 30;
+      let dys = Math.floor(d / 1000 / 60 / 60 / 24) % 30-1;
       let hrs = Math.floor(d / 1000 / 60 / 60) % 24;
       let mins = Math.floor(d / 1000 / 60) % 60;
       let secs = Math.floor(d / 1000) % 60;
@@ -192,9 +192,9 @@ const NavigationBar = () => {
           </div>
           <div className={`${styles.flexMid} ${styles.responsive}`}>
             <div className={styles.headerMid}>
-              REGISTRATION ENDS IN&nbsp;&nbsp;
+              REGISTRATIONS ENDED&nbsp;&nbsp;
             </div>
-            <div className={styles.counterWrapper}>
+            {/* <div className={styles.counterWrapper}>
               <div className={`${styles.counterCard} ${styles.counterCard1}`}>
                 <div className={styles.counterCardHead}>
                   &nbsp;&nbsp;&nbsp;DAYS&nbsp;&nbsp;&nbsp;
@@ -213,12 +213,12 @@ const NavigationBar = () => {
                 <div className={styles.counterCardHead}>SECONDS</div>
                 <div className={styles.counterCardBody}>{seconds}</div>
               </div>
-            </div>
+            </div> */}
           </div>
           <div className={`${styles.flexRight} ${styles.responsive}`}>
             <ul>
               <li>
-                {status === "authenticated" && (
+                {/* {status === "authenticated" && (
                   <button
                     className={`${styles.flexRightBell} `}
                     onClick={() => {
@@ -229,7 +229,7 @@ const NavigationBar = () => {
                   >
                     <Noty width={"40"} color={"#fff"} count={myCtx.notys} />
                   </button>
-                )}
+                )} */}
 
                 {status === "authenticated" && (
                   <Link href="/dashboard">
@@ -274,7 +274,7 @@ const NavigationBar = () => {
           <div className={`${styles.flexRight} ${styles.responsiveOn}`}>
             <ul className={styles.ul}>
               <li>
-                {status === "authenticated" && (
+                {/* {status === "authenticated" && (
                   <button
                     className={`${styles.flexRightBell} `}
                     onClick={() => {
@@ -285,7 +285,7 @@ const NavigationBar = () => {
                   >
                     <Noty width={"40"} color={"#fff"} count={myCtx.notys} />
                   </button>
-                )}
+                )} */}
 
                 {status === "authenticated" && (
                   <Link href="/dashboard">

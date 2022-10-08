@@ -8,8 +8,6 @@ import NavigationBar from "../components/NavigationBar";
 import { toast, ToastContainer } from "react-toastify";
 import Loading from "../components/Loading";
 
-
-
 export default function PendingUserRequestsPage() {
 
   const { status } = useSession();

@@ -73,14 +73,14 @@ const TeamMembers = ({ teamData, handleMemberLeave }) => {
             );
           })}
         </div>
-        <motion.button
+        {/* <motion.button
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           className={`${styles1["save-button"]} ${styles1["button"]}`}
           onClick={() => (modalOpen ? close() : open())}
         >
           Leave Team
-        </motion.button>
+        </motion.button> */}
         <AnimatePresence
           initial={false}
           exitBeforeEnter={true}
@@ -98,16 +98,18 @@ const TeamMembers = ({ teamData, handleMemberLeave }) => {
           )}
         </AnimatePresence>
       </div>
-      <div className={styles.invite_link_container}>
+      {/* <div className={styles.invite_link_container}>
         <div className="copy-area">
           <button
             className={`${styles.btngroup} ${styles.glow_on_hover}`}
-            onClick={() => router.push("/quiz")}
+            onClick={() =>
+              openInNewTab('https://chat.whatsapp.com/HRf6GIMOogZ1iOu43naBvg')
+            }
           >
             Attempt Quiz
           </button>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

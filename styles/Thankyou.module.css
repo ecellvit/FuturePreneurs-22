@@ -1,0 +1,142 @@
+.thank_div {
+  min-height: 100vh;
+  margin-right: 0px;
+  padding-top: 20vh;
+  background-color: #070f0f;
+  background-image: url("/thank.png");
+  background-position: 0% 0%;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.main_cont {
+  display: flex;
+  margin-left: 5vw;
+  padding-right: 5vw;
+  justify-content: space-around;
+}
+
+.main_text {
+  max-width: 50vw;
+}
+
+.spon {
+  padding-top: 100px;
+  color: #e4e4e4;
+  font-size: 10vw;
+  line-height: 0.8em;
+  text-align: center;
+}
+
+.paralink {
+  margin-top: 40px;
+}
+
+.para {
+  color: #e4e4e4;
+  font-size: 2.5vw;
+  line-height: 1.1em;
+  text-align: center;
+}
+.ins {
+  color: palevioletred;
+}
+.link {
+  text-decoration: none;
+  color: #fff;
+  line-height: normal;
+}
+.ins:hover {
+  text-decoration: none;
+  color: red;
+}
+
+@media screen and (max-width: 991px) {
+  .main_cont {
+    margin-left: 0vw;
+    padding-left: 5vw;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.invite_link_container {
+  display: flex;
+  align-items: center;
+  margin: -30px auto 40px;
+  padding-right: 10px;
+  padding-left: 10px;
+  justify-content: center;
+  color: #5b3acc;
+  font-size: 27px;
+  font-weight: 400;
+  text-align: center;
+  color: #ffff;
+}
+.btngroup{
+  width:40rem;
+  margin-top:2rem;
+  margin-bottom:1rem;
+  font-size:1rem;
+}
+.glow_on_hover {
+  width: 40rem;
+  height: 50px;
+  border: none;
+  outline: none;
+  color: #fff;
+  background: #111;
+  cursor: pointer;
+  position: relative;
+  z-index: 0;
+  border-radius: 10px;
+}
+
+.glow_on_hover:before {
+  content: "";
+  background: linear-gradient(
+    45deg,
+    #130ae6,
+    #236dce,
+    #bf3ec3,
+    #bc304b,
+    #e69951
+  );
+  /* background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000); */
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  background-size: 400%;
+  z-index: -1;
+  filter: blur(5px);
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  animation: glowing 20s linear infinite;
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+  border-radius: 10px;
+}
+
+.glow_on_hover:active {
+  color: #000;
+}
+
+.glow_on_hover:active:after {
+  background: transparent;
+}
+
+.glow_on_hover:hover:before {
+  opacity: 1;
+}
+
+.glow_on_hover:after {
+  z-index: -1;
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #111;
+  left: 0;
+  top: 0;
+  border-radius: 10px;
+}
