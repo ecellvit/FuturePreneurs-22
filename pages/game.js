@@ -23,7 +23,7 @@ export default function PhaserGame() {
         title: "round-one",
         // scene: TestScene,
         parent: "game-content",
-        width: 400,
+        width: 396,
         height: 300,
         pixelArt: true,
         scale: {

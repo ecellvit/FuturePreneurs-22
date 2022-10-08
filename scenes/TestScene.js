@@ -8,11 +8,17 @@ export default class TestScene extends Scene {
     }
     create() {
         const map = this.make.tilemap({ key: 'testmap' });
-        map.addTilesetImage('CloudCity', 'tiles')
+        map.addTilesetImage('beach', 'beach', 12, 12, 0, 0)
+        map.addTilesetImage('hospital', 'hospital', 12, 12, 0, 0)
+        map.addTilesetImage('bridge', 'bridge', 12, 12, 0, 0)
+        map.addTilesetImage('city', 'city', 12, 12, 0, 0)
+        map.addTilesetImage('temple', 'temple', 12, 12, 0, 0)
+        map.addTilesetImage('school', 'school', 12, 12, 0, 0)
+        // map.addTilesetImage('island', 'island')
 
         map.layers.forEach((layer, index) => {
             console.log(layer)
-            map.createLayer(index, 'CloudCity', 0, 0)
+            map.createLayer(index, ['beach', 'hospital', 'bridge','city','temple','school'], 0, 0)
         })
 
     const heroSprite = this.physics.add.sprite(0, 0, 'hero');
@@ -34,59 +40,59 @@ export default class TestScene extends Scene {
 
     this.itemsSprites = this.add.group();
 
-    const dataLayer = map.getObjectLayer("actions");
-    dataLayer.objects.forEach((data) => {
-      const {
-        properties,
-        x,
-        y
-      } = data;
+    // const dataLayer = map.getObjectLayer("actions");
+    // dataLayer.objects.forEach((data) => {
+    //   const {
+    //     properties,
+    //     x,
+    //     y
+    //   } = data;
 
-      properties.forEach((property) => {
-        const {
-          name,
-          type,
-          value
-        } = property;
-        switch (name) {
-          case "itemData": {
-            const [itemType] = value.split(":");
-            switch (itemType) {
-              case "sword": {
-                const item = this.physics.add
-                  .sprite(x, y, "sword")
-                  .setDepth(1)
-                  .setOrigin(0, 1);
+    //   properties.forEach((property) => {
+    //     const {
+    //       name,
+    //       type,
+    //       value
+    //     } = property;
+    //     switch (name) {
+    //       case "itemData": {
+    //         const [itemType] = value.split(":");
+    //         switch (itemType) {
+    //           case "sword": {
+    //             const item = this.physics.add
+    //               .sprite(x, y, "sword")
+    //               .setDepth(1)
+    //               .setOrigin(0, 1);
 
-                item.itemType = "sword";
-                this.itemsSprites.add(item);
-                break;
-              }
-              default:
-                console.log("default sword");
-            }
-          }
-          break;
-        default:
-          console.log("default itemData");
-          break;
-        }
-      });
-    });
-    this.physics.add.overlap(heroSprite, this.itemsSprites, (objA, objB) => {
-      const item = [objA, objB].find((obj) => obj !== heroSprite);
-      // console.log(item);
-      if (item.itemType === 'sword') {
-        // console.log("overlap")
-        const customEvent = new CustomEvent('prompt', {
-          detail: {
-            characterName: item.itemType,
-          },
-        });
-        window.dispatchEvent(customEvent);
-        item.destroy();
-      }
-    })
+    //             item.itemType = "sword";
+    //             this.itemsSprites.add(item);
+    //             break;
+    //           }
+    //           default:
+    //             console.log("default sword");
+    //         }
+    //       }
+    //       break;
+    //     default:
+    //       console.log("default itemData");
+    //       break;
+    //     }
+    //   });
+    // });
+    // this.physics.add.overlap(heroSprite, this.itemsSprites, (objA, objB) => {
+    //   const item = [objA, objB].find((obj) => obj !== heroSprite);
+    //   // console.log(item);
+    //   if (item.itemType === 'sword') {
+    //     // console.log("overlap")
+    //     const customEvent = new CustomEvent('prompt', {
+    //       detail: {
+    //         characterName: item.itemType,
+    //       },
+    //     });
+    //     window.dispatchEvent(customEvent);
+    //     item.destroy();
+    //   }
+    // })
   }
 
   update() {
