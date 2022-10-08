@@ -14,11 +14,14 @@ export default class TestScene extends Scene {
         map.addTilesetImage('city', 'city', 12, 12, 0, 0)
         map.addTilesetImage('temple', 'temple', 12, 12, 0, 0)
         map.addTilesetImage('school', 'school', 12, 12, 0, 0)
-        // map.addTilesetImage('island', 'island')
+        map.addTilesetImage('island', 'island')
+
+        // map.addTilesetImage('overWorld', 'overWorld');
 
         map.layers.forEach((layer, index) => {
             console.log(layer)
-            map.createLayer(index, ['beach', 'hospital', 'bridge','city','temple','school'], 0, 0)
+            map.createLayer(index, ['beach', 'hospital', 'bridge','city','temple','school', 'island'], 0, 0)
+            // map.createLayer(index, ['overWorld'], 0, 0)
         })
 
     const heroSprite = this.physics.add.sprite(0, 0, 'hero');
@@ -40,7 +43,7 @@ export default class TestScene extends Scene {
 
     this.itemsSprites = this.add.group();
 
-    // const dataLayer = map.getObjectLayer("actions");
+    // const dataLayer = map.getObjectLayer("prompt");
     // dataLayer.objects.forEach((data) => {
     //   const {
     //     properties,
@@ -81,9 +84,9 @@ export default class TestScene extends Scene {
     // });
     // this.physics.add.overlap(heroSprite, this.itemsSprites, (objA, objB) => {
     //   const item = [objA, objB].find((obj) => obj !== heroSprite);
-    //   // console.log(item);
+    //   console.log(item);
     //   if (item.itemType === 'sword') {
-    //     // console.log("overlap")
+    //     console.log("overlap")
     //     const customEvent = new CustomEvent('prompt', {
     //       detail: {
     //         characterName: item.itemType,
