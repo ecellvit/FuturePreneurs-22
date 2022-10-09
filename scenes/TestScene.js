@@ -46,10 +46,10 @@ export default class TestScene extends Scene {
     map.addTilesetImage('school', 'school', 12, 12, 0, 0)
     map.addTilesetImage('island', 'island')
 
-        map.layers.forEach((layer, index) => {
-            map.createLayer(index, ['beach', 'hospital', 'bridge','city','temple','school', 'island'], 0, 0)
-            // map.createLayer(index, ['overWorld'], 0, 0)
-        })
+    map.layers.forEach((layer, index) => {
+        map.createLayer(index, ['beach', 'hospital', 'bridge','city','temple','school', 'island'], 0, 0)
+        // map.createLayer(index, ['overWorld'], 0, 0)
+    })
 
     this.heroSprite = this.physics.add.sprite(0, 0, 'hero').setDepth(1);
 
@@ -68,8 +68,6 @@ export default class TestScene extends Scene {
       }]
     }
     this.gridEngine.create(map, gridEngineConfig)
-
-    const collideLayer = map.getLayer("")
 
     // Movement
     this.createPlayerWalkingAnimation('hero', 'walking_up');
@@ -95,13 +93,7 @@ export default class TestScene extends Scene {
         this.heroSprite.setFrame(this.getStopFrame(direction, charId));
       }
     });
-    // const dataLayer = map.getObjectLayer("prompt");
-    // dataLayer.objects.forEach((data) => {
-    //   const {
-    //     properties,
-    //     x,
-    //     y
-    //   } = data;
+
 
     let triggered = false;
 
@@ -112,7 +104,7 @@ export default class TestScene extends Scene {
         (obj, item) => Object.assign(obj, { [item.name]: item.value }), {}
       );
       this.physics.world.enable(tmp, 1);
-      this.physics.add.collider(heroSprite, tmp, (objA, objB)=>{
+      this.physics.add.collider(this.heroSprite, tmp, (objA, objB)=>{
         // console.log("collide trigger here");
         if (!triggered){
           const customEvent = new CustomEvent('prompt', {
@@ -130,23 +122,6 @@ export default class TestScene extends Scene {
         }
       }, null, this);
     });
-
-    this.physics.add.co
-
-    // this.physics.add.overlap(heroSprite, this.itemsSprites, (objA, objB) => {
-    //   const item = [objA, objB].find((obj) => obj !== heroSprite);
-    //   console.log(item);
-    //   if (item.itemType === 'sword') {
-    //     console.log("overlap")
-    //     const customEvent = new CustomEvent('prompt', {
-    //       detail: {
-    //         characterName: item.itemType,
-    //       },
-    //     });
-    //     window.dispatchEvent(customEvent);
-    //     item.destroy();
-    //   }
-    // })
   }
 
   update() {
