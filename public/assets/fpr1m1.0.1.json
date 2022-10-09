@@ -1,4 +1,11 @@
 { "compressionlevel":-1,
+ "editorsettings":
+    {
+     "export":
+        {
+         "format":"json"
+        }
+    },
  "height":40,
  "infinite":false,
  "layers":[
@@ -868,9 +875,75 @@
          "width":70,
          "x":0,
          "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":19,
+         "name":"prompt",
+         "objects":[
+                {
+                 "class":"",
+                 "height":18,
+                 "id":1,
+                 "name":"",
+                 "rotation":0,
+                 "visible":true,
+                 "width":22.5,
+                 "x":60.5,
+                 "y":112.5
+                }, 
+                {
+                 "class":"",
+                 "height":17,
+                 "id":2,
+                 "name":"",
+                 "rotation":0,
+                 "visible":true,
+                 "width":21.5,
+                 "x":122,
+                 "y":386.5
+                }, 
+                {
+                 "class":"",
+                 "height":22.5,
+                 "id":3,
+                 "name":"",
+                 "rotation":0,
+                 "visible":true,
+                 "width":19,
+                 "x":421,
+                 "y":180.5
+                }, 
+                {
+                 "class":"",
+                 "height":19,
+                 "id":4,
+                 "name":"",
+                 "rotation":0,
+                 "visible":true,
+                 "width":17,
+                 "x":682,
+                 "y":126
+                }, 
+                {
+                 "class":"",
+                 "height":24.5,
+                 "id":5,
+                 "name":"",
+                 "rotation":0,
+                 "visible":true,
+                 "width":22.5,
+                 "x":736.5,
+                 "y":374.5
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
         }],
- "nextlayerid":19,
- "nextobjectid":1,
+ "nextlayerid":20,
+ "nextobjectid":6,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.2",

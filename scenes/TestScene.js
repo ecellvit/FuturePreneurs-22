@@ -8,19 +8,19 @@ export default class TestScene extends Scene {
     }
     create() {
         const map = this.make.tilemap({ key: 'testmap' });
-        // map.addTilesetImage('beach', 'beach', 12, 12, 0, 0)
-        // map.addTilesetImage('hospital', 'hospital', 12, 12, 0, 0)
-        // map.addTilesetImage('bridge', 'bridge', 12, 12, 0, 0)
-        // map.addTilesetImage('city', 'city', 12, 12, 0, 0)
-        // map.addTilesetImage('temple', 'temple', 12, 12, 0, 0)
-        // map.addTilesetImage('school', 'school', 12, 12, 0, 0)
-        // map.addTilesetImage('island', 'island')
+        map.addTilesetImage('beach', 'beach', 12, 12, 0, 0)
+        map.addTilesetImage('hospital', 'hospital', 12, 12, 0, 0)
+        map.addTilesetImage('bridge', 'bridge', 12, 12, 0, 0)
+        map.addTilesetImage('city', 'city', 12, 12, 0, 0)
+        map.addTilesetImage('temple', 'temple', 12, 12, 0, 0)
+        map.addTilesetImage('school', 'school', 12, 12, 0, 0)
+        map.addTilesetImage('island', 'island')
 
-        map.addTilesetImage('overWorld', 'overWorld');
+        // map.addTilesetImage('overWorld', 'overWorld');
 
         map.layers.forEach((layer, index) => {
-            // map.createLayer(index, ['beach', 'hospital', 'bridge','city','temple','school', 'island'], 0, 0)
-            map.createLayer(index, ['overWorld'], 0, 0)
+            map.createLayer(index, ['beach', 'hospital', 'bridge','city','temple','school', 'island'], 0, 0)
+            // map.createLayer(index, ['overWorld'], 0, 0)
         })
 
     const heroSprite = this.physics.add.sprite(0, 0, 'hero');
@@ -40,7 +40,9 @@ export default class TestScene extends Scene {
     }
     this.gridEngine.create(map, gridEngineConfig)
 
-    this.itemsSprites = this.add.group();
+    const collideLayer = map.getLayer("")
+
+    this.itemsSprites = this.add.group()
 
     let triggered = false;
 
@@ -56,7 +58,7 @@ export default class TestScene extends Scene {
         if (!triggered){
           const customEvent = new CustomEvent('prompt', {
             detail: {
-              characterName: objB.properties.itemData,
+              areaName: objB.properties.area,
             },
           });
           window.dispatchEvent(customEvent);

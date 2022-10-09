@@ -57,8 +57,8 @@ export default function PhaserGame() {
 
   useEffect(() => {
     const dialogBoxEventListener = ({ detail }) => {
-      // console.log(detail);
-      setPrompt(true);
+      console.log(detail);
+      setPrompt(detail.areaName);
     };
     window.addEventListener("prompt", dialogBoxEventListener);
   }, []);
@@ -84,8 +84,8 @@ export default function PhaserGame() {
             exit="exit"
           >
             <button className={`${styles["button"]} ${styles["close"]}`} onClick={closePrompt}>Cancel</button>
-            <h2>Enter Area?</h2>
-            <h4> Do you want to place your resort in AreaName? </h4>
+            <h2>Enter {prompt}?</h2>
+            <h4> Do you want to place your resort in {prompt}? </h4>
             <button
               className={`${styles["button"]} ${styles["close-button"]}`}
               onClick={()=>{console.log("func")}}
