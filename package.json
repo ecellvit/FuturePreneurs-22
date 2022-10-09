@@ -33,6 +33,7 @@
     "react-icons": "^4.4.0",
     "react-lineto": "^3.3.0",
     "react-loader-spinner": "^5.3.4",
+    "react-spring":"^9.5.5",
     "react-toastify": "^9.0.8",
     "styled": "^1.0.0",
     "styled-components": "^5.3.5"
