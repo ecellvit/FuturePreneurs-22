@@ -47,8 +47,8 @@ export default class TestScene extends Scene {
     map.addTilesetImage('island', 'island')
 
     map.layers.forEach((layer, index) => {
-      console.log(layer)
-      map.createLayer(index, ['beach', 'hospital', 'bridge', 'city', 'temple', 'school', 'island'], 0, 0)
+        map.createLayer(index, ['beach', 'hospital', 'bridge','city','temple','school', 'island'], 0, 0)
+        // map.createLayer(index, ['overWorld'], 0, 0)
     })
 
     this.heroSprite = this.physics.add.sprite(0, 0, 'hero').setDepth(1);
@@ -68,8 +68,6 @@ export default class TestScene extends Scene {
       }]
     }
     this.gridEngine.create(map, gridEngineConfig)
-
-    this.itemsSprites = this.add.group();
 
     // Movement
     this.createPlayerWalkingAnimation('hero', 'walking_up');
@@ -95,59 +93,35 @@ export default class TestScene extends Scene {
         this.heroSprite.setFrame(this.getStopFrame(direction, charId));
       }
     });
-    // const dataLayer = map.getObjectLayer("prompt");
-    // dataLayer.objects.forEach((data) => {
-    //   const {
-    //     properties,
-    //     x,
-    //     y
-    //   } = data;
 
-    //   properties.forEach((property) => {
-    //     const {
-    //       name,
-    //       type,
-    //       value
-    //     } = property;
-    //     switch (name) {
-    //       case "itemData": {
-    //         const [itemType] = value.split(":");
-    //         switch (itemType) {
-    //           case "sword": {
-    //             const item = this.physics.add
-    //               .sprite(x, y, "sword")
-    //               .setDepth(1)
-    //               .setOrigin(0, 1);
 
-    //             item.itemType = "sword";
-    //             this.itemsSprites.add(item);
-    //             break;
-    //           }
-    //           default:
-    //             console.log("default sword");
-    //         }
-    //       }
-    //       break;
-    //     default:
-    //       console.log("default itemData");
-    //       break;
-    //     }
-    //   });
-    // });
-    // this.physics.add.overlap(heroSprite, this.itemsSprites, (objA, objB) => {
-    //   const item = [objA, objB].find((obj) => obj !== heroSprite);
-    //   console.log(item);
-    //   if (item.itemType === 'sword') {
-    //     console.log("overlap")
-    //     const customEvent = new CustomEvent('prompt', {
-    //       detail: {
-    //         characterName: item.itemType,
-    //       },
-    //     });
-    //     window.dispatchEvent(customEvent);
-    //     item.destroy();
-    //   }
-    // })
+    let triggered = false;
+
+    const dataLayer = map.getObjectLayer("prompt");
+    dataLayer.objects.forEach((object) => {
+      let tmp = this.add.rectangle((object.x+(object.width/2)), (object.y+(object.height/2)), object.width, object.height);
+      tmp.properties = object.properties.reduce(
+        (obj, item) => Object.assign(obj, { [item.name]: item.value }), {}
+      );
+      this.physics.world.enable(tmp, 1);
+      this.physics.add.collider(this.heroSprite, tmp, (objA, objB)=>{
+        // console.log("collide trigger here");
+        if (!triggered){
+          const customEvent = new CustomEvent('prompt', {
+            detail: {
+              areaName: objB.properties.area,
+            },
+          });
+          window.dispatchEvent(customEvent);
+          // this.physics.world.disable(tmp, 1);
+          triggered = true;
+          console.log(triggered)
+          this.time.delayedCall(3000, () => {
+            triggered = false
+          });
+        }
+      }, null, this);
+    });
   }
 
   update() {

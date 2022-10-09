@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import Modal from "../components/modal";
 import { AnimatePresence } from "framer-motion";
-import Loading from "../components/Loading"
-
+import { motion } from "framer-motion";
+import Backdrop from "../components/backdrop/index";
+import styles from "../styles/Modal.module.css"
 
 export default function PhaserGame() {
   const [prompt, setPrompt] = useState();
@@ -54,34 +55,54 @@ export default function PhaserGame() {
   useEffect(() => {
     const dialogBoxEventListener = ({ detail }) => {
       console.log(detail);
-      setPrompt(true);
+      setPrompt(detail.areaName);
     };
     window.addEventListener("prompt", dialogBoxEventListener);
   }, []);
 
+  const closePrompt = ()=>{
+    // console.log("closing")
+    setPrompt(false);
+    const customEvent = new CustomEvent('promptClosed', {
+    });
+    window.dispatchEvent(customEvent);
+  }
+
   return (
     <>
       {/* <Game/> */}
-      {isLoading ? <Loading /> : <>
-        <div id="game-content" key="game-content"></div>
-        {prompt && (
-          <AnimatePresence
-            initial={false}
-            exitBeforeEnter={true}
-            onExitComplete={() => null}
+      <div id="game-content" key="game-content"></div>
+      {prompt && <Backdrop onClick={closePrompt}>
+          <motion.div
+            onClick={(e) => e.stopPropagation()}
+            className={`${styles["modal"]} ${styles["orange-gradient"]}`}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
           >
-            <Modal
-              modalOpen={prompt}
-              handleClose={() => {
-                console.log("asdf");
-              }}
-              text={"Are you sure you want to delete your team?"}
-              text1={"This action can't be reversed!!"}
-              text2={"Yes I'm sure"}
-            />
-          </AnimatePresence>
-        )}</>}
-
+            <button className={`${styles["button"]} ${styles["close"]}`} onClick={closePrompt}>Cancel</button>
+            <h2>Enter {prompt}?</h2>
+            <h4> Do you want to place your resort in {prompt}? </h4>
+            <button
+              className={`${styles["button"]} ${styles["close-button"]}`}
+              onClick={()=>{console.log("func")}}
+              style={{marginLeft:"15vw"}}
+            >
+              Yes
+            </button>
+            <button
+              className={`${styles["button"]} ${styles["close-button"]}`}
+              onClick={closePrompt}
+              style={{marginLeft:"15vw"}}
+            >
+              No
+            </button>
+          </motion.div>
+        </Backdrop>}
+      <div >
+            <span>asdf</span>
+            asdf
+        </div>
     </>
   );
 }
