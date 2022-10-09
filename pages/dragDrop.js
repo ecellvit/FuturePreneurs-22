@@ -7,7 +7,7 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import "react-toastify/dist/ReactToastify.css";
 import DragBody from "../components/roundOnePointThree/DragBody";
-
+import DragFinal from "../components/roundOnePointThree/DragFinal";
 
 export default function DragDroppp() {
   const { status } = useSession();
@@ -23,14 +23,16 @@ export default function DragDroppp() {
       }
     }
   }, [session, status, router]);
-  return (status === "authenticated" &&
-    <>
-      {/* <ToastContainer /> */}
-      <ToastContainer/>
-      <DndProvider backend={HTML5Backend}>
-
-      <DragBody />
-      </DndProvider>
-
-    </>);
+  console.log(session);
+  return (
+    status === "authenticated" && (
+      <>
+        {/* <ToastContainer /> */}
+        <ToastContainer />
+        <DndProvider backend={HTML5Backend}>
+          <DragFinal />
+        </DndProvider>
+      </>
+    )
+  );
 }
