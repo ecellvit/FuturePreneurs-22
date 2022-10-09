@@ -8,20 +8,19 @@ export default class TestScene extends Scene {
     }
     create() {
         const map = this.make.tilemap({ key: 'testmap' });
-        map.addTilesetImage('beach', 'beach', 12, 12, 0, 0)
-        map.addTilesetImage('hospital', 'hospital', 12, 12, 0, 0)
-        map.addTilesetImage('bridge', 'bridge', 12, 12, 0, 0)
-        map.addTilesetImage('city', 'city', 12, 12, 0, 0)
-        map.addTilesetImage('temple', 'temple', 12, 12, 0, 0)
-        map.addTilesetImage('school', 'school', 12, 12, 0, 0)
-        map.addTilesetImage('island', 'island')
+        // map.addTilesetImage('beach', 'beach', 12, 12, 0, 0)
+        // map.addTilesetImage('hospital', 'hospital', 12, 12, 0, 0)
+        // map.addTilesetImage('bridge', 'bridge', 12, 12, 0, 0)
+        // map.addTilesetImage('city', 'city', 12, 12, 0, 0)
+        // map.addTilesetImage('temple', 'temple', 12, 12, 0, 0)
+        // map.addTilesetImage('school', 'school', 12, 12, 0, 0)
+        // map.addTilesetImage('island', 'island')
 
-        // map.addTilesetImage('overWorld', 'overWorld');
+        map.addTilesetImage('overWorld', 'overWorld');
 
         map.layers.forEach((layer, index) => {
-            console.log(layer)
-            map.createLayer(index, ['beach', 'hospital', 'bridge','city','temple','school', 'island'], 0, 0)
-            // map.createLayer(index, ['overWorld'], 0, 0)
+            // map.createLayer(index, ['beach', 'hospital', 'bridge','city','temple','school', 'island'], 0, 0)
+            map.createLayer(index, ['overWorld'], 0, 0)
         })
 
     const heroSprite = this.physics.add.sprite(0, 0, 'hero');
@@ -43,45 +42,36 @@ export default class TestScene extends Scene {
 
     this.itemsSprites = this.add.group();
 
-    // const dataLayer = map.getObjectLayer("prompt");
-    // dataLayer.objects.forEach((data) => {
-    //   const {
-    //     properties,
-    //     x,
-    //     y
-    //   } = data;
+    let triggered = false;
 
-    //   properties.forEach((property) => {
-    //     const {
-    //       name,
-    //       type,
-    //       value
-    //     } = property;
-    //     switch (name) {
-    //       case "itemData": {
-    //         const [itemType] = value.split(":");
-    //         switch (itemType) {
-    //           case "sword": {
-    //             const item = this.physics.add
-    //               .sprite(x, y, "sword")
-    //               .setDepth(1)
-    //               .setOrigin(0, 1);
+    const dataLayer = map.getObjectLayer("prompt");
+    dataLayer.objects.forEach((object) => {
+      let tmp = this.add.rectangle((object.x+(object.width/2)), (object.y+(object.height/2)), object.width, object.height);
+      tmp.properties = object.properties.reduce(
+        (obj, item) => Object.assign(obj, { [item.name]: item.value }), {}
+      );
+      this.physics.world.enable(tmp, 1);
+      this.physics.add.collider(heroSprite, tmp, (objA, objB)=>{
+        // console.log("collide trigger here");
+        if (!triggered){
+          const customEvent = new CustomEvent('prompt', {
+            detail: {
+              characterName: objB.properties.itemData,
+            },
+          });
+          window.dispatchEvent(customEvent);
+          // this.physics.world.disable(tmp, 1);
+          triggered = true;
+          console.log(triggered)
+          this.time.delayedCall(3000, () => {
+            triggered = false
+          });
+        }
+      }, null, this);
+    });
 
-    //             item.itemType = "sword";
-    //             this.itemsSprites.add(item);
-    //             break;
-    //           }
-    //           default:
-    //             console.log("default sword");
-    //         }
-    //       }
-    //       break;
-    //     default:
-    //       console.log("default itemData");
-    //       break;
-    //     }
-    //   });
-    // });
+    this.physics.add.co
+
     // this.physics.add.overlap(heroSprite, this.itemsSprites, (objA, objB) => {
     //   const item = [objA, objB].find((obj) => obj !== heroSprite);
     //   console.log(item);

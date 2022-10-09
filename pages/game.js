@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import Modal from "../components/modal";
 import dynamic from "next/dynamic";
 import { AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
+import Backdrop from "../components/backdrop/index";
+import styles from "../styles/Modal.module.css"
 
 export default function PhaserGame() {
   const [prompt, setPrompt] = useState();
@@ -54,33 +57,55 @@ export default function PhaserGame() {
 
   useEffect(() => {
     const dialogBoxEventListener = ({ detail }) => {
-      console.log(detail);
+      // console.log(detail);
       setPrompt(true);
     };
     window.addEventListener("prompt", dialogBoxEventListener);
   }, []);
 
+  const closePrompt = ()=>{
+    // console.log("closing")
+    setPrompt(false);
+    const customEvent = new CustomEvent('promptClosed', {
+    });
+    window.dispatchEvent(customEvent);
+  }
+
   return (
     <>
       {/* <Game/> */}
       <div id="game-content" key="game-content"></div>
-      {prompt && (
-        <AnimatePresence
-          initial={false}
-          exitBeforeEnter={true}
-          onExitComplete={() => null}
-        >
-          <Modal
-            modalOpen={prompt}
-            handleClose={() => {
-              console.log("asdf");
-            }}
-            text={"Are you sure you want to delete your team?"}
-            text1={"This action can't be reversed!!"}
-            text2={"Yes I'm sure"}
-          />
-        </AnimatePresence>
-      )}
+      {prompt && <Backdrop onClick={closePrompt}>
+          <motion.div
+            onClick={(e) => e.stopPropagation()}
+            className={`${styles["modal"]} ${styles["orange-gradient"]}`}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+          >
+            <button className={`${styles["button"]} ${styles["close"]}`} onClick={closePrompt}>Cancel</button>
+            <h2>Enter Area?</h2>
+            <h4> Do you want to place your resort in AreaName? </h4>
+            <button
+              className={`${styles["button"]} ${styles["close-button"]}`}
+              onClick={()=>{console.log("func")}}
+              style={{marginLeft:"15vw"}}
+            >
+              Yes
+            </button>
+            <button
+              className={`${styles["button"]} ${styles["close-button"]}`}
+              onClick={closePrompt}
+              style={{marginLeft:"15vw"}}
+            >
+              No
+            </button>
+          </motion.div>
+        </Backdrop>}
+      <div >
+            <span>asdf</span>
+            asdf
+        </div>
     </>
   );
 }
