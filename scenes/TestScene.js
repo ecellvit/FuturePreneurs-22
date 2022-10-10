@@ -1,6 +1,4 @@
-import {
-  Scene
-} from 'phaser'
+import { Scene } from 'phaser'
 
 export default class TestScene extends Scene {
   constructor() {
