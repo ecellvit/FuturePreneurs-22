@@ -53,10 +53,10 @@ export default class TestScene extends Scene {
 
     const elementsLayers = this.add.group();
     for (let i = 0; i < map.layers.length; i++) {
-        const layer = map.createLayer(i, ['beach', 'hospital', 'bridge','city','temple','school', 'island'], 0, 0);
-        if (layer.layer.name=='water'){
-          elementsLayers.add(layer);
-        }
+      const layer = map.createLayer(i, ['beach', 'hospital', 'bridge', 'city', 'temple', 'school', 'island'], 0, 0);
+      if (layer.layer.name === 'water') {
+        elementsLayers.add(layer);
+      }
     }
 
     this.cameras.main.startFollow(this.heroSprite, true);
@@ -105,14 +105,14 @@ export default class TestScene extends Scene {
 
     const dataLayer = map.getObjectLayer("prompt");
     dataLayer.objects.forEach((object) => {
-      let tmp = this.add.rectangle((object.x+(object.width/2)), (object.y+(object.height/2)), object.width, object.height);
+      let tmp = this.add.rectangle((object.x + (object.width / 2)), (object.y + (object.height / 2)), object.width, object.height);
       tmp.properties = object.properties.reduce(
         (obj, item) => Object.assign(obj, { [item.name]: item.value }), {}
       );
       this.physics.world.enable(tmp, 1);
-      this.physics.add.collider(this.heroSprite, tmp, (objA, objB)=>{
+      this.physics.add.collider(this.heroSprite, tmp, (objA, objB) => {
         // console.log("collide trigger here");
-        if (!triggered){
+        if (!triggered) {
           const customEvent = new CustomEvent('prompt', {
             detail: {
               areaName: objB.properties.area,

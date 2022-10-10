@@ -13,7 +13,7 @@ export default class Preloader extends Scene {
       this.load.image('beach', "assets/beach_tileset.png");
       this.load.image('school', "assets/school.png");
       this.load.image('temple', "assets/monument.png");
-      this.load.tilemapTiledJSON('testmap', 'assets/fpr1m1.0.2.json')
+      this.load.tilemapTiledJSON('testmap', 'assets/fpmapround1final.json')
 
       //loading charachter
       this.load.atlas('hero', "assets/sprites/atlas/hero.png", "assets/sprites/atlas/hero.json");
