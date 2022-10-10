@@ -1,8 +1,10 @@
-import { Scene } from 'phaser'
+import {
+  Scene
+} from 'phaser'
 
 export default class TestScene extends Scene {
   constructor() {
-    super('testscene')
+    super('testscene-beach')
   }
 
   createPlayerWalkingAnimation(assetKey, animationName) {
@@ -35,29 +37,24 @@ export default class TestScene extends Scene {
   }
 
   create() {
-    const map = this.make.tilemap({ key: 'testmap' });
+    const map = this.make.tilemap({ key: 'testmap-beach' });
+    map.addTilesetImage('buildings', 'buildings', 12, 12, 0, 0)
     map.addTilesetImage('beach', 'beach', 12, 12, 0, 0)
-    map.addTilesetImage('hospital', 'hospital', 12, 12, 0, 0)
-    map.addTilesetImage('bridge', 'bridge', 12, 12, 0, 0)
-    map.addTilesetImage('city', 'city', 12, 12, 0, 0)
-    map.addTilesetImage('temple', 'temple', 12, 12, 0, 0)
-    map.addTilesetImage('school', 'school', 12, 12, 0, 0)
+    map.addTilesetImage('road', 'road', 12, 12, 0, 0)
+    map.addTilesetImage('village', 'village', 12, 12, 0, 0)
+    map.addTilesetImage('bakery', 'bakery', 12, 12, 0, 0)
+    map.addTilesetImage('planetorium', 'planetorium', 12, 12, 0, 0)
+    map.addTilesetImage('apartments', 'apartments', 12, 12, 0, 0)
     map.addTilesetImage('island', 'island')
+    map.addTilesetImage('beach_road', 'beach_road', 12, 12, 0, 0)
+    map.addTilesetImage('beachhouse', 'beachhouse', 12, 12, 0, 0)
+    map.addTilesetImage('beachhouse2', 'beachhouse2', 12, 12, 0, 0)
 
-    // map.layers.forEach((layer, index) => {
-    //     map.createLayer(index, ['beach', 'hospital', 'bridge','city','temple','school', 'island'], 0, 0)
-    //     // map.createLayer(index, ['overWorld'], 0, 0)
-    // })
+    map.layers.forEach((layer, index) => {
+      map.createLayer(index, ['buildings', 'beach', 'road', 'village', 'bakery', 'planetorium', 'apartments', 'island', 'beach_road', 'beachhouse', 'beachhouse2'], 0, 0)
+    })
 
     this.heroSprite = this.physics.add.sprite(0, 0, 'hero').setDepth(1);
-
-    const elementsLayers = this.add.group();
-    for (let i = 0; i < map.layers.length; i++) {
-      const layer = map.createLayer(i, ['beach', 'hospital', 'bridge', 'city', 'temple', 'school', 'island'], 0, 0);
-      if (layer.layer.name === 'water') {
-        elementsLayers.add(layer);
-      }
-    }
 
     this.cameras.main.startFollow(this.heroSprite, true);
     this.cameras.main.setFollowOffset(-this.heroSprite.width, -this.heroSprite.height)
@@ -67,13 +64,15 @@ export default class TestScene extends Scene {
         id: 'hero',
         sprite: this.heroSprite,
         startPosition: {
-          x: 10,
-          y: 10
+          x: 8,
+          y: 8
         },
         speed: 7
       }]
     }
     this.gridEngine.create(map, gridEngineConfig)
+
+    this.itemsSprites = this.add.group();
 
     // Movement
     this.createPlayerWalkingAnimation('hero', 'walking_up');
@@ -98,38 +97,6 @@ export default class TestScene extends Scene {
       if (charId === 'hero') {
         this.heroSprite.setFrame(this.getStopFrame(direction, charId));
       }
-    });
-
-    let triggered = false;
-
-    const dataLayer = map.getObjectLayer("prompt");
-    dataLayer.objects.forEach((object) => {
-      let tmp = this.add.rectangle((object.x + (object.width / 2)), (object.y + (object.height / 2)), object.width, object.height);
-      tmp.properties = object.properties.reduce(
-        (obj, item) => Object.assign(obj, { [item.name]: item.value }), {}
-      );
-      this.physics.world.enable(tmp, 1);
-      this.physics.add.collider(this.heroSprite, tmp, (objA, objB) => {
-        // console.log("collide trigger here");
-        if (!triggered) {
-          const customEvent = new CustomEvent('prompt', {
-            detail: {
-              areaName: objB.properties.area,
-            },
-          });
-          window.dispatchEvent(customEvent);
-
-          // const dialogBoxEventListener = () => {
-          //   this.physics.world.disable(tmp, 1);
-          // };
-          // window.addEventListener("promptClosed", dialogBoxEventListener);
-
-          triggered = true;
-          this.time.delayedCall(6000, () => {
-            triggered = false
-          });
-        }
-      }, null, this);
     });
   }
 

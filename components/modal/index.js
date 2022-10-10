@@ -41,7 +41,7 @@ const Modal = ({ handleClose, text, text1, text2, deleteTeam }) => {
                 <button
                     className={`${styles["button"]} ${styles["close-button"]}`}
                     onClick={deleteTeam}
-                    style={{marginLeft:"15vw"}}
+                    style={{ marginLeft: "15vw" }}
                 >
                     {text2}
                 </button>
