@@ -46,12 +46,20 @@ export default class TestScene extends Scene {
     map.addTilesetImage('school', 'school', 12, 12, 0, 0)
     map.addTilesetImage('island', 'island')
 
-    map.layers.forEach((layer, index) => {
-        map.createLayer(index, ['beach', 'hospital', 'bridge','city','temple','school', 'island'], 0, 0)
-        // map.createLayer(index, ['overWorld'], 0, 0)
-    })
+    // map.layers.forEach((layer, index) => {
+    //     map.createLayer(index, ['beach', 'hospital', 'bridge','city','temple','school', 'island'], 0, 0)
+    //     // map.createLayer(index, ['overWorld'], 0, 0)
+    // })
 
     this.heroSprite = this.physics.add.sprite(0, 0, 'hero').setDepth(1);
+
+    const elementsLayers = this.add.group();
+    for (let i = 0; i < map.layers.length; i++) {
+        const layer = map.createLayer(i, ['beach', 'hospital', 'bridge','city','temple','school', 'island'], 0, 0);
+        if (layer.layer.name=='water'){
+          elementsLayers.add(layer);
+        }
+    }
 
     this.cameras.main.startFollow(this.heroSprite, true);
     this.cameras.main.setFollowOffset(-this.heroSprite.width, -this.heroSprite.height)
@@ -61,8 +69,8 @@ export default class TestScene extends Scene {
         id: 'hero',
         sprite: this.heroSprite,
         startPosition: {
-          x: 8,
-          y: 8
+          x: 10,
+          y: 10
         },
         speed: 7
       }]
