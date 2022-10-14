@@ -95,8 +95,41 @@ import {
           this.heroSprite.setFrame(this.getStopFrame(direction, charId));
         }
       });
-    }
+    
   
+    let triggered = false;
+
+    const dataLayer = map.getObjectLayer("prompt");
+    dataLayer.objects.forEach((object) => {
+      let tmp = this.add.rectangle((object.x + (object.width / 2)), (object.y + (object.height / 2)), object.width, object.height);
+      tmp.properties = object.properties.reduce(
+        (obj, item) => Object.assign(obj, { [item.name]: item.value }), {}
+      );
+      this.physics.world.enable(tmp, 1);
+      this.physics.add.collider(this.heroSprite, tmp, (objA, objB) => {
+        // console.log("collide trigger here");
+        if (!triggered) {
+          const customEvent = new CustomEvent('prompt', {
+            detail: {
+              areaName: objB.properties.area,
+            },
+          });
+          window.dispatchEvent(customEvent);
+
+          // const dialogBoxEventListener = () => {
+          //   this.physics.world.disable(tmp, 1);
+          // };
+          // window.addEventListener("promptClosed", dialogBoxEventListener);
+
+          triggered = true;
+          this.time.delayedCall(6000, () => {
+            triggered = false
+          });
+        }
+      }, null, this);
+    });
+  } 
+
     update() {
       let keyA
       let keyS
