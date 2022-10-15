@@ -17,6 +17,7 @@ export default function PhaserGame() {
       const { default: GridEngine } = await import("grid-engine");
       const { default: Preloader } = await import("../scenes/Preloader");
       const { default: TestScene } = await import("../scenes/TestScene");
+      const { default: BeachScene } = await import("../scenes/Beach")
 
       const phaserGame = new Phaser.Game({
         type: Phaser.AUTO,
@@ -29,7 +30,7 @@ export default function PhaserGame() {
           zoom: 2,
           // autoCenter: Phaser.Scale.CENTER_BOTH,
         },
-        scene: [Preloader, TestScene],
+        scene: [Preloader, TestScene, BeachScene],
         physics: {
           default: "arcade",
           arcade: {
@@ -52,10 +53,6 @@ export default function PhaserGame() {
     initPhaser();
   }, []);
 
-  const submitAnswer = () => {
-    console.log("submitted ans")
-  }
-
   useEffect(() => {
     const dialogBoxEventListener = ({ detail }) => {
       setPrompt(detail.areaName);
@@ -63,9 +60,12 @@ export default function PhaserGame() {
     window.addEventListener("prompt", dialogBoxEventListener);
   }, []);
 
-  const closePrompt = () => {
+  const closePrompt = (reply) => {
     setPrompt(false);
     const customEvent = new CustomEvent('promptClosed', {
+      detail: {
+        reply:reply
+      }
     });
     window.dispatchEvent(customEvent);
   }
@@ -74,22 +74,22 @@ export default function PhaserGame() {
     <>
       {isLoading ? <Loading /> : <>
         <div id="game-content" key="game-content"></div>
-        <AnimatePresence
+        {/* <AnimatePresence
           initial={false}
           exitBeforeEnter={true}
           onExitComplete={() => null}
-        >
-          {prompt && (
+        > */}
+          {prompt &&
             <Modal
               modalOpen={prompt}
-              handleClose={closePrompt}
+              handleClose={()=>{closePrompt(false)}}
               text={`Do you want to place your resort in ${prompt}?`}
               text1={"This action can't be reversed!!"}
               text2={"Yes I'm sure"}
-              deleteTeam={closePrompt}
+              text2func={()=>{closePrompt(prompt)}}
             />
-          )}
-        </AnimatePresence>
+          }
+        {/* </AnimatePresence> */}
       </>}
     </>
   );
