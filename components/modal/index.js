@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import Backdrop from "../backdrop/index";
 import styles from "../../styles/Modal.module.css"
+import { useEffect } from "react";
 const dropIn = {
     hidden: {
         y: "-100vh",
@@ -24,6 +25,16 @@ const dropIn = {
 
 
 const Modal = ({ handleClose, text, text1, text2, text2func }) => {
+
+    useEffect(() => {
+        const close = (e) => {
+            if (e.key === "Escape") {
+                handleClose();
+            }
+        }
+        window.addEventListener('keydown', close)
+        return () => window.removeEventListener('keydown', close)
+    }, [])
 
     return (
         <Backdrop onClick={handleClose}>
