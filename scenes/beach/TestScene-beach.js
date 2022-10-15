@@ -98,19 +98,59 @@ export default class TestScene extends Scene {
         this.heroSprite.setFrame(this.getStopFrame(direction, charId));
       }
     });
+
+    let triggered = false;
+
+    const dataLayer = map.getObjectLayer("prompt");
+    dataLayer.objects.forEach((object) => {
+      let tmp = this.add.rectangle((object.x + (object.width / 2)), (object.y + (object.height / 2)), object.width, object.height);
+      tmp.properties = object.properties?.reduce(
+        (obj, item) => Object.assign(obj, { [item.name]: item.value }), {}
+      );
+      this.physics.world.enable(tmp, 1);
+      this.physics.add.collider(this.heroSprite, tmp, (objA, objB) => {
+        // console.log("collide trigger here");
+        if (!triggered) {
+          const customEvent = new CustomEvent('prompt', {
+            detail: {
+              areaName: objB.properties.area,
+            },
+          });
+          window.dispatchEvent(customEvent);
+
+          // const dialogBoxEventListener = () => {
+          //   this.physics.world.disable(tmp, 1);
+          // };
+          // window.addEventListener("promptClosed", dialogBoxEventListener);
+
+          triggered = true;
+          this.time.delayedCall(6000, () => {
+            triggered = false
+          });
+        }
+      }, null, this);
+    });
   }
 
   update() {
-    const cursors = this.input.keyboard.createCursorKeys();
+    let keyA
+    let keyS
+    let keyD
+    let keyW
+    keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A)
+    keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S)
+    keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D)
+    keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W)
+    const cursors = this.input.keyboard.createCursorKeys()
 
-    if (cursors.left.isDown) {
-      this.gridEngine.move('hero', "left")
-    } else if (cursors.right.isDown) {
-      this.gridEngine.move('hero', "right")
-    } else if (cursors.up.isDown) {
-      this.gridEngine.move('hero', "up")
-    } else if (cursors.down.isDown) {
-      this.gridEngine.move('hero', "down")
+    if (cursors.left.isDown || keyA.isDown) {
+      this.gridEngine.move('hero', 'left')
+    } else if (cursors.right.isDown || keyD.isDown) {
+      this.gridEngine.move('hero', 'right')
+    } else if (cursors.up.isDown || keyW.isDown) {
+      this.gridEngine.move('hero', 'up')
+    } else if (cursors.down.isDown || keyS.isDown) {
+      this.gridEngine.move('hero', 'down')
     }
   }
 }
