@@ -24,16 +24,20 @@
     "next-auth": "^4.10.3",
     "react": "^18.2.0",
     "react-avatar": "^5.0.3",
+    "react-beautiful-dnd": "^13.1.1",
     "react-bootstrap": "^2.5.0",
     "react-cookie": "^4.1.1",
     "react-copy-to-clipboard": "^5.1.0",
+    "react-dnd": "^16.0.1",
+    "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "^18.2.0",
     "react-icons": "^4.4.0",
     "react-lineto": "^3.3.0",
     "react-loader-spinner": "^5.3.4",
     "react-toastify": "^9.0.8",
     "styled": "^1.0.0",
-    "styled-components": "^5.3.5"
+    "styled-components": "^5.3.5",
+    "uuid": "^3.3.3"
   },
   "devDependencies": {
     "eslint": "8.22.0",
