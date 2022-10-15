@@ -122,7 +122,7 @@ export default class BeachScene extends Scene {
           // window.addEventListener("promptClosed", dialogBoxEventListener);
 
           triggered = true;
-          this.time.delayedCall(6000, () => {
+          this.time.delayedCall(3000, () => {
             triggered = false
           });
         }

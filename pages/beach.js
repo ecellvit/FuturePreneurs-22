@@ -63,8 +63,6 @@ export default function PhaserGame() {
         });
         window.dispatchEvent(customEvent);
     }
-
-
     return (
         <>
             {/* <Game/> */}

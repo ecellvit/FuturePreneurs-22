@@ -17,7 +17,6 @@ export default function PhaserGame() {
       const { default: GridEngine } = await import("grid-engine");
       const { default: Preloader } = await import("../scenes/Preloader");
       const { default: TestScene } = await import("../scenes/TestScene");
-      const { default: BeachScene } = await import("../scenes/Beach")
 
       const phaserGame = new Phaser.Game({
         type: Phaser.AUTO,
@@ -30,7 +29,7 @@ export default function PhaserGame() {
           zoom: 2,
           // autoCenter: Phaser.Scale.CENTER_BOTH,
         },
-        scene: [Preloader, TestScene, BeachScene],
+        scene: [Preloader, TestScene],
         physics: {
           default: "arcade",
           arcade: {
@@ -74,11 +73,11 @@ export default function PhaserGame() {
     <>
       {isLoading ? <Loading /> : <>
         <div id="game-content" key="game-content"></div>
-        {/* <AnimatePresence
+        <AnimatePresence
           initial={false}
           exitBeforeEnter={true}
           onExitComplete={() => null}
-        > */}
+        >
           {prompt &&
             <Modal
               modalOpen={prompt}
@@ -89,7 +88,7 @@ export default function PhaserGame() {
               text2func={()=>{closePrompt(prompt)}}
             />
           }
-        {/* </AnimatePresence> */}
+        </AnimatePresence>
       </>}
     </>
   );
