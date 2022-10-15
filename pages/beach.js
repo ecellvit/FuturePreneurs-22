@@ -3,7 +3,6 @@ import Modal from "../components/modal";
 import { AnimatePresence } from "framer-motion";
 import Loading from "../components/Loading"
 
-
 export default function PhaserGame() {
     const [prompt, setPrompt] = useState();
     const [isLoading, setIsLoading] = useState(false);
@@ -43,13 +42,14 @@ export default function PhaserGame() {
                         },
                     ],
                 },
-                backgroundColor: "#48C4F8",
+                backgroundColor: "#f8d193",
             });
 
             setIsLoading(false)
         }
         initPhaser();
     }, []);
+    
     useEffect(() => {
         const dialogBoxEventListener = ({ detail }) => {
             setPrompt(detail.areaName);
@@ -63,6 +63,7 @@ export default function PhaserGame() {
         });
         window.dispatchEvent(customEvent);
     }
+
     return (
         <>
             {/* <Game/> */}

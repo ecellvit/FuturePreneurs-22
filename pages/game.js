@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
 import Modal from "../components/modal";
 import { AnimatePresence } from "framer-motion";
-import { motion } from "framer-motion";
-import Backdrop from "../components/backdrop/index";
-import styles from "../styles/Modal.module.css"
 import Loading from "../components/Loading"
 
 export default function PhaserGame() {
@@ -45,7 +42,7 @@ export default function PhaserGame() {
             },
           ],
         },
-        backgroundColor: "#48C4F8",
+        backgroundColor: "#66e6d3",
       });
       setIsLoading(false)
     }

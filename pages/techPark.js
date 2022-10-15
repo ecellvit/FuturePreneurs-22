@@ -43,7 +43,7 @@ export default function PhaserGame() {
                         },
                     ],
                 },
-                backgroundColor: "#48C4F8",
+                backgroundColor: "#9592a2",
             });
 
             setIsLoading(false)

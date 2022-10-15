@@ -2,7 +2,7 @@ import { Scene } from 'phaser'
 
 export default class BeachScene extends Scene {
   constructor() {
-    super('BeachScene')
+    super('testscene-beach')
   }
 
   createPlayerWalkingAnimation(assetKey, animationName) {
