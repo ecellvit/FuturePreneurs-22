@@ -50,6 +50,7 @@ export default class TestScene extends Scene {
     // })
 
     this.heroSprite = this.physics.add.sprite(0, 0, 'hero').setDepth(1);
+    console.log(this.heroSprite.height, this.heroSprite.displayHeight);
 
     const elementsLayers = this.add.group();
     for (let i = 0; i < map.layers.length; i++) {
@@ -110,7 +111,6 @@ export default class TestScene extends Scene {
       );
       this.physics.world.enable(tmp, 1);
       this.physics.add.collider(this.heroSprite, tmp, (objA, objB) => {
-        // console.log("collide trigger here");
         if (!triggered) {
           const customEvent = new CustomEvent('prompt', {
             detail: {
@@ -119,10 +119,12 @@ export default class TestScene extends Scene {
           });
           window.dispatchEvent(customEvent);
 
-          // const dialogBoxEventListener = () => {
-          //   this.physics.world.disable(tmp, 1);
-          // };
-          // window.addEventListener("promptClosed", dialogBoxEventListener);
+          const dialogBoxEventListener = ({detail}) => {
+            if (detail.reply=='beach'){
+              this.scene.start('BeachScene')
+            }
+          };
+          window.addEventListener("promptClosed", dialogBoxEventListener);
 
           triggered = true;
           this.time.delayedCall(6000, () => {

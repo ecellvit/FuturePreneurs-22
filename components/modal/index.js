@@ -23,13 +23,13 @@ const dropIn = {
 };
 
 
-const Modal = ({ handleClose, text, text1, text2, deleteTeam }) => {
+const Modal = ({ handleClose, text, text1, text2, text2func }) => {
 
     return (
         <Backdrop onClick={handleClose}>
             <motion.div
                 onClick={(e) => e.stopPropagation()}
-                className={`${styles["modal"]} ${styles["orange-gradient"]}`}
+                className={`${styles["modal"]} ${styles["green-gradient"]}`}
                 variants={dropIn}
                 initial="hidden"
                 animate="visible"
@@ -40,7 +40,7 @@ const Modal = ({ handleClose, text, text1, text2, deleteTeam }) => {
                 <h4>{text1}</h4>
                 <button
                     className={`${styles["button"]} ${styles["close-button"]}`}
-                    onClick={deleteTeam}
+                    onClick={text2func}
                     style={{ marginLeft: "15vw" }}
                 >
                     {text2}
