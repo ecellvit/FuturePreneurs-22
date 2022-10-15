@@ -1,40 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
-
 import styles from "../../styles/Drag.module.css";
+import myContext from "../../store/myContext";
 import uuid from "uuid";
 import { useSession } from "next-auth/react";
+import { useContext } from "react";
 
-// // for getting user details
-// const { session } = useSession();
-// //token id
-// useEffect(() => {
-//   if (teamData?.teamId?._id) {
-//     setIsLoading(true);
-//     fetch(
-//       `${process.env.NEXT_PUBLIC_SERVER}/api/team/token/${teamData.teamId._id}`,
-//       {
-//         method: "GET",
-//         headers: {
-//           "Content-Type": "application/json",
-//           Authorization: `Bearer ${session.accessTokenBackend}`,
-//           "Access-Control-Allow-Origin": "*",
-//         },
-//       }
-//     )
-//       .then((data) => data.json())
-//       .then((data) => {
-//         setTeamToken(data.teamToken);
-//         setIsLoading(false);
-//       });
-//   }
-// }, [session, teamData]);
+// for getting user details
 
 //TODO :- POST REQUEST ON BACKEND ADD AND DELETE.
 //ADD REQUEST IF SOMETHING GETS REMOVED FROM 1ST AND LAST COLUMN AND DELETE REQUEST IF SOMETHING GETS ADDED TO FIRST AND LAST COLUMN
 //NO REQUEST IF REORDERING HAPPENS OR IF WE DRAG AND DROP WITHIN 1ST AND LAST COLUMN OR FROM WITHIN THOSE 6 COLUMNS IN CENTER.
 const itemsFromBackend = [
-  { id: uuid(), name: "First task", price: 50 },
+  { id: "3", name: "First task", price: 50 },
   { id: uuid(), name: "Second task", price: 100 },
   { id: uuid(), name: "Third task", price: 200 },
   { id: uuid(), name: "Fourth task", price: 90 },
@@ -81,6 +59,18 @@ const columnsList = {
   },
   ["6"]: {
     name: "",
+    items: [],
+    price: 100,
+    style: "shelf_center",
+  },
+  ["7"]: {
+    name: "",
+    items: [],
+    price: 100,
+    style: "shelf_center",
+  },
+  ["8"]: {
+    name: "",
     items: itemsFromBacken,
     price: 100,
     style: "shelf_center",
@@ -99,7 +89,7 @@ const onDragEnd = (result, columns, setColumns, bal, setbal) => {
     const destItems = [...destColumn.items];
     console.log(destination.droppableId);
 
-    if (destination.droppableId !== "1" && destination.droppableId !== "6") {
+    if (destination.droppableId !== "1" && destination.droppableId !== "8") {
       //if user tries to put more than 1 ittem in the center containers, then swap the elements
       if (destItems.length !== 0) {
         const [removed] = sourceItems.splice(source.index, 1);
@@ -137,11 +127,12 @@ const onDragEnd = (result, columns, setColumns, bal, setbal) => {
         });
         // console.log(columns);
         setbal(newBal + re.price);
+
         return;
       }
     }
     //if  destination id is 1 means those are columns which contains amenities from backend so we will increase the balance
-    if (destination.droppableId === "1" || destination.droppableId === "6") {
+    if (destination.droppableId === "1" || destination.droppableId === "8") {
       const [removed] = sourceItems.splice(source.index, 1);
       destItems.splice(destination.index, 0, removed);
       console.log(removed);
@@ -160,6 +151,7 @@ const onDragEnd = (result, columns, setColumns, bal, setbal) => {
       setbal(bal + removed.price);
       return;
     }
+
     const [removed] = sourceItems.splice(source.index, 1);
     destItems.splice(destination.index, 0, removed);
     console.log(removed);
@@ -193,8 +185,44 @@ const onDragEnd = (result, columns, setColumns, bal, setbal) => {
 };
 
 function DragFinal() {
+  const myCtx = useContext(myContext);
+  const { data: session } = useSession();
+
+  const TEAM_ID = myCtx.teamId;
+
   const [columns, setColumns] = useState(columnsList);
   const [bal, setbal] = useState(initialBal);
+
+  const [isLoading, setIsLoading] = useState(false);
+  //token id
+  useEffect(() => {
+    setIsLoading(true);
+    console.log(session.accessTokenBackend);
+    fetch(
+      `${process.env.NEXT_PUBLIC_SERVER}/api/team/roundthree/getdetails/${TEAM_ID}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${session.accessTokenBackend}`,
+          "Access-Control-Allow-Origin": "*",
+        },
+      }
+    )
+      .then((data) => data.json())
+      .then((data) => {
+        console.log(data);
+        setIsLoading(false);
+      });
+
+    // .catch((error) => {
+    //   console.error(
+    //     "There has been a problem with your fetch operation:",
+    //     error
+    //   );
+    // });
+  }, [session]);
+
   return (
     <>
       {" "}
@@ -204,7 +232,7 @@ function DragFinal() {
             <h1 className={styles.balance_h1}>Balance - {bal}</h1>
           </div>
         </div>
-        <div className={styles.shelf_container}>
+        <div className={styles.shelf_container} style={{ maxWidth: "90vw" }}>
           <DragDropContext
             onDragEnd={(result) =>
               onDragEnd(result, columns, setColumns, bal, setbal)
@@ -233,9 +261,12 @@ function DragFinal() {
                                 ? "lightblue"
                                 : "lightgrey",
                               padding: 4,
-                              width: 250,
-                              marginRight: 20,
-                              minHeight: 500,
+                              width: 200,
+                              marginRight: 10,
+                              minHeight:
+                                columnId === "1" || columnId === "8"
+                                  ? "90vh"
+                                  : "10vh",
                             }}
                           >
                             {column.items.map((item, index) => {
@@ -244,6 +275,7 @@ function DragFinal() {
                                   key={item.id}
                                   draggableId={item.id}
                                   index={index}
+                                  isDragDisabled={item.price > bal}
                                 >
                                   {(provided, snapshot) => {
                                     return (
