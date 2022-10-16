@@ -59,9 +59,6 @@ export default function PhaserGame() {
 
     const closePrompt = () => {
         setPrompt(false);
-        const customEvent = new CustomEvent('promptClosed', {
-        });
-        window.dispatchEvent(customEvent);
     }
 
 

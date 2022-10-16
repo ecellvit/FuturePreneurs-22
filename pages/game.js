@@ -24,7 +24,7 @@ export default function PhaserGame() {
   const myCtx = useContext(myContext);
   const TEAM_ID = myCtx.teamId;
 
-  useEffect(()=>{
+  useEffect(() => {
     if (session) {
       fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/team/roundone/start/${TEAM_ID}`, {
         method: 'POST',
@@ -37,8 +37,8 @@ export default function PhaserGame() {
         return response.json();
       }).then((data) => {
         if (data.error?.errorCode) {
-          if (data.error?.errorCode === 21){
-            router.push("/instructions")
+          if (data.error?.errorCode === 21) {
+            window.location = '/instructions'
           }
           toast.error(`${data.message}`, {
             position: "top-right",
@@ -51,20 +51,20 @@ export default function PhaserGame() {
           });
           return;
         }
-          console.log(data)
-          setEndTime(data.endTime);
-        
-      }).catch(e=>{
+        console.log(data)
+        setEndTime(data.endTime);
+
+      }).catch(e => {
         console.log(e);
       })
 
     }
   }, [session])
-  
+
   // 2022-10-15T18:45:33.927Z
 
-  useEffect(()=>{
-    if (hours==0 & minutes==0 & seconds==0){
+  useEffect(() => {
+    if (hours == 0 & minutes == 0 & seconds == 0) {
       console.log("time done")
       if (session) { // send 5 = null
         fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/team/roundone/${TEAM_ID}`, {
@@ -75,30 +75,29 @@ export default function PhaserGame() {
             "Access-Control-Allow-Origin": "*",
           },
           body: JSON.stringify({
-              mapChoice: 5,
-            })
+            mapChoice: 5,
+          })
         }).then(async (response) => {
           return response.json();
         })
-        .then((data) => {
-          if (data.error?.errorCode) {
-            if (data.error?.errorCode === 21){
-              // redirect
-              console.log("21asdf")
+          .then((data) => {
+            if (data.error?.errorCode) {
+              if (data.error?.errorCode === 21){
+                window.location = '/instructions'
+              }
+              toast.error(`${data.message}`, {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              });
+              return;
             }
-            toast.error(`${data.message}`, {
-              position: "top-right",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-            });
-            return;
-          }
-          console.log(data);
-        })
+            console.log(data);
+          })
       }
       // redirect to instructions
     }
@@ -154,10 +153,9 @@ export default function PhaserGame() {
   }, [session]);
 
   const closePrompt = (reply) => {
-    if (reply){
-      console.log(reply);
+    if (reply) {
       let areaNum;
-      switch (reply){
+      switch (reply) {
         case "temple":
           areaNum = 0;
           break
@@ -177,7 +175,7 @@ export default function PhaserGame() {
           areaNum = 5;
           break
       }
-      console.log(areaNum)
+
       if (session) {
         fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/team/roundone/${TEAM_ID}`, {
           method: 'POST',
@@ -187,29 +185,37 @@ export default function PhaserGame() {
             "Access-Control-Allow-Origin": "*",
           },
           body: JSON.stringify({
-              mapChoice: areaNum,
-            })
+            mapChoice: areaNum,
+          })
         }).then(async (response) => {
           return response.json();
         })
-        .then((data) => {
-          console.log(data)
-        })
+          .then((data) => {
+            if (data.error?.errorCode) {
+              if (data.error?.errorCode === 21) {
+                window.location = '/instructions'
+              }
+              toast.error(`${data.message}`, {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              });
+              return;
+            }
+            window.location = '/instructions'
+          })
       }
     }
-
-    setPrompt(reply);
-    const customEvent = new CustomEvent('promptClosed', {
-      detail: {
-        reply:reply
-      }
-    });
-    window.dispatchEvent(customEvent);
+    setPrompt(false);
   }
 
   return (
     <>
-    <ToastContainer/>
+      <ToastContainer />
       {endTime && <div className={styles.starting}>
         <div className={styles.btn}>
           <a href="#" className={`${styles.button_2} ${styles.w_button}`}>
@@ -227,11 +233,13 @@ export default function PhaserGame() {
           {prompt &&
             <Modal
               modalOpen={prompt}
-              handleClose={()=>{closePrompt(false)}}
+              handleClose={() => { closePrompt(false) }}
               text={`Do you want to place your resort in ${prompt}?`}
               text1={"This action can't be reversed!!"}
               text2={"Yes I'm sure"}
-              text2func={()=>{closePrompt(prompt)}}
+              text2func={() => {
+                closePrompt(prompt)
+              }}
             />
           }
         </AnimatePresence>

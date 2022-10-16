@@ -119,13 +119,6 @@ export default class TestScene extends Scene {
           });
           window.dispatchEvent(customEvent);
 
-          const dialogBoxEventListener = ({detail}) => {
-            // if (detail.reply=='beach'){
-            //   this.scene.start('BeachScene')
-            // }
-          };
-          window.addEventListener("promptClosed", dialogBoxEventListener);
-
           triggered = true;
           this.time.delayedCall(3000, () => {
             triggered = false
