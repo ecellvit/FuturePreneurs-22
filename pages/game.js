@@ -216,7 +216,7 @@ export default function PhaserGame() {
       {endTime && <div className={styles.starting}>
         <div className={styles.btn}>
           <a href="#" className={`${styles.button_2} ${styles.w_button}`}>
-            {hours}:{minutes}:{seconds}
+            {dispHours}:{dispMinutes}:{dispSeconds}
           </a>
         </div>
       </div>}
