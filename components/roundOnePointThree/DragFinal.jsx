@@ -6,35 +6,21 @@ import uuid from "uuid";
 import { useSession } from "next-auth/react";
 import { useContext } from "react";
 import { toast, ToastContainer } from "react-toastify";
-
 // for getting user details
-
 // //TODO :- POST REQUEST ON BACKEND ADD AND DELETE.
 // //ADD REQUEST IF SOMETHING GETS REMOVED FROM 1ST AND LAST COLUMN AND DELETE REQUEST IF SOMETHING GETS ADDED TO FIRST AND LAST COLUMN
 // //NO REQUEST IF REORDERING HAPPENS OR IF WE DRAG AND DROP WITHIN 1ST AND LAST COLUMN OR FROM WITHIN THOSE 6 COLUMNS IN CENTER.
-// const itemsFromBackend = [
-//   // { id: "3", name: "First task", price: 50, isLeft: true },
-//   // { id: uuid(), name: "Second task", price: 100, isLeft: true },
-//   // { id: uuid(), name: "Third task", price: 200, isLeft: true },
-//   // { id: uuid(), name: "Fourth task", price: 90, isLeft: true },
-//   // { id: uuid(), name: "Fifth task", price: 70, isLeft: true },
-// ];
-// const itemsFromBacken = [
-//   // { id: uuid(), name: "5 task", price: 70, isLeft: false },
-//   // { id: uuid(), name: "f task", price: 70, isLeft: false },
-//   // { id: uuid(), name: "cx task", price: 70, isLeft: false },
-//   // { id: uuid(), name: "cxx task", price: 70, isLeft: false },
-//   // { id: uuid(), name: "cxx task", price: 70, isLeft: false },
-// ];
 
 function DragFinal() {
-  const [itemsFromBackend, setItemsFromBackend] = React.useState([]);
-  const [itemsFromBacken, setItemsFromBacken] = React.useState([]);
+  const [itemsFromBackend, setItemsFromBackend] = useState([]);
+  const [itemsFromBacken, setItemsFromBacken] = useState([]);
+  const [bal, setbal] = useState();
   const { data: session } = useSession();
+
+  const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
-    console.log(TEAM_ID);
     setIsLoading(true);
-    console.log(session.accessTokenBackend);
     fetch(
       `${process.env.NEXT_PUBLIC_SERVER}/api/team/roundthree/start/${TEAM_ID}`,
       {
@@ -49,24 +35,28 @@ function DragFinal() {
       .then((data) => data.json())
       .then((data) => {
         console.log(data);
-        console.log(data.roundThreeData);
+        setbal(data.balance);
+        // for (let i = 0; i < data.roundThreeData.length / 2; i++) {
+        //   setItemsFromBackend((prevData) => {
+        //     return [...prevData, { ...data.roundThreeData[i], isLeft: true }];
+        //   });
+        // }
+        // for (
+        //   let i = data.roundThreeData.length / 2 + 1;
+        //   i < data.roundThreeData.length;
+        //   i++
+        // ) {
+        //   setItemsFromBacken((prevData) => {
+        //     return [...prevData, { ...data.roundThreeData[i], isLeft: false }];
+        //   });
+        // }
         setItemsFromBackend(data.roundThreeData);
-
-        // data.roundThreeData.map((arr) => {
-        //   console.log(arr);
-        // });
 
         setIsLoading(false);
       });
-
-    // .catch((error) => {
-    //   console.error(
-    //     "There has been a problem with your fetch operation:",
-    //     error
-    //   );
-    // });
   }, [session]);
 
+  // const [columnsList, setcolumnsList] = useState();
   const columnsList = {
     ["1"]: {
       name: "",
@@ -117,109 +107,168 @@ function DragFinal() {
       style: "shelf_center",
     },
   };
-  const initialBal = 510;
   const onDragEnd = (result, columns, setColumns, bal, setbal) => {
-    console.log(columns);
-
     if (!result.destination) return;
     const { source, destination } = result;
     //if source and destination different
-    console.log(source);
-    console.log(destination);
     if (source.droppableId !== destination.droppableId) {
       const sourceColumn = columns[source.droppableId];
       const destColumn = columns[destination.droppableId];
       const sourceItems = [...sourceColumn.items];
       const destItems = [...destColumn.items];
-      console.log(destination.droppableId);
-
       if (destination.droppableId !== "1" && destination.droppableId !== "8") {
-        console.log("Meow");
         //if user tries to put more than 1 ittem in the center containers, then swap the elements
         if (destItems.length !== 0) {
-          const [removed] = sourceItems.splice(source.index, 1);
-          // console.log(removed);
-          destItems.splice(destination.index, 0, removed);
-          // console.log(destItems);
-          // console.log(removed.price);
-          // if(removed.price<bal){
-          setColumns({
-            ...columns,
-            [source.droppableId]: {
-              ...sourceColumn,
-              items: sourceItems,
-            },
-            [destination.droppableId]: {
-              ...destColumn,
-              items: destItems,
-            },
-          });
-          const newBal = bal - removed.price;
+          if (source.droppableId == 1 || source.droppableId == 8) {
+            console.log("Yeh wala hua 1");
+            const [re] = destItems.splice(0, 1);
+            console.log(re);
+            const [removed] = sourceItems.splice(source.index, 1);
+            console.log(removed);
+            sourceItems.splice(destination.index, 0, re);
+            if (bal + re.price >= removed.price) {
+              fetch(
+                `${process.env.NEXT_PUBLIC_SERVER}/api/team/roundthree/${TEAM_ID}`,
+                {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${session.accessTokenBackend}`,
+                    "Access-Control-Allow-Origin": "*",
+                  },
+                  body: JSON.stringify({
+                    item: re.item,
+                    operation: 1,
+                  }),
+                }
+              )
+                .then((data) => data.json())
+                .then((data) => {
+                  console.log(data);
+                  setbal(data.availableBalance);
+                  fetch(
+                    `${process.env.NEXT_PUBLIC_SERVER}/api/team/roundthree/${TEAM_ID}`,
+                    {
+                      method: "POST",
+                      headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${session.accessTokenBackend}`,
+                        "Access-Control-Allow-Origin": "*",
+                      },
+                      body: JSON.stringify({
+                        item: removed.item,
+                        operation: 0,
+                      }),
+                    }
+                  )
+                    .then((data) => data.json())
+                    .then((data) => {
+                      console.log(data);
+                      setbal(data.availableBalance);
+                    });
+                });
+              console.log(bal);
+              console.log(removed);
 
-          const [re] = destItems.splice(0, 1);
-          console.log(re);
+              setColumns({
+                ...columns,
+                [source.droppableId]: {
+                  ...sourceColumn,
+                  items: sourceItems,
+                },
+                [destination.droppableId]: {
+                  ...destColumn,
+                  items: destItems,
+                },
+              });
+              destItems.splice(destination.index, 0, removed);
+              setColumns({
+                ...columns,
+                [source.droppableId]: {
+                  ...sourceColumn,
+                  items: sourceItems,
+                },
+                [destination.droppableId]: {
+                  ...destColumn,
+                  items: destItems,
+                },
+              });
 
-          console.log(sourceItems);
-          console.log(source.index);
-          console.log(destination.index, "dest in");
+              return;
+            } else {
+              toast.error(
+                `Not Enough Balance Will Be There To Perform This Operation`,
+                {
+                  position: toast.POSITION.TOP_RIGHT,
+                  autoClose: 20,
+                }
+              );
+              return;
+            }
+          } else {
+            console.log("Yeh hogaya");
+            const [re] = destItems.splice(0, 1);
+            console.log(re);
+            const [removed] = sourceItems.splice(source.index, 1);
+            console.log(removed);
+            sourceItems.splice(destination.index, 0, re);
 
-          sourceItems.splice(destination.index, 0, re);
-          setColumns({
-            ...columns,
-            [source.droppableId]: {
-              ...sourceColumn,
-              items: sourceItems,
-            },
-            [destination.droppableId]: {
-              ...destColumn,
-              items: destItems,
-            },
-          });
-          // console.log(columns);
-          setbal(newBal + re.price);
-
-          return;
+            destItems.splice(destination.index, 0, removed);
+            setColumns({
+              ...columns,
+              [source.droppableId]: {
+                ...sourceColumn,
+                items: sourceItems,
+              },
+              [destination.droppableId]: {
+                ...destColumn,
+                items: destItems,
+              },
+            });
+            return;
+          }
         }
       }
       //if  destination id is 1 means those are columns which contains amenities from backend so we will increase the balance
       if (destination.droppableId === "1" || destination.droppableId === "8") {
-        console.log(source);
         if (source.droppableId === "1" || source.droppableId === "8") {
         } else {
-          // console.log(source);
-          // console.log(source.isLeft);
           const [removed] = sourceItems.splice(source.index, 1);
-          console.log(removed);
-
           if (removed.isLeft === true) {
-            console.log(destination);
-
             destination.droppableId = 1;
             destination.index = 4;
-            console.log(destination);
-            // sourceColumn = columns[source.droppableId];
             destColumn = columns[destination.droppableId];
-            // sourceItems = [...sourceColumn.items];
             destItems = [...destColumn.items];
           } else {
-            console.log(destination);
-
             destination.droppableId = 8;
             destination.index = 5;
-
-            console.log(destination);
-            // sourceColumn = columns[source.droppableId];
             destColumn = columns[destination.droppableId];
-            // sourceItems = [...sourceColumn.items];
             destItems = [...destColumn.items];
           }
-          setbal(bal + removed.price);
-          console.log(destItems);
-          console.log(destination);
-          console.log(destination.index);
-          destItems.splice(destination.index, 0, removed);
-          console.log(removed);
+          // setbal(bal + removed.price);
 
+          destItems.splice(destination.index, 0, removed);
+          console.log(source, destination, " Yeh wala hua 3");
+
+          fetch(
+            `${process.env.NEXT_PUBLIC_SERVER}/api/team/roundthree/${TEAM_ID}`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${session.accessTokenBackend}`,
+                "Access-Control-Allow-Origin": "*",
+              },
+              body: JSON.stringify({
+                item: removed.item,
+                operation: 1,
+              }),
+            }
+          )
+            .then((data) => data.json())
+            .then((data) => {
+              setbal(data.availableBalance);
+            });
           setColumns({
             ...columns,
             [source.droppableId]: {
@@ -238,7 +287,6 @@ function DragFinal() {
 
       const [removed] = sourceItems.splice(source.index, 1);
       destItems.splice(destination.index, 0, removed);
-      console.log(removed);
       if (removed.price <= bal) {
         setColumns({
           ...columns,
@@ -251,11 +299,32 @@ function DragFinal() {
             items: destItems,
           },
         });
-        setbal(bal - removed.price);
+        console.log(source, destination, "Yeh wala hua 4");
+        if (source.droppableId == 1 || source.droppableId == 8) {
+          fetch(
+            `${process.env.NEXT_PUBLIC_SERVER}/api/team/roundthree/${TEAM_ID}`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${session.accessTokenBackend}`,
+                "Access-Control-Allow-Origin": "*",
+              },
+              body: JSON.stringify({
+                item: removed.item,
+                operation: 0,
+              }),
+            }
+          )
+            .then((data) => data.json())
+            .then((data) => {
+              setbal(data.availableBalance);
+            });
+        }
       } else {
         toast.error(`Not Enough Balance`, {
           position: toast.POSITION.TOP_RIGHT,
-          autoClose: 10,
+          autoClose: 30,
         });
       }
     } else {
@@ -273,17 +342,65 @@ function DragFinal() {
       });
     }
   };
-
   const myCtx = useContext(myContext);
-
   const TEAM_ID = myCtx.teamId;
+  const [columns, setColumns] = useState({});
+  // useEffect(() => {
+  //   //console.log("WOahhhhhhhhhhhhhhhhhhhhhhhhhh");
+  //   setcolumnsList({
+  //     ["1"]: {
+  //       name: "",
+  //       items: itemsFromBackend,
 
-  const [columns, setColumns] = useState(columnsList);
-  const [bal, setbal] = useState(initialBal);
+  //       style: "styles.shelf_left",
+  //     },
+  //     ["2"]: {
+  //       name: "",
+  //       items: [],
 
-  const [isLoading, setIsLoading] = useState(false);
-  //token id
-
+  //       style: "shelf_center",
+  //     },
+  //     ["3"]: {
+  //       name: "",
+  //       items: [],
+  //       price: 200,
+  //       style: "shelf_center",
+  //     },
+  //     ["4"]: {
+  //       name: "",
+  //       items: [],
+  //       price: 300,
+  //       style: "shelf_center",
+  //     },
+  //     ["5"]: {
+  //       name: "",
+  //       items: [],
+  //       price: 100,
+  //       style: "shelf_center",
+  //     },
+  //     ["6"]: {
+  //       name: "",
+  //       items: [],
+  //       price: 100,
+  //       style: "shelf_center",
+  //     },
+  //     ["7"]: {
+  //       name: "",
+  //       items: [],
+  //       price: 100,
+  //       style: "shelf_center",
+  //     },
+  //     ["8"]: {
+  //       name: "",
+  //       items: itemsFromBacken,
+  //       price: 100,
+  //       style: "shelf_center",
+  //     },
+  //   });
+  // }, [itemsFromBackend, itemsFromBacken]);
+  useEffect(() => {
+    setColumns(columnsList);
+  }, [itemsFromBackend]);
   return (
     <>
       {" "}
@@ -309,7 +426,7 @@ function DragFinal() {
                   }}
                   key={columnId}
                 >
-                  <h2>{column.name}</h2>
+                  <h2>{column.item}</h2>
                   <div className={column.style}>
                     <Droppable droppableId={columnId} key={columnId}>
                       {(provided, snapshot) => {
@@ -335,10 +452,9 @@ function DragFinal() {
                             {column.items.map((item, index) => {
                               return (
                                 <Draggable
-                                  key={item.id}
-                                  draggableId={item.id}
+                                  key={item._id}
+                                  draggableId={item._id}
                                   index={index}
-                                  // isDragDisabled={item.price > bal}
                                 >
                                   {(provided, snapshot) => {
                                     return (
@@ -360,7 +476,7 @@ function DragFinal() {
                                           ...provided.draggableProps.style,
                                         }}
                                       >
-                                        {item.name} {item.price}
+                                        {item.item} {item.price}
                                       </div>
                                     );
                                   }}

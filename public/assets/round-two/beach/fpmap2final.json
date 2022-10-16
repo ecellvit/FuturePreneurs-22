@@ -67,7 +67,7 @@
                         {
                          "name":"area",
                          "type":"string",
-                         "value":"box1"
+                         "value":"box0"
                         }],
                  "rotation":0,
                  "visible":true,
@@ -84,7 +84,7 @@
                         {
                          "name":"area",
                          "type":"string",
-                         "value":"box5"
+                         "value":"box4"
                         }],
                  "rotation":0,
                  "visible":true,
@@ -101,7 +101,7 @@
                         {
                          "name":"area",
                          "type":"string",
-                         "value":"box2"
+                         "value":"box1"
                         }],
                  "rotation":0,
                  "visible":true,
@@ -135,7 +135,7 @@
                         {
                          "name":"area",
                          "type":"string",
-                         "value":"box3"
+                         "value":"box2"
                         }],
                  "rotation":0,
                  "visible":true,
@@ -169,7 +169,7 @@
                         {
                          "name":"area",
                          "type":"string",
-                         "value":"box8"
+                         "value":"box5"
                         }],
                  "rotation":0,
                  "visible":true,
@@ -186,7 +186,7 @@
                         {
                          "name":"area",
                          "type":"string",
-                         "value":"box9"
+                         "value":"box8"
                         }],
                  "rotation":0,
                  "visible":true,
@@ -203,7 +203,7 @@
                         {
                          "name":"area",
                          "type":"string",
-                         "value":"box4"
+                         "value":"box3"
                         }],
                  "rotation":0,
                  "visible":true,
