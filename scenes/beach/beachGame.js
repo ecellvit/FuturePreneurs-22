@@ -65,7 +65,7 @@ export default class BeachScene extends Scene {
           x: 9,
           y: 9
         },
-        speed: 10
+        speed: 9
       }]
     }
     this.gridEngine.create(map, gridEngineConfig)

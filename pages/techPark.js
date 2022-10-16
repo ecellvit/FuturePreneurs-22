@@ -10,7 +10,6 @@ import myContext from "../store/myContext";
 import styles from "../styles/MainQuiz.module.css";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useInsertionEffect } from "react";
 
 export default function PhaserGame() {
   const [prompt, setPrompt] = useState();
@@ -24,6 +23,35 @@ export default function PhaserGame() {
 
   const myCtx = useContext(myContext);
   const TEAM_ID = myCtx.teamId;
+
+  useEffect(() => {
+    if (session) {
+      fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/team/roundone/${TEAM_ID}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${session.accessTokenBackend}`,
+          "Access-Control-Allow-Origin": "*",
+        },
+      })
+        .then(async (response) => {
+          return response.json();
+        })
+        .then((data) => {
+          switch (data.mapChoice){
+            case 0:
+              window.location = "/temple"
+              break
+            case 1:
+              window.location = "/beach"
+              break
+            case 2:
+              window.location = "/techPark"
+              break
+          }
+        });
+    }
+  }, [session]);
 
   useEffect(() => {
     if (session) {
@@ -43,10 +71,18 @@ export default function PhaserGame() {
         })
         .then((data) => {
           if (data.error?.errorCode) {
-            // if error like time limit exceeded
-            // window.location = "/instructions"
-            if (data.error?.errorCode === 34) {
-              console.log("asdf");
+            console.log(data.error.errorCode);
+            if (data.error.errorCode == 33) {
+              console.log("already played 1");
+              // window.location = "/instructions";
+            }
+            if (data.error.errorCode === 21) {
+              console.log("time limit exceeded");
+              // window.location = "/instructions";
+            }
+            if (data.error.errorCode === 43) {
+              console.log("round 1 not complete");
+              // window.location = "/instructions";
             }
             toast.error(`${data.message}`, {
               position: "top-right",
@@ -58,10 +94,10 @@ export default function PhaserGame() {
               progress: undefined,
             });
             return;
+          } else {
+            setEndTime(data.endTime);
           }
-
           console.log(data);
-          setEndTime(data.endTime);
         })
         .catch((e) => {
           console.log(e);
@@ -144,9 +180,9 @@ export default function PhaserGame() {
           .then((data) => {
             console.log(data);
             // after submitting box no.
-            window.location = '/instructions';
+            window.location = "/instructions";
           });
-        }
+      }
     }
     setPrompt(false);
 

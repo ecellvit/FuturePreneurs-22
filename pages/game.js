@@ -37,7 +37,13 @@ export default function PhaserGame() {
         return response.json();
       }).then((data) => {
         if (data.error?.errorCode) {
-          if (data.error?.errorCode === 21) {
+          console.log(data.error.errorCode)
+          if (data.error.errorCode == 33){
+            console.log('already played 1')
+            window.location = '/instructions'
+          }
+          if (data.error.errorCode === 21) {
+            console.log('time limit exceeded')
             window.location = '/instructions'
           }
           toast.error(`${data.message}`, {
@@ -50,9 +56,10 @@ export default function PhaserGame() {
             progress: undefined,
           });
           return;
+        } else {
+          setEndTime(data.endTime);
         }
         console.log(data)
-        setEndTime(data.endTime);
 
       }).catch(e => {
         console.log(e);

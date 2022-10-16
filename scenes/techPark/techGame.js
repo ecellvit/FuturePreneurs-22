@@ -66,7 +66,7 @@ import {
             x: 9,
             y: 12
           },
-          speed: 10
+          speed: 9
         }]
       }
       this.gridEngine.create(map, gridEngineConfig)
