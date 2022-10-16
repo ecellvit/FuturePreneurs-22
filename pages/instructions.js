@@ -94,7 +94,7 @@ export default function Instructions() {
     <div className={styles.cardbody}>
 
       {
-        (round === "game") && <CardComponent heading={"game"} teamId={teamId} round={round} />
+        (round === "game") && <CardComponent heading={"game"} teamId={teamId} round={round}  />
       }
       {
         (round === "round1") && <CardComponent heading={"one"} teamId={teamId} round={round}/>
@@ -103,7 +103,7 @@ export default function Instructions() {
         (round === "round2") && <CardComponent heading={"two"} teamId={teamId} round={round}/>
       }
       {
-        (round === "round2") && <CardComponent heading={"three"} teamId={teamId} round={round}/>
+        (round === "round3") && <CardComponent heading={"three"} teamId={teamId} round={round}/>
       }
 
     </div>
