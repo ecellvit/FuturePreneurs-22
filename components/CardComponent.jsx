@@ -2,10 +2,12 @@ import React from "react";
 import { useState } from "react";
 import styles from "../styles/Dashboard.module.css";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
-function CardComponent({ heading, paragraph, teamId }) {
+function CardComponent({ heading, paragraph, teamId,round }) {
   const [map, setMap] = useState();
   const { data: session } = useSession();
+  const router = useRouter();
 
   function handleNext() {
     console.log("hello");
@@ -23,8 +25,24 @@ function CardComponent({ heading, paragraph, teamId }) {
         })
         .then((data) => {
           console.log("data");
-          console.log(data);
-          //setMap(data)
+          console.log(data.mapChoice);
+          setMap(data.mapChoice)
+          if(data.mapChoice == 1 && round === "round1"){
+            window.location = '/beach'
+          }
+          if(data.mapChoice == 2 && round === "round1"){
+            window.location = '/techPark'
+          }
+          if(data.mapChoice == 0 && round === "round1"){
+            window.location = '/temple'
+          }
+          if(round==="round2"){
+            window.location = '/round3'
+          }
+          if(round==="game"){
+            window.location = '/game'
+          }
+          
         })
         .catch((err) => {
           console.log(err);

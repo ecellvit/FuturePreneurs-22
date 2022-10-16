@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 
 
 export default function Instructions() {
-  const [round, setRound] = useState("round1")
+  const [round, setRound] = useState()
   const { data: session } = useSession();
   const router = useRouter();
 
@@ -69,7 +69,7 @@ export default function Instructions() {
         .then((data) => {
           // setRound(data);
           console.log("data round")
-          console.log(data.hasRoundOneEnd);
+          console.log(data);
           if (!data.hasRoundOneEnd && !data.hasRoundTwoEnd && !data.hasRoundThreeEnd) {
             setRound("game")
           }
@@ -87,23 +87,23 @@ export default function Instructions() {
           console.log(err)
         })
     }
-  }, [session])
+  }, [session,teamId])
 
 
   return (
     <div className={styles.cardbody}>
 
       {
-        (round === "game") && <CardComponent heading={"game"} teamId={teamId} />
+        (round === "game") && <CardComponent heading={"game"} teamId={teamId} round={round}  />
       }
       {
-        (round === "round1") && <CardComponent heading={"one"} teamId={teamId} />
+        (round === "round1") && <CardComponent heading={"one"} teamId={teamId} round={round}/>
       }
       {
-        (round === "round2") && <CardComponent heading={"two"} teamId={teamId} />
+        (round === "round2") && <CardComponent heading={"two"} teamId={teamId} round={round}/>
       }
       {
-        (round === "round2") && <CardComponent heading={"three"} teamId={teamId} />
+        (round === "round3") && <CardComponent heading={"three"} teamId={teamId} round={round}/>
       }
 
     </div>

@@ -198,8 +198,7 @@ export default function PhaserGame() {
           return response.json();
         })
         .then((data) => {
-          console.log(data)
-          router.push('/instructions')
+          window.location = 'instructions'
         })
       }
     }
