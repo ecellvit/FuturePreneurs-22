@@ -4,7 +4,7 @@ import styles from "../styles/Dashboard.module.css";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 
-function CardComponent({ heading, paragraph, teamId,round }) {
+function CardComponent({ heading, para1,para2,para3,para4,intro,teamId,round }) {
   const [map, setMap] = useState();
   const { data: session } = useSession();
   const router = useRouter();
@@ -58,8 +58,35 @@ function CardComponent({ heading, paragraph, teamId,round }) {
           className={`${styles.member_container} ${styles.border_gradient} `}
         >
           <div className={`${styles.centre_align} ${styles.bottom_margin}`}>
-            <h4 className={styles.cardHeading}>{heading}</h4>
-            <div className={styles.instructions}>{paragraph}</div>
+            <div className={styles.instructions}>
+            <div className={styles.instructions_div}>
+          <div className={styles.round}>
+            <div
+              className={styles.text_block}
+              style={{ textDecoration: "underline" }}
+            >
+              Qualifying Round {heading} Instructions
+            </div>
+          </div>
+          <div className={styles.round}>
+            <div className={styles.text_block} style={{ color: "#BC304B" }}>
+              {intro}
+            </div>
+          </div>
+          <div className={styles.round_instruction}>
+            <div className={styles.para}>
+              {para1}
+              <br/>
+              {para2}
+              <br/>
+              {para3}
+              <br/>
+              {para4}
+            </div>
+          </div>
+         
+        </div>
+            </div>
           </div>
         </div>
         <div className={styles.start_btn}>
