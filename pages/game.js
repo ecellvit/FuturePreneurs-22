@@ -23,6 +23,7 @@ export default function PhaserGame() {
 
   const myCtx = useContext(myContext);
   const TEAM_ID = myCtx.teamId;
+  console.log(TEAM_ID)
 
   useEffect(() => {
     if (session) {
@@ -37,9 +38,20 @@ export default function PhaserGame() {
         return response.json();
       }).then((data) => {
         if (data.error?.errorCode) {
-          if (data.error?.errorCode === 21) {
-            window.location = '/instructions'
+          console.log(data.error.errorCode)
+          if (data.error.errorCode == 31) {
+            console.log("already played 1");
+            // window.location = "/instructions";
           }
+          if (data.error.errorCode == 33){
+            console.log('already played 1')
+            // window.location = '/instructions'
+          }
+          if (data.error.errorCode === 21) {
+            console.log('time limit exceeded')
+            // window.location = '/instructions'
+          }
+          window.location = '/instructions'
           toast.error(`${data.message}`, {
             position: "top-right",
             autoClose: 5000,
@@ -50,9 +62,10 @@ export default function PhaserGame() {
             progress: undefined,
           });
           return;
+        } else {
+          setEndTime(data.endTime);
         }
         console.log(data)
-        setEndTime(data.endTime);
 
       }).catch(e => {
         console.log(e);
@@ -64,7 +77,7 @@ export default function PhaserGame() {
   // 2022-10-15T18:45:33.927Z
 
   useEffect(() => {
-    if (hours == 0 & minutes == 0 & seconds == 0) {
+    if (hours <= 0 & minutes <= 0 & seconds <= 0) {
       console.log("time done")
       if (session) { // send 5 = null
         fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/team/roundone/${TEAM_ID}`, {
@@ -99,7 +112,7 @@ export default function PhaserGame() {
             console.log(data);
           })
       }
-      // redirect to instructions
+      window.location = "/instructions"
     }
   }, [seconds])
 
@@ -204,7 +217,7 @@ export default function PhaserGame() {
       {endTime && <div className={styles.starting}>
         <div className={styles.btn}>
           <a href="#" className={`${styles.button_2} ${styles.w_button}`}>
-            {hours}:{minutes}:{seconds}
+            {hours<10?'0'+hours.toString():hours}:{minutes<10?'0'+minutes.toString():minutes}:{seconds<10?'0'+seconds.toString():seconds}
           </a>
         </div>
       </div>}

@@ -43,14 +43,25 @@
   border-radius: 0;
 }
 
+.text_block{
+  padding-top:1rem;
+  text-align:center;
+}
+
+.round_instruction{
+  padding-top:3rem;
+  padding-left:1rem;
+  padding-right:1rem;
+}
+
 .cardbodyContainer{
   background-color:#070f0f;
-  min-height:60rem;
+  min-height:40rem;
   margin:auto;
   color:#ffff;
   padding-left:2rem;
   padding-right:2rem;
-  text-align:center;
+
 }
 .cardbody{
   background-color:#070f0f;
@@ -250,7 +261,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center;
+  
 }
 
 .centre-align.bottom_margin {
@@ -365,7 +376,7 @@
   display: block;
   overflow: hidden;
   max-width: 302px;
-  text-align: center;
+ 
   -o-object-fit: fill;
   object-fit: fill;
 }
@@ -629,7 +640,7 @@
   color: #5b3acc;
   font-size: 27px;
   font-weight: 400;
-  text-align: center;
+
   color: #ffff;
 }
 

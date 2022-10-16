@@ -10,7 +10,6 @@ import myContext from "../store/myContext";
 import styles from "../styles/MainQuiz.module.css";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useInsertionEffect } from "react";
 
 export default function PhaserGame() {
   const [prompt, setPrompt] = useState();
@@ -24,6 +23,76 @@ export default function PhaserGame() {
 
   const myCtx = useContext(myContext);
   const TEAM_ID = myCtx.teamId;
+
+  useEffect(() => {
+    // redirect to correct map
+    if (session) {
+      fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/team/roundone/${TEAM_ID}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${session.accessTokenBackend}`,
+          "Access-Control-Allow-Origin": "*",
+        },
+      })
+        .then(async (response) => {
+          return response.json();
+        })
+        .then((data) => {
+          switch (data.mapChoice){
+            case 0:
+              window.location = "/temple"
+              break
+            case 1:
+              window.location = "/beach"
+              break
+            // case 2:
+            //   window.location = "/techPark"
+            //   break
+          }
+        });
+    }
+  }, [session]);
+
+  useEffect(() => {
+    if (hours <= 0 & minutes <= 0 & seconds <= 0) {
+      console.log("time done")
+      if (session) { // send 5 = null
+        fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/team/roundone/${TEAM_ID}`, {
+          method: 'POST',
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${session.accessTokenBackend}`,
+            "Access-Control-Allow-Origin": "*",
+          },
+          body: JSON.stringify({
+            mapChoice: 5,
+          })
+        }).then(async (response) => {
+          return response.json();
+        })
+          .then((data) => {
+            if (data.error?.errorCode) {
+              if (data.error?.errorCode === 21){
+                window.location = '/instructions'
+              }
+              toast.error(`${data.message}`, {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              });
+              return;
+            }
+            console.log(data);
+          })
+      }
+      window.location = "/instructions"
+    }
+  }, [seconds])
 
   useEffect(() => {
     if (session) {
@@ -43,11 +112,20 @@ export default function PhaserGame() {
         })
         .then((data) => {
           if (data.error?.errorCode) {
-            // if error like time limit exceeded
-            window.location = "/instructions"
-            if (data.error?.errorCode === 35) {
-              console.log("asdf");
+            console.log(data.error.errorCode);
+            if (data.error.errorCode == 31) {
+              console.log("already played 1");
+              // window.location = "/instructions";
             }
+            if (data.error.errorCode === 21) {
+              console.log("time limit exceeded");
+              // window.location = "/instructions";
+            }
+            if (data.error.errorCode === 37) {
+              console.log("round 1 not complete");
+              // window.location = "/instructions";
+            }
+            window.location = "/instructions"
             toast.error(`${data.message}`, {
               position: "top-right",
               autoClose: 5000,
@@ -58,10 +136,10 @@ export default function PhaserGame() {
               progress: undefined,
             });
             return;
+          } else {
+            setEndTime(data.endTime);
           }
-
           console.log(data);
-          setEndTime(data.endTime);
         })
         .catch((e) => {
           console.log(e);
@@ -74,11 +152,8 @@ export default function PhaserGame() {
     async function initPhaser() {
       const Phaser = await import("phaser");
       const { default: GridEngine } = await import("grid-engine");
-      const { default: Preloader } = await import(
-        "../scenes/techPark/Preloader-techPark"
-      );
       const { default: TestScene } = await import(
-        "../scenes/techPark/TestScene-techPark"
+        "../scenes/techPark/techGame"
       );
 
       const phaserGame = new Phaser.Game({
@@ -92,7 +167,7 @@ export default function PhaserGame() {
           zoom: 2,
           autoCenter: Phaser.Scale.CENTER_BOTH,
         },
-        scene: [Preloader, TestScene],
+        scene: [TestScene],
         physics: {
           default: "arcade",
           arcade: {
@@ -147,9 +222,9 @@ export default function PhaserGame() {
           .then((data) => {
             console.log(data);
             // after submitting box no.
-            window.location = '/instructions';
+            window.location = "/instructions";
           });
-        }
+      }
     }
     setPrompt(false);
 
@@ -170,7 +245,7 @@ export default function PhaserGame() {
             <div className={styles.starting}>
               <div className={styles.btn}>
                 <a href="#" className={`${styles.button_2} ${styles.w_button}`}>
-                  {hours}:{minutes}:{seconds}
+                {hours<10?'0'+hours.toString():hours}:{minutes<10?'0'+minutes.toString():minutes}:{seconds<10?'0'+seconds.toString():seconds}
                 </a>
               </div>
             </div>
