@@ -4,53 +4,9 @@ import { useState,useEffect } from "react";
 import styles from "../styles/Dashboard.module.css";
 import { useSession } from "next-auth/react";
 
-function CardComponent({heading,paragraph}) {
+function CardComponent({heading,paragraph,teamId}) {
   const [map, setMap] = useState()
   const { data: session } = useSession();
-  const [teamId, setTeamId] = useState({});
-
-  useEffect(() => {
-    if(session){
-      
-    fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/user/team`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${session.accessTokenBackend}`,
-        "Access-Control-Allow-Origin": "*",
-      },
-    })
-      .then((data) => data.json())
-      .then((data) => {
-        if (data.error?.errorCode) {
-          toast.error(`${data.message}`, {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
-          return;
-        }
-        if (data.user.teamId) {
-          console.log(data.user.teamId._id)
-          setTeamId(data.user.teamId._id)
-        }
-      
-      })
-
-      .catch((error) => {
-        console.error(
-          "There has been a problem with your fetch operation:",
-          error
-        );
-      });
-  }}, [session]);
-
- 
-
 
   function handleNext() {
    
@@ -68,9 +24,9 @@ function CardComponent({heading,paragraph}) {
             return response.json()
           })
           .then((data) => {
-            // setRound(data);
             console.log("data")
             console.log(data);
+            //setMap(data)
           })
           .catch((err) => {
             console.log(err)
