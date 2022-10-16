@@ -50,7 +50,7 @@ export default class TestScene extends Scene {
     // })
 
     this.heroSprite = this.physics.add.sprite(0, 0, 'hero').setDepth(1);
-    console.log(this.heroSprite.height, this.heroSprite.displayHeight);
+    // console.log(this.heroSprite.height, this.heroSprite.displayHeight);
 
     const elementsLayers = this.add.group();
     for (let i = 0; i < map.layers.length; i++) {
@@ -120,9 +120,9 @@ export default class TestScene extends Scene {
           window.dispatchEvent(customEvent);
 
           const dialogBoxEventListener = ({detail}) => {
-            if (detail.reply=='beach'){
-              this.scene.start('BeachScene')
-            }
+            // if (detail.reply=='beach'){
+            //   this.scene.start('BeachScene')
+            // }
           };
           window.addEventListener("promptClosed", dialogBoxEventListener);
 
