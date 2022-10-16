@@ -145,7 +145,6 @@ export default class BeachScene extends Scene {
 
     this.load.tilemapTiledJSON('testmap-beach', 'assets/round-two/beach/fpmap2final.json')
     this.load.atlas('hero', "assets/sprites/atlas/hero.png", "assets/sprites/atlas/hero.json");
-   
   }
 
   update() {

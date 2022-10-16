@@ -175,7 +175,7 @@ export default function PhaserGame() {
         case "beach":
           areaNum = 1;
           break
-        case "business":
+        case "Tech Park":
           areaNum = 2;
           break
         case "hospital":
