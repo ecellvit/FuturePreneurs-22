@@ -4,8 +4,62 @@
   background-color: #070f0f;
   color: #ffff;
   font-family: "Poppins", sans-serif;
+  
+}
+.instructions{
+ font-size:1rem;
 }
 
+.start_btn {
+ 
+ margin-left:auto;
+ width:10rem;
+  cursor: pointer;
+}
+
+.image {
+  overflow: hidden;
+  max-width: 100%;
+
+}
+
+
+.btn_txt {
+  display: block;
+  margin: -15% 0px auto auto;
+  padding: 0px 0px 0px 40px;
+  background-color: transparent;
+}
+
+.w_button {
+  display: inline-block;
+  padding: 9px 15px;
+  background-color: #3898ec;
+  color: white;
+  border: 0;
+  line-height: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: 0;
+}
+
+.cardbodyContainer{
+  background-color:#070f0f;
+  min-height:60rem;
+  margin:auto;
+  color:#ffff;
+  padding-left:2rem;
+  padding-right:2rem;
+  text-align:center;
+}
+.cardbody{
+  background-color:#070f0f;
+  width:100%;
+}
+
+.cardHeading{
+  font-size:2.5rem;
+}
 .team_member_section_wrapper {
   left: 0px;
   top: 0px;
