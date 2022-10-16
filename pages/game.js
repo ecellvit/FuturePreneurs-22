@@ -190,24 +190,10 @@ export default function PhaserGame() {
         }).then(async (response) => {
           return response.json();
         })
-          .then((data) => {
-            if (data.error?.errorCode) {
-              if (data.error?.errorCode === 21) {
-                window.location = '/instructions'
-              }
-              toast.error(`${data.message}`, {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-              });
-              return;
-            }
-            window.location = '/instructions'
-          })
+        .then((data) => {
+          console.log(data)
+          router.push('/instructions')
+        })
       }
     }
     setPrompt(false);
