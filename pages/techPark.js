@@ -25,6 +25,7 @@ export default function PhaserGame() {
   const TEAM_ID = myCtx.teamId;
 
   useEffect(() => {
+    // redirect to correct map
     if (session) {
       fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/team/roundone/${TEAM_ID}`, {
         method: "GET",
@@ -72,7 +73,7 @@ export default function PhaserGame() {
         .then((data) => {
           if (data.error?.errorCode) {
             console.log(data.error.errorCode);
-            if (data.error.errorCode == 33) {
+            if (data.error.errorCode == 31) {
               console.log("already played 1");
               // window.location = "/instructions";
             }
@@ -80,10 +81,11 @@ export default function PhaserGame() {
               console.log("time limit exceeded");
               // window.location = "/instructions";
             }
-            if (data.error.errorCode === 43) {
+            if (data.error.errorCode === 37) {
               console.log("round 1 not complete");
               // window.location = "/instructions";
             }
+            window.location = "/instructions"
             toast.error(`${data.message}`, {
               position: "top-right",
               autoClose: 5000,

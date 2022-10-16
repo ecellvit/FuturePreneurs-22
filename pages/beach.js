@@ -2,12 +2,14 @@ import { useEffect, useState } from "react";
 import Modal from "../components/modal";
 import { AnimatePresence } from "framer-motion";
 import Loading from "../components/Loading";
+import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import useTimer from "../hooks/useTimer";
-import myContext from "../store/myContext";
 import { useContext } from "react";
-import { useRouter } from "next/router";
+import myContext from "../store/myContext";
 import styles from "../styles/MainQuiz.module.css";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function PhaserGame() {
   const [prompt, setPrompt] = useState();
@@ -21,6 +23,36 @@ export default function PhaserGame() {
 
   const myCtx = useContext(myContext);
   const TEAM_ID = myCtx.teamId;
+
+  useEffect(() => {
+    // redirect to correct map
+    if (session) {
+      fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/team/roundone/${TEAM_ID}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${session.accessTokenBackend}`,
+          "Access-Control-Allow-Origin": "*",
+        },
+      })
+        .then(async (response) => {
+          return response.json();
+        })
+        .then((data) => {
+          switch (data.mapChoice){
+            case 0:
+              window.location = "/temple"
+              break
+            case 1:
+              window.location = "/beach"
+              break
+            case 2:
+              window.location = "/techPark"
+              break
+          }
+        });
+    }
+  }, [session]);
 
   useEffect(() => {
     setIsLoading(true);
