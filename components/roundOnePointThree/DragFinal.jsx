@@ -119,66 +119,114 @@ function DragFinal() {
       if (destination.droppableId !== "1" && destination.droppableId !== "8") {
         //if user tries to put more than 1 ittem in the center containers, then swap the elements
         if (destItems.length !== 0) {
-          const [removed] = sourceItems.splice(source.index, 1);
-          destItems.splice(destination.index, 0, removed);
-          setColumns({
-            ...columns,
-            [source.droppableId]: {
-              ...sourceColumn,
-              items: sourceItems,
-            },
-            [destination.droppableId]: {
-              ...destColumn,
-              items: destItems,
-            },
-          });
-          const newBal = bal - removed.price;
-          const [re] = destItems.splice(0, 1);
-          sourceItems.splice(destination.index, 0, re);
-          setColumns({
-            ...columns,
-            [source.droppableId]: {
-              ...sourceColumn,
-              items: sourceItems,
-            },
-            [destination.droppableId]: {
-              ...destColumn,
-              items: destItems,
-            },
-          });
-          setbal(newBal + re.price);
-          fetch(
-            `${process.env.NEXT_PUBLIC_SERVER}/api/team/roundthree/${TEAM_ID}`,
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${session.accessTokenBackend}`,
-                "Access-Control-Allow-Origin": "*",
-              },
-              body: JSON.stringify({
-                item: removed.item,
-                operation: 1,
-              }),
-            }
-          );
-          fetch(
-            `${process.env.NEXT_PUBLIC_SERVER}/api/team/roundthree/${TEAM_ID}`,
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${session.accessTokenBackend}`,
-                "Access-Control-Allow-Origin": "*",
-              },
-              body: JSON.stringify({
-                item: re.item,
-                operation: 0,
-              }),
-            }
-          );
+          if (source.droppableId == 1 || source.droppableId == 8) {
+            console.log("Yeh wala hua 1");
+            const [re] = destItems.splice(0, 1);
+            console.log(re);
+            const [removed] = sourceItems.splice(source.index, 1);
+            console.log(removed);
+            sourceItems.splice(destination.index, 0, re);
+            if (bal + re.price >= removed.price) {
+              fetch(
+                `${process.env.NEXT_PUBLIC_SERVER}/api/team/roundthree/${TEAM_ID}`,
+                {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${session.accessTokenBackend}`,
+                    "Access-Control-Allow-Origin": "*",
+                  },
+                  body: JSON.stringify({
+                    item: re.item,
+                    operation: 1,
+                  }),
+                }
+              )
+                .then((data) => data.json())
+                .then((data) => {
+                  console.log(data);
+                  setbal(data.availableBalance);
+                  fetch(
+                    `${process.env.NEXT_PUBLIC_SERVER}/api/team/roundthree/${TEAM_ID}`,
+                    {
+                      method: "POST",
+                      headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${session.accessTokenBackend}`,
+                        "Access-Control-Allow-Origin": "*",
+                      },
+                      body: JSON.stringify({
+                        item: removed.item,
+                        operation: 0,
+                      }),
+                    }
+                  )
+                    .then((data) => data.json())
+                    .then((data) => {
+                      console.log(data);
+                      setbal(data.availableBalance);
+                    });
+                });
+              console.log(bal);
+              console.log(removed);
 
-          return;
+              setColumns({
+                ...columns,
+                [source.droppableId]: {
+                  ...sourceColumn,
+                  items: sourceItems,
+                },
+                [destination.droppableId]: {
+                  ...destColumn,
+                  items: destItems,
+                },
+              });
+              destItems.splice(destination.index, 0, removed);
+              setColumns({
+                ...columns,
+                [source.droppableId]: {
+                  ...sourceColumn,
+                  items: sourceItems,
+                },
+                [destination.droppableId]: {
+                  ...destColumn,
+                  items: destItems,
+                },
+              });
+
+              return;
+            } else {
+              toast.error(
+                `Not Enough Balance Will Be There To Perform This Operation`,
+                {
+                  position: toast.POSITION.TOP_RIGHT,
+                  autoClose: 20,
+                }
+              );
+              return;
+            }
+          } else {
+            console.log("Yeh hogaya");
+            const [re] = destItems.splice(0, 1);
+            console.log(re);
+            const [removed] = sourceItems.splice(source.index, 1);
+            console.log(removed);
+            sourceItems.splice(destination.index, 0, re);
+
+            destItems.splice(destination.index, 0, removed);
+            setColumns({
+              ...columns,
+              [source.droppableId]: {
+                ...sourceColumn,
+                items: sourceItems,
+              },
+              [destination.droppableId]: {
+                ...destColumn,
+                items: destItems,
+              },
+            });
+            return;
+          }
         }
       }
       //if  destination id is 1 means those are columns which contains amenities from backend so we will increase the balance
@@ -197,9 +245,11 @@ function DragFinal() {
             destColumn = columns[destination.droppableId];
             destItems = [...destColumn.items];
           }
-          setbal(bal + removed.price);
+          // setbal(bal + removed.price);
 
           destItems.splice(destination.index, 0, removed);
+          console.log(source, destination, " Yeh wala hua 3");
+
           fetch(
             `${process.env.NEXT_PUBLIC_SERVER}/api/team/roundthree/${TEAM_ID}`,
             {
@@ -214,7 +264,11 @@ function DragFinal() {
                 operation: 1,
               }),
             }
-          );
+          )
+            .then((data) => data.json())
+            .then((data) => {
+              setbal(data.availableBalance);
+            });
           setColumns({
             ...columns,
             [source.droppableId]: {
@@ -245,26 +299,32 @@ function DragFinal() {
             items: destItems,
           },
         });
-        fetch(
-          `${process.env.NEXT_PUBLIC_SERVER}/api/team/roundthree/${TEAM_ID}`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${session.accessTokenBackend}`,
-              "Access-Control-Allow-Origin": "*",
-            },
-            body: JSON.stringify({
-              item: removed.item,
-              operation: 0,
-            }),
-          }
-        );
-        setbal(bal - removed.price);
+        console.log(source, destination, "Yeh wala hua 4");
+        if (source.droppableId == 1 || source.droppableId == 8) {
+          fetch(
+            `${process.env.NEXT_PUBLIC_SERVER}/api/team/roundthree/${TEAM_ID}`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${session.accessTokenBackend}`,
+                "Access-Control-Allow-Origin": "*",
+              },
+              body: JSON.stringify({
+                item: removed.item,
+                operation: 0,
+              }),
+            }
+          )
+            .then((data) => data.json())
+            .then((data) => {
+              setbal(data.availableBalance);
+            });
+        }
       } else {
         toast.error(`Not Enough Balance`, {
           position: toast.POSITION.TOP_RIGHT,
-          autoClose: 10,
+          autoClose: 30,
         });
       }
     } else {

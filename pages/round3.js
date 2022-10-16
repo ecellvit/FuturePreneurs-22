@@ -2,8 +2,6 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { toast, ToastContainer } from "react-toastify";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
 import "react-toastify/dist/ReactToastify.css";
 import DragFinal from "../components/roundOnePointThree/DragFinal";
 import NavigationBar from "../components/NavigationBar";
@@ -43,7 +41,7 @@ export default function Round3() {
         })
         .then((data) => {
           if (data.error?.errorCode) {
-            console.log(data.error.errorCode);
+            // //console.log(data.error.errorCode);
             window.location = "/instructions";
             toast.error(`${data.message}`, {
               position: "top-right",
@@ -58,17 +56,17 @@ export default function Round3() {
           } else {
             setEndTime(data.endTime);
           }
-          console.log(data);
+          // //console.log(data);
         })
         .catch((e) => {
-          console.log(e);
+          //console.log(e);
         });
     }
   }, [session?.user.id,TEAM_ID]);
 
   useEffect(() => {
     if (hours <= 0 & minutes <= 0 & seconds <= 0) {
-      console.log("time done")
+      //console.log("time done")
       if (session) { // send 5 = null
         // fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/team/roundone/${TEAM_ID}`, {
         //   method: 'POST',
@@ -99,7 +97,7 @@ export default function Round3() {
         //       });
         //       return;
         //     }
-        //     console.log(data);
+        //     //console.log(data);
         //   })
       }
       window.location = "/instructions"
@@ -130,9 +128,7 @@ export default function Round3() {
             </div>
           </div>
         )}
-        <DndProvider backend={HTML5Backend}>
           <DragFinal />
-        </DndProvider>
       </>
     )
   );
