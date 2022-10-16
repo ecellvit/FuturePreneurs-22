@@ -43,13 +43,106 @@ export default function PhaserGame() {
             case 0:
               window.location = "/temple"
               break
-            case 1:
-              window.location = "/beach"
-              break
+            // case 1:
+            //   window.location = "/beach"
+            //   break
             case 2:
               window.location = "/techPark"
               break
           }
+        });
+    }
+  }, [session]);
+
+  useEffect(() => {
+    if (hours == 0 & minutes == 0 & seconds == 0) {
+      console.log("time done")
+      if (session) { // send 5 = null
+        fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/team/roundone/${TEAM_ID}`, {
+          method: 'POST',
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${session.accessTokenBackend}`,
+            "Access-Control-Allow-Origin": "*",
+          },
+          body: JSON.stringify({
+            mapChoice: 5,
+          })
+        }).then(async (response) => {
+          return response.json();
+        })
+          .then((data) => {
+            if (data.error?.errorCode) {
+              if (data.error?.errorCode === 21){
+                window.location = '/instructions'
+              }
+              toast.error(`${data.message}`, {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              });
+              return;
+            }
+            console.log(data);
+          })
+      }
+      window.location = "/instructions"
+    }
+  }, [seconds])
+
+  useEffect(() => {
+    if (session) {
+      fetch(
+        `${process.env.NEXT_PUBLIC_SERVER}/api/team/roundtwo/start/${TEAM_ID}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${session.accessTokenBackend}`,
+            "Access-Control-Allow-Origin": "*",
+          },
+        }
+      )
+        .then(async (response) => {
+          return response.json();
+        })
+        .then((data) => {
+          if (data.error?.errorCode) {
+            console.log(data.error.errorCode);
+            if (data.error.errorCode == 31) {
+              console.log("already played 1");
+              // window.location = "/instructions";
+            }
+            if (data.error.errorCode === 21) {
+              console.log("time limit exceeded");
+              // window.location = "/instructions";
+            }
+            if (data.error.errorCode === 37) {
+              console.log("round 1 not complete");
+              // window.location = "/instructions";
+            }
+            window.location = "/instructions"
+            toast.error(`${data.message}`, {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
+            return;
+          } else {
+            setEndTime(data.endTime);
+          }
+          console.log(data);
+        })
+        .catch((e) => {
+          console.log(e);
         });
     }
   }, [session]);
