@@ -38,14 +38,19 @@ export default function PhaserGame() {
       }).then((data) => {
         if (data.error?.errorCode) {
           console.log(data.error.errorCode)
+          if (data.error.errorCode == 31) {
+            console.log("already played 1");
+            // window.location = "/instructions";
+          }
           if (data.error.errorCode == 33){
             console.log('already played 1')
-            window.location = '/instructions'
+            // window.location = '/instructions'
           }
           if (data.error.errorCode === 21) {
             console.log('time limit exceeded')
-            window.location = '/instructions'
+            // window.location = '/instructions'
           }
+          window.location = '/instructions'
           toast.error(`${data.message}`, {
             position: "top-right",
             autoClose: 5000,
