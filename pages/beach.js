@@ -19,7 +19,7 @@ export default function PhaserGame() {
   const [endTime, setEndTime] = useState();
   const router = useRouter();
 
-  const { hours, minutes, seconds } = useTimer("2022-10-15T18:45:33.927Z");
+  const { hours, minutes, seconds } = useTimer(endTime);
 
   const myCtx = useContext(myContext);
   const TEAM_ID = myCtx.teamId;
@@ -55,7 +55,7 @@ export default function PhaserGame() {
   }, [session]);
 
   useEffect(() => {
-    if (hours == 0 & minutes == 0 & seconds == 0) {
+    if (hours <= 0 & minutes <= 0 & seconds <= 0) {
       console.log("time done")
       if (session) { // send 5 = null
         fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/team/roundone/${TEAM_ID}`, {
@@ -234,26 +234,26 @@ export default function PhaserGame() {
 
   return (
     <>
-      {" "}
+      
       {/* <Game/> */}
       {isLoading ? (
         <Loading />
       ) : (
         <>
-          {" "}
+          
           {endTime && (
             <div className={styles.starting}>
               <div className={styles.btn}>
                 <a href="#" className={`${styles.button_2} ${styles.w_button}`}>
-                  {" "}
-                  {hours}: {minutes}: {seconds}{" "}
-                </a>{" "}
-              </div>{" "}
+                  
+                  {hours<10?'0'+hours.toString():hours}:{minutes<10?'0'+minutes.toString():minutes}:{seconds<10?'0'+seconds.toString():seconds}
+                </a>
+              </div>
             </div>
-          )}{" "}
+          )}
           <div id="game-content" key="game-content">
-            {" "}
-          </div>{" "}
+            
+          </div>
           <AnimatePresence
             initial={false}
             exitBeforeEnter={true}
@@ -272,8 +272,8 @@ export default function PhaserGame() {
                   closePrompt(prompt);
                 }}
               />
-            )}{" "}
-          </AnimatePresence>{" "}
+            )}
+          </AnimatePresence>
         </>
       )}
     </>
