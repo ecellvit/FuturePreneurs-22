@@ -23,7 +23,7 @@ export default function PhaserGame() {
                 height: window.innerHeight / 2,
                 pixelArt: true,
                 scale: {
-                    zoom: 3,
+                    zoom: 2,
                     autoCenter: Phaser.Scale.CENTER_BOTH,
                 },
                 scene: [Preloader, TestScene],
