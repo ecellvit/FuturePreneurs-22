@@ -2,8 +2,6 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { toast, ToastContainer } from "react-toastify";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
 import "react-toastify/dist/ReactToastify.css";
 import DragFinal from "../components/roundOnePointThree/DragFinal";
 import NavigationBar from "../components/NavigationBar";
@@ -12,7 +10,6 @@ import useTimer from "../hooks/useTimer";
 import { useContext } from "react";
 import myContext from "../store/myContext";
 import styles from "../styles/MainQuiz.module.css";
-
 
 export default function Round3() {
   const { status } = useSession();
@@ -24,10 +21,10 @@ export default function Round3() {
   const { hours, minutes, seconds } = useTimer(endTime);
 
   const myCtx = useContext(myContext);
-  const TEAM_ID = myCtx.teamId; 
+  const TEAM_ID = myCtx.teamId;
 
   useEffect(() => {
-    if (session) {
+    if (session?.user.id) {
       fetch(
         `${process.env.NEXT_PUBLIC_SERVER}/api/team/roundthree/start/${TEAM_ID}`,
         {
@@ -65,7 +62,7 @@ export default function Round3() {
           //console.log(e);
         });
     }
-  }, [session]);
+  }, [session?.user.id,TEAM_ID]);
 
   useEffect(() => {
     if (hours <= 0 & minutes <= 0 & seconds <= 0) {
@@ -117,7 +114,7 @@ export default function Round3() {
       }
     }
   }, [session, status, router]);
-  //console.log(session);
+
   return (
     status === "authenticated" && (
       <>
@@ -131,11 +128,7 @@ export default function Round3() {
             </div>
           </div>
         )}
-        {/* <ToastContainer /> */}
-        {/* <NavigationBar /> */}
-        <DndProvider backend={HTML5Backend}>
           <DragFinal />
-        </DndProvider>
       </>
     )
   );

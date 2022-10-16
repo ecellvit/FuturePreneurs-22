@@ -211,7 +211,7 @@ export default function PhaserGame() {
               "Access-Control-Allow-Origin": "*",
             },
             body: JSON.stringify({
-              boxChoice: 1,
+              boxChoice: reply.slice(-1),
             }),
           }
         )
