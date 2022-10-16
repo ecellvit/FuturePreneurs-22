@@ -44,8 +44,8 @@ export default function PhaserGame() {
         .then((data) => {
           if (data.error?.errorCode) {
             // if error like time limit exceeded
-            window.location = "/instructions"
-            if (data.error?.errorCode === 35) {
+            // window.location = "/instructions"
+            if (data.error?.errorCode === 34) {
               console.log("asdf");
             }
             toast.error(`${data.message}`, {
@@ -74,11 +74,8 @@ export default function PhaserGame() {
     async function initPhaser() {
       const Phaser = await import("phaser");
       const { default: GridEngine } = await import("grid-engine");
-      const { default: Preloader } = await import(
-        "../scenes/techPark/Preloader-techPark"
-      );
       const { default: TestScene } = await import(
-        "../scenes/techPark/TestScene-techPark"
+        "../scenes/techPark/techGame"
       );
 
       const phaserGame = new Phaser.Game({
@@ -92,7 +89,7 @@ export default function PhaserGame() {
           zoom: 2,
           autoCenter: Phaser.Scale.CENTER_BOTH,
         },
-        scene: [Preloader, TestScene],
+        scene: [TestScene],
         physics: {
           default: "arcade",
           arcade: {

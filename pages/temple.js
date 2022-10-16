@@ -13,8 +13,7 @@ export default function PhaserGame() {
         async function initPhaser() {
             const Phaser = await import("phaser");
             const { default: GridEngine } = await import("grid-engine");
-            const { default: Preloader } = await import("../scenes/temple/Preloader-temple");
-            const { default: TestScene } = await import("../scenes/temple/TestScene-temple");
+            const { default: TestScene } = await import("../scenes/temple/templeGame");
 
             const phaserGame = new Phaser.Game({
                 type: Phaser.AUTO,
@@ -24,10 +23,10 @@ export default function PhaserGame() {
                 height: window.innerHeight / 2,
                 pixelArt: true,
                 scale: {
-                    zoom: 3,
+                    zoom: 2,
                     autoCenter: Phaser.Scale.CENTER_BOTH,
                 },
-                scene: [Preloader, TestScene],
+                scene: [TestScene],
                 physics: {
                     default: "arcade",
                     arcade: {

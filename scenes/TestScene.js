@@ -71,7 +71,7 @@ export default class TestScene extends Scene {
           x: 10,
           y: 10
         },
-        speed: 7
+        speed: 10
       }]
     }
     this.gridEngine.create(map, gridEngineConfig)

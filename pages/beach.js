@@ -28,8 +28,7 @@ export default function PhaserGame() {
         async function initPhaser() {
             const Phaser = await import("phaser");
             const { default: GridEngine } = await import("grid-engine");
-            const { default: Preloader } = await import("../scenes/beach/Preloader-beach");
-            const { default: TestScene } = await import("../scenes/beach/TestScene-beach");
+            const { default: TestScene } = await import("../scenes/beach/beachGame");
 
             const phaserGame = new Phaser.Game({
                 type: Phaser.AUTO,
@@ -42,7 +41,7 @@ export default function PhaserGame() {
                     zoom: 2,
                     autoCenter: Phaser.Scale.CENTER_BOTH,
                 },
-                scene: [Preloader, TestScene],
+                scene: [TestScene],
                 physics: {
                     default: "arcade",
                     arcade: {

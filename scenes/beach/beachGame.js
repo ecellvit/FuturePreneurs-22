@@ -62,10 +62,10 @@ export default class BeachScene extends Scene {
         id: 'hero',
         sprite: this.heroSprite,
         startPosition: {
-          x: 8,
-          y: 8
+          x: 9,
+          y: 9
         },
-        speed: 7
+        speed: 10
       }]
     }
     this.gridEngine.create(map, gridEngineConfig)
@@ -144,6 +144,8 @@ export default class BeachScene extends Scene {
     this.load.image('beachhouse2', "assets/round-two/beach/beachhouse2.png");
 
     this.load.tilemapTiledJSON('testmap-beach', 'assets/round-two/beach/fpmap2final.json')
+    this.load.atlas('hero', "assets/sprites/atlas/hero.png", "assets/sprites/atlas/hero.json");
+   
   }
 
   update() {
