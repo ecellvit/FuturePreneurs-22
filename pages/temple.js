@@ -108,7 +108,7 @@ export default function PhaserGame() {
   }, [session]);
 
   useEffect(() => {
-    if (hours == 0 & minutes == 0 & seconds == 0) {
+    if (hours <= 0 & minutes <= 0 & seconds <= 0) {
       console.log("time done")
       if (session) { // send 5 = null
         fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/team/roundone/${TEAM_ID}`, {
@@ -245,7 +245,7 @@ export default function PhaserGame() {
             <div className={styles.starting}>
               <div className={styles.btn}>
                 <a href="#" className={`${styles.button_2} ${styles.w_button}`}>
-                  {hours}:{minutes}:{seconds}
+                  {hours<10?'0'+hours.toString():hours}:{minutes<10?'0'+minutes.toString():minutes}:{seconds<10?'0'+seconds.toString():seconds}
                 </a>
               </div>
             </div>

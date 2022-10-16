@@ -23,6 +23,7 @@ export default function PhaserGame() {
 
   const myCtx = useContext(myContext);
   const TEAM_ID = myCtx.teamId;
+  console.log(TEAM_ID)
 
   useEffect(() => {
     if (session) {
@@ -76,7 +77,7 @@ export default function PhaserGame() {
   // 2022-10-15T18:45:33.927Z
 
   useEffect(() => {
-    if (hours == 0 & minutes == 0 & seconds == 0) {
+    if (hours <= 0 & minutes <= 0 & seconds <= 0) {
       console.log("time done")
       if (session) { // send 5 = null
         fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/team/roundone/${TEAM_ID}`, {
@@ -216,7 +217,7 @@ export default function PhaserGame() {
       {endTime && <div className={styles.starting}>
         <div className={styles.btn}>
           <a href="#" className={`${styles.button_2} ${styles.w_button}`}>
-            {dispHours}:{dispMinutes}:{dispSeconds}
+            {hours<10?'0'+hours.toString():hours}:{minutes<10?'0'+minutes.toString():minutes}:{seconds<10?'0'+seconds.toString():seconds}
           </a>
         </div>
       </div>}
