@@ -35,16 +35,9 @@ export default function Instructions() {
 
   return (
     <div className={styles.cardbody}>
-    {
-     (round === "round1")&&<CardComponent heading={"one"} />
-    }
-    {
-     (round === "round2")&&<CardComponent heading={two} />
-    }
-    {
-     (round === "round2")&&<CardComponent heading={three}/>
-    }
-
+      {(round === "round1")&&<CardComponent heading={"one"}/>}
+      {(round === "round2")&&<CardComponent heading={two} />}
+      {(round === "round2")&&<CardComponent heading={three}/>}
     </div>
   )
 }
