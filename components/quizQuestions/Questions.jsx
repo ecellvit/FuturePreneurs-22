@@ -314,7 +314,7 @@ function Questions(props) {
   //   };
   // }, [END_TIME]);
 
-  const { hours, minutes, seconds } = useTimer("2022-10-04T12:15:00");
+  const { hours, minutes, seconds } = useTimer("2022-10-15T23:00:00");
 
   useEffect(() => {
     if (hours <= 0 && minutes <= 0 && seconds <= 0) {

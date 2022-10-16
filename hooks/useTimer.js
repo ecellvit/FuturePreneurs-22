@@ -16,7 +16,7 @@ export default function useTimer(deadline, interval = SECOND) {
         return () => {
             clearInterval(intervalId);
         };
-    }, [interval]);
+    });
 
     /* If the initial deadline value changes */
     useEffect(() => {

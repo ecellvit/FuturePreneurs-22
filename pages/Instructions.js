@@ -1,6 +1,6 @@
 import CardComponent from '../components/CardComponent'
 import styles from '../styles/Dashboard.module.css'
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 
 export default function Instructions() {
@@ -35,16 +35,9 @@ export default function Instructions() {
 
   return (
     <div className={styles.cardbody}>
-    {
-     (round === "round1")&&<CardComponent heading={"one"} />
-    }
-    {
-     (round === "round2")&&<CardComponent heading={two} />
-    }
-    {
-     (round === "round2")&&<CardComponent heading={three}/>
-    }
-
+      {(round === "round1")&&<CardComponent heading={"one"}/>}
+      {(round === "round2")&&<CardComponent heading={two} />}
+      {(round === "round2")&&<CardComponent heading={three}/>}
     </div>
   )
 }
