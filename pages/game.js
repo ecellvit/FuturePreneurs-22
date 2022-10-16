@@ -106,7 +106,7 @@ export default function PhaserGame() {
             console.log(data);
           })
       }
-      // redirect to instructions
+      window.location = "/instructions"
     }
   }, [seconds])
 
