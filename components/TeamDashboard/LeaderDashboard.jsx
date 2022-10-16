@@ -11,6 +11,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import Modal from "../modal";
 import styles1 from "../../styles/Modal.module.css";
 import { useRouter } from "next/router.js";
+import CardComponent from "../CardComponent";
 
 const LeaderDashboard = ({
   teamData,
@@ -161,16 +162,11 @@ const LeaderDashboard = ({
             )}
           </AnimatePresence>
           <div className={styles.invite_link_container}>
-            <div className="copy-area">
-              <button
-                className={`${styles.btngroup} ${styles.glow_on_hover}`}
-                onClick={() =>
-                  router.push('/fpquiz-round-zero')
-                }
-              >
-                Attempt Quiz
-              </button>
-            </div>
+          <CardComponent 
+            intro={"Read through all the instructions carefully as this will be vital for your performance in the quiz."} 
+            para1={"It is that time now where you will be starting your own business.The following rounds will take you on an enthusing journey where you will learn the ins and outs of building one's own business. You will tackle different situations, by realizing and applying the concepts that you learn along the way. So get ready to take off on an adventure like never before. Get ready to ideate, innovate, actuate & learn to breed business from one of the best in business!!"}
+
+            />
           </div>
         </div>
       </div>
