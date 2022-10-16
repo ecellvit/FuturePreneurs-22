@@ -36,26 +36,77 @@ function DragFinal() {
       .then((data) => {
         console.log(data);
         setbal(data.balance);
-        for (let i = 0; i < data.roundThreeData.length / 2; i++) {
-          setItemsFromBackend((prevData) => {
-            return [...prevData, { ...data.roundThreeData[i], isLeft: true }];
-          });
-        }
-        for (
-          let i = data.roundThreeData.length / 2 + 1;
-          i < data.roundThreeData.length;
-          i++
-        ) {
-          setItemsFromBacken((prevData) => {
-            return [...prevData, { ...data.roundThreeData[i], isLeft: false }];
-          });
-        }
+        // for (let i = 0; i < data.roundThreeData.length / 2; i++) {
+        //   setItemsFromBackend((prevData) => {
+        //     return [...prevData, { ...data.roundThreeData[i], isLeft: true }];
+        //   });
+        // }
+        // for (
+        //   let i = data.roundThreeData.length / 2 + 1;
+        //   i < data.roundThreeData.length;
+        //   i++
+        // ) {
+        //   setItemsFromBacken((prevData) => {
+        //     return [...prevData, { ...data.roundThreeData[i], isLeft: false }];
+        //   });
+        // }
+        setItemsFromBackend(data.roundThreeData);
 
         setIsLoading(false);
       });
   }, [session]);
 
-  const [columnsList, setcolumnsList] = useState();
+  // const [columnsList, setcolumnsList] = useState();
+  const columnsList = {
+    ["1"]: {
+      name: "",
+      items: itemsFromBackend,
+
+      style: "styles.shelf_left",
+    },
+    ["2"]: {
+      name: "",
+      items: [],
+
+      style: "shelf_center",
+    },
+    ["3"]: {
+      name: "",
+      items: [],
+      price: 200,
+      style: "shelf_center",
+    },
+    ["4"]: {
+      name: "",
+      items: [],
+      price: 300,
+      style: "shelf_center",
+    },
+    ["5"]: {
+      name: "",
+      items: [],
+      price: 100,
+      style: "shelf_center",
+    },
+    ["6"]: {
+      name: "",
+      items: [],
+      price: 100,
+      style: "shelf_center",
+    },
+    ["7"]: {
+      name: "",
+      items: [],
+      price: 100,
+      style: "shelf_center",
+    },
+    ["8"]: {
+      name: "",
+      items: itemsFromBacken,
+      price: 100,
+      style: "shelf_center",
+    },
+  };
   const onDragEnd = (result, columns, setColumns, bal, setbal) => {
     if (!result.destination) return;
     const { source, destination } = result;
@@ -234,62 +285,62 @@ function DragFinal() {
   const myCtx = useContext(myContext);
   const TEAM_ID = myCtx.teamId;
   const [columns, setColumns] = useState({});
-  useEffect(() => {
-    //console.log("WOahhhhhhhhhhhhhhhhhhhhhhhhhh");
-    setcolumnsList({
-      ["1"]: {
-        name: "",
-        items: itemsFromBackend,
+  // useEffect(() => {
+  //   //console.log("WOahhhhhhhhhhhhhhhhhhhhhhhhhh");
+  //   setcolumnsList({
+  //     ["1"]: {
+  //       name: "",
+  //       items: itemsFromBackend,
 
-        style: "styles.shelf_left",
-      },
-      ["2"]: {
-        name: "",
-        items: [],
+  //       style: "styles.shelf_left",
+  //     },
+  //     ["2"]: {
+  //       name: "",
+  //       items: [],
 
-        style: "shelf_center",
-      },
-      ["3"]: {
-        name: "",
-        items: [],
-        price: 200,
-        style: "shelf_center",
-      },
-      ["4"]: {
-        name: "",
-        items: [],
-        price: 300,
-        style: "shelf_center",
-      },
-      ["5"]: {
-        name: "",
-        items: [],
-        price: 100,
-        style: "shelf_center",
-      },
-      ["6"]: {
-        name: "",
-        items: [],
-        price: 100,
-        style: "shelf_center",
-      },
-      ["7"]: {
-        name: "",
-        items: [],
-        price: 100,
-        style: "shelf_center",
-      },
-      ["8"]: {
-        name: "",
-        items: itemsFromBacken,
-        price: 100,
-        style: "shelf_center",
-      },
-    });
-  }, [itemsFromBackend, itemsFromBacken]);
+  //       style: "shelf_center",
+  //     },
+  //     ["3"]: {
+  //       name: "",
+  //       items: [],
+  //       price: 200,
+  //       style: "shelf_center",
+  //     },
+  //     ["4"]: {
+  //       name: "",
+  //       items: [],
+  //       price: 300,
+  //       style: "shelf_center",
+  //     },
+  //     ["5"]: {
+  //       name: "",
+  //       items: [],
+  //       price: 100,
+  //       style: "shelf_center",
+  //     },
+  //     ["6"]: {
+  //       name: "",
+  //       items: [],
+  //       price: 100,
+  //       style: "shelf_center",
+  //     },
+  //     ["7"]: {
+  //       name: "",
+  //       items: [],
+  //       price: 100,
+  //       style: "shelf_center",
+  //     },
+  //     ["8"]: {
+  //       name: "",
+  //       items: itemsFromBacken,
+  //       price: 100,
+  //       style: "shelf_center",
+  //     },
+  //   });
+  // }, [itemsFromBackend, itemsFromBacken]);
   useEffect(() => {
     setColumns(columnsList);
-  }, [columnsList]);
+  }, [itemsFromBackend]);
   return (
     <>
       {" "}
