@@ -1,40 +1,27 @@
 import React from 'react'
 import Loading from "./Loading"
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import styles from "../styles/Dashboard.module.css";
+import { useSession } from "next-auth/react";
 
 function CardComponent({heading,paragraph}) {
+  const [map, setMap] = useState()
+  const { data: session } = useSession();
+  const [teamId, setTeamId] = useState({});
 
-  
-  function handleNext() {
-    let respBody = {
-      setNum: setNum,
-      questionNum: currQuesBackend,
-    };
-    if (questionType === 5) {
-      if (userAnswer.length === 0) {
-        setIsLoading(false);
-        toast(`Please don't leave the answer field empty`);
-        return;
-      }
-      respBody["descriptiveAnswer"] = userAnswer;
-    } else {
-      respBody["answerIdxs"] = userAnswer;
-    }
-    fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/team/quiz/${TEAM_ID}`, {
-      method: "POST",
+  useEffect(() => {
+    if(session){
+      
+    fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/user/team`, {
+      method: "GET",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${session.accessTokenBackend}`,
         "Access-Control-Allow-Origin": "*",
       },
-      body: JSON.stringify(respBody),
     })
-      .then((response) => {
-        return response.json();
-      })
+      .then((data) => data.json())
       .then((data) => {
-        setIsLoading(false);
         if (data.error?.errorCode) {
           toast.error(`${data.message}`, {
             position: "top-right",
@@ -45,18 +32,50 @@ function CardComponent({heading,paragraph}) {
             draggable: true,
             progress: undefined,
           });
+          return;
         }
-        if (data.message === "Time Limit Reached") {
-          // console.log("time exceeded");
-          router.push("/thankyou");
-        } else if (data.message === "Submitted Answer Successfully") {
-          setUserAnswer([]);
-          getNextQuestion();
+        if (data.user.teamId) {
+          console.log(data.user.teamId._id)
+          setTeamId(data.user.teamId._id)
         }
+      
       })
-      .catch((err) => {
-        console.log(err);
+
+      .catch((error) => {
+        console.error(
+          "There has been a problem with your fetch operation:",
+          error
+        );
       });
+  }}, [session]);
+
+ 
+
+
+  function handleNext() {
+   
+      console.log("hello")
+      if(session){
+        fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/team/roundone/${teamId}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${session.accessTokenBackend}`,
+            'Access-Control-Allow-Origin': '*',
+          }
+        })
+          .then((response) => {
+            return response.json()
+          })
+          .then((data) => {
+            // setRound(data);
+            console.log("data")
+            console.log(data);
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+        }
   }
     return (
      
@@ -67,7 +86,7 @@ function CardComponent({heading,paragraph}) {
           >
             <div className={`${styles.member_container} ${styles.border_gradient} `}>
               <div className={`${styles.centre_align} ${styles.bottom_margin}`}>
-                <h4 className={styles.cardHeading}>heading</h4>
+                <h4 className={styles.cardHeading}>{heading}</h4>
                 <div className={styles.instructions}>
                 {paragraph}
               </div>
@@ -84,7 +103,8 @@ function CardComponent({heading,paragraph}) {
                             alt=""
                             className={styles.image}
                             style={{ display:"block" }}
-                            onClick={handleNext()}
+                            onClick={()=>{
+                              handleNext()}}
                           />
                        
                 </div>
