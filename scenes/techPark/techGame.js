@@ -4,7 +4,7 @@ import {
   
   export default class TestScene extends Scene {
     constructor() {
-      super('testscene-temple')
+      super('testscene-techPark')
     }
   
     createPlayerWalkingAnimation(assetKey, animationName) {
@@ -37,18 +37,20 @@ import {
     }
   
     create() {
-      const map = this.make.tilemap({ key: 'testmap-temple' });
+      const map = this.make.tilemap({ key: 'testmap-techPark' });
       map.addTilesetImage('buildings', 'buildings', 12, 12, 0, 0)
       map.addTilesetImage('buildings2', 'buildings2', 12, 12, 0, 0)
       map.addTilesetImage('road', 'road', 12, 12, 0, 0)
       map.addTilesetImage('village', 'village', 12, 12, 0, 0)
-      map.addTilesetImage('bakery', 'bakery', 12, 12, 0, 0)
+      map.addTilesetImage('auditorium', 'auditorium', 12, 12, 0, 0)
       map.addTilesetImage('apartments', 'apartments', 12, 12, 0, 0)
-      map.addTilesetImage('temple', 'temple')
+      map.addTilesetImage('itcenter', 'itcenter', 12, 12, 0, 0)
+      map.addTilesetImage('hotel', 'hotel',12, 12, 0, 0)
+      map.addTilesetImage('station', 'station',12, 12, 0, 0)
     
   
       map.layers.forEach((layer, index) => {
-        map.createLayer(index, ['buildings', 'buildings2', 'road', 'village', 'bakery', 'temple', 'apartments'], 0, 0)
+        map.createLayer(index, ['buildings', 'buildings2', 'road', 'village','station', 'auditorium', 'itcenter','hotel'], 0, 0)
       })
   
       this.heroSprite = this.physics.add.sprite(0, 0, 'hero').setDepth(1);
@@ -61,10 +63,10 @@ import {
           id: 'hero',
           sprite: this.heroSprite,
           startPosition: {
-            x: 8,
-            y: 8
+            x: 9,
+            y: 12
           },
-          speed: 7
+          speed: 9
         }]
       }
       this.gridEngine.create(map, gridEngineConfig)
@@ -95,14 +97,14 @@ import {
           this.heroSprite.setFrame(this.getStopFrame(direction, charId));
         }
       });
-    
-  
+
+      
     let triggered = false;
 
     const dataLayer = map.getObjectLayer("prompt");
     dataLayer.objects.forEach((object) => {
       let tmp = this.add.rectangle((object.x + (object.width / 2)), (object.y + (object.height / 2)), object.width, object.height);
-      tmp.properties = object.properties.reduce(
+      tmp.properties = object.properties?.reduce(
         (obj, item) => Object.assign(obj, { [item.name]: item.value }), {}
       );
       this.physics.world.enable(tmp, 1);
@@ -128,8 +130,26 @@ import {
         }
       }, null, this);
     });
-  } 
+    }
 
+    preload() {
+      //map assets
+      this.load.image('buildings', "assets/round-two/techPark/buildings.png");
+      this.load.image('road', "assets/round-two/techPark/road.png");
+      // this.load.image('apartments', "assets/round-two/techPark/apartments.png");
+      this.load.image('hotel', "assets/round-two/techPark/hotel.png");
+      this.load.image('buildings2', "assets/round-two/techPark/buildings2.png");
+      this.load.image('village', "assets/round-two/techPark/villagetileset.png");
+      this.load.image('auditorium', "assets/round-two/techPark/auditorium.png");
+      this.load.image('itcenter', "assets/round-two/techPark/itcenter.png");
+      this.load.image('station', "assets/round-two/techPark/train.png");
+
+      this.load.tilemapTiledJSON('testmap-techPark', 'assets/round-two/techPark/fpmap4final.json')
+
+      //loading charachter
+      this.load.atlas('hero', "assets/sprites/atlas/hero.png", "assets/sprites/atlas/hero.json");
+  }
+  
     update() {
       let keyA
       let keyS
