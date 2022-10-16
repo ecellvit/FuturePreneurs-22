@@ -19,7 +19,7 @@ export default function PhaserGame() {
   const [endTime, setEndTime] = useState();
   const router = useRouter();
 
-  const { hours, minutes, seconds } = useTimer("2022-10-15T18:45:33.927Z");
+  const { hours, minutes, seconds } = useTimer(endTime);
 
   const myCtx = useContext(myContext);
   const TEAM_ID = myCtx.teamId;
