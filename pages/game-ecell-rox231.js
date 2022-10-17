@@ -52,7 +52,7 @@ export default function PhaserGame() {
             console.log('time limit exceeded')
             // window.location = '/instructions'
           }
-          window.location = '/instructions'
+          window.location = '/instructions-ecell-rox231'
           toast.error(`${data.message}`, {
             position: "top-right",
             autoClose: 5000,
@@ -97,7 +97,7 @@ export default function PhaserGame() {
           .then((data) => {
             if (data.error?.errorCode) {
               if (data.error?.errorCode === 21) {
-                window.location = '/instructions'
+                window.location = '/instructions-ecell-rox231'
               }
               toast.error(`${data.message}`, {
                 position: "top-right",
@@ -113,7 +113,7 @@ export default function PhaserGame() {
             console.log(data);
           })
       }
-      window.location = "/instructions"
+      window.location = "/instructions-ecell-rox231"
     }
   }, [seconds])
 

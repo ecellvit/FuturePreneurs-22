@@ -42,7 +42,7 @@ export default function Round3() {
         .then((data) => {
           if (data.error?.errorCode) {
             // //console.log(data.error.errorCode);
-            window.location = "/instructions";
+            window.location = "/instructions-ecell-rox231";
             toast.error(`${data.message}`, {
               position: "top-right",
               autoClose: 5000,
@@ -66,7 +66,7 @@ export default function Round3() {
 
   useEffect(() => {
     if (hours <= 0 & minutes <= 0 & seconds <= 0) {
-      window.location = "/instructions"
+      window.location = "/instructions-ecell-rox231"
     }
   }, [seconds])
 
