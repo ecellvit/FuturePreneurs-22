@@ -63,7 +63,7 @@ function Round21Page() {
         .then((data) => {
           console.log('GET data round 21')
           console.log(data)
-          setcurrRound(data)
+          setcurrRound(data.currentRound)
         })
 
         .catch((error) => {
@@ -94,7 +94,7 @@ function Round21Page() {
         .then((data) => {
           console.log('POST data round 21')
           console.log(data)
-          setcurrRound(data)
+          setcurrRound(data.currentRound)
         })
     }
   }
