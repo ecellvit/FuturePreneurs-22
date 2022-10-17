@@ -39,13 +39,13 @@
 }
 
 .flexMid .headerMid {
-  margin-top: 10px;
   position: relative;
   left: 6px;
+  top: 30px;
   font-style: normal;
+  align-self: center;
   font-weight: 400;
-  font-size: 7px;
-  line-height: 86.02%;
+  font-size: 15px;
   letter-spacing: 0.435em;
 }
 

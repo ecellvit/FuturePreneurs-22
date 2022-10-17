@@ -10,6 +10,8 @@ import myContext from "../../store/myContext";
 import { AnimatePresence, motion } from "framer-motion";
 import Modal from "../modal";
 import styles1 from "../../styles/Modal.module.css";
+import { useRouter } from "next/router.js";
+import CardComponent from "../CardComponent";
 
 const LeaderDashboard = ({
   teamData,
@@ -17,6 +19,7 @@ const LeaderDashboard = ({
   teamToken,
   handleMemberRemove,
 }) => {
+  const router = useRouter();
   const [modalOpen, setModalOpen] = useState(false);
 
   const close = () => setModalOpen(false);
@@ -88,6 +91,7 @@ const LeaderDashboard = ({
     }
   };
 
+
   return (
     <div>
       <div className={styles.team_member_section}>
@@ -95,15 +99,15 @@ const LeaderDashboard = ({
           <p className={styles.team_name}>
             Team Name - {teamData?.teamId?.teamName}
           </p>
-          <h2 className={styles.invite_link_container}>
-            {/* <label className={styles.label}>Team Link:</label> */}
-            {/* <input
+          {/* <h2 className={styles.invite_link_container}>
+            <label className={styles.label}>Team Link:</label>
+            <input
               type="text"
               value={`https://fp.ecellvit.com/join-team-link/${teamToken}`}
               placeholder="Type some text here"
               className={styles.input}
               readOnly
-            /> */}
+            />
             <CopyToClipboard
               text={`https://fp.ecellvit.com/join-team-link/${teamToken}`}
               onCopy={onCopyText}
@@ -117,7 +121,34 @@ const LeaderDashboard = ({
                 </button>
               </div>
             </CopyToClipboard>
-          </h2>
+          </h2> */}
+          {teamData?.teamId?.isTeamQualified ? (
+            <>
+              <div className={styles.congoContainer}>
+                <span className={`${styles.congo} `}>Congratulations!!</span>
+                <span className={styles.emoji}>🎉</span>
+              </div>
+              <div className={styles.isQualified}>
+                <button className={`${styles.btnCopy} ${styles.glow_on_hover}`}>
+                  Congratulations on qualifying for the final game day of
+                  Futurepreneurs 8.0!
+                  <br />
+                  <br /> The team leaders will soon be contacted by our team!
+                </button>
+              </div>
+            </>
+          ) : (
+            <div className={styles.isQualified}>
+              <button className={`${styles.btnCopy}`}>
+                We&apos;re sorry you didn&apos;t make the cut, it was a tough
+                competition!
+                <br />
+                <br />
+                We thank you for attending Futurepreneurs 8.0 and hope to see
+                you again at our future events.
+              </button>
+            </div>
+          )}
           <div className={`${styles.team_row} ${styles.align_centre}`}>
             {teamData?.teamId?.members?.map((team) => {
               return (
@@ -134,14 +165,14 @@ const LeaderDashboard = ({
               );
             })}
           </div>
-          <motion.button
+          {/* <motion.button
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             className={`${styles1["save-button"]} ${styles1["button"]} ${styles.delete}`}
             onClick={() => (modalOpen ? close() : open())}
           >
             Delete Team
-          </motion.button>
+          </motion.button> */}
           <AnimatePresence
             initial={false}
             exitBeforeEnter={true}
@@ -158,20 +189,14 @@ const LeaderDashboard = ({
               />
             )}
           </AnimatePresence>
-          <div className={styles.invite_link_container}>
-            <div className="copy-area">
-              <button
-                className={`${styles.btngroup} ${styles.glow_on_hover}`}
-                onClick={() =>
-                  openInNewTab(
-                    "https://chat.whatsapp.com/IPrALdIYME77EV3vWdL5zG"
-                  )
-                }
-              >
-                Join WhatsApp Group
-              </button>
-            </div>
-          </div>
+          {/* <div className={styles.invite_link_container}>
+          <CardComponent 
+           teamId={teamData?.teamId?._id}
+           round={"game"}
+            intro={"Read through all the instructions carefully as this will be vital for your performance in the quiz."} 
+            para1={"It is that time now where you will be starting your own business.The following rounds will take you on an enthusing journey where you will learn the ins and outs of building one's own business. You will tackle different situations, by realizing and applying the concepts that you learn along the way. So get ready to take off on an adventure like never before. Get ready to ideate, innovate, actuate & learn to breed business from one of the best in business!!"}
+            />
+          </div> */}
         </div>
       </div>
     </div>

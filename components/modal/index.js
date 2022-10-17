@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import Backdrop from "../backdrop/index";
 import styles from "../../styles/Modal.module.css"
+import { useEffect } from "react";
 const dropIn = {
     hidden: {
         y: "-100vh",
@@ -23,13 +24,23 @@ const dropIn = {
 };
 
 
-const Modal = ({ handleClose, text, text1, text2, deleteTeam }) => {
+const Modal = ({ handleClose, text, text1, text2, text2func }) => {
+
+    useEffect(() => {
+        const close = (e) => {
+            if (e.key === "Escape") {
+                handleClose();
+            }
+        }
+        window.addEventListener('keydown', close)
+        return () => window.removeEventListener('keydown', close)
+    }, [])
 
     return (
         <Backdrop onClick={handleClose}>
             <motion.div
                 onClick={(e) => e.stopPropagation()}
-                className={`${styles["modal"]} ${styles["orange-gradient"]}`}
+                className={`${styles["modal"]} ${styles["green-gradient"]}`}
                 variants={dropIn}
                 initial="hidden"
                 animate="visible"
@@ -40,8 +51,8 @@ const Modal = ({ handleClose, text, text1, text2, deleteTeam }) => {
                 <h4>{text1}</h4>
                 <button
                     className={`${styles["button"]} ${styles["close-button"]}`}
-                    onClick={deleteTeam}
-                    style={{marginLeft:"15vw"}}
+                    onClick={text2func}
+                    style={{ marginLeft: "15vw" }}
                 >
                     {text2}
                 </button>

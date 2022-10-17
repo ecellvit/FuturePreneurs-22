@@ -4,8 +4,73 @@
   background-color: #070f0f;
   color: #ffff;
   font-family: "Poppins", sans-serif;
+  
+}
+.instructions{
+ font-size:1rem;
 }
 
+.start_btn {
+ 
+ margin-left:auto;
+ width:10rem;
+  cursor: pointer;
+}
+
+.image {
+  overflow: hidden;
+  max-width: 100%;
+
+}
+
+
+.btn_txt {
+  display: block;
+  margin: -15% 0px auto auto;
+  padding: 0px 0px 0px 40px;
+  background-color: transparent;
+}
+
+.w_button {
+  display: inline-block;
+  padding: 9px 15px;
+  background-color: #3898ec;
+  color: white;
+  border: 0;
+  line-height: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: 0;
+}
+
+.text_block{
+  padding-top:1rem;
+  text-align:center;
+}
+
+.round_instruction{
+  padding-top:3rem;
+  padding-left:1rem;
+  padding-right:1rem;
+}
+
+.cardbodyContainer{
+  background-color:#070f0f;
+  min-height:40rem;
+  margin:auto;
+  color:#ffff;
+  padding-left:2rem;
+  padding-right:2rem;
+
+}
+.cardbody{
+  background-color:#070f0f;
+  width:100%;
+}
+
+.cardHeading{
+  font-size:2.5rem;
+}
 .team_member_section_wrapper {
   left: 0px;
   top: 0px;
@@ -105,7 +170,7 @@
   background: transparent;
 }
 
-.glow_on_hover:hover:before {
+.glow_on_hover:before {
   opacity: 1;
 }
 
@@ -133,6 +198,42 @@
   }
 }
 
+.isQualified {
+  display: block;
+  /* / margin: 0px auto 70px; */
+  margin-bottom: 2rem;
+  justify-content: center;
+  text-align: center;
+  font-size: 1em;
+}
+
+.congo {
+  display: block;
+
+  margin-top: -1rem;
+  padding: 0.5rem;
+  padding-bottom: 2rem;
+  justify-content: center;
+  text-align: center;
+  font-size: 2em;
+  font-weight: bold;
+  background: linear-gradient(to right, #f32170, #ff6b08, #cf23cf, #eedd44);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  height: 2rem;
+}
+
+.congoContainer {
+  display: flex;
+  justify-content: center;
+  align-items: centre;
+}
+
+.emoji {
+  font-size: 2rem;
+  padding-bottom: 2rem;
+  margin-top: -0.8rem;
+}
 .member_name {
   margin-top: 0px;
   margin-bottom: 10px;
@@ -146,7 +247,7 @@
   padding-top: 40px;
   padding-bottom: 10px;
   justify-content: center;
-  font-size:1rem;
+  font-size: 1rem;
 }
 
 .team_row {
@@ -159,11 +260,11 @@
   align-content: stretch;
 }
 
-.btngroup{
-  width:15rem;
-  margin-top:5rem;
-  margin-bottom:1rem;
-  font-size:1rem;
+.btngroup {
+  width: 15rem;
+  margin-top: 5rem;
+  margin-bottom: 1rem;
+  font-size: 1rem;
 }
 
 .w_button {
@@ -196,7 +297,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center;
+  
 }
 
 .centre-align.bottom_margin {
@@ -215,7 +316,7 @@
   flex-wrap: nowrap;
   align-items: flex-start;
   flex: 0 auto;
-  margin-bottom:5rem;
+  margin-bottom: 5rem;
 }
 
 .col.lg4 {
@@ -311,7 +412,7 @@
   display: block;
   overflow: hidden;
   max-width: 302px;
-  text-align: center;
+ 
   -o-object-fit: fill;
   object-fit: fill;
 }
@@ -417,7 +518,7 @@
 
 @media screen and (max-width: 479px) {
   .member_container {
-    font-size:.8rem;
+    font-size: 0.8rem;
     min-width: 270px;
     margin-right: 40px;
     margin-left: 40px;
@@ -427,7 +528,7 @@
     align-content: stretch;
   }
 
-  .btnCopy{
+  .btnCopy {
     display: block;
   }
 
@@ -575,7 +676,7 @@
   color: #5b3acc;
   font-size: 27px;
   font-weight: 400;
-  text-align: center;
+
   color: #ffff;
 }
 
@@ -587,6 +688,7 @@
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.125);
   padding: 5px 30px 8px 30px;
+  height: 8rem;
 }
 
 .invite_link_a {
@@ -594,16 +696,15 @@
 }
 
 @media screen and (max-width: 479px) {
-
-  .delete{
-    margin-left:-4.2rem;
-    margin-top:1rem;
+  .delete {
+    margin-left: -4.2rem;
+    margin-top: 1rem;
   }
   .invite_link_container {
-    display:flex;
+    display: flex;
     overflow: hidden;
     font-size: 1rem;
-    width:18rem;
+    width: 18rem;
     flex-direction: column;
     align-items: center;
     /* line-height: 28px; */
@@ -612,8 +713,11 @@
   .btnCopy {
     /* height: 2.2rem;
     width: 3rem; */
-    margin-top:1rem;
-    margin-bottom:1rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    height: fit-content;
+    margin-bottom: 5rem;
+    padding: 30px 0px;
   }
 
   .member_container {
@@ -622,7 +726,7 @@
 
   .team_name {
     font-size: 2rem;
-    margin-bottom:4rem;
+    margin-bottom: 2rem;
     line-height: 40px;
   }
 
@@ -631,7 +735,6 @@
     width: 10rem;
     height: 2rem;
   }
-
 }
 
 .input {

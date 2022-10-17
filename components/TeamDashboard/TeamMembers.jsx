@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AnimatePresence, motion } from "framer-motion";
 import Modal from "../modal";
+import { useRouter } from "next/router.js";
 
 const TeamMembers = ({ teamData, handleMemberLeave }) => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -15,22 +16,23 @@ const TeamMembers = ({ teamData, handleMemberLeave }) => {
   const open = () => setModalOpen(true);
 
   const [teamId, setTeamId] = useState(teamData?.teamId?._id);
-  const { data: session } = useSession()
+  const { data: session } = useSession();
+  const router = useRouter();
 
   const openInNewTab = (url) => {
-    window.open(url, '_blank', 'noopener,noreferrer')
-  }
+    window.open(url, "_blank", "noopener,noreferrer");
+  };
 
   const handleLeave = () => {
     fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/user/leave/${teamId}`, {
-      method: 'PATCH',
+      method: "PATCH",
       body: JSON.stringify({
         userId: `${teamData?._id}`,
       }),
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
         Authorization: `Bearer ${session.accessTokenBackend}`,
-        'Access-Control-Allow-Origin': '*',
+        "Access-Control-Allow-Origin": "*",
       },
     })
       .then((data) => data.json())
@@ -38,10 +40,10 @@ const TeamMembers = ({ teamData, handleMemberLeave }) => {
         // console.log(data)
         toast.success(`${data.message}`, {
           position: toast.POSITION.TOP_RIGHT,
-        })
-        handleMemberLeave()
-      })
-  }
+        });
+        handleMemberLeave();
+      });
+  };
 
   return (
     <div className={styles.team_member_section}>
@@ -55,6 +57,34 @@ const TeamMembers = ({ teamData, handleMemberLeave }) => {
         >
           Leave Team
         </button> */}
+
+        {teamData?.teamId?.isTeamQualified ? (
+          <>
+            <div className={styles.congoContainer}>
+                <span className={`${styles.congo} `}>Congratulations!!</span>
+                <span className={styles.emoji}>🎉</span>
+              </div>
+              <div className={styles.isQualified}>
+                <button className={`${styles.btnCopy} ${styles.glow_on_hover}`}>
+                  Congratulations on qualifying for the final game day of
+                  Futurepreneurs 8.0!
+                  <br />
+                  <br /> The team leaders will soon be contacted by our team!
+                </button>
+              </div>
+          </>
+        ) : (
+          <div className={styles.isQualified}>
+            <button className={`${styles.btnCopy}`}>
+                We&apos;re sorry you didn&apos;t make the cut, it was a tough
+                competition!
+                <br />
+                <br />
+                We thank you for attending Futurepreneurs 8.0 and hope to see
+                you again at our future events.
+              </button>
+          </div>
+        )}
 
         <div className={`${styles.team_row} ${styles.align_centre}`}>
           {teamData?.teamId?.members?.map((team) => {
@@ -71,14 +101,14 @@ const TeamMembers = ({ teamData, handleMemberLeave }) => {
             );
           })}
         </div>
-        <motion.button
+        {/* <motion.button
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           className={`${styles1["save-button"]} ${styles1["button"]}`}
           onClick={() => (modalOpen ? close() : open())}
         >
           Leave Team
-        </motion.button>
+        </motion.button> */}
         <AnimatePresence
           initial={false}
           exitBeforeEnter={true}
@@ -96,18 +126,18 @@ const TeamMembers = ({ teamData, handleMemberLeave }) => {
           )}
         </AnimatePresence>
       </div>
-      <div className={styles.invite_link_container}>
+      {/* <div className={styles.invite_link_container}>
         <div className="copy-area">
           <button
             className={`${styles.btngroup} ${styles.glow_on_hover}`}
             onClick={() =>
-              openInNewTab('https://chat.whatsapp.com/LNZVaG2PndRFuQFyCJUDGD')
+              openInNewTab('https://chat.whatsapp.com/HRf6GIMOogZ1iOu43naBvg')
             }
           >
-            Join WhatsApp Group
+            Attempt Quiz
           </button>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
