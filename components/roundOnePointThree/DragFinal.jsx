@@ -7,7 +7,7 @@ import { useContext } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import { useRouter } from "next/router";
 
-function DragFinal() {
+function DragFinal({ setEndTime }) {
   const [itemsFromBackend, setItemsFromBackend] = useState([]);
   const [itemsFromBacken, setItemsFromBacken] = useState([]);
   const [bal, setbal] = useState();
@@ -42,8 +42,9 @@ function DragFinal() {
         }
       });
   }
+
   useEffect(() => {
-    if (session) {
+    if (session && TEAM_ID) {
       setIsLoading(true);
       fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/team/roundone/${TEAM_ID}`, {
         method: "GET",
@@ -55,7 +56,6 @@ function DragFinal() {
       })
         .then((data) => data.json())
         .then((data) => {
-          console.log("GetMap", data);
           if (data.mapChoice === 0) {
             setimgurl(TEMPLE_URL);
           } else if (data.mapChoice === 1) {
@@ -65,7 +65,7 @@ function DragFinal() {
           }
         });
     }
-  }, [session]);
+  }, [session, TEAM_ID]);
 
   useEffect(() => {
     if (session) {
@@ -83,32 +83,24 @@ function DragFinal() {
       )
         .then((data) => data.json())
         .then((data) => {
-          console.log(data);
+          if (data.error?.errorCode) {
+            // //console.log(data.error.errorCode);
+            window.location = "/instructions-ecell-rox231";
+            toast.error(`${data.message}`, {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
+            return;
+          }
           setbal(data.balance);
-          // for (let i = 0; i < data.roundThreeData.length / 2; i++) {
-          //   setItemsFromBackend((prevData) => {
-          //     return [...prevData, { ...data.roundThreeData[i], isLeft: true }];
-          //   });
-          // }
-          // for (
-          //   let i = data.roundThreeData.length / 2 + 1;
-          //   i < data.roundThreeData.length;
-          //   i++
-          // ) {
-          //   setItemsFromBacken((prevData) => {
-          //     return [...prevData, { ...data.roundThreeData[i], isLeft: false }];
-          //   });
-          // }
-          console.log(data.roundThreeData);
+          setEndTime(data.endTime);
           setItemsFromBackend(data?.roundThreeData?.slice(0, 15));
-          // for (let i = 0; i < itemsFromBackend.length; i++) {
-          //   itemsFromBackend[i] = { ...itemsFromBackend[i], isLeft: true };
-          // }
           setItemsFromBacken(data?.roundThreeData?.slice(15, 30));
-          // for (let i = 0; i < itemsFromBacken.length; i++) {
-          //   itemsFromBacken[i] = { ...itemsFromBacken[i], isLeft: false };
-          // }
-
           setIsLoading(false);
         });
     }
@@ -266,67 +258,6 @@ function DragFinal() {
               return;
             }
           } else {
-            // if (
-            //   destination.droppableId === "1" ||
-            //   destination.droppableId === "12"
-            // ) {
-            //   if (source.droppableId === "1" || source.droppableId === "12") {
-            //   } else {
-            //     const [removed] = sourceItems.splice(source.index, 1);
-            //     if (removed.isLeft === true) {
-            //       console.log(destination);
-            //       destination.droppableId = 1;
-            //       destination.index = 4;
-            //       destColumn = columns[destination.droppableId];
-            //       destItems = [...destColumn.items];
-            //     } else {
-            //       console.log(destination);
-
-            //       destination.droppableId = 12;
-            //       destination.index = 5;
-            //       destColumn = columns[destination.droppableId];
-            //       destItems = [...destColumn.items];
-            //     }
-            //     // setbal(bal + removed.price);
-
-            //     destItems.splice(destination.index, 0, removed);
-            //     console.log(source, destination, " Yeh wala hua 3");
-
-            //     fetch(
-            //       `${process.env.NEXT_PUBLIC_SERVER}/api/team/roundthree/${TEAM_ID}`,
-            //       {
-            //         method: "POST",
-            //         headers: {
-            //           "Content-Type": "application/json",
-            //           Authorization: `Bearer ${session.accessTokenBackend}`,
-            //           "Access-Control-Allow-Origin": "*",
-            //         },
-            //         body: JSON.stringify({
-            //           item: removed.item,
-            //           operation: 1,
-            //         }),
-            //       }
-            //     )
-            //       .then((data) => data.json())
-            //       .then((data) => {
-            //         setbal(data.availableBalance);
-            //       });
-            //     setColumns({
-            //       ...columns,
-            //       [source.droppableId]: {
-            //         ...sourceColumn,
-            //         items: sourceItems,
-            //       },
-            //       [destination.droppableId]: {
-            //         ...destColumn,
-            //         items: destItems,
-            //       },
-            //     });
-            //   }
-
-            //   return;
-            // }
-            console.log("Yeh hogaya");
             const [re] = destItems.splice(0, 1);
             console.log(re);
             const [removed] = sourceItems.splice(source.index, 1);
