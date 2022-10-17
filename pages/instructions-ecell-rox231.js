@@ -92,6 +92,7 @@ export default function Instructions() {
 
   return (
     <div className={styles.cardbody}>
+    <span style={{ whiteSpace: "pre-line", justifyContent:'left'}}>
       {
         (round === "game") && <CardComponent heading={"game"} teamId={teamId} round={round}
           intro={`
@@ -147,6 +148,7 @@ export default function Instructions() {
       {
         (round === "round3") && <CardComponent heading={"three"} teamId={teamId} round={round} />
       }
+      </span>
     </div>
   )
 }
