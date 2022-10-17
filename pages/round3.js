@@ -9,7 +9,6 @@ import useTimer from "../hooks/useTimer";
 import { useContext } from "react";
 import myContext from "../store/myContext";
 import styles from "../styles/MainQuiz.module.css";
-
 export default function Round3() {
   const { status } = useSession();
   const { data: session } = useSession();

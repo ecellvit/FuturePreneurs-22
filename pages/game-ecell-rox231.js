@@ -129,8 +129,8 @@ export default function PhaserGame() {
         type: Phaser.AUTO,
         title: "round-one",
         parent: "game-content",
-        width: window.innerWidth / 2,
-        height: window.innerHeight / 2,
+        width: 500,
+        height: 500,
         pixelArt: true,
         scale: {
           zoom: 2,
