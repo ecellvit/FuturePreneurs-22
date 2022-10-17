@@ -5,7 +5,7 @@ import MG from "./MG.jpeg";
 import ELM from "./ELM.jpeg";
 import WF from "./WF.png";
 import WSS from "./WSS.jpg";
-import TIIM from "./TIIM.JPG";
+import TIIM from "./TIIM.jpg";
 import BN from "./BN.png";
 import ES from "./ES.png";
 import IDP from "./IDP.jpg";
