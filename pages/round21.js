@@ -65,7 +65,6 @@ function Round21Page() {
           console.log(data)
           setcurrRound(data.currentRound)
         })
-
         .catch((error) => {
           console.error(
             'There has been a problem with your fetch operation:',
@@ -73,10 +72,10 @@ function Round21Page() {
           )
         })
     }
-  }, [session])
+  }, [session,teamId])
 
   const handleSubmit = () => {
-    if (session) {
+    if (session && teamId) {
       fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/team/nextRounds/${teamId}`, {
         method: 'POST',
         headers: {
