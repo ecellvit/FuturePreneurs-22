@@ -6,13 +6,19 @@ import { useSession } from "next-auth/react";
 import { useContext } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import { useRouter } from "next/router";
-
+import { AnimatePresence, motion } from "framer-motion";
+import Modal from "../modal";
 function DragFinal() {
   const [itemsFromBackend, setItemsFromBackend] = useState([]);
   const [itemsFromBacken, setItemsFromBacken] = useState([]);
   const [bal, setbal] = useState();
   const [imgurl, setimgurl] = useState();
   const { data: session } = useSession();
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const close = () => setModalOpen(false);
+  const open = () => setModalOpen(true);
+
   const router = useRouter();
   const TECH_URL =
     "https://ik.imagekit.io/nitishr/techpark_8mD6q0Qzf.png?ik-sdk-version=javascript-1.4.3&updatedAt=1666017275929";
@@ -22,6 +28,7 @@ function DragFinal() {
     "https://ik.imagekit.io/nitishr/pilgrimage_Wkk_Fm5ac.png?ik-sdk-version=javascript-1.4.3&updatedAt=1666017087306";
 
   const [isLoading, setIsLoading] = useState(false);
+
   function Submit() {
     fetch(
       `${process.env.NEXT_PUBLIC_SERVER}/api/team/roundthree/submit/${TEAM_ID}`,
@@ -42,6 +49,7 @@ function DragFinal() {
         }
       });
   }
+
   useEffect(() => {
     if (session) {
       setIsLoading(true);
@@ -634,7 +642,7 @@ function DragFinal() {
                     </>
                   );
                 })}
-              <div
+              <motion.div
                 className={`${styles.colopy} ${styles.mid}`}
                 style={{ border: "none" }}
               >
@@ -644,12 +652,31 @@ function DragFinal() {
                   sizes="(max-width: 479px) 31vw, (max-width: 1919px) 145px, 290px"
                   alt=""
                   className={styles.image}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
                   // style={{ display: isLoading ? "none" : "block" }}
-                  onClick={() => {
-                    Submit();
-                  }}
+                  onClick={() => (modalOpen ? close() : open())}
+                  // onClick={() => {
+                  //   Submit();
+                  // }}
                 />
-              </div>
+              </motion.div>
+              <AnimatePresence
+                initial={false}
+                exitBeforeEnter={true}
+                onExitComplete={() => null}
+              >
+                {modalOpen && (
+                  <Modal
+                    modalOpen={modalOpen}
+                    handleClose={close}
+                    text={"Are you sure you want to finish round 1.3?"}
+                    text1={"This action can't be reversed!!"}
+                    text2={"Yes I'm sure"}
+                    text2func={Submit}
+                  />
+                )}
+              </AnimatePresence>
             </div>
             {Object.entries(columns)
               .slice(11, 12)
@@ -714,6 +741,7 @@ function DragFinal() {
               })}
           </DragDropContext>
         </div>
+        ;
       </div>
     </>
   );
