@@ -79,7 +79,7 @@ function Round21Page() {
               progress: undefined,
             })
             if (data.message === "Previous Rounds Not Completed") {
-              router.push('/instructions-ecell-rox231')
+              router.push('/instructions-fp-eight-ecell')
             }
             return
           }

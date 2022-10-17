@@ -45,7 +45,6 @@ function DragFinal({ setEndTime }) {
     )
       .then((data) => data.json())
       .then((data) => {
-        console.log(data);
         if (data.message == "Round Three Submitted successfully.") {
           router.push("/round21");
         }
@@ -106,7 +105,7 @@ function DragFinal({ setEndTime }) {
         .then((data) => data.json())
         .then((data) => {
           if (data.error?.errorCode) {
-            window.location = "/instructions-ecell-rox231";
+            window.location = "/instructions-fp-eight-ecell";
             toast.error(`${data.message}`, {
               position: "top-right",
               autoClose: 5000,
@@ -193,11 +192,8 @@ function DragFinal({ setEndTime }) {
         //if user tries to put more than 1 ittem in the center containers, then swap the elements
         if (destItems.length !== 0) {
           if (source.droppableId == 1 || source.droppableId == 12) {
-            console.log("Yeh wala hua 1");
             const [re] = destItems.splice(0, 1);
-            console.log(re);
             const [removed] = sourceItems.splice(source.index, 1);
-            console.log(removed);
             sourceItems.splice(destination.index, 0, re);
             if (bal + re.price >= removed.price) {
               fetch(
@@ -238,8 +234,6 @@ function DragFinal({ setEndTime }) {
                       setbal(data.availableBalance);
                     });
                 });
-              console.log(bal);
-              console.log(removed);
 
               setColumns({
                 ...columns,
@@ -277,9 +271,7 @@ function DragFinal({ setEndTime }) {
             }
           } else {
             const [re] = destItems.splice(0, 1);
-            console.log(re);
             const [removed] = sourceItems.splice(source.index, 1);
-            console.log(removed);
             sourceItems.splice(destination.index, 0, re);
 
             destItems.splice(destination.index, 0, removed);
@@ -304,7 +296,6 @@ function DragFinal({ setEndTime }) {
         } else {
           const [removed] = sourceItems.splice(source.index, 1);
           if (removed.isLeft === true) {
-            console.log(destination);
             destination.droppableId = 1;
             destination.index = 0;
             destColumn = columns[destination.droppableId];
@@ -315,8 +306,6 @@ function DragFinal({ setEndTime }) {
             // destColumn = columns[destination.droppableId];
             // destItems = [...destColumn.items];
           } else {
-            console.log(destination);
-
             destination.droppableId = 12;
             destination.index = 0;
             destColumn = columns[destination.droppableId];
@@ -325,7 +314,7 @@ function DragFinal({ setEndTime }) {
           // setbal(bal + removed.price);
 
           destItems.splice(destination.index, 0, removed);
-          console.log(source, destination, " Yeh wala hua 3");
+          // console.log(source, destination, " Yeh wala hua 3");
 
           fetch(
             `${process.env.NEXT_PUBLIC_SERVER}/api/team/roundthree/${TEAM_ID}`,

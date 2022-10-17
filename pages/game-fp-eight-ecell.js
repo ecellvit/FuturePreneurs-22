@@ -24,7 +24,6 @@ export default function PhaserGame() {
 
   const myCtx = useContext(myContext);
   const TEAM_ID = myCtx.teamId;
-  console.log(TEAM_ID)
 
   useEffect(() => {
     if (session) {
@@ -52,7 +51,7 @@ export default function PhaserGame() {
             console.log('time limit exceeded')
             // window.location = '/instructions'
           }
-          window.location = '/instructions-ecell-rox231'
+          window.location = '/instructions-fp-eight-ecell'
           toast.error(`${data.message}`, {
             position: "top-right",
             autoClose: 5000,
@@ -66,7 +65,6 @@ export default function PhaserGame() {
         } else {
           setEndTime(data.endTime);
         }
-        console.log(data)
 
       }).catch(e => {
         console.log(e);
@@ -79,7 +77,6 @@ export default function PhaserGame() {
 
   useEffect(() => {
     if (hours <= 0 & minutes <= 0 & seconds <= 0) {
-      console.log("time done")
       if (session) { // send 5 = null
         fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/team/roundone/${TEAM_ID}`, {
           method: 'POST',
@@ -97,7 +94,7 @@ export default function PhaserGame() {
           .then((data) => {
             if (data.error?.errorCode) {
               if (data.error?.errorCode === 21) {
-                window.location = '/instructions-ecell-rox231'
+                window.location = '/instructions-fp-eight-ecell'
               }
               toast.error(`${data.message}`, {
                 position: "top-right",
@@ -110,10 +107,9 @@ export default function PhaserGame() {
               });
               return;
             }
-            console.log(data);
           })
       }
-      window.location = "/instructions-ecell-rox231"
+      window.location = "/instructions-fp-eight-ecell"
     }
   }, [seconds])
 
@@ -205,7 +201,7 @@ export default function PhaserGame() {
           return response.json();
         })
           .then((data) => {
-            window.location = '/instructions-ecell-rox231'
+            window.location = '/instructions-fp-eight-ecell'
           })
       }
     }

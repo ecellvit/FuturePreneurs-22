@@ -39,7 +39,6 @@ export default function Instructions() {
             return;
           }
           if (data.user.teamId) {
-            console.log(data.user.teamId._id, "yoyo");
             setTeamId(data.user.teamId._id);
             setIsLoading(false);
           }
@@ -69,9 +68,6 @@ export default function Instructions() {
           return response.json();
         })
         .then((data) => {
-          // setRound(data);
-          console.log("data round");
-          console.log(data);
           if (
             !data.hasRoundOneEnd &&
             !data.hasRoundTwoEnd &&

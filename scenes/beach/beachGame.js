@@ -35,7 +35,7 @@ export default class BeachScene extends Scene {
   }
 
   create() {
-    console.log(this.make)
+    // console.log(this.make)
     const map = this.make.tilemap({ key: 'testmap-beach' });
     map.addTilesetImage('buildings', 'buildings')
     map.addTilesetImage('beach', 'beach')

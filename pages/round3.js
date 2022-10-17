@@ -24,7 +24,7 @@ export default function Round3() {
 
   useEffect(() => {
     if ((hours <= 0) & (minutes <= 0) & (seconds <= 0)) {
-      window.location = "/instructions-ecell-rox231";
+      window.location = "/instructions-fp-eight-ecell";
     }
   }, [seconds]);
 
