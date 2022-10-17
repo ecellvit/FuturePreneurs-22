@@ -28,7 +28,7 @@ const Section6 = () => {
             justifyContent: "center",
           }}
         >
-          <a href="https://www.instagram.com/magizham_gardens/" target="_blank">
+          <a href="https://www.instagram.com/magizham_gardens/" target="_blank" rel="noreferrer">
             <Image src={MG} />
           </a>
         </div>
@@ -40,7 +40,7 @@ const Section6 = () => {
             justifyContent: "center",
           }}
         >
-          <a href="https://www.elearnmarkets.com/" target="_blank">
+          <a href="https://www.elearnmarkets.com/" target="_blank" rel="noreferrer">
             <Image src={ELM} />
           </a>
         </div>
@@ -51,7 +51,7 @@ const Section6 = () => {
             justifyContent: "center",
           }}
         >
-          <a href="https://www.wolfram.com/" target="_blank">
+          <a href="https://www.wolfram.com/" target="_blank" rel="noreferrer">
             <Image src={WF} />
           </a>
         </div>
@@ -62,7 +62,7 @@ const Section6 = () => {
             justifyContent: "center",
           }}
         >
-          <a href="https://wharfstreetstudios.com/" target="_blank">
+          <a href="https://wharfstreetstudios.com/" target="_blank" rel="noreferrer">
             <Image src={WSS} />
           </a>
         </div>
@@ -76,6 +76,7 @@ const Section6 = () => {
           <a
             href="https://www.barbequenation.com/"
             target="_blank"
+            rel="noreferrer"
             style={{
               display: "flex",
               justifyContent: "center",
@@ -94,6 +95,7 @@ const Section6 = () => {
           <a
             href="https://www.eatsure.com/"
             target="_blank"
+            rel="noreferrer"
             style={{
               display: "flex",
               justifyContent: "center",
@@ -130,6 +132,7 @@ const Section6 = () => {
           <a
             href="https://online.2iim.com/cat-exam-preparation-online-cat-coaching.shtml"
             target="_blank"
+            rel="noreferrer"
           >
             <Image src={TIIM} />
           </a>
@@ -142,7 +145,7 @@ const Section6 = () => {
           }}
         >
           {" "}
-          <a href="https://instagram.com/ve_sit_restaurant" target="_blank">
+          <a href="https://instagram.com/ve_sit_restaurant" target="_blank" rel="noreferrer">
             <Image src={VESIT} />
           </a>
         </div>
