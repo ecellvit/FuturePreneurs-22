@@ -99,16 +99,16 @@ const LeaderDashboard = ({
           <p className={styles.team_name}>
             Team Name - {teamData?.teamId?.teamName}
           </p>
-          <h2 className={styles.invite_link_container}>
-            {/* <label className={styles.label}>Team Link:</label> */}
-            {/* <input
+          {/* <h2 className={styles.invite_link_container}>
+            <label className={styles.label}>Team Link:</label>
+            <input
               type="text"
               value={`https://fp.ecellvit.com/join-team-link/${teamToken}`}
               placeholder="Type some text here"
               className={styles.input}
               readOnly
-            /> */}
-            {/* <CopyToClipboard
+            />
+            <CopyToClipboard
               text={`https://fp.ecellvit.com/join-team-link/${teamToken}`}
               onCopy={onCopyText}
             >
@@ -120,8 +120,35 @@ const LeaderDashboard = ({
                   Copy Invite Link
                 </button>
               </div>
-            </CopyToClipboard> */}
-          </h2>
+            </CopyToClipboard>
+          </h2> */}
+          {teamData?.teamId?.isTeamQualified ? (
+            <>
+              <div className={styles.congoContainer}>
+                <span className={`${styles.congo} `}>Congratulations!!</span>
+                <span className={styles.emoji}>🎉</span>
+              </div>
+              <div className={styles.isQualified}>
+                <button className={`${styles.btnCopy} ${styles.glow_on_hover}`}>
+                  Congratulations on qualifying for the final game day of
+                  Futurepreneurs 8.0!
+                  <br />
+                  <br /> The team leaders will soon be contacted by our team!
+                </button>
+              </div>
+            </>
+          ) : (
+            <div className={styles.isQualified}>
+              <button className={`${styles.btnCopy}`}>
+                We&apos;re sorry you didn&apos;t make the cut, it was a tough
+                competition!
+                <br />
+                <br />
+                We thank you for attending Futurepreneurs 8.0 and hope to see
+                you again at our future events.
+              </button>
+            </div>
+          )}
           <div className={`${styles.team_row} ${styles.align_centre}`}>
             {teamData?.teamId?.members?.map((team) => {
               return (

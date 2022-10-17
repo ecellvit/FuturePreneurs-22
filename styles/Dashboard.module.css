@@ -170,7 +170,7 @@
   background: transparent;
 }
 
-.glow_on_hover:hover:before {
+.glow_on_hover:before {
   opacity: 1;
 }
 
@@ -198,6 +198,42 @@
   }
 }
 
+.isQualified {
+  display: block;
+  /* / margin: 0px auto 70px; */
+  margin-bottom: 2rem;
+  justify-content: center;
+  text-align: center;
+  font-size: 1em;
+}
+
+.congo {
+  display: block;
+
+  margin-top: -1rem;
+  padding: 0.5rem;
+  padding-bottom: 2rem;
+  justify-content: center;
+  text-align: center;
+  font-size: 2em;
+  font-weight: bold;
+  background: linear-gradient(to right, #f32170, #ff6b08, #cf23cf, #eedd44);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  height: 2rem;
+}
+
+.congoContainer {
+  display: flex;
+  justify-content: center;
+  align-items: centre;
+}
+
+.emoji {
+  font-size: 2rem;
+  padding-bottom: 2rem;
+  margin-top: -0.8rem;
+}
 .member_name {
   margin-top: 0px;
   margin-bottom: 10px;
@@ -211,7 +247,7 @@
   padding-top: 40px;
   padding-bottom: 10px;
   justify-content: center;
-  font-size:1rem;
+  font-size: 1rem;
 }
 
 .team_row {
@@ -224,11 +260,11 @@
   align-content: stretch;
 }
 
-.btngroup{
-  width:15rem;
-  margin-top:5rem;
-  margin-bottom:1rem;
-  font-size:1rem;
+.btngroup {
+  width: 15rem;
+  margin-top: 5rem;
+  margin-bottom: 1rem;
+  font-size: 1rem;
 }
 
 .w_button {
@@ -280,7 +316,7 @@
   flex-wrap: nowrap;
   align-items: flex-start;
   flex: 0 auto;
-  margin-bottom:5rem;
+  margin-bottom: 5rem;
 }
 
 .col.lg4 {
@@ -482,7 +518,7 @@
 
 @media screen and (max-width: 479px) {
   .member_container {
-    font-size:.8rem;
+    font-size: 0.8rem;
     min-width: 270px;
     margin-right: 40px;
     margin-left: 40px;
@@ -492,7 +528,7 @@
     align-content: stretch;
   }
 
-  .btnCopy{
+  .btnCopy {
     display: block;
   }
 
@@ -652,6 +688,7 @@
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.125);
   padding: 5px 30px 8px 30px;
+  height: 8rem;
 }
 
 .invite_link_a {
@@ -659,16 +696,15 @@
 }
 
 @media screen and (max-width: 479px) {
-
-  .delete{
-    margin-left:-4.2rem;
-    margin-top:1rem;
+  .delete {
+    margin-left: -4.2rem;
+    margin-top: 1rem;
   }
   .invite_link_container {
-    display:flex;
+    display: flex;
     overflow: hidden;
     font-size: 1rem;
-    width:18rem;
+    width: 18rem;
     flex-direction: column;
     align-items: center;
     /* line-height: 28px; */
@@ -677,8 +713,11 @@
   .btnCopy {
     /* height: 2.2rem;
     width: 3rem; */
-    margin-top:1rem;
-    margin-bottom:1rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    height: fit-content;
+    margin-bottom: 5rem;
+    padding: 30px 0px;
   }
 
   .member_container {
@@ -687,7 +726,7 @@
 
   .team_name {
     font-size: 2rem;
-    margin-bottom:4rem;
+    margin-bottom: 2rem;
     line-height: 40px;
   }
 
@@ -696,7 +735,6 @@
     width: 10rem;
     height: 2rem;
   }
-
 }
 
 .input {
