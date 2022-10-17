@@ -119,7 +119,16 @@ export default function Instructions() {
         - Navigate to the landmark where you want to build your resort. \n
         - There you will be provided with a prompt to confirm your decision. \n
         - Once confirmed, you will not be allowed to navigate back. \n
-        - You have 7 minutes to finish this round. \n
+        - You have 7 minutes to finish this round. \n \n
+
+        Before you set up your resort, you decide to first research about Sapphire City and the tourists it receives annually. You refer to the data on the World Tourism Organization’s website to best strategize setting up your resort. \n
+
+        This is what you find - \n
+
+        - Sapphire City’s history dates back to the 1700s centered around the fight for a temple. Many battles were fought between large kingdoms to conquer the Sapphire Temple as it was fabled that the Kingdom that would control the temple would gain immense prosperity and the people that visited the temple would be granted peace and protection always. Owing to its history, it is most natural that Sapphire City attracts a large number of pilgrims. This number only grows during the time of temple festivities in the months of November and December. \n
+        - Sapphire City is relatively large and has a land area of almost 2900 square kilometers including the coastline, the mountainous temple region and the tech park. Sapphire City also has a large green cover and a great healthcare and education system to cater to its population. \n
+        - Sapphire City in a bid to join the globalizing world also boasts of a Tech Park. The newly developed Tech Park in Sapphire City attracts many businesspersons due to its state-of-the-art architecture and its perfect placement. Businesspersons visit Sapphire City in large numbers throughout the year and this only grows during the annual conferences in the months of June and July. \n
+        - Famous for its Sapphire Beach, Sapphire City naturally attracts a large number of tourists for its water activities from surfing and snorkeling to the more advanced scuba diving. Sapphire Beach is a holiday hotspot not only for students from neighbouring cities but also a relaxing option for families alike. Sapphire City, during the summer months of April and May, sees a hike in the number of tourists visiting Sapphire City for its beach.
          `}
 
         />
