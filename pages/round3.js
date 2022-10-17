@@ -4,13 +4,11 @@ import { useEffect } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import DragFinal from "../components/roundOnePointThree/DragFinal";
-import NavigationBar from "../components/NavigationBar";
 import { useState } from "react";
 import useTimer from "../hooks/useTimer";
 import { useContext } from "react";
 import myContext from "../store/myContext";
 import styles from "../styles/MainQuiz.module.css";
-
 export default function Round3() {
   const { status } = useSession();
   const { data: session } = useSession();
@@ -65,11 +63,10 @@ export default function Round3() {
   }, [session?.user.id, TEAM_ID]);
 
   useEffect(() => {
-    if (hours <= 0 & minutes <= 0 & seconds <= 0) {
-      window.location = "/instructions-ecell-rox231"
+    if ((hours <= 0) & (minutes <= 0) & (seconds <= 0)) {
+      window.location = "/instructions-ecell-rox231";
     }
-  }, [seconds])
-
+  }, [seconds]);
 
   // redirects to home if user not logged in
   useEffect(() => {
@@ -89,7 +86,9 @@ export default function Round3() {
           <div className={styles.starting}>
             <div className={styles.btn}>
               <a href="#" className={`${styles.button_2} ${styles.w_button}`}>
-                {hours.toString().length < 2 ? "0" + hours : hours}:{minutes.toString().length < 2 ? "0" + minutes : minutes}:{seconds.toString().length < 2 ? "0" + seconds : seconds}
+                {hours.toString().length < 2 ? "0" + hours : hours}:
+                {minutes.toString().length < 2 ? "0" + minutes : minutes}:
+                {seconds.toString().length < 2 ? "0" + seconds : seconds}
               </a>
             </div>
           </div>
