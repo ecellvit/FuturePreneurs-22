@@ -11,8 +11,15 @@ function DragFinal() {
   const [itemsFromBackend, setItemsFromBackend] = useState([]);
   const [itemsFromBacken, setItemsFromBacken] = useState([]);
   const [bal, setbal] = useState();
+  const [imgurl, setimgurl] = useState();
   const { data: session } = useSession();
   const router = useRouter();
+  const TECH_URL =
+    "https://ik.imagekit.io/nitishr/techpark_8mD6q0Qzf.png?ik-sdk-version=javascript-1.4.3&updatedAt=1666017275929";
+  const BEACH_URL =
+    "https://ik.imagekit.io/nitishr/beach_-Le24RbyJ.png?ik-sdk-version=javascript-1.4.3&updatedAt=1666017256335";
+  const TEMPLE_URL =
+    "https://ik.imagekit.io/nitishr/pilgrimage_Wkk_Fm5ac.png?ik-sdk-version=javascript-1.4.3&updatedAt=1666017087306";
 
   const [isLoading, setIsLoading] = useState(false);
   function Submit() {
@@ -35,6 +42,30 @@ function DragFinal() {
         }
       });
   }
+  useEffect(() => {
+    if (session) {
+      setIsLoading(true);
+      fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/team/roundone/${TEAM_ID}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${session.accessTokenBackend}`,
+          "Access-Control-Allow-Origin": "*",
+        },
+      })
+        .then((data) => data.json())
+        .then((data) => {
+          console.log("GetMap", data);
+          if (data.mapChoice === 0) {
+            setimgurl(TEMPLE_URL);
+          } else if (data.mapChoice === 1) {
+            setimgurl(BEACH_URL);
+          } else {
+            setimgurl(TECH_URL);
+          }
+        });
+    }
+  }, [session]);
 
   useEffect(() => {
     if (session) {
@@ -69,11 +100,11 @@ function DragFinal() {
           //   });
           // }
           console.log(data.roundThreeData);
-          setItemsFromBackend(data.roundThreeData.slice(0, 15));
+          setItemsFromBackend(data?.roundThreeData?.slice(0, 15));
           // for (let i = 0; i < itemsFromBackend.length; i++) {
           //   itemsFromBackend[i] = { ...itemsFromBackend[i], isLeft: true };
           // }
-          setItemsFromBacken(data.roundThreeData.slice(15, 30));
+          setItemsFromBacken(data?.roundThreeData?.slice(15, 30));
           // for (let i = 0; i < itemsFromBacken.length; i++) {
           //   itemsFromBacken[i] = { ...itemsFromBacken[i], isLeft: false };
           // }
@@ -442,59 +473,6 @@ function DragFinal() {
   const myCtx = useContext(myContext);
   const TEAM_ID = myCtx.teamId;
   const [columns, setColumns] = useState({});
-  // useEffect(() => {
-  //   //console.log("WOahhhhhhhhhhhhhhhhhhhhhhhhhh");
-  //   setcolumnsList({
-  //     ["1"]: {
-  //       name: "",
-  //       items: itemsFromBackend,
-
-  //
-  //     },
-  //     ["2"]: {
-  //       name: "",
-  //       items: [],
-
-  //
-  //     },
-  //     ["3"]: {
-  //       name: "",
-  //       items: [],
-  //       price: 200,
-  //
-  //     },
-  //     ["4"]: {
-  //       name: "",
-  //       items: [],
-  //       price: 300,
-  //
-  //     },
-  //     ["5"]: {
-  //       name: "",
-  //       items: [],
-  //       price: 100,
-  //
-  //     },
-  //     ["6"]: {
-  //       name: "",
-  //       items: [],
-  //       price: 100,
-  //
-  //     },
-  //     ["7"]: {
-  //       name: "",
-  //       items: [],
-  //       price: 100,
-  //
-  //     },
-  //     ["8"]: {
-  //       name: "",
-  //       items: itemsFromBacken,
-  //       price: 100,
-  //
-  //     },
-  //   });
-  // }, [itemsFromBackend, itemsFromBacken]);
   useEffect(() => {
     setColumns(columnsList);
   }, [itemsFromBackend]);
@@ -503,7 +481,9 @@ function DragFinal() {
       <div className={styles.drag_drop_container}>
         <div className={styles.balance}>
           <div className={styles.bal}>
-            <h1 className={styles.balance_h1}>Balance - {bal}</h1>
+            <h1 className={styles.balance_h1}>
+              Balance -<span style={{ color: "#CE4DA4" }}> {bal}E</span>
+            </h1>
           </div>
         </div>
         <div className={styles.col}>
@@ -528,18 +508,11 @@ function DragFinal() {
                               background: snapshot.isDraggingOver
                                 ? "lightblue"
                                 : "#5E5B71",
-                              // padding: 4,
                               minWidth: "5vw",
                               borderColor: "#CE4DA4",
-                              // marginRight: 10,
-                              // borderRadius: 10,
-                              // minHeight:
-                              //   columnId === "1" || columnId === "8"
-                              //     ? "90vh"
-                              //     : "10vh",
                             }}
                           >
-                            {column.items.map((item, index) => {
+                            {column.items?.map((item, index) => {
                               // console.log(item, index);
                               return (
                                 <Draggable
@@ -556,19 +529,14 @@ function DragFinal() {
                                         className={styles.start}
                                         style={{
                                           userSelect: "none",
-                                          // borderRadius: 10,
-
-                                          // padding: 16,
-                                          // margin: "8px 2px 8px 2px",
-                                          // minHeight: "50px",
-                                          // backgroundColor: snapshot.isDragging
-                                          //   ? "#263B4A"
-                                          //   : "#456C86",
                                           color: "white",
                                           ...provided.draggableProps.style,
                                         }}
                                       >
-                                        {item.item} {item.price}
+                                        {item.item}{" "}
+                                        <span style={{ color: "#CE4DA4" }}>
+                                          {item.price}E
+                                        </span>
                                       </div>
                                     );
                                   }}
@@ -584,15 +552,23 @@ function DragFinal() {
                 );
               })}
 
-            <div className={styles.center}>
+            <div
+              className={styles.center}
+              style={{
+                backgroundImage: `linear-gradient(
+      180deg,
+      rgba(19, 17, 26, 0.91),
+      rgba(19, 17, 26, 0.91)
+    ),
+    url(${imgurl})`,
+              }}
+            >
               {Object.entries(columns)
                 .slice(1, 11)
                 .map(([columnId, column], index) => {
                   // console.log(columnId);
                   return (
                     <>
-                      {/* <h2>{column.item}</h2> */}
-                      {/* <div className={styles.colopy}> */}
                       <Droppable droppableId={columnId} key={columnId}>
                         {(provided, snapshot) => {
                           return (
@@ -601,13 +577,14 @@ function DragFinal() {
                               {...provided.droppableProps}
                               ref={provided.innerRef}
                               style={{
+                                maxWidth: "15vw",
                                 background: snapshot.isDraggingOver
                                   ? "lightblue"
                                   : "#5E5B71",
                               }}
                             >
                               <>
-                                {column.items.map((item, index) => {
+                                {column.items?.map((item, index) => {
                                   // console.log(item, index);
                                   return (
                                     <Draggable
@@ -624,21 +601,22 @@ function DragFinal() {
                                             className={`${styles.start} `}
                                             style={{
                                               userSelect: "none",
-                                              borderRadius: 25,
-
-                                              // padding: 16,
-                                              // margin: "8px 2px 8px 2px",
-                                              // minHeight: "50px",
+                                              borderRadius: 10,
                                               fontSize: "1rem",
                                               backgroundColor:
                                                 snapshot.isDragging
                                                   ? "#263B4A"
                                                   : "#456C86",
                                               color: "white",
+                                              maxWidth: "10vw",
+
                                               ...provided.draggableProps.style,
                                             }}
                                           >
-                                            {item.item} {item.price}
+                                            {item.item}{" "}
+                                            <span style={{ color: "#CE4DA4" }}>
+                                              {item.price}E
+                                            </span>
                                           </div>
                                         );
                                       }}
@@ -651,10 +629,27 @@ function DragFinal() {
                           );
                         }}
                       </Droppable>
+
                       {/* </div> */}
                     </>
                   );
                 })}
+              <div
+                className={`${styles.colopy} ${styles.mid}`}
+                style={{ border: "none" }}
+              >
+                <img
+                  src={"finish.png"}
+                  width="290px"
+                  sizes="(max-width: 479px) 31vw, (max-width: 1919px) 145px, 290px"
+                  alt=""
+                  className={styles.image}
+                  // style={{ display: isLoading ? "none" : "block" }}
+                  onClick={() => {
+                    Submit();
+                  }}
+                />
+              </div>
             </div>
             {Object.entries(columns)
               .slice(11, 12)
@@ -672,18 +667,12 @@ function DragFinal() {
                               background: snapshot.isDraggingOver
                                 ? "lightblue"
                                 : "#5E5B71",
-                              // padding: 4,
+
                               minWidth: "5vw",
                               borderColor: "#CE4DA4",
-                              // marginRight: 10,
-                              // borderRadius: 10,
-                              // minHeight:
-                              //   columnId === "1" || columnId === "8"
-                              //     ? "90vh"
-                              //     : "10vh",
                             }}
                           >
-                            {column.items.map((item, index) => {
+                            {column.items?.map((item, index) => {
                               // console.log(item, index);
                               return (
                                 <Draggable
@@ -700,19 +689,15 @@ function DragFinal() {
                                         className={styles.start}
                                         style={{
                                           userSelect: "none",
-                                          // borderRadius: 10,
 
-                                          // padding: 16,
-                                          // margin: "8px 2px 8px 2px",
-                                          // minHeight: "50px",
-                                          // backgroundColor: snapshot.isDragging
-                                          //   ? "#263B4A"
-                                          //   : "#456C86",
                                           color: "white",
                                           ...provided.draggableProps.style,
                                         }}
                                       >
-                                        {item.item} {item.price}
+                                        {item.item}{" "}
+                                        <span style={{ color: "#CE4DA4" }}>
+                                          {item.price}E
+                                        </span>
                                       </div>
                                     );
                                   }}
@@ -729,13 +714,6 @@ function DragFinal() {
               })}
           </DragDropContext>
         </div>
-        <button
-          onClick={() => {
-            Submit();
-          }}
-        >
-          SUBMIT
-        </button>
       </div>
     </>
   );
