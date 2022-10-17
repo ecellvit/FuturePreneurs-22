@@ -6,13 +6,21 @@ import { useSession } from "next-auth/react";
 import { useContext } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import { useRouter } from "next/router";
+import { AnimatePresence, motion } from "framer-motion";
+import Modal from "../modal";
+import Loading from "../Loading";
 
-function DragFinal() {
+function DragFinal({ setEndTime }) {
   const [itemsFromBackend, setItemsFromBackend] = useState([]);
   const [itemsFromBacken, setItemsFromBacken] = useState([]);
   const [bal, setbal] = useState();
   const [imgurl, setimgurl] = useState();
   const { data: session } = useSession();
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const close = () => setModalOpen(false);
+  const open = () => setModalOpen(true);
+
   const router = useRouter();
   const TECH_URL =
     "https://ik.imagekit.io/nitishr/techpark_8mD6q0Qzf.png?ik-sdk-version=javascript-1.4.3&updatedAt=1666017275929";
@@ -22,6 +30,7 @@ function DragFinal() {
     "https://ik.imagekit.io/nitishr/pilgrimage_Wkk_Fm5ac.png?ik-sdk-version=javascript-1.4.3&updatedAt=1666017087306";
 
   const [isLoading, setIsLoading] = useState(false);
+
   function Submit() {
     fetch(
       `${process.env.NEXT_PUBLIC_SERVER}/api/team/roundthree/submit/${TEAM_ID}`,
@@ -38,12 +47,13 @@ function DragFinal() {
       .then((data) => {
         console.log(data);
         if (data.message == "Round Three Submitted successfully.") {
-          router.push("/thankyou");
+          router.push("/round21");
         }
       });
   }
+
   useEffect(() => {
-    if (session) {
+    if (session && TEAM_ID) {
       setIsLoading(true);
       fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/team/roundone/${TEAM_ID}`, {
         method: "GET",
@@ -55,7 +65,19 @@ function DragFinal() {
       })
         .then((data) => data.json())
         .then((data) => {
-          console.log("GetMap", data);
+          setIsLoading(false);
+          if (data?.error?.errorCode) {
+            toast.error(`${data.message}`, {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
+            return;
+          }
           if (data.mapChoice === 0) {
             setimgurl(TEMPLE_URL);
           } else if (data.mapChoice === 1) {
@@ -65,10 +87,10 @@ function DragFinal() {
           }
         });
     }
-  }, [session]);
+  }, [session, TEAM_ID]);
 
   useEffect(() => {
-    if (session) {
+    if (session?.user?.id) {
       setIsLoading(true);
       fetch(
         `${process.env.NEXT_PUBLIC_SERVER}/api/team/roundthree/start/${TEAM_ID}`,
@@ -83,36 +105,27 @@ function DragFinal() {
       )
         .then((data) => data.json())
         .then((data) => {
-          console.log(data);
+          if (data.error?.errorCode) {
+            window.location = "/instructions-ecell-rox231";
+            toast.error(`${data.message}`, {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
+            return;
+          }
           setbal(data.balance);
-          // for (let i = 0; i < data.roundThreeData.length / 2; i++) {
-          //   setItemsFromBackend((prevData) => {
-          //     return [...prevData, { ...data.roundThreeData[i], isLeft: true }];
-          //   });
-          // }
-          // for (
-          //   let i = data.roundThreeData.length / 2 + 1;
-          //   i < data.roundThreeData.length;
-          //   i++
-          // ) {
-          //   setItemsFromBacken((prevData) => {
-          //     return [...prevData, { ...data.roundThreeData[i], isLeft: false }];
-          //   });
-          // }
-          console.log(data.roundThreeData);
+          setEndTime(data.endTime);
           setItemsFromBackend(data?.roundThreeData?.slice(0, 15));
-          // for (let i = 0; i < itemsFromBackend.length; i++) {
-          //   itemsFromBackend[i] = { ...itemsFromBackend[i], isLeft: true };
-          // }
           setItemsFromBacken(data?.roundThreeData?.slice(15, 30));
-          // for (let i = 0; i < itemsFromBacken.length; i++) {
-          //   itemsFromBacken[i] = { ...itemsFromBacken[i], isLeft: false };
-          // }
-
           setIsLoading(false);
         });
     }
-  }, [session]);
+  }, [session?.user?.id]);
 
   // const [columnsList, setcolumnsList] = useState();
   const columnsList = {
@@ -204,7 +217,6 @@ function DragFinal() {
               )
                 .then((data) => data.json())
                 .then((data) => {
-                  console.log(data);
                   setbal(data.availableBalance);
                   fetch(
                     `${process.env.NEXT_PUBLIC_SERVER}/api/team/roundthree/${TEAM_ID}`,
@@ -223,7 +235,6 @@ function DragFinal() {
                   )
                     .then((data) => data.json())
                     .then((data) => {
-                      console.log(data);
                       setbal(data.availableBalance);
                     });
                 });
@@ -260,73 +271,11 @@ function DragFinal() {
                 `Not Enough Balance Will Be There To Perform This Operation`,
                 {
                   position: toast.POSITION.TOP_RIGHT,
-                  autoClose: 20,
                 }
               );
               return;
             }
           } else {
-            // if (
-            //   destination.droppableId === "1" ||
-            //   destination.droppableId === "12"
-            // ) {
-            //   if (source.droppableId === "1" || source.droppableId === "12") {
-            //   } else {
-            //     const [removed] = sourceItems.splice(source.index, 1);
-            //     if (removed.isLeft === true) {
-            //       console.log(destination);
-            //       destination.droppableId = 1;
-            //       destination.index = 4;
-            //       destColumn = columns[destination.droppableId];
-            //       destItems = [...destColumn.items];
-            //     } else {
-            //       console.log(destination);
-
-            //       destination.droppableId = 12;
-            //       destination.index = 5;
-            //       destColumn = columns[destination.droppableId];
-            //       destItems = [...destColumn.items];
-            //     }
-            //     // setbal(bal + removed.price);
-
-            //     destItems.splice(destination.index, 0, removed);
-            //     console.log(source, destination, " Yeh wala hua 3");
-
-            //     fetch(
-            //       `${process.env.NEXT_PUBLIC_SERVER}/api/team/roundthree/${TEAM_ID}`,
-            //       {
-            //         method: "POST",
-            //         headers: {
-            //           "Content-Type": "application/json",
-            //           Authorization: `Bearer ${session.accessTokenBackend}`,
-            //           "Access-Control-Allow-Origin": "*",
-            //         },
-            //         body: JSON.stringify({
-            //           item: removed.item,
-            //           operation: 1,
-            //         }),
-            //       }
-            //     )
-            //       .then((data) => data.json())
-            //       .then((data) => {
-            //         setbal(data.availableBalance);
-            //       });
-            //     setColumns({
-            //       ...columns,
-            //       [source.droppableId]: {
-            //         ...sourceColumn,
-            //         items: sourceItems,
-            //       },
-            //       [destination.droppableId]: {
-            //         ...destColumn,
-            //         items: destItems,
-            //       },
-            //     });
-            //   }
-
-            //   return;
-            // }
-            console.log("Yeh hogaya");
             const [re] = destItems.splice(0, 1);
             console.log(re);
             const [removed] = sourceItems.splice(source.index, 1);
@@ -427,7 +376,6 @@ function DragFinal() {
             items: destItems,
           },
         });
-        console.log(source, destination, "Yeh wala hua 4");
         if (source.droppableId == 1 || source.droppableId == 12) {
           fetch(
             `${process.env.NEXT_PUBLIC_SERVER}/api/team/roundthree/${TEAM_ID}`,
@@ -452,7 +400,6 @@ function DragFinal() {
       } else {
         toast.error(`Not Enough Balance`, {
           position: toast.POSITION.TOP_RIGHT,
-          autoClose: 30,
         });
       }
     } else {
@@ -476,245 +423,273 @@ function DragFinal() {
   useEffect(() => {
     setColumns(columnsList);
   }, [itemsFromBackend]);
+
   return (
     <>
-      <div className={styles.drag_drop_container}>
-        <div className={styles.balance}>
-          <div className={styles.bal}>
-            <h1 className={styles.balance_h1}>
-              Balance -<span style={{ color: "#CE4DA4" }}> {bal}E</span>
-            </h1>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <div className={styles.drag_drop_container}>
+          <div className={styles.balance}>
+            <div className={styles.bal}>
+              <h1 className={styles.balance_h1}>
+                Balance -<span style={{ color: "#CE4DA4" }}> {bal}E</span>
+              </h1>
+            </div>
           </div>
-        </div>
-        <div className={styles.col}>
-          <DragDropContext
-            onDragEnd={(result) =>
-              onDragEnd(result, columns, setColumns, bal, setbal)
-            }
-          >
-            {Object.entries(columns)
-              .slice(0, 1)
-              .map(([columnId, column], index) => {
-                return (
-                  <>
-                    <Droppable droppableId={columnId} key={columnId}>
-                      {(provided, snapshot) => {
-                        return (
-                          <div
-                            className={styles.colopy}
-                            {...provided.droppableProps}
-                            ref={provided.innerRef}
-                            style={{
-                              background: snapshot.isDraggingOver
-                                ? "lightblue"
-                                : "#5E5B71",
-                              minWidth: "5vw",
-                              borderColor: "#CE4DA4",
-                            }}
-                          >
-                            {column.items?.map((item, index) => {
-                              // console.log(item, index);
-                              return (
-                                <Draggable
-                                  key={item._id}
-                                  draggableId={item._id}
-                                  index={index}
-                                >
-                                  {(provided, snapshot) => {
-                                    return (
-                                      <div
-                                        ref={provided.innerRef}
-                                        {...provided.draggableProps}
-                                        {...provided.dragHandleProps}
-                                        className={styles.start}
-                                        style={{
-                                          userSelect: "none",
-                                          color: "white",
-                                          ...provided.draggableProps.style,
-                                        }}
-                                      >
-                                        {item.item}{" "}
-                                        <span style={{ color: "#CE4DA4" }}>
-                                          {item.price}E
-                                        </span>
-                                      </div>
-                                    );
-                                  }}
-                                </Draggable>
-                              );
-                            })}
-                            {provided.placeholder}
-                          </div>
-                        );
-                      }}
-                    </Droppable>
-                  </>
-                );
-              })}
-
-            <div
-              className={styles.center}
-              style={{
-                backgroundImage: `linear-gradient(
-      180deg,
-      rgba(19, 17, 26, 0.91),
-      rgba(19, 17, 26, 0.91)
-    ),
-    url(${imgurl})`,
-              }}
+          <div className={styles.col}>
+            <DragDropContext
+              onDragEnd={(result) =>
+                onDragEnd(result, columns, setColumns, bal, setbal)
+              }
             >
               {Object.entries(columns)
-                .slice(1, 11)
+                .slice(0, 1)
                 .map(([columnId, column], index) => {
-                  // console.log(columnId);
                   return (
                     <>
                       <Droppable droppableId={columnId} key={columnId}>
                         {(provided, snapshot) => {
                           return (
                             <div
-                              className={`${styles.colopy} ${styles.mid}`}
+                              className={styles.colopy}
                               {...provided.droppableProps}
                               ref={provided.innerRef}
                               style={{
-                                maxWidth: "15vw",
                                 background: snapshot.isDraggingOver
                                   ? "lightblue"
                                   : "#5E5B71",
+                                minWidth: "5vw",
+                                borderColor: "#CE4DA4",
                               }}
                             >
-                              <>
-                                {column.items?.map((item, index) => {
-                                  // console.log(item, index);
-                                  return (
-                                    <Draggable
-                                      key={item._id}
-                                      draggableId={item._id}
-                                      index={index}
-                                    >
-                                      {(provided, snapshot) => {
-                                        return (
-                                          <div
-                                            ref={provided.innerRef}
-                                            {...provided.draggableProps}
-                                            {...provided.dragHandleProps}
-                                            className={`${styles.start} `}
-                                            style={{
-                                              userSelect: "none",
-                                              borderRadius: 10,
-                                              fontSize: "1rem",
-                                              backgroundColor:
-                                                snapshot.isDragging
-                                                  ? "#263B4A"
-                                                  : "#456C86",
-                                              color: "white",
-                                              maxWidth: "10vw",
-
-                                              ...provided.draggableProps.style,
-                                            }}
-                                          >
-                                            {item.item}{" "}
-                                            <span style={{ color: "#CE4DA4" }}>
-                                              {item.price}E
-                                            </span>
-                                          </div>
-                                        );
-                                      }}
-                                    </Draggable>
-                                  );
-                                })}
-                                {provided.placeholder}
-                              </>
+                              {column.items?.map((item, index) => {
+                                // console.log(item, index);
+                                return (
+                                  <Draggable
+                                    key={item._id}
+                                    draggableId={item._id}
+                                    index={index}
+                                  >
+                                    {(provided, snapshot) => {
+                                      return (
+                                        <div
+                                          ref={provided.innerRef}
+                                          {...provided.draggableProps}
+                                          {...provided.dragHandleProps}
+                                          className={styles.start}
+                                          style={{
+                                            userSelect: "none",
+                                            color: "white",
+                                            ...provided.draggableProps.style,
+                                          }}
+                                        >
+                                          {item.item}{" "}
+                                          <span style={{ color: "#CE4DA4" }}>
+                                            {item.price}E
+                                          </span>
+                                        </div>
+                                      );
+                                    }}
+                                  </Draggable>
+                                );
+                              })}
+                              {provided.placeholder}
                             </div>
                           );
                         }}
                       </Droppable>
-
-                      {/* </div> */}
                     </>
                   );
                 })}
+
               <div
-                className={`${styles.colopy} ${styles.mid}`}
-                style={{ border: "none" }}
+                className={styles.center}
+                style={{
+                  backgroundImage: `linear-gradient(
+      180deg,
+      rgba(19, 17, 26, 0.91),
+      rgba(19, 17, 26, 0.91)
+    ),
+    url(${imgurl})`,
+                }}
               >
-                <img
-                  src={"finish.png"}
-                  width="290px"
-                  sizes="(max-width: 479px) 31vw, (max-width: 1919px) 145px, 290px"
-                  alt=""
-                  className={styles.image}
-                  // style={{ display: isLoading ? "none" : "block" }}
-                  onClick={() => {
-                    Submit();
-                  }}
-                />
-              </div>
-            </div>
-            {Object.entries(columns)
-              .slice(11, 12)
-              .map(([columnId, column], index) => {
-                return (
-                  <>
-                    <Droppable droppableId={columnId} key={columnId}>
-                      {(provided, snapshot) => {
-                        return (
-                          <div
-                            className={styles.colopy}
-                            {...provided.droppableProps}
-                            ref={provided.innerRef}
-                            style={{
-                              background: snapshot.isDraggingOver
-                                ? "lightblue"
-                                : "#5E5B71",
-
-                              minWidth: "5vw",
-                              borderColor: "#CE4DA4",
-                            }}
-                          >
-                            {column.items?.map((item, index) => {
-                              // console.log(item, index);
-                              return (
-                                <Draggable
-                                  key={item._id}
-                                  draggableId={item._id}
-                                  index={index}
-                                >
-                                  {(provided, snapshot) => {
+                {Object.entries(columns)
+                  .slice(1, 11)
+                  .map(([columnId, column], index) => {
+                    // console.log(columnId);
+                    return (
+                      <>
+                        <Droppable droppableId={columnId} key={columnId}>
+                          {(provided, snapshot) => {
+                            return (
+                              <div
+                                className={`${styles.colopy} ${styles.mid}`}
+                                {...provided.droppableProps}
+                                ref={provided.innerRef}
+                                style={{
+                                  maxWidth: "15vw",
+                                  background: snapshot.isDraggingOver
+                                    ? "lightblue"
+                                    : "#5E5B71",
+                                }}
+                              >
+                                <>
+                                  {column.items?.map((item, index) => {
+                                    // console.log(item, index);
                                     return (
-                                      <div
-                                        ref={provided.innerRef}
-                                        {...provided.draggableProps}
-                                        {...provided.dragHandleProps}
-                                        className={styles.start}
-                                        style={{
-                                          userSelect: "none",
-
-                                          color: "white",
-                                          ...provided.draggableProps.style,
-                                        }}
+                                      <Draggable
+                                        key={item._id}
+                                        draggableId={item._id}
+                                        index={index}
                                       >
-                                        {item.item}{" "}
-                                        <span style={{ color: "#CE4DA4" }}>
-                                          {item.price}E
-                                        </span>
-                                      </div>
+                                        {(provided, snapshot) => {
+                                          return (
+                                            <div
+                                              ref={provided.innerRef}
+                                              {...provided.draggableProps}
+                                              {...provided.dragHandleProps}
+                                              className={`${styles.start} `}
+                                              style={{
+                                                userSelect: "none",
+                                                borderRadius: 10,
+                                                fontSize: "1rem",
+                                                backgroundColor:
+                                                  snapshot.isDragging
+                                                    ? "#263B4A"
+                                                    : "#456C86",
+                                                color: "white",
+                                                maxWidth: "10vw",
+
+                                                ...provided.draggableProps
+                                                  .style,
+                                              }}
+                                            >
+                                              {item.item}{" "}
+                                              <span
+                                                style={{ color: "#CE4DA4" }}
+                                              >
+                                                {item.price}E
+                                              </span>
+                                            </div>
+                                          );
+                                        }}
+                                      </Draggable>
                                     );
-                                  }}
-                                </Draggable>
-                              );
-                            })}
-                            {provided.placeholder}
-                          </div>
-                        );
-                      }}
-                    </Droppable>
-                  </>
-                );
-              })}
-          </DragDropContext>
+                                  })}
+                                  {provided.placeholder}
+                                </>
+                              </div>
+                            );
+                          }}
+                        </Droppable>
+
+                        {/* </div> */}
+                      </>
+                    );
+                  })}
+                <motion.div
+                  className={`${styles.colopy} ${styles.mid}`}
+                  style={{ border: "none" }}
+                >
+                  <img
+                    src={"finish.png"}
+                    width="290px"
+                    sizes="(max-width: 479px) 31vw, (max-width: 1919px) 145px, 290px"
+                    alt=""
+                    className={styles.image}
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                    // style={{ display: isLoading ? "none" : "block" }}
+                    onClick={() => (modalOpen ? close() : open())}
+                    // onClick={() => {
+                    //   Submit();
+                    // }}
+                  />
+                </motion.div>
+                <AnimatePresence
+                  initial={false}
+                  exitBeforeEnter={true}
+                  onExitComplete={() => null}
+                >
+                  {modalOpen && (
+                    <Modal
+                      modalOpen={modalOpen}
+                      handleClose={close}
+                      text={"Are you sure you want to finish round 1.3?"}
+                      text1={"This action can't be reversed!!"}
+                      text2={"Yes I'm sure"}
+                      text2func={Submit}
+                    />
+                  )}
+                </AnimatePresence>
+              </div>
+              {Object.entries(columns)
+                .slice(11, 12)
+                .map(([columnId, column], index) => {
+                  return (
+                    <>
+                      <Droppable droppableId={columnId} key={columnId}>
+                        {(provided, snapshot) => {
+                          return (
+                            <div
+                              className={styles.colopy}
+                              {...provided.droppableProps}
+                              ref={provided.innerRef}
+                              style={{
+                                background: snapshot.isDraggingOver
+                                  ? "lightblue"
+                                  : "#5E5B71",
+
+                                minWidth: "5vw",
+                                borderColor: "#CE4DA4",
+                              }}
+                            >
+                              {column.items?.map((item, index) => {
+                                // console.log(item, index);
+                                return (
+                                  <Draggable
+                                    key={item._id}
+                                    draggableId={item._id}
+                                    index={index}
+                                  >
+                                    {(provided, snapshot) => {
+                                      return (
+                                        <div
+                                          ref={provided.innerRef}
+                                          {...provided.draggableProps}
+                                          {...provided.dragHandleProps}
+                                          className={styles.start}
+                                          style={{
+                                            userSelect: "none",
+
+                                            color: "white",
+                                            ...provided.draggableProps.style,
+                                          }}
+                                        >
+                                          {item.item}{" "}
+                                          <span style={{ color: "#CE4DA4" }}>
+                                            {item.price}E
+                                          </span>
+                                        </div>
+                                      );
+                                    }}
+                                  </Draggable>
+                                );
+                              })}
+                              {provided.placeholder}
+                            </div>
+                          );
+                        }}
+                      </Droppable>
+                    </>
+                  );
+                })}
+            </DragDropContext>
+          </div>
+          ;
         </div>
-      </div>
+      )}
     </>
   );
 }
