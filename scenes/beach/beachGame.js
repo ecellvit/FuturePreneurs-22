@@ -35,21 +35,22 @@ export default class BeachScene extends Scene {
   }
 
   create() {
+    console.log(this.make)
     const map = this.make.tilemap({ key: 'testmap-beach' });
-    map.addTilesetImage('buildings', 'buildings', 12, 12, 0, 0)
-    map.addTilesetImage('beach', 'beach', 12, 12, 0, 0)
-    map.addTilesetImage('road', 'road', 12, 12, 0, 0)
-    map.addTilesetImage('village', 'village', 12, 12, 0, 0)
-    map.addTilesetImage('bakery', 'bakery', 12, 12, 0, 0)
-    map.addTilesetImage('planetorium', 'planetorium', 12, 12, 0, 0)
-    map.addTilesetImage('apartments', 'apartments', 12, 12, 0, 0)
+    map.addTilesetImage('buildings', 'buildings')
+    map.addTilesetImage('beach', 'beach')
+    map.addTilesetImage('road', 'road')
+    map.addTilesetImage('village', 'village')
+    map.addTilesetImage('bakery', 'bakery')
+    map.addTilesetImage('planetorium', 'planetorium')
+    map.addTilesetImage('apartments', 'apartments')
     map.addTilesetImage('island', 'island')
-    map.addTilesetImage('beach_road', 'beach_road', 12, 12, 0, 0)
-    map.addTilesetImage('beachhouse', 'beachhouse', 12, 12, 0, 0)
-    map.addTilesetImage('beachhouse2', 'beachhouse2', 12, 12, 0, 0)
+    map.addTilesetImage('beachRoad', 'beachRoad')
+    map.addTilesetImage('beachhouse', 'beachhouse')
+    map.addTilesetImage('beachhouse2', 'beachhouse2')
 
     map.layers.forEach((layer, index) => {
-      map.createLayer(index, ['buildings', 'beach', 'road', 'village', 'bakery', 'planetorium', 'apartments', 'island', 'beach_road', 'beachhouse', 'beachhouse2'], 0, 0)
+      map.createLayer(index, ['buildings', 'beach', 'road', 'village', 'bakery', 'planetorium', 'apartments', 'island', 'beachRoad', 'beachhouse', 'beachhouse2'], 0, 0)
     })
 
     this.heroSprite = this.physics.add.sprite(0, 0, 'hero').setDepth(1);
@@ -139,13 +140,12 @@ export default class BeachScene extends Scene {
     this.load.image('apartments', "assets/round-two/beach/apartments.png");
     this.load.image('planetorium', "assets/round-two/beach/planetorium.png");
     this.load.image('island', "assets/round-two/beach/island.png");
-    this.load.image('beach_road', "assets/round-two/beach/beach_road.jpg");
+    this.load.image('beachRoad', "assets/round-two/beach/beach_road.png");
     this.load.image('beachhouse', "assets/round-two/beach/beachhouse.png");
     this.load.image('beachhouse2', "assets/round-two/beach/beachhouse2.png");
 
-    this.load.tilemapTiledJSON('testmap-beach', 'assets/round-two/beach/fpmap2final.json')
+    this.load.tilemapTiledJSON('testmap-beach', 'assets/round-two/beach/beach.json')
     this.load.atlas('hero', "assets/sprites/atlas/hero.png", "assets/sprites/atlas/hero.json");
-   
   }
 
   update() {

@@ -13,6 +13,7 @@ import { useRouter } from "next/router";
 
 
 export default function PhaserGame() {
+  const { status } = useSession();
   const [prompt, setPrompt] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const { data: session } = useSession();
@@ -43,7 +44,7 @@ export default function PhaserGame() {
             console.log("already played 1");
             // window.location = "/instructions";
           }
-          if (data.error.errorCode == 33){
+          if (data.error.errorCode == 33) {
             console.log('already played 1')
             // window.location = '/instructions'
           }
@@ -51,7 +52,7 @@ export default function PhaserGame() {
             console.log('time limit exceeded')
             // window.location = '/instructions'
           }
-          window.location = '/instructions'
+          window.location = '/instructions-ecell-rox231'
           toast.error(`${data.message}`, {
             position: "top-right",
             autoClose: 5000,
@@ -95,8 +96,8 @@ export default function PhaserGame() {
         })
           .then((data) => {
             if (data.error?.errorCode) {
-              if (data.error?.errorCode === 21){
-                window.location = '/instructions'
+              if (data.error?.errorCode === 21) {
+                window.location = '/instructions-ecell-rox231'
               }
               toast.error(`${data.message}`, {
                 position: "top-right",
@@ -112,7 +113,7 @@ export default function PhaserGame() {
             console.log(data);
           })
       }
-      window.location = "/instructions"
+      window.location = "/instructions-ecell-rox231"
     }
   }, [seconds])
 
@@ -175,7 +176,7 @@ export default function PhaserGame() {
         case "beach":
           areaNum = 1;
           break
-        case "business":
+        case "Tech Park":
           areaNum = 2;
           break
         case "hospital":
@@ -203,45 +204,55 @@ export default function PhaserGame() {
         }).then(async (response) => {
           return response.json();
         })
-        .then((data) => {
-          window.location = 'instructions'
-        })
+          .then((data) => {
+            window.location = 'instructions'
+          })
       }
     }
     setPrompt(false);
   }
 
+  // redirects to home if user not logged in
+  useEffect(() => {
+    if (router.isReady) {
+      if (status !== "loading" && status === "unauthenticated") {
+        toast.error("Please Login First!");
+        router.push("/");
+      }
+    }
+  }, [session, status, router]);
   return (
-    <>
-      <ToastContainer />
-      {endTime && <div className={styles.starting}>
-        <div className={styles.btn}>
-          <a href="#" className={`${styles.button_2} ${styles.w_button}`}>
-            {hours<10?'0'+hours.toString():hours}:{minutes<10?'0'+minutes.toString():minutes}:{seconds<10?'0'+seconds.toString():seconds}
-          </a>
-        </div>
-      </div>}
-      {isLoading ? <Loading /> : <>
-        <div id="game-content" key="game-content"></div>
-        <AnimatePresence
-          initial={false}
-          exitBeforeEnter={true}
-          onExitComplete={() => null}
-        >
-          {prompt &&
-            <Modal
-              modalOpen={prompt}
-              handleClose={() => { closePrompt(false) }}
-              text={`Do you want to place your resort in ${prompt}?`}
-              text1={"This action can't be reversed!!"}
-              text2={"Yes I'm sure"}
-              text2func={() => {
-                closePrompt(prompt)
-              }}
-            />
-          }
-        </AnimatePresence>
-      </>}
-    </>
+    status === "authenticated" && (
+      <>
+        <ToastContainer />
+        {endTime && <div className={styles.starting}>
+          <div className={styles.btn}>
+            <a href="#" className={`${styles.button_2} ${styles.w_button}`}>
+              {hours < 10 ? '0' + hours.toString() : hours}:{minutes < 10 ? '0' + minutes.toString() : minutes}:{seconds < 10 ? '0' + seconds.toString() : seconds}
+            </a>
+          </div>
+        </div>}
+        {isLoading ? <Loading /> : <>
+          <div id="game-content" key="game-content"></div>
+          <AnimatePresence
+            initial={false}
+            exitBeforeEnter={true}
+            onExitComplete={() => null}
+          >
+            {prompt &&
+              <Modal
+                modalOpen={prompt}
+                handleClose={() => { closePrompt(false) }}
+                text={`Do you want to place your resort in ${prompt}?`}
+                text1={"This action can't be reversed!!"}
+                text2={"Yes I'm sure"}
+                text2func={() => {
+                  closePrompt(prompt)
+                }}
+              />
+            }
+          </AnimatePresence>
+        </>}
+      </>)
   );
 }

@@ -9,6 +9,7 @@ import useTimer from "../hooks/useTimer";
 import { useContext } from "react";
 import myContext from "../store/myContext";
 import styles from "../styles/MainQuiz.module.css";
+import styles from "../styles/MainQuiz.module.css";
 export default function Round3() {
   const { status } = useSession();
   const { data: session } = useSession();
@@ -22,7 +23,7 @@ export default function Round3() {
   const TEAM_ID = myCtx.teamId;
 
   useEffect(() => {
-    if (session) {
+    if (session?.user.id) {
       fetch(
         `${process.env.NEXT_PUBLIC_SERVER}/api/team/roundthree/start/${TEAM_ID}`,
         {
@@ -39,8 +40,8 @@ export default function Round3() {
         })
         .then((data) => {
           if (data.error?.errorCode) {
-            console.log(data.error.errorCode);
-            window.location = "/instructions";
+            // //console.log(data.error.errorCode);
+            window.location = "/instructions-ecell-rox231";
             toast.error(`${data.message}`, {
               position: "top-right",
               autoClose: 5000,
@@ -54,52 +55,17 @@ export default function Round3() {
           } else {
             setEndTime(data.endTime);
           }
-          console.log(data);
+          // //console.log(data);
         })
         .catch((e) => {
-          console.log(e);
+          //console.log(e);
         });
     }
-  }, [session]);
+  }, [session?.user.id, TEAM_ID]);
 
   useEffect(() => {
     if ((hours <= 0) & (minutes <= 0) & (seconds <= 0)) {
-      console.log("time done");
-      if (session) {
-        // send 5 = null
-        // fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/team/roundone/${TEAM_ID}`, {
-        //   method: 'POST',
-        //   headers: {
-        //     "Content-Type": "application/json",
-        //     Authorization: `Bearer ${session.accessTokenBackend}`,
-        //     "Access-Control-Allow-Origin": "*",
-        //   },
-        //   body: JSON.stringify({
-        //     mapChoice: 5,
-        //   })
-        // }).then(async (response) => {
-        //   return response.json();
-        // })
-        //   .then((data) => {
-        //     if (data.error?.errorCode) {
-        //       if (data.error?.errorCode === 21){
-        //         window.location = '/instructions'
-        //       }
-        //       toast.error(`${data.message}`, {
-        //         position: "top-right",
-        //         autoClose: 5000,
-        //         hideProgressBar: false,
-        //         closeOnClick: true,
-        //         pauseOnHover: true,
-        //         draggable: true,
-        //         progress: undefined,
-        //       });
-        //       return;
-        //     }
-        //     console.log(data);
-        //   })
-      }
-      window.location = "/instructions";
+      window.location = "/instructions-ecell-rox231";
     }
   }, [seconds]);
 
@@ -112,7 +78,7 @@ export default function Round3() {
       }
     }
   }, [session, status, router]);
-  console.log(session);
+
   return (
     status === "authenticated" && (
       <>
@@ -121,12 +87,13 @@ export default function Round3() {
           <div className={styles.starting}>
             <div className={styles.btn}>
               <a href="#" className={`${styles.button_2} ${styles.w_button}`}>
-                {hours}:{minutes}:{seconds}
+                {hours.toString().length < 2 ? "0" + hours : hours}:
+                {minutes.toString().length < 2 ? "0" + minutes : minutes}:
+                {seconds.toString().length < 2 ? "0" + seconds : seconds}
               </a>
             </div>
           </div>
         )}
-
         <DragFinal />
       </>
     )

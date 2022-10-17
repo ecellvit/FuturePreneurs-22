@@ -15,7 +15,7 @@ export default function PhaserGame() {
   const [prompt, setPrompt] = useState();
   const [isLoading, setIsLoading] = useState(false);
 
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const [endTime, setEndTime] = useState();
   const router = useRouter();
 
@@ -85,7 +85,7 @@ export default function PhaserGame() {
               console.log("round 1 not complete");
               // window.location = "/instructions";
             }
-            window.location = "/instructions";
+            window.location = "/instructions-ecell-rox231";
             toast.error(`${data.message}`, {
               position: "top-right",
               autoClose: 5000,
@@ -126,8 +126,8 @@ export default function PhaserGame() {
         })
           .then((data) => {
             if (data.error?.errorCode) {
-              if (data.error?.errorCode === 21){
-                window.location = '/instructions'
+              if (data.error?.errorCode === 21) {
+                window.location = '/instructions-ecell-rox231'
               }
               toast.error(`${data.message}`, {
                 position: "top-right",
@@ -143,7 +143,7 @@ export default function PhaserGame() {
             console.log(data);
           })
       }
-      window.location = "/instructions"
+      window.location = "/instructions-ecell-rox231"
     }
   }, [seconds])
 
@@ -212,7 +212,7 @@ export default function PhaserGame() {
               "Access-Control-Allow-Origin": "*",
             },
             body: JSON.stringify({
-              boxChoice: 1,
+              boxChoice: reply.slice(-1),
             }),
           }
         )
@@ -222,7 +222,7 @@ export default function PhaserGame() {
           .then((data) => {
             console.log(data);
             // after submitting box no.
-            window.location = "/instructions";
+            window.location = "/instructions-ecell-rox231";
           });
       }
     }
@@ -233,46 +233,58 @@ export default function PhaserGame() {
     // window.dispatchEvent(customEvent);
   };
 
+
+  // redirects to home if user not logged in
+  useEffect(() => {
+    if (router.isReady) {
+      if (status !== "loading" && status === "unauthenticated") {
+        toast.error("Please Login First!");
+        router.push("/");
+      }
+    }
+  }, [session, status, router]);
+
   return (
-    <>
-      <ToastContainer />
-      {/* <Game/> */}
-      {isLoading ? (
-        <Loading />
-      ) : (
-        <>
-          {endTime && (
-            <div className={styles.starting}>
-              <div className={styles.btn}>
-                <a href="#" className={`${styles.button_2} ${styles.w_button}`}>
-                  {hours<10?'0'+hours.toString():hours}:{minutes<10?'0'+minutes.toString():minutes}:{seconds<10?'0'+seconds.toString():seconds}
-                </a>
+    status === "authenticated" && (
+      <>
+        <ToastContainer />
+        {/* <Game/> */}
+        {isLoading ? (
+          <Loading />
+        ) : (
+          <>
+            {endTime && (
+              <div className={styles.starting}>
+                <div className={styles.btn}>
+                  <a href="#" className={`${styles.button_2} ${styles.w_button}`}>
+                    {hours < 10 ? '0' + hours.toString() : hours}:{minutes < 10 ? '0' + minutes.toString() : minutes}:{seconds < 10 ? '0' + seconds.toString() : seconds}
+                  </a>
+                </div>
               </div>
-            </div>
-          )}
-          <div id="game-content" key="game-content"></div>
-          <AnimatePresence
-            initial={false}
-            exitBeforeEnter={true}
-            onExitComplete={() => null}
-          >
-            {prompt && (
-              <Modal
-                modalOpen={prompt}
-                handleClose={() => {
-                  closePrompt(false);
-                }}
-                text={`Do you want to place your resort in ${prompt}?`}
-                text1={"This action can't be reversed!!"}
-                text2={"Yes I'm sure"}
-                text2func={() => {
-                  closePrompt(prompt);
-                }}
-              />
             )}
-          </AnimatePresence>
-        </>
-      )}
-    </>
+            <div id="game-content" key="game-content"></div>
+            <AnimatePresence
+              initial={false}
+              exitBeforeEnter={true}
+              onExitComplete={() => null}
+            >
+              {prompt && (
+                <Modal
+                  modalOpen={prompt}
+                  handleClose={() => {
+                    closePrompt(false);
+                  }}
+                  text={`Do you want to place your resort in ${prompt}?`}
+                  text1={"This action can't be reversed!!"}
+                  text2={"Yes I'm sure"}
+                  text2func={() => {
+                    closePrompt(prompt);
+                  }}
+                />
+              )}
+            </AnimatePresence>
+          </>
+        )}
+      </>)
   );
 }

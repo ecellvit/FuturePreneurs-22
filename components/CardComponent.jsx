@@ -40,7 +40,10 @@ function CardComponent({ heading, para1,para2,para3,para4,intro,teamId,round }) 
             window.location = '/round3'
           }
           if(round==="game"){
-            window.location = '/game'
+            window.location = '/game-ecell-rox231'
+          }
+          if(round==="round3"){
+            window.location = '/thankyou'
           }
           
         })
