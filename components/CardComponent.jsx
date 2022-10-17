@@ -14,6 +14,7 @@ function CardComponent({ heading, para1,para2,para3,para4,intro,teamId,round }) 
   function handleNext() {
     console.log("hello");
     if (session) {
+      if(round != "game"){
       fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/team/roundone/${teamId}`, {
         method: "GET",
         headers: {
@@ -53,9 +54,7 @@ function CardComponent({ heading, para1,para2,para3,para4,intro,teamId,round }) 
           if(round==="round2"){
             window.location = '/round3'
           }
-          if(round==="game"){
-            window.location = '/game-ecell-rox231'
-          }
+
           if(round==="round3"){
             window.location = '/thankyou'
           }
@@ -65,7 +64,13 @@ function CardComponent({ heading, para1,para2,para3,para4,intro,teamId,round }) 
         .catch((err) => {
           console.log(err);
         });
+      
     }
+    else{
+      window.location = '/game-ecell-rox231'
+    }
+  }
+    
   }
   return (
     <>
