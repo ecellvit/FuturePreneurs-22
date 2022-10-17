@@ -114,7 +114,7 @@ export default function Instructions() {
         />
       }
       {
-        (round === "round1") && <CardComponent heading={"one"} teamId={teamId} round={round}
+        (round === "round1") && <CardComponent heading={"1"} teamId={teamId} round={round}
           intro={`
           So, that was the end of Round 1.1. Hope you had an immersive experience. \n
           
@@ -132,7 +132,7 @@ export default function Instructions() {
         />
       }
       {
-        (round === "round2") && <CardComponent heading={"two"} teamId={teamId} round={round}
+        (round === "round2") && <CardComponent heading={"2"} teamId={teamId} round={round}
           intro={`Oh, clever move!! That sure will add to your profit. To beat one's opponent in the competitive market, one must make themselves stand out. Cater to the needs of customers, making sure to provide them with an extravagant experience and win their satisfaction. You also need to make your business profitable and live up to the standards of quality. \n
 
           Now you will be provided with a list of amenities, along with a budget. You need to select any ten of them so that they match the needs of your customers. Make sure to use the budget wisely. Also, select the amenities that satisfy the needs of your customers effectively. \n
@@ -145,7 +145,7 @@ export default function Instructions() {
         />
       }
       {
-        (round === "round3") && <CardComponent heading={"three"} teamId={teamId} round={round} />
+        (round === "round3") && <CardComponent heading={"3"} teamId={teamId} round={round} />
       }
     </div>
   )
