@@ -98,10 +98,14 @@ export default function Instructions() {
             data.hasRoundTwoEnd &&
             data.hasRoundThreeEnd
           ) {
-            router.push("/thankyou");
+            router.push("/round21");
             setIsLoading(false);
-          } else {
-            setRound("round3");
+          } else if( data.hasRoundOneEnd &&
+            data.hasRoundTwoEnd &&
+            data.hasRoundThreeEnd &&
+            data.hasLastRoundEnd
+            ) {
+            router.push("/thankyou");
             setIsLoading(false);
           }
         })
@@ -195,13 +199,13 @@ export default function Instructions() {
             />
           )
         )}
-        {isLoading ? (
+        {/* {isLoading ? (
           <Loading />
         ) : (
           round === "round3" && (
             <CardComponent heading={"2.1"} teamId={teamId} round={round} />
           )
-        )}
+        )} */}
       </span>
     </div>
   );

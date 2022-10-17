@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react'
 import { Widget } from '@typeform/embed-react'
 import { toast, ToastContainer } from 'react-toastify'
 import { useSession } from 'next-auth/react'
+import { useRouter } from "next/router";
 
 function Round21Page() {
   const [currRound, setcurrRound] = useState(20)
   const [teamId, setTeamId] = useState()
   const { data: session } = useSession()
+  const router = useRouter();
 
   useEffect(() => {
     if (session) {
@@ -94,6 +96,9 @@ function Round21Page() {
           console.log('POST data round 21')
           console.log(data)
           setcurrRound(data.currentRound)
+          if(data.currentRound === "28"){
+            router.push("/thankyou");
+          }
         })
     }
   }
