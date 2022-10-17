@@ -43,7 +43,7 @@
 
 .balance_h1 {
   margin-bottom: 0px;
-  padding-bottom: 20px;
+  /* padding-bottom: 20px; */
   font-size: 39px;
   line-height: 45px;
   text-align: center;
@@ -103,10 +103,10 @@
   text-align: center;
 }
 /* Drag module css */
-.balance {
-  margin-bottom: 40px;
-  border-bottom: 1px solid #000;
-}
+/* .balance {
+  /* margin-bottom: 40px; */
+/* border-bottom: 1px solid #000; 
+} */
 
 .h1 {
   margin-top: 0px;
@@ -121,7 +121,7 @@
 }
 .start {
   border-style: solid;
-  border-radius: 25px;
+  border-radius: 10px;
   background-color: #5e5b71;
   margin: 1vw;
   padding: 0.5vw;
@@ -153,7 +153,7 @@
   border-style: solid;
   border-width: 1px;
   border-color: #490505;
-  border-radius: 20px;
+  border-radius: 10px;
 }
 
 .colopy.mid {
@@ -200,7 +200,7 @@
   -ms-flex: 0 auto;
   flex: 0 auto;
   border: 1px solid #7353e5;
-  border-radius: 20px;
+  border-radius: 10px;
   background-image: -webkit-gradient(
       linear,
       left top,
@@ -209,14 +209,14 @@
       to(rgba(19, 17, 26, 0.91))
     ),
     url("https://uploads-ssl.webflow.com/634c4e31a2d14068ebe96667/634d366d3b326901cb019996_pex.png");
-  background-image: linear-gradient(
+  /* background-image: linear-gradient(
       180deg,
       rgba(19, 17, 26, 0.91),
       rgba(19, 17, 26, 0.91)
     ),
-    url("https://uploads-ssl.webflow.com/634c4e31a2d14068ebe96667/634d366d3b326901cb019996_pex.png");
+    url("https://uploads-ssl.webflow.com/634c4e31a2d14068ebe96667/634d366d3b326901cb019996_pex.png"); */
   background-position: 0px 0px, 0% 50%;
-  background-size: auto, 1185px;
+  /* background-size: auto, 1185px; */
   background-repeat: repeat, no-repeat;
   background-attachment: scroll, scroll;
   text-align: center;
@@ -238,4 +238,18 @@
 
 .text-block-3 {
   font-size: 1rem;
+}
+
+.start_btn {
+  position: absolute;
+  left: auto;
+  top: auto;
+  right: -13%;
+  bottom: 0px;
+  overflow: hidden;
+  cursor: pointer;
+}
+.image {
+  overflow: hidden;
+  max-width: 10vw;
 }
