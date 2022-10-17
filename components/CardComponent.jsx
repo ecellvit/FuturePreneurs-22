@@ -3,6 +3,8 @@ import { useState } from "react";
 import styles from "../styles/Dashboard.module.css";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function CardComponent({ heading, para1,para2,para3,para4,intro,teamId,round }) {
   const [map, setMap] = useState();
@@ -12,6 +14,7 @@ function CardComponent({ heading, para1,para2,para3,para4,intro,teamId,round }) 
   function handleNext() {
     console.log("hello");
     if (session) {
+      if(round != "game"){
       fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/team/roundone/${teamId}`, {
         method: "GET",
         headers: {
@@ -24,7 +27,19 @@ function CardComponent({ heading, para1,para2,para3,para4,intro,teamId,round }) 
           return response.json();
         })
         .then((data) => {
-          console.log("data");
+          if (data?.error?.errorCode) {
+            toast.error(`${data.message}`, {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
+            return;
+          }
+          //console.log("data");
           console.log(data.mapChoice);
           setMap(data.mapChoice)
           if(data.mapChoice == 1 && round === "round1"){
@@ -39,18 +54,23 @@ function CardComponent({ heading, para1,para2,para3,para4,intro,teamId,round }) 
           if(round==="round2"){
             window.location = '/round3'
           }
-          if(round==="game"){
-            window.location = '/game-ecell-rox231'
-          }
+
           if(round==="round3"){
             window.location = '/thankyou'
           }
           
         })
+
         .catch((err) => {
           console.log(err);
         });
+      
     }
+    else{
+      window.location = '/game-ecell-rox231'
+    }
+  }
+    
   }
   return (
     <>

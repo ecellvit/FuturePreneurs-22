@@ -3,10 +3,11 @@ import styles from '../styles/Dashboard.module.css'
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-
+import Loading from "../components/Loading"
 
 export default function Instructions() {
   const [round, setRound] = useState()
+  const [isLoading, setIsLoading] = useState(false);
   const { data: session } = useSession();
   const router = useRouter();
 
@@ -15,6 +16,7 @@ export default function Instructions() {
 
   useEffect(() => {
     if (session) {
+      setIsLoading(true);
       fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/user/team`, {
         method: "GET",
         headers: {
@@ -40,6 +42,7 @@ export default function Instructions() {
           if (data.user.teamId) {
             console.log(data.user.teamId._id, "yoyo")
             setTeamId(data.user.teamId._id)
+            setIsLoading(false);
           }
 
         })
@@ -55,6 +58,7 @@ export default function Instructions() {
 
   useEffect(() => {
     if (session && teamId) {
+      setIsLoading(true);
       fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/team/round/${teamId}`, {
         method: 'GET',
         headers: {
@@ -72,15 +76,19 @@ export default function Instructions() {
           console.log(data);
           if (!data.hasRoundOneEnd && !data.hasRoundTwoEnd && !data.hasRoundThreeEnd) {
             setRound("game")
+            setIsLoading(false);
           }
           else if (data.hasRoundOneEnd && !data.hasRoundTwoEnd && !data.hasRoundThreeEnd) {
             setRound("round1")
+            setIsLoading(false);
           }
           else if (data.hasRoundOneEnd && data.hasRoundTwoEnd && !data.hasRoundThreeEnd) {
             setRound("round2")
+            setIsLoading(false);
           }
           else {
             setRound("round3")
+            setIsLoading(false);
           }
         })
         .catch((err) => {
@@ -93,8 +101,10 @@ export default function Instructions() {
   return (
     <div className={styles.cardbody}>
     <span style={{ whiteSpace: "pre-line", justifyContent:'left'}}>
-      {
-        (round === "game") && <CardComponent heading={"game"} teamId={teamId} round={round}
+      {isLoading ? (
+        <Loading />
+      ) :
+        (round === "game") && <CardComponent heading={"1.1"} teamId={teamId} round={round}
           intro={`
         Alright! Now, with the theme of Futurepreneurs 8.0 in your hand, you desire to build your resort. To do so, one must back themselves up with resources to start with. So take a moment and think, "What should be the ideal step to take when you are intending to start a resort business?" \n
 
@@ -115,7 +125,10 @@ export default function Instructions() {
         />
       }
       {
-        (round === "round1") && <CardComponent heading={"one"} teamId={teamId} round={round}
+        isLoading ? (
+        <Loading />
+      ) :
+        (round === "round1") && <CardComponent heading={"1.2"} teamId={teamId} round={round}
           intro={`
           So, that was the end of Round 1.1. Hope you had an immersive experience. \n
           
@@ -133,7 +146,10 @@ export default function Instructions() {
         />
       }
       {
-        (round === "round2") && <CardComponent heading={"two"} teamId={teamId} round={round}
+        isLoading ? (
+        <Loading />
+      ) :
+        (round === "round2") && <CardComponent heading={"1.3"} teamId={teamId} round={round}
           intro={`Oh, clever move!! That sure will add to your profit. To beat one's opponent in the competitive market, one must make themselves stand out. Cater to the needs of customers, making sure to provide them with an extravagant experience and win their satisfaction. You also need to make your business profitable and live up to the standards of quality. \n
 
           Now you will be provided with a list of amenities, along with a budget. You need to select any ten of them so that they match the needs of your customers. Make sure to use the budget wisely. Also, select the amenities that satisfy the needs of your customers effectively. \n
@@ -146,7 +162,10 @@ export default function Instructions() {
         />
       }
       {
-        (round === "round3") && <CardComponent heading={"three"} teamId={teamId} round={round} />
+        isLoading ? (
+        <Loading />
+      ) :
+        (round === "round3") && <CardComponent heading={"2.1"} teamId={teamId} round={round} />
       }
       </span>
     </div>
