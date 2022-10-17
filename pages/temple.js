@@ -165,7 +165,7 @@ export default function PhaserGame() {
         pixelArt: true,
         scale: {
           zoom: 2,
-          autoCenter: Phaser.Scale.CENTER_BOTH,
+          autoCenter: Phaser.Scale.CENTER_HORIZONTALLY,
         },
         scene: [TestScene],
         physics: {
@@ -262,7 +262,9 @@ export default function PhaserGame() {
                 </div>
               </div>
             )}
-            <div id="game-content" key="game-content"></div>
+            <div>
+              <div id="game-content" key="game-content"></div>
+            </div>
             <AnimatePresence
               initial={false}
               exitBeforeEnter={true}

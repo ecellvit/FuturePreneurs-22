@@ -165,7 +165,7 @@ export default function PhaserGame() {
         pixelArt: true,
         scale: {
           zoom: 2,
-          autoCenter: Phaser.Scale.CENTER_BOTH,
+          autoCenter: Phaser.Scale.CENTER_HORIZONTALLY,
         },
         scene: [TestScene],
         physics: {

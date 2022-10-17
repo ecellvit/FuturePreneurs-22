@@ -63,10 +63,10 @@ export default class BeachScene extends Scene {
         id: 'hero',
         sprite: this.heroSprite,
         startPosition: {
-          x: 9,
-          y: 9
+          x: 35,
+          y: 22
         },
-        speed: 9
+        speed: 8
       }]
     }
     this.gridEngine.create(map, gridEngineConfig)
