@@ -130,7 +130,7 @@ export default function PhaserGame() {
         title: "round-one",
         parent: "game-content",
         width: 700,
-        height: 400,
+        height: 300,
         pixelArt: true,
         scale: {
           zoom: 2,
@@ -233,7 +233,9 @@ export default function PhaserGame() {
           </div>
         </div>}
         {isLoading ? <Loading /> : <>
-          <div id="game-content" key="game-content"></div>
+          <div>
+            <div id="game-content" key="game-content"></div>
+          </div>
           <AnimatePresence
             initial={false}
             exitBeforeEnter={true}

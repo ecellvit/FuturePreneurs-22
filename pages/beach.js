@@ -158,8 +158,8 @@ export default function PhaserGame() {
         type: Phaser.AUTO,
         title: "round-one-beach",
         parent: "game-content",
-        width: window.innerWidth / 2,
-        height: window.innerHeight / 2,
+        width: 700,
+        height: 300,
         pixelArt: true,
         scale: {
           zoom: 2,
