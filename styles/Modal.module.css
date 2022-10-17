@@ -53,8 +53,29 @@
   /* background: linear-gradient(10deg, #ffaa00, #ff6a00); */
 }
 
+.member_container {
+  display: flex;
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  background-color: rgba(17, 25, 40, 0.75);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.125);
+  margin-bottom: 20px;
+  padding: 20px 10px 0px;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  border-radius: 6px;
+  min-height: 18rem;
+  margin-top: 1rem;
+}
+
 .green-gradient {
-  background: linear-gradient(15deg, #04ea00, #00d17d);
+  background: linear-gradient(15deg, #1c3147, #1c3147);
+}
+
+.new-gradient {
+
 }
 
 .pink {
@@ -103,8 +124,8 @@
 .close-button {
   padding: 0 2rem;
   height: 2.5rem;
-  margin: 2rem auto 1rem 0;
-  background: #101111;
+  margin: 2rem 1rem 1rem 1rem;
+  background: #ffffff;
   /* border: 1px dashed #9a9a9a99; */
   color: white;
   border-radius: 4px;

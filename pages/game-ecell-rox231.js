@@ -129,8 +129,8 @@ export default function PhaserGame() {
         type: Phaser.AUTO,
         title: "round-one",
         parent: "game-content",
-        width: 500,
-        height: 500,
+        width: 400,
+        height: 400,
         pixelArt: true,
         scale: {
           zoom: 2,
@@ -244,7 +244,7 @@ export default function PhaserGame() {
                 modalOpen={prompt}
                 handleClose={() => { closePrompt(false) }}
                 text={`Do you want to place your resort in ${prompt}?`}
-                text1={"This action can't be reversed!!"}
+                text1={"THIS ACTION CAN'T BE REVERSED!!"}
                 text2={"Yes I'm sure"}
                 text2func={() => {
                   closePrompt(prompt)

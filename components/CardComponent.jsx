@@ -54,6 +54,9 @@ function CardComponent({ heading, para1,para2,para3,para4,intro,teamId,round }) 
   }
   return (
     <>
+      <link rel="preconnect" href="https://fonts.googleapis.com"></link>
+      <link rel="preconnect" href="https://fonts.gstatic.com"></link>
+      <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet"></link>
       <div
         className={`${styles.col} ${styles.lg4} ${styles.md3} ${styles.xs2} ${styles.flex_stretch}  ${styles.cardbodyContainer}`}
       >
@@ -66,13 +69,19 @@ function CardComponent({ heading, para1,para2,para3,para4,intro,teamId,round }) 
           <div className={styles.round}>
             <div
               className={styles.text_block}
-              style={{ textDecoration: "underline" }}
+              style={{ fontFamily: 'Inter' }}
             >
-              Qualifying Round {heading} Instructions
+              <h1>
+                Round {heading}
+              </h1> 
+              <h2>
+                Instructions
+              </h2>
             </div>
           </div>
+          <hr></hr>
           <div className={styles.round}>
-            <div className={styles.text_block} style={{ color: "#BC304B" }}>
+            <div className={styles.text_block} style={{ color: "#ffffff " }}>
               {intro}
             </div>
           </div>
