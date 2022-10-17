@@ -60,6 +60,9 @@ export default class TestScene extends Scene {
       }
     }
 
+    // this.sys.game.canvas.width = 1500;
+    // this.sys.game.canvas.height = 700;
+
     this.cameras.main.startFollow(this.heroSprite, true);
     this.cameras.main.setFollowOffset(-this.heroSprite.width, -this.heroSprite.height)
 
