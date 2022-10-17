@@ -3,6 +3,8 @@ import { useState } from "react";
 import styles from "../styles/Dashboard.module.css";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function CardComponent({ heading, para1,para2,para3,para4,intro,teamId,round }) {
   const [map, setMap] = useState();
@@ -24,7 +26,19 @@ function CardComponent({ heading, para1,para2,para3,para4,intro,teamId,round }) 
           return response.json();
         })
         .then((data) => {
-          console.log("data");
+          if (data?.error?.errorCode) {
+            toast.error(`${data.message}`, {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
+            return;
+          }
+          //console.log("data");
           console.log(data.mapChoice);
           setMap(data.mapChoice)
           if(data.mapChoice == 1 && round === "round1"){
@@ -47,6 +61,7 @@ function CardComponent({ heading, para1,para2,para3,para4,intro,teamId,round }) 
           }
           
         })
+
         .catch((err) => {
           console.log(err);
         });
@@ -54,9 +69,9 @@ function CardComponent({ heading, para1,para2,para3,para4,intro,teamId,round }) 
   }
   return (
     <>
-      <link rel="preconnect" href="https://fonts.googleapis.com"></link>
+      {/* <link rel="preconnect" href="https://fonts.googleapis.com"></link>
       <link rel="preconnect" href="https://fonts.gstatic.com"></link>
-      <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet"></link>
+      <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet"></link> */}
       <div
         className={`${styles.col} ${styles.lg4} ${styles.md3} ${styles.xs2} ${styles.flex_stretch}  ${styles.cardbodyContainer}`}
       >
@@ -81,7 +96,7 @@ function CardComponent({ heading, para1,para2,para3,para4,intro,teamId,round }) 
           </div>
           <hr></hr>
           <div className={styles.round}>
-            <div className={styles.text_block} style={{ color: "#ffffff " }}>
+            <div className={styles.text_block} style={{ color: "#ffffff ", textAlign:'left'}}>
               {intro}
             </div>
           </div>
