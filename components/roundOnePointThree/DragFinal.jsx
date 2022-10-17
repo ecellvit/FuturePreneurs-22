@@ -32,6 +32,7 @@ function DragFinal({ setEndTime }) {
   const [isLoading, setIsLoading] = useState(false);
 
   function Submit() {
+    setIsLoading(true);
     fetch(
       `${process.env.NEXT_PUBLIC_SERVER}/api/team/roundthree/submit/${TEAM_ID}`,
       {
@@ -45,6 +46,20 @@ function DragFinal({ setEndTime }) {
     )
       .then((data) => data.json())
       .then((data) => {
+        setIsLoading(false);
+        if (data?.error?.errorCode) {
+          window.location = "/instructions-fp-eight-ecell";
+          toast.error(`${data.message}`, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+          return;
+        }
         if (data.message == "Round Three Submitted successfully.") {
           router.push("/round21");
         }
