@@ -205,7 +205,7 @@ export default function PhaserGame() {
           return response.json();
         })
           .then((data) => {
-            window.location = 'instructions'
+            window.location = '/instructions-ecell-rox231'
           })
       }
     }
