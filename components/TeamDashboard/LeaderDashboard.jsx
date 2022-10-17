@@ -91,7 +91,6 @@ const LeaderDashboard = ({
     }
   };
 
-
   return (
     <div>
       <div className={styles.team_member_section}>
@@ -189,14 +188,18 @@ const LeaderDashboard = ({
               />
             )}
           </AnimatePresence>
-          {/* <div className={styles.invite_link_container}>
-          <CardComponent 
-           teamId={teamData?.teamId?._id}
-           round={"game"}
-            intro={"Read through all the instructions carefully as this will be vital for your performance in the quiz."} 
-            para1={"It is that time now where you will be starting your own business.The following rounds will take you on an enthusing journey where you will learn the ins and outs of building one's own business. You will tackle different situations, by realizing and applying the concepts that you learn along the way. So get ready to take off on an adventure like never before. Get ready to ideate, innovate, actuate & learn to breed business from one of the best in business!!"}
+          <div className={styles.invite_link_container}>
+            <CardComponent
+              teamId={teamData?.teamId?._id}
+              round={"game"}
+              intro={
+                "Read through all the instructions carefully as this will be vital for your performance in the quiz."
+              }
+              para1={
+                "It is that time now where you will be starting your own business.The following rounds will take you on an enthusing journey where you will learn the ins and outs of building one's own business. You will tackle different situations, by realizing and applying the concepts that you learn along the way. So get ready to take off on an adventure like never before. Get ready to ideate, innovate, actuate & learn to breed business from one of the best in business!!"
+              }
             />
-          </div> */}
+          </div>
         </div>
       </div>
     </div>
