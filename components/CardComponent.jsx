@@ -12,7 +12,6 @@ function CardComponent({ heading, para1,para2,para3,para4,intro,teamId,round }) 
   const router = useRouter();
 
   function handleNext() {
-    console.log("hello");
     if (session) {
       if(round != "game"){
       fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/team/roundone/${teamId}`, {
@@ -40,7 +39,7 @@ function CardComponent({ heading, para1,para2,para3,para4,intro,teamId,round }) 
             return;
           }
           //console.log("data");
-          console.log(data.mapChoice);
+          // console.log(data.mapChoice);
           setMap(data.mapChoice)
           if(data.mapChoice == 1 && round === "round1"){
             window.location = '/beach'
@@ -67,7 +66,7 @@ function CardComponent({ heading, para1,para2,para3,para4,intro,teamId,round }) 
       
     }
     else{
-      window.location = '/game-ecell-rox231'
+      window.location = '/game-fp-eight-ecell'
     }
   }
     

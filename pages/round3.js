@@ -21,50 +21,10 @@ export default function Round3() {
   const myCtx = useContext(myContext);
   const TEAM_ID = myCtx.teamId;
 
-  useEffect(() => {
-    if (session?.user.id) {
-      fetch(
-        `${process.env.NEXT_PUBLIC_SERVER}/api/team/roundthree/start/${TEAM_ID}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${session.accessTokenBackend}`,
-            "Access-Control-Allow-Origin": "*",
-          },
-        }
-      )
-        .then(async (response) => {
-          return response.json();
-        })
-        .then((data) => {
-          if (data.error?.errorCode) {
-            // //console.log(data.error.errorCode);
-            window.location = "/instructions-ecell-rox231";
-            toast.error(`${data.message}`, {
-              position: "top-right",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-            });
-            return;
-          } else {
-            setEndTime(data.endTime);
-          }
-          // //console.log(data);
-        })
-        .catch((e) => {
-          //console.log(e);
-        });
-    }
-  }, [session?.user.id, TEAM_ID]);
 
   useEffect(() => {
     if ((hours <= 0) & (minutes <= 0) & (seconds <= 0)) {
-      window.location = "/instructions-ecell-rox231";
+      window.location = "/instructions-fp-eight-ecell";
     }
   }, [seconds]);
 
@@ -93,7 +53,7 @@ export default function Round3() {
             </div>
           </div>
         )}
-        <DragFinal />
+        <DragFinal setEndTime={setEndTime}/>
       </>
     )
   );

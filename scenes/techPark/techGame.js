@@ -63,10 +63,10 @@ export default class TestScene extends Scene {
         id: 'hero',
         sprite: this.heroSprite,
         startPosition: {
-          x: 9,
+          x: 38,
           y: 12
         },
-        speed: 9
+        speed: 8
       }]
     }
     this.gridEngine.create(map, gridEngineConfig)

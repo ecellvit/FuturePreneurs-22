@@ -56,7 +56,6 @@ export default function PhaserGame() {
 
   useEffect(() => {
     if (hours <= 0 & minutes <= 0 & seconds <= 0) {
-      console.log("time done")
       if (session) { // send 5 = null
         fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/team/roundone/${TEAM_ID}`, {
           method: 'POST',
@@ -74,7 +73,7 @@ export default function PhaserGame() {
           .then((data) => {
             if (data.error?.errorCode) {
               if (data.error?.errorCode === 21) {
-                window.location = '/instructions-ecell-rox231'
+                window.location = '/instructions-fp-eight-ecell'
               }
               toast.error(`${data.message}`, {
                 position: "top-right",
@@ -87,10 +86,9 @@ export default function PhaserGame() {
               });
               return;
             }
-            console.log(data);
           })
       }
-      window.location = "/instructions-ecell-rox231"
+      window.location = "/instructions-fp-eight-ecell"
     }
   }, [seconds])
 
@@ -112,7 +110,6 @@ export default function PhaserGame() {
         })
         .then((data) => {
           if (data.error?.errorCode) {
-            console.log(data.error.errorCode);
             if (data.error.errorCode == 31) {
               console.log("already played 1");
               // window.location = "/instructions";
@@ -125,7 +122,7 @@ export default function PhaserGame() {
               console.log("round 1 not complete");
               // window.location = "/instructions";
             }
-            window.location = "/instructions-ecell-rox231"
+            window.location = "/instructions-fp-eight-ecell"
             toast.error(`${data.message}`, {
               position: "top-right",
               autoClose: 5000,
@@ -139,7 +136,6 @@ export default function PhaserGame() {
           } else {
             setEndTime(data.endTime);
           }
-          console.log(data);
         })
         .catch((e) => {
           console.log(e);
@@ -160,18 +156,18 @@ export default function PhaserGame() {
         type: Phaser.AUTO,
         title: "round-one-techPark",
         parent: "game-content",
-        width: window.innerWidth / 2,
-        height: window.innerHeight / 2,
+        width: 700,
+        height: 300,
         pixelArt: true,
         scale: {
           zoom: 2,
-          autoCenter: Phaser.Scale.CENTER_BOTH,
+          autoCenter: Phaser.Scale.CENTER_HORIZONTALLY,
         },
         scene: [TestScene],
         physics: {
           default: "arcade",
           arcade: {
-            debug: true,
+            debug: false,
           },
         },
         plugins: {
@@ -200,7 +196,6 @@ export default function PhaserGame() {
 
   const closePrompt = (reply) => {
     if (reply) {
-      console.log(reply.slice(-1));
       if (session) {
         fetch(
           `${process.env.NEXT_PUBLIC_SERVER}/api/team/roundtwo/${TEAM_ID}`,
@@ -220,9 +215,8 @@ export default function PhaserGame() {
             return response.json();
           })
           .then((data) => {
-            console.log(data);
             // after submitting box no.
-            window.location = "/instructions-ecell-rox231";
+            window.location = "/instructions-fp-eight-ecell";
           });
       }
     }

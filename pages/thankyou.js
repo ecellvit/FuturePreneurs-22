@@ -3,7 +3,8 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import Thankyou from "../components/quizQuestions/Thankyou";
 import NavigationBar from "../components/NavigationBar";
-
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 export default function ThankyouPage() {
   const { status } = useSession();
   const { data: session } = useSession();
@@ -21,6 +22,7 @@ export default function ThankyouPage() {
   return (
     status === "authenticated" && (
       <>
+        <ToastContainer />
         <NavigationBar />
         <Thankyou />
       </>
