@@ -890,7 +890,7 @@
                         {
                          "name":"area",
                          "type":"string",
-                         "value":"beach"
+                         "value":"Beach"
                         }],
                  "rotation":0,
                  "visible":true,
@@ -917,54 +917,54 @@
                 }, 
                 {
                  "class":"",
-                 "height":22.5,
+                 "height":24,
                  "id":3,
                  "name":"",
                  "properties":[
                         {
                          "name":"area",
                          "type":"string",
-                         "value":"temple"
+                         "value":"Temple"
                         }],
                  "rotation":0,
                  "visible":true,
-                 "width":17.5,
-                 "x":421,
-                 "y":183
+                 "width":24,
+                 "x":420,
+                 "y":180
                 }, 
                 {
                  "class":"",
-                 "height":19,
+                 "height":24,
                  "id":4,
                  "name":"",
                  "properties":[
                         {
                          "name":"area",
                          "type":"string",
-                         "value":"hospital"
+                         "value":"Hospital"
                         }],
                  "rotation":0,
                  "visible":true,
-                 "width":17,
-                 "x":682,
-                 "y":126
+                 "width":14.6666666666666,
+                 "x":684,
+                 "y":120
                 }, 
                 {
                  "class":"",
-                 "height":28,
+                 "height":30,
                  "id":5,
                  "name":"",
                  "properties":[
                         {
                          "name":"area",
                          "type":"string",
-                         "value":"school"
+                         "value":"School"
                         }],
                  "rotation":0,
                  "visible":true,
-                 "width":22.5,
-                 "x":736.5,
-                 "y":374.5
+                 "width":14.6666666666666,
+                 "x":741.333333333333,
+                 "y":372
                 }],
          "opacity":1,
          "type":"objectgroup",
