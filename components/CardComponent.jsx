@@ -42,6 +42,9 @@ function CardComponent({ heading, para1,para2,para3,para4,intro,teamId,round }) 
           if(round==="game"){
             window.location = '/game'
           }
+          if(round==="round3"){
+            window.location = '/thankyou'
+          }
           
         })
         .catch((err) => {

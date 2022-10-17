@@ -170,7 +170,7 @@ export default class TestScene extends Scene {
 
     this.load.tilemapTiledJSON(
       "testmap-temple",
-      "assets/round-two/temple/fpmapround3.json"
+      "assets/round-two/temple/temple.json"
     );
 
     //loading charachter

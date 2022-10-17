@@ -146,7 +146,7 @@ export default class TestScene extends Scene {
     this.load.image('itcenter', "assets/round-two/techPark/itcenter.png");
     this.load.image('station', "assets/round-two/techPark/train.png");
 
-    this.load.tilemapTiledJSON('testmap-techPark', 'assets/round-two/techPark/fpmap4final.json')
+    this.load.tilemapTiledJSON('testmap-techPark', 'assets/round-two/techPark/techPark.json')
 
     //loading charachter
     this.load.atlas('hero', "assets/sprites/atlas/hero.png", "assets/sprites/atlas/hero.json");
