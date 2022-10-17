@@ -78,8 +78,8 @@ export default class TestScene extends Scene {
           id: "hero",
           sprite: this.heroSprite,
           startPosition: {
-            x: 8,
-            y: 8,
+            x: 30,
+            y: 35,
           },
           speed: 9
         },
