@@ -2,16 +2,13 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { toast, ToastContainer } from "react-toastify";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
 import "react-toastify/dist/ReactToastify.css";
 import DragFinal from "../components/roundOnePointThree/DragFinal";
-import NavigationBar from "../components/NavigationBar";
 import { useState } from "react";
 import useTimer from "../hooks/useTimer";
 import { useContext } from "react";
 import myContext from "../store/myContext";
-
+import styles from "../styles/MainQuiz.module.css";
 export default function Round3() {
   const { status } = useSession();
   const { data: session } = useSession();
@@ -22,7 +19,7 @@ export default function Round3() {
   const { hours, minutes, seconds } = useTimer(endTime);
 
   const myCtx = useContext(myContext);
-  const TEAM_ID = myCtx.teamId; 
+  const TEAM_ID = myCtx.teamId;
 
   useEffect(() => {
     if (session) {
@@ -66,9 +63,10 @@ export default function Round3() {
   }, [session]);
 
   useEffect(() => {
-    if (hours <= 0 & minutes <= 0 & seconds <= 0) {
-      console.log("time done")
-      if (session) { // send 5 = null
+    if ((hours <= 0) & (minutes <= 0) & (seconds <= 0)) {
+      console.log("time done");
+      if (session) {
+        // send 5 = null
         // fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/team/roundone/${TEAM_ID}`, {
         //   method: 'POST',
         //   headers: {
@@ -101,10 +99,9 @@ export default function Round3() {
         //     console.log(data);
         //   })
       }
-      window.location = "/instructions"
+      window.location = "/instructions";
     }
-  }, [seconds])
-
+  }, [seconds]);
 
   // redirects to home if user not logged in
   useEffect(() => {
@@ -129,11 +126,8 @@ export default function Round3() {
             </div>
           </div>
         )}
-        {/* <ToastContainer /> */}
-        <NavigationBar />
-        <DndProvider backend={HTML5Backend}>
-          <DragFinal />
-        </DndProvider>
+
+        <DragFinal />
       </>
     )
   );
