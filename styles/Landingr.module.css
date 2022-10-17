@@ -11,7 +11,7 @@
   flex-wrap: wrap;
   gap: 50px;
 }
-.padder{
+.padder {
   padding: 30px;
 }
 .Cards {
@@ -21,10 +21,10 @@
   border-radius: 30px;
   /* display:flex; */
   /* flex-direction: column; */
-  padding: 50px;
-  width: 25%;
+  padding: 10%;
+  width: 30%;
   background-color: #13111a;
-  
+
   /* width: 30%; */
   /* background-image: linear-gradient(to right top, #070f0f, #001f27, #002e46, #003a68, #004187, #2a3f8c, #443d8f, #5a3890, #5c3382, #5b2e75, #592a68, #56275c); */
 }
