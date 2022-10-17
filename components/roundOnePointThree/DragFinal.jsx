@@ -5,19 +5,19 @@ import myContext from "../../store/myContext";
 import { useSession } from "next-auth/react";
 import { useContext } from "react";
 import { toast, ToastContainer } from "react-toastify";
+import { useRouter } from "next/router";
 
 function DragFinal() {
   const [itemsFromBackend, setItemsFromBackend] = useState([]);
   const [itemsFromBacken, setItemsFromBacken] = useState([]);
   const [bal, setbal] = useState();
   const { data: session } = useSession();
+  const router = useRouter();
 
   const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    setIsLoading(true);
+  function Submit() {
     fetch(
-      `${process.env.NEXT_PUBLIC_SERVER}/api/team/roundthree/start/${TEAM_ID}`,
+      `${process.env.NEXT_PUBLIC_SERVER}/api/team/roundthree/submit/${TEAM_ID}`,
       {
         method: "POST",
         headers: {
@@ -30,27 +30,57 @@ function DragFinal() {
       .then((data) => data.json())
       .then((data) => {
         console.log(data);
-        setbal(data.balance);
-        // for (let i = 0; i < data.roundThreeData.length / 2; i++) {
-        //   setItemsFromBackend((prevData) => {
-        //     return [...prevData, { ...data.roundThreeData[i], isLeft: true }];
-        //   });
-        // }
-        // for (
-        //   let i = data.roundThreeData.length / 2 + 1;
-        //   i < data.roundThreeData.length;
-        //   i++
-        // ) {
-        //   setItemsFromBacken((prevData) => {
-        //     return [...prevData, { ...data.roundThreeData[i], isLeft: false }];
-        //   });
-        // }
-        console.log(data.roundThreeData);
-        setItemsFromBackend(data.roundThreeData.slice(0, 15));
-        setItemsFromBacken(data.roundThreeData.slice(15, 30));
-
-        setIsLoading(false);
+        if (data.message == "Round Three Submitted successfully.") {
+          router.push("/thankyou");
+        }
       });
+  }
+
+  useEffect(() => {
+    if (session) {
+      setIsLoading(true);
+      fetch(
+        `${process.env.NEXT_PUBLIC_SERVER}/api/team/roundthree/start/${TEAM_ID}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${session.accessTokenBackend}`,
+            "Access-Control-Allow-Origin": "*",
+          },
+        }
+      )
+        .then((data) => data.json())
+        .then((data) => {
+          console.log(data);
+          setbal(data.balance);
+          // for (let i = 0; i < data.roundThreeData.length / 2; i++) {
+          //   setItemsFromBackend((prevData) => {
+          //     return [...prevData, { ...data.roundThreeData[i], isLeft: true }];
+          //   });
+          // }
+          // for (
+          //   let i = data.roundThreeData.length / 2 + 1;
+          //   i < data.roundThreeData.length;
+          //   i++
+          // ) {
+          //   setItemsFromBacken((prevData) => {
+          //     return [...prevData, { ...data.roundThreeData[i], isLeft: false }];
+          //   });
+          // }
+          console.log(data.roundThreeData);
+          setItemsFromBackend(data.roundThreeData.slice(0, 15));
+          // for (let i = 0; i < itemsFromBackend.length; i++) {
+          //   itemsFromBackend[i] = { ...itemsFromBackend[i], isLeft: true };
+          // }
+          setItemsFromBacken(data.roundThreeData.slice(15, 30));
+          // for (let i = 0; i < itemsFromBacken.length; i++) {
+          //   itemsFromBacken[i] = { ...itemsFromBacken[i], isLeft: false };
+          // }
+
+          setIsLoading(false);
+        });
+    }
   }, [session]);
 
   // const [columnsList, setcolumnsList] = useState();
@@ -115,10 +145,10 @@ function DragFinal() {
       const destColumn = columns[destination.droppableId];
       const sourceItems = [...sourceColumn.items];
       const destItems = [...destColumn.items];
-      if (destination.droppableId !== "1" && destination.droppableId !== "13") {
+      if (destination.droppableId !== "1" && destination.droppableId !== "12") {
         //if user tries to put more than 1 ittem in the center containers, then swap the elements
         if (destItems.length !== 0) {
-          if (source.droppableId == 1 || source.droppableId == 8) {
+          if (source.droppableId == 1 || source.droppableId == 12) {
             console.log("Yeh wala hua 1");
             const [re] = destItems.splice(0, 1);
             console.log(re);
@@ -205,6 +235,66 @@ function DragFinal() {
               return;
             }
           } else {
+            // if (
+            //   destination.droppableId === "1" ||
+            //   destination.droppableId === "12"
+            // ) {
+            //   if (source.droppableId === "1" || source.droppableId === "12") {
+            //   } else {
+            //     const [removed] = sourceItems.splice(source.index, 1);
+            //     if (removed.isLeft === true) {
+            //       console.log(destination);
+            //       destination.droppableId = 1;
+            //       destination.index = 4;
+            //       destColumn = columns[destination.droppableId];
+            //       destItems = [...destColumn.items];
+            //     } else {
+            //       console.log(destination);
+
+            //       destination.droppableId = 12;
+            //       destination.index = 5;
+            //       destColumn = columns[destination.droppableId];
+            //       destItems = [...destColumn.items];
+            //     }
+            //     // setbal(bal + removed.price);
+
+            //     destItems.splice(destination.index, 0, removed);
+            //     console.log(source, destination, " Yeh wala hua 3");
+
+            //     fetch(
+            //       `${process.env.NEXT_PUBLIC_SERVER}/api/team/roundthree/${TEAM_ID}`,
+            //       {
+            //         method: "POST",
+            //         headers: {
+            //           "Content-Type": "application/json",
+            //           Authorization: `Bearer ${session.accessTokenBackend}`,
+            //           "Access-Control-Allow-Origin": "*",
+            //         },
+            //         body: JSON.stringify({
+            //           item: removed.item,
+            //           operation: 1,
+            //         }),
+            //       }
+            //     )
+            //       .then((data) => data.json())
+            //       .then((data) => {
+            //         setbal(data.availableBalance);
+            //       });
+            //     setColumns({
+            //       ...columns,
+            //       [source.droppableId]: {
+            //         ...sourceColumn,
+            //         items: sourceItems,
+            //       },
+            //       [destination.droppableId]: {
+            //         ...destColumn,
+            //         items: destItems,
+            //       },
+            //     });
+            //   }
+
+            //   return;
+            // }
             console.log("Yeh hogaya");
             const [re] = destItems.splice(0, 1);
             console.log(re);
@@ -234,13 +324,21 @@ function DragFinal() {
         } else {
           const [removed] = sourceItems.splice(source.index, 1);
           if (removed.isLeft === true) {
+            console.log(destination);
             destination.droppableId = 1;
-            destination.index = 4;
+            destination.index = 0;
             destColumn = columns[destination.droppableId];
             destItems = [...destColumn.items];
+
+            // destination.droppableId = 12;
+            // destination.index = 0;
+            // destColumn = columns[destination.droppableId];
+            // destItems = [...destColumn.items];
           } else {
+            console.log(destination);
+
             destination.droppableId = 12;
-            destination.index = 5;
+            destination.index = 0;
             destColumn = columns[destination.droppableId];
             destItems = [...destColumn.items];
           }
@@ -299,7 +397,7 @@ function DragFinal() {
           },
         });
         console.log(source, destination, "Yeh wala hua 4");
-        if (source.droppableId == 1 || source.droppableId == 8) {
+        if (source.droppableId == 1 || source.droppableId == 12) {
           fetch(
             `${process.env.NEXT_PUBLIC_SERVER}/api/team/roundthree/${TEAM_ID}`,
             {
@@ -442,7 +540,7 @@ function DragFinal() {
                             }}
                           >
                             {column.items.map((item, index) => {
-                              console.log(item, index);
+                              // console.log(item, index);
                               return (
                                 <Draggable
                                   key={item._id}
@@ -490,7 +588,7 @@ function DragFinal() {
               {Object.entries(columns)
                 .slice(1, 11)
                 .map(([columnId, column], index) => {
-                  console.log(columnId);
+                  // console.log(columnId);
                   return (
                     <>
                       {/* <h2>{column.item}</h2> */}
@@ -510,7 +608,7 @@ function DragFinal() {
                             >
                               <>
                                 {column.items.map((item, index) => {
-                                  console.log(item, index);
+                                  // console.log(item, index);
                                   return (
                                     <Draggable
                                       key={item._id}
@@ -586,7 +684,7 @@ function DragFinal() {
                             }}
                           >
                             {column.items.map((item, index) => {
-                              console.log(item, index);
+                              // console.log(item, index);
                               return (
                                 <Draggable
                                   key={item._id}
@@ -631,6 +729,13 @@ function DragFinal() {
               })}
           </DragDropContext>
         </div>
+        <button
+          onClick={() => {
+            Submit();
+          }}
+        >
+          SUBMIT
+        </button>
       </div>
     </>
   );
