@@ -63,9 +63,25 @@ function Round21Page() {
           return response.json()
         })
         .then((data) => {
+            if (data.error?.errorCode) {
+                toast.error(`${data.message}`, {
+                  position: 'top-right',
+                  autoClose: 5000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                })
+                return
+              }
+            
           console.log('GET data round 21')
           console.log(data)
           setcurrRound(data.currentRound)
+          if(data.currentRound === 28){
+            router.push("/thankyou");
+          }
         })
         .catch((error) => {
           console.error(
@@ -93,10 +109,22 @@ function Round21Page() {
           return response.json()
         })
         .then((data) => {
+            if (data.error?.errorCode) {
+                toast.error(`${data.message}`, {
+                  position: 'top-right',
+                  autoClose: 5000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                })
+                return
+              }
           console.log('POST data round 21')
           console.log(data)
           setcurrRound(data.currentRound)
-          if(data.currentRound === "28"){
+          if(data.currentRound === 28){
             router.push("/thankyou");
           }
         })
@@ -105,6 +133,7 @@ function Round21Page() {
 
   return (
     <div>
+     <ToastContainer />
       {currRound === 20 && (
         <Widget
           id="lYaIHgCf"
