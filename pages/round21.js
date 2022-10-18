@@ -36,6 +36,7 @@ function Round21Page() {
               draggable: true,
               progress: undefined,
             })
+            window.location = '/instructions-fp-eight-ecell'
             return
           }
           setIsLoading(false)
@@ -78,6 +79,7 @@ function Round21Page() {
               draggable: true,
               progress: undefined,
             })
+            window.location = '/instructions-fp-eight-ecell'
             if (data.message === "Previous Rounds Not Completed") {
               router.push('/instructions-fp-eight-ecell')
             }
