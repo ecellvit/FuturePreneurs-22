@@ -79,7 +79,7 @@ function Round21Page() {
               progress: undefined,
             })
             if (data.message === "Previous Rounds Not Completed") {
-              router.push('/instructions-ecell-rox231')
+              router.push('/instructions-fp-eight-ecell')
             }
             return
           }
@@ -140,11 +140,14 @@ function Round21Page() {
     <>
       <ToastContainer />
       {isLoading ? <Loading /> :
-        <div style={{ marginTop: "70px" }}>
+        <div style={{ marginTop: "20px" }}>
+          <div style={{ textAlign: 'center', color: "white", fontSize: "30px", margin: "40px" }} >
+            Round 2
+          </div>
           {currRound === 20 && (
             <Widget
               id="lYaIHgCf"
-              height={600}
+              height={570}
               onReady={() => setIsLoading(false)}
               onSubmit={() => {
                 handleSubmit()
@@ -154,7 +157,7 @@ function Round21Page() {
           {currRound === 21 && (
             <Widget
               id="BU8GZoEe"
-              height={600}
+              height={570}
               onSubmit={() => {
                 handleSubmit()
               }}
@@ -163,7 +166,7 @@ function Round21Page() {
           {currRound === 22 && (
             <Widget
               id="ZykhIrxG"
-              height={600}
+              height={570}
               onSubmit={() => {
                 handleSubmit()
               }}
@@ -172,7 +175,7 @@ function Round21Page() {
           {currRound === 23 && (
             <Widget
               id="L6e3Dnim"
-              height={600}
+              height={570}
               onSubmit={() => {
                 handleSubmit()
               }}
@@ -181,7 +184,7 @@ function Round21Page() {
           {currRound === 24 && (
             <Widget
               id="aT0eujLI"
-              height={600}
+              height={570}
               onSubmit={() => {
                 handleSubmit()
               }}
@@ -190,7 +193,7 @@ function Round21Page() {
           {currRound === 25 && (
             <Widget
               id="OaWblDLr"
-              height={600}
+              height={570}
               onSubmit={() => {
                 handleSubmit()
               }}
@@ -199,7 +202,7 @@ function Round21Page() {
           {currRound === 26 && (
             <Widget
               id="bt1dcAfh"
-              height={600}
+              height={570}
               onSubmit={() => {
                 handleSubmit()
               }}
@@ -208,7 +211,7 @@ function Round21Page() {
           {currRound === 27 && (
             <Widget
               id="HqiNeuT1"
-              height={600}
+              height={570}
               onSubmit={() => {
                 handleSubmit()
               }}

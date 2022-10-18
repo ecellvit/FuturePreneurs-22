@@ -21,61 +21,63 @@ function CardComponent({
   const router = useRouter();
 
   function handleNext() {
-    console.log("hello");
     if (session) {
-      if (round != "game") {
-        fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/team/roundone/${teamId}`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${session.accessTokenBackend}`,
-            "Access-Control-Allow-Origin": "*",
-          },
+      if(round != "game"){
+      fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/team/roundone/${teamId}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${session.accessTokenBackend}`,
+          "Access-Control-Allow-Origin": "*",
+        },
+      })
+        .then((response) => {
+          return response.json();
         })
-          .then((response) => {
-            return response.json();
-          })
-          .then((data) => {
-            if (data?.error?.errorCode) {
-              toast.error(`${data.message}`, {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-              });
-              return;
-            }
-            //console.log("data");
-            console.log(data.mapChoice);
-            setMap(data.mapChoice);
-            if (data.mapChoice == 1 && round === "round1") {
-              window.location = "/beach";
-            }
-            if (data.mapChoice == 2 && round === "round1") {
-              window.location = "/techPark";
-            }
-            if (data.mapChoice == 0 && round === "round1") {
-              window.location = "/temple";
-            }
-            if (round === "round2") {
-              window.location = "/round3";
-            }
+        .then((data) => {
+          if (data?.error?.errorCode) {
+            toast.error(`${data.message}`, {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
+            return;
+          }
+          //console.log("data");
+          // console.log(data.mapChoice);
+          setMap(data.mapChoice)
+          if(data.mapChoice == 1 && round === "round1"){
+            window.location = '/beach'
+          }
+          if(data.mapChoice == 2 && round === "round1"){
+            window.location = '/techPark'
+          }
+          if(data.mapChoice == 0 && round === "round1"){
+            window.location = '/temple'
+          }
+          if(round==="round2"){
+            window.location = '/round3'
+          }
 
             if (round === "round3") {
               window.location = "/thankyou";
             }
           })
 
-          .catch((err) => {
-            console.log(err);
-          });
-      } else {
-        window.location = "/game-ecell-rox231";
-      }
+        .catch((err) => {
+          console.log(err);
+        });
+      
     }
+    else{
+      window.location = '/game-ecell-rox231'
+    }
+  }
+    
   }
   return (
     <>
