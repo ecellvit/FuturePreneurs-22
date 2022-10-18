@@ -22,62 +22,63 @@ function CardComponent({
 
   function handleNext() {
     if (session) {
-      if(round != "game"){
-      fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/team/roundone/${teamId}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${session.accessTokenBackend}`,
-          "Access-Control-Allow-Origin": "*",
-        },
-      })
-        .then((response) => {
-          return response.json();
+      if (round === "game0") {
+        window.location = "/instructions-fp-eight-ecell";
+        return;
+      }
+      if (round !== "game") {
+        fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/team/roundone/${teamId}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${session.accessTokenBackend}`,
+            "Access-Control-Allow-Origin": "*",
+          },
         })
-        .then((data) => {
-          if (data?.error?.errorCode) {
-            toast.error(`${data.message}`, {
-              position: "top-right",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-            });
-            return;
-          }
-          //console.log("data");
-          // console.log(data.mapChoice);
-          setMap(data.mapChoice)
-          if(data.mapChoice == 1 && round === "round1"){
-            window.location = '/beach'
-          }
-          if(data.mapChoice == 2 && round === "round1"){
-            window.location = '/techPark'
-          }
-          if(data.mapChoice == 0 && round === "round1"){
-            window.location = '/temple'
-          }
-          if(round==="round2"){
-            window.location = '/round3'
-          }
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            if (data?.error?.errorCode) {
+              toast.error(`${data.message}`, {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              });
+              return;
+            }
+            //console.log("data");
+            // console.log(data.mapChoice);
+            setMap(data.mapChoice);
+            if (data.mapChoice == 1 && round === "round1") {
+              window.location = "/beach";
+            }
+            if (data.mapChoice == 2 && round === "round1") {
+              window.location = "/techPark";
+            }
+            if (data.mapChoice == 0 && round === "round1") {
+              window.location = "/temple";
+            }
+            if (round === "round2") {
+              window.location = "/round3";
+            }
 
             if (round === "round3") {
               window.location = "/thankyou";
             }
           })
 
-        .catch((err) => {
-          console.log(err);
-        });
-      
+          .catch((err) => {
+            console.log(err);
+          });
+      } else {
+        window.location = "/game-fp-eight-ecell";
+      }
     }
-    else{
-      window.location = '/game-ecell-rox231'
-    }
-  }
-    
   }
   return (
     <>
@@ -112,7 +113,7 @@ function CardComponent({
                   </div>
                 </div>
                 <div className={styles.round_instruction}>
-                  {/* <div className={styles.para}>
+                  <div className={styles.para}>
                     {para1}
                     <br />
                     {para2}
@@ -120,26 +121,24 @@ function CardComponent({
                     {para3}
                     <br />
                     {para4}
-                  </div> */}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-          <div styles="">
-            <div className={styles.start_btn}>
-              <img
-                src={"start.png"}
-                width="290px"
-                sizes="(max-width: 479px) 31vw, (max-width: 1919px) 145px, 290px"
-                alt=""
-                className={styles.image}
-                style={{ display: "block" }}
-                onClick={() => {
-                  handleNext();
-                }}
-              />
-            </div>
-          </div>
+        </div>
+        <div className={styles.start_btn}>
+          <img
+            src={"start.png"}
+            width="290px"
+            sizes="(max-width: 479px) 31vw, (max-width: 1919px) 145px, 290px"
+            alt=""
+            className={styles.image}
+            style={{ display: "block" }}
+            onClick={() => {
+              handleNext();
+            }}
+          />
         </div>
       </div>
     </>
