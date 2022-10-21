@@ -15,10 +15,6 @@ const MainQuiz = ({ hrs, min, sec, startQuiz, StartEnabler, TEAM_ID }) => {
 
   const [isLoading, setIsLoading] = useState(false);
   const { status } = useSession();
-  function RenderStartButton() {
-    console.log(hrs, min, sec);
-    console.log(StartEnabler);
-  }
 
   useEffect(() => {
     setIsLoading(true);

@@ -37,7 +37,6 @@ const TeamMembers = ({ teamData, handleMemberLeave }) => {
     })
       .then((data) => data.json())
       .then((data) => {
-        // console.log(data)
         toast.success(`${data.message}`, {
           position: toast.POSITION.TOP_RIGHT,
         });

@@ -22,14 +22,7 @@ export const MyContextProvidor = (props) => {
       0
   );
 
-  useEffect(()=>{
-    // console.log(teamId)
-  }, [teamId])
-
-	// const {data:session} = useSession();
-
 	const contextValue = {
-		// all global variables here, can even give functions.
 		isLeader: isLeader,
     leaderHandler: (bool)=>{
       setIsLeader(bool)
@@ -38,7 +31,6 @@ export const MyContextProvidor = (props) => {
     notyHandler: (num)=>{setNotys(num)},
     teamId: teamId,
     teamIdHandler: (id) => {
-      // console.log(id)
       if(typeof window !== 'undefined'){
         setTeamId(id)
         localStorage.setItem('teamId', id)

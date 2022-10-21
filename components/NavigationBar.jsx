@@ -47,12 +47,10 @@ const NavigationBar = () => {
 
   useEffect(() => {
     myCtx.notyHandler(Requests.length);
-    // console.log(Requests.length);
   }, [Requests])
 
 
   useEffect(() => {
-    // console.log(myCtx.isLeader)
     if (session) {
       if (!myCtx.isLeader) {
         fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/user/requests`, {
@@ -110,7 +108,6 @@ const NavigationBar = () => {
                                 (x) => x._id === currentUser._id
                               ) === -1
                             ) {
-                              // console.log(prevUserData)
                               return [...prevUserData, currentUser];
                             }
                             return prevUserData;

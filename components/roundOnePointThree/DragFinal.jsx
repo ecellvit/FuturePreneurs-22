@@ -315,21 +315,14 @@ function DragFinal({ setEndTime }) {
             destination.index = 0;
             destColumn = columns[destination.droppableId];
             destItems = [...destColumn.items];
-
-            // destination.droppableId = 12;
-            // destination.index = 0;
-            // destColumn = columns[destination.droppableId];
-            // destItems = [...destColumn.items];
           } else {
             destination.droppableId = 12;
             destination.index = 0;
             destColumn = columns[destination.droppableId];
             destItems = [...destColumn.items];
           }
-          // setbal(bal + removed.price);
 
           destItems.splice(destination.index, 0, removed);
-          // console.log(source, destination, " Yeh wala hua 3");
 
           fetch(
             `${process.env.NEXT_PUBLIC_SERVER}/api/team/roundthree/${TEAM_ID}`,
@@ -468,7 +461,6 @@ function DragFinal({ setEndTime }) {
                               }}
                             >
                               {column.items?.map((item, index) => {
-                                // console.log(item, index);
                                 return (
                                   <Draggable
                                     key={item._id}
@@ -521,7 +513,6 @@ function DragFinal({ setEndTime }) {
                 {Object.entries(columns)
                   .slice(1, 11)
                   .map(([columnId, column], index) => {
-                    // console.log(columnId);
                     return (
                       <>
                         <Droppable droppableId={columnId} key={columnId}>
@@ -540,7 +531,6 @@ function DragFinal({ setEndTime }) {
                               >
                                 <>
                                   {column.items?.map((item, index) => {
-                                    // console.log(item, index);
                                     return (
                                       <Draggable
                                         key={item._id}
@@ -650,7 +640,6 @@ function DragFinal({ setEndTime }) {
                               }}
                             >
                               {column.items?.map((item, index) => {
-                                // console.log(item, index);
                                 return (
                                   <Draggable
                                     key={item._id}
