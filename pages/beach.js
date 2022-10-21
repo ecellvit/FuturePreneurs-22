@@ -41,13 +41,13 @@ export default function PhaserGame() {
         .then((data) => {
           switch (data.mapChoice) {
             case 0:
-              // window.location = "/temple"
+              window.location = "/temple"
               break
             // case 1:
             //   window.location = "/beach"
             //   break
             case 2:
-              // window.location = "/techPark"
+              window.location = "/techPark"
               break
           }
         });
