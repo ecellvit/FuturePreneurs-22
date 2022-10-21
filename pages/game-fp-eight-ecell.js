@@ -240,7 +240,7 @@ export default function PhaserGame() {
               <Modal
                 modalOpen={prompt}
                 handleClose={() => { closePrompt(false) }}
-                text={`Do you want to place your resort in ${prompt}?`}
+                text={`Do you want to place your resort in ${prompt} area?`}
                 text1={"THIS ACTION CAN'T BE REVERSED!!"}
                 text2={"Yes I'm sure"}
                 text2func={() => {

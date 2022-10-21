@@ -267,7 +267,7 @@ export default function PhaserGame() {
                   handleClose={() => {
                     closePrompt(false);
                   }}
-                  text={`Do you want to place your resort in ${prompt}?`}
+                  text={`Do you want to place your resort in this Area? (${prompt})`}
                   text1={"This action can't be reversed!!"}
                   text2={"Yes I'm sure"}
                   text2func={() => {

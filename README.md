@@ -7,8 +7,45 @@ Place your rounds below this.
 ## Round 0
 
 ## Round 1.1
+### Selecting Area through RPG game
+
+Here the user had to choose between five locations to place his resort into.
+
+![round-one](/public/readme/one.png)
+
+
+Beach
+![beach](/public/readme/one1.gif)
+
+Hospital
+![hospital](/public/readme/one3.gif)
+
+Tech Park
+![tech](/public/readme/one2.gif)
+
+Temple
+![temple](/public/readme/temple0.png)
+
+School
+![school](/public/readme/school.png)
+
+we display time on top
+![time](/public/readme/time.gif)
+
+
+These are the 5 locations:
+
 
 ## Round 1.2
+In this round we let the player choose where exactly does he want to place his resort. The green squares are the available places and the brown ones are the ones where your competetor has already placed one!
+
+![round](/public/readme/two2.gif)
+
+![round](/public/readme/two3.gif)
+
+![round](/public/readme/two1.gif)
+
+After every round we redirect to instructions
 
 ## Round 1.3-Placing Amenities Using Drag And Drop
 
