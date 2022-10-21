@@ -1,4 +1,6 @@
-# Main Section
+# FuturePreneurs 8.0
+
+Platform for FuturePreneurs 8.0, that hosted over **1800** participants for a multitude of different adventures. For over a month in production, with more than **600 commits** in toll, this virtual arena incorporates a legion of features including realtime `drag and drop` gameplay, and `synchronous, all-inclusive team formation`. From uniquely structured `RPG game rounds` to a melange of `quiz-based bouts`, it handled every activity in succession, for the journey of this event. Explore the whole project here!
 
 Place your rounds below this.
 
