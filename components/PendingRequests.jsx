@@ -111,7 +111,6 @@ function PendingRequests() {
   }, [session]);
 
   useEffect(() => {
-    // console.log(teamData);
     setCookie("requests", teamData.length);
   }, [teamData]);
 

@@ -111,15 +111,12 @@ export default function PhaserGame() {
         .then((data) => {
           if (data.error?.errorCode) {
             if (data.error.errorCode == 31) {
-              console.log("already played 1");
               // window.location = "/instructions";
             }
             if (data.error.errorCode === 21) {
-              console.log("time limit exceeded");
               // window.location = "/instructions";
             }
             if (data.error.errorCode === 37) {
-              console.log("round 1 not complete");
               // window.location = "/instructions";
             }
             window.location = "/instructions-fp-eight-ecell"
@@ -138,7 +135,7 @@ export default function PhaserGame() {
           }
         })
         .catch((e) => {
-          console.log(e);
+          console.error(e);
         });
     }
   }, [session]);

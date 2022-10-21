@@ -35,7 +35,6 @@ export default class BeachScene extends Scene {
   }
 
   create() {
-    // console.log(this.make)
     const map = this.make.tilemap({ key: 'testmap-beach' });
     map.addTilesetImage('buildings', 'buildings')
     map.addTilesetImage('beach', 'beach')
@@ -108,7 +107,6 @@ export default class BeachScene extends Scene {
       );
       this.physics.world.enable(tmp, 1);
       this.physics.add.collider(this.heroSprite, tmp, (objA, objB) => {
-        // console.log("collide trigger here");
         if (!triggered) {
           const customEvent = new CustomEvent('prompt', {
             detail: {
@@ -116,11 +114,6 @@ export default class BeachScene extends Scene {
             },
           });
           window.dispatchEvent(customEvent);
-
-          // const dialogBoxEventListener = () => {
-          //   this.physics.world.disable(tmp, 1);
-          // };
-          // window.addEventListener("promptClosed", dialogBoxEventListener);
 
           triggered = true;
           this.time.delayedCall(3000, () => {

@@ -38,7 +38,6 @@ export default function PhaserGame() {
         return response.json();
       }).then((data) => {
         if (data.error?.errorCode) {
-          console.log(data.error.errorCode)
           if (data.error.errorCode == 31) {
             console.log("already played 1");
             // window.location = "/instructions";
@@ -67,7 +66,7 @@ export default function PhaserGame() {
         }
 
       }).catch(e => {
-        console.log(e);
+        console.error(e);
       })
 
     }

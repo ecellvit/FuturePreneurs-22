@@ -109,7 +109,6 @@ export default class TestScene extends Scene {
       );
       this.physics.world.enable(tmp, 1);
       this.physics.add.collider(this.heroSprite, tmp, (objA, objB) => {
-        // console.log("collide trigger here");
         if (!triggered) {
           const customEvent = new CustomEvent('prompt', {
             detail: {
@@ -119,12 +118,7 @@ export default class TestScene extends Scene {
           if (objB?.properties?.area) {
             window.dispatchEvent(customEvent);
           }
-
-          // const dialogBoxEventListener = () => {
-          //   this.physics.world.disable(tmp, 1);
-          // };
-          // window.addEventListener("promptClosed", dialogBoxEventListener);
-
+          
           triggered = true;
           this.time.delayedCall(3000, () => {
             triggered = false

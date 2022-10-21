@@ -51,8 +51,6 @@ function CardComponent({
               });
               return;
             }
-            //console.log("data");
-            // console.log(data.mapChoice);
             setMap(data.mapChoice);
             if (data.mapChoice == 1 && round === "round1") {
               window.location = "/beach";
@@ -73,7 +71,7 @@ function CardComponent({
           })
 
           .catch((err) => {
-            console.log(err);
+            console.error(err);
           });
       } else {
         window.location = "/game-fp-eight-ecell";

@@ -4,7 +4,6 @@ import { memo } from "react";
 import styles from "../../styles/Img.module.css";
 
 function DescriptiveQuestions({ question, setUserAnswer, imageSrc ,userAnswer}) {
-  console.log(imageSrc);
   return (
     <>
       <div className={styles.round_instruction}>
