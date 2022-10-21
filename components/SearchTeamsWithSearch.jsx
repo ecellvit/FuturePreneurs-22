@@ -17,7 +17,6 @@ function SearchTeamsWithSearch() {
 
   const [teamData, setTeamData] = useState([]);
   const handleTextBox = (selectedTeam) => {
-    // console.log(selectedTeam);
     if (selectedTeam) {
       return selectedTeam.team.teamName;
     } else {
@@ -55,9 +54,8 @@ function SearchTeamsWithSearch() {
             return;
           }
           setSelectedTeam(data);
-          // console.log("daat!!!", data);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => console.error(err));
     } else {
       setSelectedTeam("");
     }
@@ -95,7 +93,7 @@ function SearchTeamsWithSearch() {
             });
           });
         })
-        .catch((err) => console.log(err));
+        .catch((err) => console.error(err));
     }
   }, [status]);
 
@@ -117,7 +115,6 @@ function SearchTeamsWithSearch() {
           id="combo-box-demo"
           options={labels}
           renderInput={(params) => {
-            // console.log(selectedTeam);
             return (
               <TextField
                 {...params}
@@ -131,7 +128,6 @@ function SearchTeamsWithSearch() {
           value={handleTextBox(selectedTeam)}
           onChange={(_event, newTeam) => {
             handleTeamChange(newTeam);
-            // console.log(labels);
           }}
         />
       </div>

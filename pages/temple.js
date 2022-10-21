@@ -100,7 +100,7 @@ export default function PhaserGame() {
           }
         })
         .catch((e) => {
-          console.log(e);
+          console.error(e);
         });
     }
   }, [session]);

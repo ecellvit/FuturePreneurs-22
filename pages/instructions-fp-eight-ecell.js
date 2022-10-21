@@ -106,7 +106,7 @@ export default function Instructions() {
           }
         })
         .catch((err) => {
-          console.log(err);
+          console.error(err);
         });
     }
   }, [session, teamId]);

@@ -3,7 +3,6 @@ import Image from "next/image";
 import imgSrc from "../public/sign.png";
 import React, { useEffect, useRef } from "react";
 import { useState } from "react";
-import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 
 import { toast } from "react-toastify";
@@ -18,71 +17,11 @@ const SignLayout = ({ handleLinkSubmit }) => {
   const [isLoading, setisLoading] = useState(false);
 
   const mobileNumberRef = useRef("");
-  // const router = useRouter();
+
   const { data: session } = useSession();
-  // const [hasError, setError] = useState(true);
+
   const re = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
   const regtest = /^[1-9][0-9][a-zA-Z]{3}[0-9]{4}$/;
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   if (
-  //     mobileNumberRef.current.value === "" ||
-  //     mobileNumberRef.current.value.length != 10 ||
-  //     !re.test(String(mobileNumberRef.current?.value))
-  //   ) {
-  //     toast.error("Mobile number must be 10 digits only!");
-  //     setError(true);
-  //   } else if (fnameRef.current.value.trim() === "") {
-  //     toast.error("Please Don't Leave Name as Blank!");
-  //     setError(true);
-  //   } else if (
-  //     regnoRef.current.value.trim() === "" ||
-  //     !regtest.test(regnoRef.current.value.trim())
-  //   ) {
-  //     toast.error("Please Enter Correct VIT Registration number!");
-  //     setError(true);
-  //   } else {
-  //     setError(false);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   if (!hasError) {
-  //     setisLoading(true);
-  //     fetch(`${process.env.NEXT_PUBLIC_SERVER}/api/user`, {
-  //       method: "PUT",
-  //       body: JSON.stringify({
-  //         firstName: fnameRef.current.value.trim(),
-  //         lastName: lnameRef.current.value.trim(),
-  //         regNo: regnoRef.current.value.trim(),
-  //         mobileNumber: mobileNumberRef.current.value,
-  //       }),
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Authorization: `Bearer ${session.accessTokenBackend}`,
-  //         "Access-Control-Allow-Origin": "*",
-  //       },
-  //     })
-  //       .then((data) => data.json())
-  //       .then((data) => {
-  //         setisLoading(false);
-  //         if (data.error?.errorCode) {
-  //           toast.error(`${data.message}`, {
-  //             position: "top-right",
-  //             autoClose: 5000,
-  //             hideProgressBar: false,
-  //             closeOnClick: true,
-  //             pauseOnHover: true,
-  //             draggable: true,
-  //             progress: undefined,
-  //           });
-  //           return;
-  //         }
-  //         handleLinkSubmit();
-  //       });
-  //   }
-  // }, [hasError, router, session]);
 
   const handleSubmit1 = (e) => {
     e.preventDefault();
@@ -120,7 +59,6 @@ const SignLayout = ({ handleLinkSubmit }) => {
     })
       .then((data) => data.json())
       .then((data) => {
-        // console.log(data);
         setisLoading(false);
         if (data.error?.errorCode) {
           toast.error(`${data.message}`, {

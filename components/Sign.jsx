@@ -5,7 +5,6 @@ import { signOut, useSession } from "next-auth/react";
 import SignLayout from "./SignLayout";
 
 import { toast } from "react-toastify";
-// import { useCookies } from 'react-cookie'
 import Cookies from "js-cookie";
 import Loading from "./Loading";
 
@@ -33,11 +32,7 @@ const Sign = () => {
       },
     })
       .then((data) => data.json())
-
-      .then((data) => {
-        // console.log("handle join");
-        // console.log(data);
-      });
+      .then((data) => {});
   };
 
   useEffect(() => {
@@ -60,8 +55,6 @@ const Sign = () => {
             setLoading(false);
           }, 1000);
 
-          // console.log(data);
-          // setLoading(false);
           if (data.error?.errorCode) {
             toast.error(`${data.message}`, {
               position: "top-right",
@@ -85,7 +78,7 @@ const Sign = () => {
             signOut({ callbackUrl: "/" });
           }
         })
-        .catch((err) => console.log(err));
+        .catch((err) => console.error(err));
     }
   }, [session, useEffectTrigger, router]);
 
@@ -94,7 +87,6 @@ const Sign = () => {
   ) : (
     <SignLayout handleLinkSubmit={handleLinkSubmit} />
   );
-  // return !loading ? <SignLayout handleLinkSubmit={handleLinkSubmit}/> : <Loading />;
 };
 
 export default Sign;
