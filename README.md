@@ -3,6 +3,21 @@
 Platform for FuturePreneurs 8.0, that hosted over **1800** participants for a multitude of different adventures. For over a month in production, with more than **600 commits** in toll, this virtual arena incorporates a legion of features including realtime `drag and drop` gameplay, and `synchronous, all-inclusive team formation`. From uniquely structured `RPG game rounds` to a melange of `quiz-based bouts`, it handled every activity in succession, for the journey of this event. Explore the whole project here!
 
 Place your rounds below this.
+## Dashboard
+
+Here the user can either choose to create a team as shown below.
+![demo6](https://user-images.githubusercontent.com/92802904/197411959-549c0bda-ea66-4f8b-ac8b-6863766ec0b4.gif)
+
+Once a team is created by the user,he/she has the full control of the team(accept/decline user join requests, remove existing members, delete the team, invite users by sending them invite link)
+![demo8](https://user-images.githubusercontent.com/92802904/197414220-bf0b803c-4678-4945-852d-fdfd946d3896.gif)
+
+Here the user is joining a team through an invite link shared by the leader of the team.
+![demo9](https://user-images.githubusercontent.com/92802904/197414237-2f9d5777-c59a-4486-8702-91bb5d0811fa.gif)
+
+OR 
+<br/>
+The user can join an existing team by send a joining request to the respective team leader by searching the desired team.On approval by the team leader,the user will automatically join the team.The leader can also choose to decline the request.Each user can send only 4 requests at a given time,if they wish to send requests to different teams,they can easily delete their previously sent requests.
+![demo7](https://user-images.githubusercontent.com/92802904/197413865-c227fc4b-1c95-4f6c-9248-f584eb88d3fe.gif)
 
 ## Round 0
 
