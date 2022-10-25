@@ -22,7 +22,10 @@ The user can join an existing team by send a joining request to the respective t
 
 ## Round 0
 
+
 Round 0 Or Qualifying Round is a round to split top teams. It is a quiz based round where team leader (if logged in) can answer the questions based on his team behalf.
+![gif5](https://user-images.githubusercontent.com/66114276/197701388-12825d29-5a6d-42c5-8c7d-4b65dc4fc5d0.gif)
+
 
 # Quiz Round Features
 
@@ -61,6 +64,7 @@ These type of **Multiple choice questions are recieved from backend in response 
 
 - Single Answer Correct Case Study
 - Multiple Answer Correct Case study
+     ![gif6](https://user-images.githubusercontent.com/66114276/197701580-00e1fe11-5520-41ed-a31d-0e44cb58462a.gif)
 - Descriptive Question Answers
   ![image](https://user-images.githubusercontent.com/66114276/197700437-f2e290f2-a564-4979-8544-71e5a190e2ba.png)
  
