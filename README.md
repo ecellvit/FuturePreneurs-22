@@ -23,7 +23,7 @@ The user can join an existing team by send a joining request to the respective t
 ## Round 0
 
 Round 0 Or Qualifying Round is a round to split top teams. It is a quiz based round where team leader (if logged in) can answer the questions based on his team behalf.
-
+![GIF](public/quiz/gif1.gif)
 # Quiz Round Features
 
 - [![Timer Enabled](https://img.shields.io/badge/Timer-Enabled-yellow.svg)]()
