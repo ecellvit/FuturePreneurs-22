@@ -23,7 +23,7 @@ The user can join an existing team by send a joining request to the respective t
 ## Round 0
 
 Round 0 Or Qualifying Round is a round to split top teams. It is a quiz based round where team leader (if logged in) can answer the questions based on his team behalf.
-![GIF](/public/readme/gif1.gif)
+
 # Quiz Round Features
 
 - [![Timer Enabled](https://img.shields.io/badge/Timer-Enabled-yellow.svg)]()
@@ -36,58 +36,72 @@ Round 0 Or Qualifying Round is a round to split top teams. It is a quiz based ro
 - [![CaseStudyQuestions Enabled](https://img.shields.io/badge/CaseStudyQuestions-Enabled-purple.svg)]()
 
 - Questions will come from backend and answers will be send and stored in backend
-  ![GIF](https://gifyu.com/image/S9Xwu)
 - There will be no free navigation in the quiz, once one move to the next question, you cannot move back.
 
 - If one is unable to solve all the questions in the given time period, answered questions will be auto saved and submitted.
 
 ## How to Use Our Quiz Portal 😊
 
+![image](https://user-images.githubusercontent.com/66114276/197696153-0d5a5072-5938-4868-b4aa-aa855cccc0aa.png)
+
 When the quiz instructions page loads , a useeffect is triggered to check whether the user has logged in and whether he is a team leader or not, if the above conditions are fullfilled , then user is
 allowed to attempt quiz if he has not previously submitted the quiz.
+---
+![gif1](https://user-images.githubusercontent.com/66114276/197695442-1399b892-c470-4126-8363-cf6f6e909e2d.gif)
+
+---
+   
 
 Questions from backend consists of multiple answer correct and single answer correct.Questions from backend may or maynot contain Images.
 These type of **Multiple choice questions are recieved from backend in response via fetch call**
 
 - Multiple Answer Correct Match the following
-- Multiple Answer Correct Case study
 - Single Answer Correct Match the following
-- Single Answer Correct Case Study
-- Descriptive Question Answers
+![gif3](https://user-images.githubusercontent.com/66114276/197699664-3a1c9d2d-d5df-4c2a-ab8d-27b28e466f58.gif)
 
+- Single Answer Correct Case Study
+- Multiple Answer Correct Case study
+- Descriptive Question Answers
+  ![image](https://user-images.githubusercontent.com/66114276/197700437-f2e290f2-a564-4979-8544-71e5a190e2ba.png)
+ 
+---
+---
 ---
 
-- **For descriptive type questions**: One can type the answers. There is no word limit.
+- **For descriptive type questions**: One can type the answers. There is no word limit. -:![last](https://user-images.githubusercontent.com/66114276/197700074-b3a25ebc-93b9-4be8-b7bf-824a33a4cf89.gif)
 
 - **_For Match the following type questions:_**  
    First select the question and then its corresponding answer. Both the entities will be highlighted with the same colour after this is done. Repeat the process for all the options in the question.
   If you want to deselect your choice in Match the following type, click on that particular question.
+![image](https://user-images.githubusercontent.com/66114276/197696142-adbaf77e-8322-4d5a-ac18-cdd2786598ca.png)
 
 - To answer any question regarding a **case study**, read through the case study thoroughly.
-
+    -:![gif6](https://user-images.githubusercontent.com/66114276/197695876-4411ca53-b807-4b67-a660-22c98a458b81.gif)
 - One can use the **clear all** button, to deselect all the options incase you face any ambiguity.
 
 - For moving to the **Next Question** ,one can click on Next Button to view next Question. Everytime user clicks on new button , answer of previous question from user will be send to backend and new question will appear on the user's Screen from backend.
 
 - Once all the questions are finished, then a finish button will appear and once submitted, user will be directed to Thank You Page.
-
+![image](https://user-images.githubusercontent.com/66114276/197696170-224584e7-97bf-4ab7-bcab-03fabcf535c8.png)
 ---
 
 ---
-
+ 
 ---
 
 ### 💀 Marking scheme for multiple options correct from Backend :
-
+![image](https://user-images.githubusercontent.com/66114276/197696149-0d391686-721d-440f-affc-3ac0c016c475.png)
 - If and only if all the correct options are selected, you'll be awarded 4 points.
 - If even one incorrect option is selected, the team will lose 1 point.
 - No points will be awarded if the question is left unanswered.
 
 ### 💀 Marking scheme for Single options correct from Backend :
+![image](https://user-images.githubusercontent.com/66114276/197696163-942bfeac-e8a9-4b79-b75b-f57d674417eb.png)
 
 - 4 points will be awarded if the correct option is selected.
 - Team will lose 1 point if any incorrect option is selected.
 - No points will be awarded if the question is left unanswered.
+
 
 ## Round 1.1
 
