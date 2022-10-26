@@ -156,38 +156,43 @@ Each Amenities Price and isLeft Property is also recieved from the Backend.
 
 ### Placing An Amenity
 
-GIF
+
+![normaldrop](https://user-images.githubusercontent.com/88614335/197967519-f212d3db-4aa3-4e9c-9107-3e5466e48c4e.gif)
 
 As we place an amenity directed in the gif above a request to the backend is made.
 In the backend the amenity is added to the user list and the updated balance is sent back.
 
-GIF
+![dropbalanceexceed](https://user-images.githubusercontent.com/88614335/197966381-88ebf1aa-f744-41c7-ba28-8beffb32b486.gif)
+
 
 In case of placing an amenity if the balance is not sufficient than an error popup will be showed.
 
 ### Removing An Amenity
 
-GIF
+
+![normalremove](https://user-images.githubusercontent.com/88614335/197966411-d046d1a8-8f76-44d1-9b2f-76fbcb8ba811.gif)
 
 As we remove an amenity directed in the gif above a request to the backend is made.
 In the backend the amenity is remove from the user list and the updated balance is sent back.
+![lefttorightplace](https://user-images.githubusercontent.com/88614335/197966447-f0053255-7db3-4651-9cf2-d194888bd744.gif)
 
-GIF
 
 If we remove the Amenity which was orignally at left side and place it at right side or vice versa than it will be automatically handled and placed to its orignal position.
 This is a frontend implementation and makes use of isLeft property sent from backend for each amenity in the beginning.
 
 ### Swapping An Amenity
 
-GIF
+![normalswap](https://user-images.githubusercontent.com/88614335/197966500-33000159-065f-4d32-8271-4648e533c562.gif)
+
 
 If we swap an amenity with a new amenity ,two requests to the backend are made.One for removing the existing amenity and another for adding the new amenity.The balance is calculated respectively and sent back.
 
-GIF
+
+![preexistingswap](https://user-images.githubusercontent.com/88614335/197966531-63ba72f7-e7d9-4fca-9bb0-f481185c09ae.gif)
 
 If we swap two position of two pre-existing amenity than there positionis switched on the frontend.No call to the backend is made.
+![balancecheckswap](https://user-images.githubusercontent.com/88614335/197966561-812b7317-21f4-4aea-8380-5e3feeee2455.gif)
 
-GIF
 
 If we swap an amenity with a new amenity.
 In this if the balance of the new amenity can be achieved after removing the old one than only it will be placed else an error popup will be showed.
