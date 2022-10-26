@@ -4,30 +4,35 @@ Platform for FuturePreneurs 8.0, that hosted over **1800** participants for a mu
 
 Place your rounds below this.
 
-## Dashboard
+## Team Creation and Joining Phase
 
-Here the user can either choose to create a team as shown below.
+Here the user can either choose to create a team as shown below:
 ![demo6](https://user-images.githubusercontent.com/92802904/197411959-549c0bda-ea66-4f8b-ac8b-6863766ec0b4.gif)
 
-Once a team is created by the user,he/she has the full control of the team(accept/decline user join requests, remove existing members, delete the team, invite users by sending them invite link)
+- Once a team is created by the user,he/she has the full control of the team(accept/decline user join requests, remove existing members, delete the team, invite users by sending them invite link)
 ![demo8](https://user-images.githubusercontent.com/92802904/197414220-bf0b803c-4678-4945-852d-fdfd946d3896.gif)
 
-Here the user is joining a team through an invite link shared by the leader of the team.
+- Here the user is joining a team through an invite link shared by the leader of the team.
 ![demo9](https://user-images.githubusercontent.com/92802904/197414237-2f9d5777-c59a-4486-8702-91bb5d0811fa.gif)
 
-OR
+### OR
 <br/>
-The user can join an existing team by send a joining request to the respective team leader by searching the desired team.On approval by the team leader,the user will automatically join the team.The leader can also choose to decline the request.Each user can send only 4 requests at a given time,if they wish to send requests to different teams,they can easily delete their previously sent requests.
+The user can join an existing team by sending a joining request to the respective team leader by searching the desired team.
+
+- On approval by the team leader,the user will automatically join the team.
+- The leader can also choose to decline the request.
+- Each user can send only 4 requests at a given time,
+  - If they wish to send requests to more that 4 teams,they can easily delete their previously sent requests and then send in new requests.
+
 ![demo7](https://user-images.githubusercontent.com/92802904/197413865-c227fc4b-1c95-4f6c-9248-f584eb88d3fe.gif)
 
 ## Round 0
 
-
-Round 0 Or Qualifying Round is a round to split top teams. It is a quiz based round where team leader (if logged in) can answer the questions based on his team behalf.
+Round 0 Or Qualifying Round was a round to filter out top teams. It was a quiz based round where team leader could answer the questions based on his team's behalf.
 ![gif5](https://user-images.githubusercontent.com/66114276/197701388-12825d29-5a6d-42c5-8c7d-4b65dc4fc5d0.gif)
 
 
-# Quiz Round Features
+### Quiz Round Features
 
 - [![Timer Enabled](https://img.shields.io/badge/Timer-Enabled-yellow.svg)]()
 - [![Auto Submit](https://img.shields.io/badge/Auto-Submit-dark.svg)]()
@@ -38,25 +43,25 @@ Round 0 Or Qualifying Round is a round to split top teams. It is a quiz based ro
 - [![QuestionsWithImages Enabled](https://img.shields.io/badge/QuestionsWithImages-Enabled-dark.svg)]()
 - [![CaseStudyQuestions Enabled](https://img.shields.io/badge/CaseStudyQuestions-Enabled-purple.svg)]()
 
-- Questions will come from backend and answers will be send and stored in backend
-- There will be no free navigation in the quiz, once one move to the next question, you cannot move back.
+- Questions were fetched and answers were stored in the backend successively
+- There was no free navigation in the quiz, once the user moves to the next question, they weren't allowed to move back.
+- If one wasn't to solve all the questions in the given time period, answered questions will be auto saved and submitted.
 
-- If one is unable to solve all the questions in the given time period, answered questions will be auto saved and submitted.
-
-## How to Use Our Quiz Portal 😊
+### Workflow of the Quiz Portal 😊
 
 ![image](https://user-images.githubusercontent.com/66114276/197696153-0d5a5072-5938-4868-b4aa-aa855cccc0aa.png)
 
-When the quiz instructions page loads , a useeffect is triggered to check whether the user has logged in and whether he is a team leader or not, if the above conditions are fullfilled , then user is
-allowed to attempt quiz if he has not previously submitted the quiz.
+When the quiz instructions page loads, a callback is triggered to check whether the user has logged in and whether is a team leader, if the above conditions are fullfilled...the user is 
+allowed to attempt quiz give the user has not previously submitted the quiz.
+
 ---
+
 ![gif1](https://user-images.githubusercontent.com/66114276/197695442-1399b892-c470-4126-8363-cf6f6e909e2d.gif)
 
 ---
-   
 
-Questions from backend consists of multiple answer correct and single answer correct.Questions from backend may or maynot contain Images.
-These type of **Multiple choice questions are recieved from backend in response via fetch call**
+Questions from backend consisted of multiple answer correct and single answer correct.Questions from backend may or may not contain Images.
+These type of **Multiple choice questions are recieved from backend in response to a fetch call**
 
 - Multiple Answer Correct Match the following
 - Single Answer Correct Match the following
@@ -87,31 +92,23 @@ These type of **Multiple choice questions are recieved from backend in response 
 
 - Once all the questions are finished, then a finish button will appear and once submitted, user will be directed to Thank You Page.
 ![image](https://user-images.githubusercontent.com/66114276/197696170-224584e7-97bf-4ab7-bcab-03fabcf535c8.png)
----
 
----
- 
----
-
-### 💀 Marking scheme for multiple options correct from Backend :
+### ☑️ Marking scheme for multiple options correct from Backend :
 ![image](https://user-images.githubusercontent.com/66114276/197696149-0d391686-721d-440f-affc-3ac0c016c475.png)
 - If and only if all the correct options are selected, you'll be awarded 4 points.
 - If even one incorrect option is selected, the team will lose 1 point.
 - No points will be awarded if the question is left unanswered.
 
-### 💀 Marking scheme for Single options correct from Backend :
+### ☑️ Marking scheme for Single options correct from Backend :
 ![image](https://user-images.githubusercontent.com/66114276/197696163-942bfeac-e8a9-4b79-b75b-f57d674417eb.png)
 
 - 4 points will be awarded if the correct option is selected.
 - Team will lose 1 point if any incorrect option is selected.
 - No points will be awarded if the question is left unanswered.
 
-
 ## Round 1.1
 
-### Selecting Area through RPG game
-
-Here the user had to choose between five locations to place his resort into.
+Here the user had to choose between five locations to place the resort into.
 
 ![round-one](/public/readme/one.png)
 
@@ -137,7 +134,7 @@ These are the 5 locations:
 
 ## Round 1.2
 
-In this round we let the player choose where exactly does he want to place his resort. The green squares are the available places and the brown ones are the ones where your competetor has already placed one!
+In this round we let the player choose where exactly do they want to place the resort. The green squares are the available places and the brown ones are the ones where your competetor has already placed one!
 
 ![round](/public/readme/two2.gif)
 
@@ -145,9 +142,9 @@ In this round we let the player choose where exactly does he want to place his r
 
 ![round](/public/readme/two1.gif)
 
-After every round we redirect to instructions
+After every round we redirect to a dynamically rendered instructions page
 
-## Round 1.3-Placing Amenities Using Drag And Drop
+## Round 1.3 - Placing Amenities Using Drag And Drop
 
 In This Round The User Has To Place 10 Amenities From A Given Set of 30 Amenities.
 Each Time A User Drags And Drops The Amenity A Request Is Made To The Backend.
@@ -156,7 +153,6 @@ Each Amenities Price and isLeft Property is also recieved from the Backend.
 
 ### Placing An Amenity
 
-
 ![normaldrop](https://user-images.githubusercontent.com/88614335/197967519-f212d3db-4aa3-4e9c-9107-3e5466e48c4e.gif)
 
 As we place an amenity directed in the gif above a request to the backend is made.
@@ -164,11 +160,9 @@ In the backend the amenity is added to the user list and the updated balance is 
 
 ![dropbalanceexceed](https://user-images.githubusercontent.com/88614335/197966381-88ebf1aa-f744-41c7-ba28-8beffb32b486.gif)
 
-
 In case of placing an amenity if the balance is not sufficient than an error popup will be showed.
 
 ### Removing An Amenity
-
 
 ![normalremove](https://user-images.githubusercontent.com/88614335/197966411-d046d1a8-8f76-44d1-9b2f-76fbcb8ba811.gif)
 
@@ -184,15 +178,12 @@ This is a frontend implementation and makes use of isLeft property sent from bac
 
 ![normalswap](https://user-images.githubusercontent.com/88614335/197966500-33000159-065f-4d32-8271-4648e533c562.gif)
 
-
 If we swap an amenity with a new amenity ,two requests to the backend are made.One for removing the existing amenity and another for adding the new amenity.The balance is calculated respectively and sent back.
-
 
 ![preexistingswap](https://user-images.githubusercontent.com/88614335/197966531-63ba72f7-e7d9-4fca-9bb0-f481185c09ae.gif)
 
 If we swap two position of two pre-existing amenity than there positionis switched on the frontend.No call to the backend is made.
 ![balancecheckswap](https://user-images.githubusercontent.com/88614335/197966561-812b7317-21f4-4aea-8380-5e3feeee2455.gif)
-
 
 If we swap an amenity with a new amenity.
 In this if the balance of the new amenity can be achieved after removing the old one than only it will be placed else an error popup will be showed.
